@@ -14,7 +14,6 @@ using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
-using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Web.Models;
 
 namespace JordanRift.Grassroots.Web.Controllers
@@ -23,15 +22,15 @@ namespace JordanRift.Grassroots.Web.Controllers
     {
         private readonly ICampaignRepository campaignRepository;
         private readonly IUserProfileRepository userProfileRepository;
-        private readonly IEmailService emailService;
+        //private readonly IEmailService emailService;
         private readonly IPaymentProviderFactory paymentProviderFactory;
 
         public DonateController(ICampaignRepository campaignRepository, IUserProfileRepository userProfileRepository, 
-            IEmailService emailService, IPaymentProviderFactory paymentProviderFactory)
+            /*IEmailService emailService,*/ IPaymentProviderFactory paymentProviderFactory)
         {
             this.campaignRepository = campaignRepository;
             this.userProfileRepository = userProfileRepository;
-            this.emailService = emailService;
+            //this.emailService = emailService;
             this.paymentProviderFactory = paymentProviderFactory;
             Mapper.CreateMap<UserProfile, Payment>();
             Mapper.CreateMap<Payment, CampaignDonor>();

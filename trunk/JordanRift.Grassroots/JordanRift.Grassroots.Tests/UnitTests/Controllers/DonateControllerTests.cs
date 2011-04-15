@@ -266,7 +266,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         private void SetUpController(MockRepository mocks, Payment payment = null, bool isPaymentApproved = true)
         {
             // Note: May need to change emailService to a strict mock to track calls to notification methods
-            var emailService = mocks.DynamicMock<IEmailService>();
+            //var emailService = mocks.DynamicMock<IEmailService>();
             var paymentProviderFactory = mocks.StrictMock<IPaymentProviderFactory>();
             var paymentProvider = mocks.StrictMock<IPaymentProvider>();
 
@@ -281,7 +281,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                 Expect.Call(paymentProvider.Process(payment)).IgnoreArguments().Return(response);
             }
 
-            controller = new DonateController(campaignRepository, userProfileRepository, emailService, paymentProviderFactory)
+            controller = new DonateController(campaignRepository, userProfileRepository, /*emailService,*/ paymentProviderFactory)
                              {
                                  OrganizationRepository = organizationRepository
                              };

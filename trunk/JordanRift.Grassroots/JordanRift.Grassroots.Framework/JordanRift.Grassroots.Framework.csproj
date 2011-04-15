@@ -96,7 +96,6 @@
     <Compile Include="Entities\Validation\ICampaignDonorValidation.cs" />
     <Compile Include="Entities\Validation\ICauseTemplateValidation.cs" />
     <Compile Include="Entities\Validation\ICampaignValidation.cs" />
-    <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Entities\IPaymentProvider.cs" />
     <Compile Include="Entities\Validation\ICauseValidation.cs" />
     <Compile Include="Entities\Validation\IPaymentValidation.cs" />
@@ -107,7 +106,6 @@
     <Compile Include="Entities\Models\OrganizationSetting.cs" />
     <Compile Include="Entities\Payment.cs" />
     <Compile Include="Entities\PaymentResponse.cs" />
-    <Compile Include="Services\SmtpEmailService.cs" />
     <Compile Include="Entities\SubscriptionResponse.cs" />
     <Compile Include="Entities\Validation\IUserValidation.cs" />
     <Compile Include="Helpers\UnitOfWorkScope.cs" />
