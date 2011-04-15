@@ -116,6 +116,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\NinjectDependencyResolver.cs" />
+    <Compile Include="Mailers\AccountMailer.cs" />
+    <Compile Include="Mailers\IAccountMailer.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CampaignDetailsModel.cs" />
     <Compile Include="Models\CampaignDonorDetailsModel.cs" />
@@ -336,6 +338,10 @@
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Error\404.cshtml" />
     <Content Include="Views\Error\403.cshtml" />
+    <Content Include="Views\AccountMailer\_Layout.cshtml" />
+    <Content Include="Views\AccountMailer\Welcome.cshtml" />
+    <Content Include="Views\AccountMailer\PasswordReset.cshtml" />
+    <Content Include="Views\AccountMailer\PasswordChange.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

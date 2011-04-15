@@ -9,10 +9,11 @@
 using System;
 using System.Web.Mvc;
 using System.Web.Routing;
-using JordanRift.Grassroots.Framework.Services;
+using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
 using JordanRift.Grassroots.Web.Controllers;
 using JordanRift.Grassroots.Tests.Fakes;
+using Mvc.Mailer;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -375,16 +376,17 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             fakeOrganizationRepository.SetUpRepository();
             var fakeUserProfileRepository = new FakeUserProfileRepository();
             fakeUserProfileRepository.SetUpRepository();
-            var fakeUserRepository = new FakeUserRepository();
-            fakeUserRepository.SetUpRepository();
-            var fakeEmailService = MockRepository.GenerateMock<IEmailService>();
-            AccountController controller = new AccountController(fakeUserRepository, fakeEmailService)
+
+            var mocks = new MockRepository();
+            var fakeEmailService = mocks.DynamicMock<IAccountMailer>();
+            MailerBase.IsTestModeEnabled = true;
+            AccountController controller = new AccountController(fakeUserProfileRepository, fakeEmailService)
                                                {
                                                    FormsService = new MockFormsAuthenticationService(),
-                                                   MembershipService = new MockMembershipService()
+                                                   MembershipService = new MockMembershipService(),
+                                                   OrganizationRepository = fakeOrganizationRepository
                                                };
 
-            controller.OrganizationRepository = fakeOrganizationRepository;
             controller.ControllerContext = new ControllerContext
                                                {
                                                    Controller = controller,
