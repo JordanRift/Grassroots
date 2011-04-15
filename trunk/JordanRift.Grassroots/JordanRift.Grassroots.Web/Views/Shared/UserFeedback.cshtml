@@ -1,0 +1,19 @@
+﻿@if (TempData["UserFeedback"] != null)
+{
+    <div class="ui-widget ui-state-hilight ui-corner-all">
+        <p>
+            <span class="ui-icon ui-icon-info"></span>
+            @TempData["UserFeedback"]
+        </p>    
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="ui-widget ui-state-error ui-corner-all">
+        <p>
+            <span class="ui-icon ui-icon-alert"></span>
+            @TempData["ErrorMessage"]
+        </p>    
+    </div>
+}

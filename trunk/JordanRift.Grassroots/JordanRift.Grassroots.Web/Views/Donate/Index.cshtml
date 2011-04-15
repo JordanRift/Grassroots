@@ -1,0 +1,197 @@
+﻿@model JordanRift.Grassroots.Framework.Entities.Payment
+@using JordanRift.Grassroots.Framework.Entities.Models
+@{
+    //
+    // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
+    //
+    // THIS WORK IS LICENSED UNDER A CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-
+    // SHAREALIKE 3.0 UNPORTED LICENSE:
+    // http://creativecommons.org/licenses/by-nc-sa/3.0/
+    //
+    
+	ViewBag.Title = "Donate"; <!-- TODO: Add title with organization name -->
+}
+
+<h2>Donate</h2>
+
+	@{ 
+		var campaign = ViewBag.Campaign as Campaign;
+		var urlSlug = campaign != null ? campaign.UrlSlug : string.Empty;
+	}
+
+	<!-- TODO: Add heading with organization name -->
+	<script type="text/javascript" src="@Url.Content("~/Scripts/payment-form.js")"></script>
+
+	<div class="form-panel">
+		
+		@using (Html.BeginForm("ProcessDonation", "Campaign", new { Area = "", slug = urlSlug }))
+		{
+			@Html.ValidationSummary()
+            
+			<fieldset>
+				<div class="column">
+					<div class="editor-label">
+						@Html.LabelFor(model => model.Amount) 
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(model => model.Amount) 
+						@Html.ValidationMessageFor(model => model.Amount) 
+					</div>
+
+					<div class="editor-label">
+						@Html.LabelFor(model => model.PaymentType) 
+					</div>
+					<div class="editor-field">
+						@Html.EditorFor(model => model.PaymentType)
+						@Html.ValidationMessageFor(model => model.PaymentType)
+					</div>
+			
+					<div class="editor-label">
+						@Html.LabelFor(model => model.AccountNumber) 
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(model => model.AccountNumber) 
+						@Html.ValidationMessageFor(model => model.AccountNumber) 
+					</div>
+					
+					<div class="cc-info">
+						<div class="editor-label">
+							@Html.LabelFor(model => model.Expiration) 
+						</div>
+						<div class="editor-field">
+							@Html.EditorFor(model => model.Expiration) 
+							@Html.ValidationMessageFor(model => model.Expiration) 
+						</div>
+			
+						<div class="editor-label">
+							@Html.LabelFor(model => model.Cid) 
+						</div>
+						<div class="editor-field">
+							@Html.TextBoxFor(model => model.Cid) 
+							@Html.ValidationMessageFor(model => model.Cid) 
+						</div>
+					</div>
+
+					<div class="bank-info">
+						<div class="editor-label">
+							@Html.LabelFor(model => model.RoutingNumber) 
+						</div>
+						<div class="editor-field">
+							@Html.TextBoxFor(model => model.RoutingNumber) 
+							@Html.ValidationMessageFor(model => model.RoutingNumber) 
+						</div>
+			
+						<div class="editor-label">
+							@Html.LabelFor(model => model.BankName) 
+						</div>
+						<div class="editor-field">
+							@Html.TextBoxFor(model => model.BankName) 
+							@Html.ValidationMessageFor(model => model.BankName) 
+						</div>
+			
+						<div class="editor-label">
+							@Html.LabelFor(model => model.CheckType) 
+						</div>
+						<div class="editor-field">
+							@Html.EditorFor(model => model.CheckType) 
+							@Html.ValidationMessageFor(model => model.CheckType) 
+						</div>
+
+						<div class="editor-label">
+							@Html.LabelFor(model => model.CheckNumber) 
+						</div>
+						<div class="editor-field">
+							@Html.TextBoxFor(model => model.CheckNumber) 
+							@Html.ValidationMessageFor(model => model.CheckNumber) 
+						</div>
+					</div>
+
+					<div class="editor-label">
+						@Html.LabelFor(model => model.Notes) 
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(model => model.Notes) 
+						@Html.ValidationMessageFor(model => model.Notes) 
+					</div>
+				</div>
+
+				<div class="column">
+					<div class="editor-label">
+						@Html.LabelFor(model => model.FirstName) 
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(model => model.FirstName) 
+						@Html.ValidationMessageFor(model => model.FirstName) 
+					</div>
+			
+					<div class="editor-label">
+						@Html.LabelFor(model => model.LastName) 
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(model => model.LastName) 
+						@Html.ValidationMessageFor(model => model.LastName) 
+					</div>
+			
+					<div class="editor-label">
+						@Html.LabelFor(model => model.Email) 
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(model => model.Email) 
+						@Html.ValidationMessageFor(model => model.Email) 
+					</div>
+			
+					<div class="editor-label">
+						@Html.LabelFor(model => model.Phone) 
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(model => model.Phone) 
+						@Html.ValidationMessageFor(model => model.Phone) 
+					</div>
+			
+					<div class="editor-label">
+						@Html.LabelFor(model => model.BillingAddress) 
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(model => model.BillingAddress) 
+						@Html.ValidationMessageFor(model => model.BillingAddress) 
+					</div>
+			
+					<div class="editor-label">
+						@Html.LabelFor(model => model.BillingCity) 
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(model => model.BillingCity) 
+						@Html.ValidationMessageFor(model => model.BillingCity) 
+					</div>
+			
+					<div class="editor-label">
+						@Html.LabelFor(model => model.BillingState) 
+					</div>
+					<div class="editor-field">
+						@Html.EditorFor(model => model.BillingState) 
+						@Html.ValidationMessageFor(model => model.BillingState) 
+					</div>
+			
+					<div class="editor-label">
+						@Html.LabelFor(model => model.BillingZip) 
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(model => model.BillingZip) 
+						@Html.ValidationMessageFor(model => model.BillingZip) 
+					</div>
+				</div>
+			
+				<div class="section form-buttons">
+					<input type="submit" value="Submit" class="submit" />
+					@Html.ActionLink("Cancel", "Index", new { area = "", controller = "Campaign", slug = urlSlug }, new { @class = "cancel" })
+				</div> 
+			</fieldset>
+		} 
+	</div>
+	<script type="text/javascript">
+	    $(function ()
+	    {
+	        $("#Amount").val("");
+	    });
+	</script>
+

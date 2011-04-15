@@ -1,0 +1,103 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Data/f:IUserRepository.cs" caret="203" fromTop="7" />
+      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Data/f:UserRepository.cs" caret="315" fromTop="8" />
+      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Entities/f:ICampaignDonorValidation.cs" caret="179" fromTop="5" />
+      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Entities/f:CampaignDonor.cs" caret="233" fromTop="5" />
+      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Data/f:GrassrootsRepositoryBase.cs" caret="512" fromTop="15" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:Fakes/f:FakeUserRepository.cs" caret="506" fromTop="16" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:IntegrationTests/d:Models/f:CampaignRepositoryTests.cs" caret="3127" fromTop="27" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Models/f:CampaignDonorTest.cs" caret="414" fromTop="13" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:Helpers/f:EntityHelpers.cs" caret="916" fromTop="17" />
+      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Entities/f:GrassrootsEntities.Designer.cs" caret="0" fromTop="0" />
+      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Entities/f:GrassrootsEntities.edmx" caret="0" fromTop="0" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/f:App.config" caret="683" fromTop="10" />
+      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/f:App.Config" caret="1660" fromTop="15" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/f:Web.config" caret="7266" fromTop="10" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:Fakes/f:MockMembershipService.cs" caret="255" fromTop="6" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:Fakes/f:FakeUserRepository.cs" caret="506" fromTop="16" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:IntegrationTests/d:Models/f:CampaignRepositoryTests.cs" caret="771" fromTop="20" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:IntegrationTests/d:Models/f:CampaignRepositoryTests.cs" caret="1359" fromTop="36" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:IntegrationTests/d:Models/f:CampaignRepositoryTests.cs" caret="2142" fromTop="24" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:IntegrationTests/d:Models/f:CampaignRepositoryTests.cs" caret="2918" fromTop="21" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Models/f:CampaignDonorTest.cs" caret="603" fromTop="19" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:Helpers/f:EntityHelpers.cs" caret="1023" fromTop="21" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:Helpers/f:EntityHelpers.cs" caret="916" fromTop="17" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/f:App.config" caret="1294" fromTop="13" />
+      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/f:App.Config" caret="938" fromTop="7" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/f:App.config" caret="1797" fromTop="20" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/f:App.config" caret="435" fromTop="7" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/f:Web.config" caret="4589" fromTop="13" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/f:Web.config" caret="3892" fromTop="6" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/f:Web.config" caret="6707" fromTop="36" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/f:Web.config" caret="6421" fromTop="24" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/f:Web.config" caret="3784" fromTop="35" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/f:Web.config" caret="3079" fromTop="29" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/f:Web.config" caret="7976" fromTop="25" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir>C:\Program Files\NUnit 2.5.7\bin\net-2.0\</NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="JordanRift.Grassroots.Framework" priority="0" />
+      <Item value="Entities" priority="3" />
+      <Item value="return" priority="0" />
+      <Item value="ObjectContext" priority="0" />
+      <Item value="Grassroots" priority="0" />
+      <Item value="Framework" priority="1" />
+      <Item value="Entities`0" priority="1" />
+      <Item value="string" priority="0" />
+      <Item value="Required" priority="0" />
+      <Item value="ErrorMessage" priority="0" />
+      <Item value="AspNetUser`0" priority="4" />
+      <Item value="user" priority="2" />
+      <Item value="payment" priority="0" />
+      <Item value="var" priority="0" />
+      <Item value="u" priority="0" />
+      <Item value="userProfile" priority="1" />
+      <Item value="UserProfileID" priority="0" />
+      <Item value="LastName" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:JordanRift.Grassroots.Framework.Entities.GrassrootsEntities">
+      <Item value="AspNetUsers" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:JordanRift.Grassroots.Framework.Entities.AspNetUser">
+      <Item value="UserProfiles" priority="1" />
+      <Item value="UserProfile" priority="0" />
+      <Item value="UserId" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:JordanRift.Grassroots.Framework.Entities.Payment">
+      <Item value="LastName" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:JordanRift.Grassroots.Framework.Entities.CampaignDonor">
+      <Item value="UserProfileID" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Objects.DataClasses.EntityCollection`1">
+      <Item value="FirstOrDefault`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:JordanRift.Grassroots.Framework.Entities.UserProfile">
+      <Item value="UserID" priority="0" />
+      <Item value="UserProfileID" priority="0" />
+      <Item value="AspNetUsers" priority="7" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+</Configuration>

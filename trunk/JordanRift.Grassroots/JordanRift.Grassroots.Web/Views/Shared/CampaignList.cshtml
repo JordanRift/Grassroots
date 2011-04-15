@@ -1,0 +1,10 @@
+﻿@model IEnumerable<JordanRift.Grassroots.Framework.Entities.Models.Campaign>
+
+<ul>
+    @foreach (var campaign in Model) 
+    {
+    <li>@Html.ActionLink(campaign.Title, "Index", 
+            new { Controller = "Campaign", Area = "", slug = campaign.UrlSlug }, 
+            new { Title = campaign.Title, @class = campaign.IsActive ? "active" : "" })</li>
+    }
+</ul>

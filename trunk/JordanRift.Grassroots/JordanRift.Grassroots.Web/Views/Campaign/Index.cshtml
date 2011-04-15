@@ -1,0 +1,75 @@
+﻿@model IEnumerable<@model JordanRift.Grassroots.Web.Models.CampaignDetailsModel>
+@{
+    //
+    // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
+    //
+    // THIS WORK IS LICENSED UNDER A CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-
+    // SHAREALIKE 3.0 UNPORTED LICENSE:
+    // http://creativecommons.org/licenses/by-nc-sa/3.0/
+    //
+    
+    ViewBag.Title = "Index";
+}
+
+    <h2>Active Campaigns</h2>
+
+    <table>
+        <tr>
+            <th></th>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                ImageID
+            </th>
+            <th>
+                Started
+            </th>
+            <th>
+                Ending
+            </th>
+            <th>
+                Goal Amount
+            </th>
+        </tr>
+
+    @foreach (var item in Model) { 
+    
+        <tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { slug = item.UrlSlug })  <text>|</text>
+                @Html.ActionLink("Details", "Index", new { slug = item.UrlSlug }) <text>|</text>
+                @using (Html.BeginForm(new { Action = "Delete", id = item.CampaignID })) { 
+                    <input type="submit" name="submit" id="delete" value="Delete" />
+                } 
+            </td>
+            <td>
+                @item.Title 
+            </td>
+            <td>
+                @item.Description 
+            </td>
+            <td>
+                <img src="@item.ImagePath" alt="@item.Title"/>
+            </td>
+            <td>
+                @String.Format("{0:g}", item.StartDate) 
+            </td>
+            <td>
+                @String.Format("{0:g}", item.EndDate) 
+            </td>
+            <td>
+                @String.Format("{0:F}", item.GoalAmount) 
+            </td>
+        </tr>
+    
+    } 
+
+    </table>
+
+    <p>
+        @Html.ActionLink("Create New", "Create") 
+    </p>

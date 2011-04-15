@@ -1,0 +1,41 @@
+﻿@model JordanRift.Grassroots.Web.Models.CampaignDetailsModel
+@{
+    //
+    // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
+    //
+    // THIS WORK IS LICENSED UNDER A CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-
+    // SHAREALIKE 3.0 UNPORTED LICENSE:
+    // http://creativecommons.org/licenses/by-nc-sa/3.0/
+    //
+    
+	ViewBag.Title = Model.Title;
+}
+
+    <h2>@Model.Title</h2>
+
+    <fieldset>
+        <legend>Fields</legend>
+        
+        <div class="display-label">Title</div>
+        <div class="display-field">@Model.Title </div>
+        
+        <div class="display-label">Description</div>
+        <div class="display-field">@Model.Description </div>
+        
+        <div class="display-label">StartDate</div>
+        <div class="display-field">@String.Format("{0:g}", Model.StartDate) </div>
+        
+        <div class="display-label">EndDate</div>
+        <div class="display-field">@String.Format("{0:g}", Model.EndDate) </div>
+        
+        <div class="display-label">GoalAmount</div>
+        <div class="display-field">@String.Format("{0:F}", Model.GoalAmount) </div>
+        
+        <div class="display-label">UrlSlug</div>
+        <div class="display-field">@Model.UrlSlug </div>
+        
+    </fieldset>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { slug = Model.UrlSlug })  <text>|</text>
+        @Html.ActionLink("User Profile", "Index", new { Controller = "UserProfile", id = Model.UserProfileID, Area = "" }) 
+    </p>

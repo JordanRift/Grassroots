@@ -1,0 +1,59 @@
+﻿@model JordanRift.Grassroots.Web.Models.LogOnModel
+@{
+    //
+    // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
+    //
+    // THIS WORK IS LICENSED UNDER A CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-
+    // SHAREALIKE 3.0 UNPORTED LICENSE:
+    // http://creativecommons.org/licenses/by-nc-sa/3.0/
+    //
+    
+    ViewBag.Title = "Log In";
+}
+
+@section DocumentHead
+{
+    @Html.Partial("UIForm")
+}
+
+    <h1>Log In</h1>
+    <div class="column">
+        <h3>Connect with Facebook...</h3>
+        @Html.ActionLink("Connect with Facebook", "LogOn", "Facebook")
+    </div>
+    <div class="column">
+        <h3>... Or do it the old-fashioned way.</h3>
+        <p><text>Please enter your username and password.</text> @Html.ActionLink("Register", "Register") <text> if you don't have an account.</text></p>
+        @using (Html.BeginForm("AuthenticateUser", "Account", new { returnUrl = ViewBag.ReturnUrl }))
+        {
+            @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
+            <div>
+                <fieldset>
+                    <legend>Account Information</legend>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.Email)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(m => m.Email)
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.Password)
+                    </div>
+                    <div class="editor-field">
+                        @Html.PasswordFor(m => m.Password)
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                
+                    <div class="editor-label">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Html.LabelFor(m => m.RememberMe)
+                    </div>
+                
+                    <input type="submit" value="Log In" />
+                </fieldset>
+            </div>
+        }
+    </div>
+

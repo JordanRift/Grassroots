@@ -1,0 +1,42 @@
+﻿@model JordanRift.Grassroots.Web.Models.UserProfileDetailsModel
+@using JordanRift.Grassroots.Framework.Entities.Models
+@{
+    //
+    // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
+    //
+    // THIS WORK IS LICENSED UNDER A CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-
+    // SHAREALIKE 3.0 UNPORTED LICENSE:
+    // http://creativecommons.org/licenses/by-nc-sa/3.0/
+    //
+    
+    ViewBag.Title = string.Format("{0}'s Profile", Model.FirstName);
+}
+
+<h2>Welcome back @Model.FirstName!</h2>
+    @{ var campaigns = ViewBag.Campaigns as List<Campaign>; }
+
+    <div class="campaigns">
+        @if (campaigns == null || campaigns.Count == 0)
+        {
+        <h3><text>We noticed you have't started a campaign yet. </text> @Html.ActionLink("Click here", "Create", new { Controller = "Campaign", Area = "" }, new { Title = "Click here" }) <text> to get started!</text></h3>
+        }
+        else
+        {
+        @Html.Partial("CampaignList", campaigns.OrderByDescending(c => c.StartDate));
+        }
+    </div>
+
+    <div class="dashboard">
+        <h3>I want to...</h3>
+        <ul>
+            <li>@Html.ActionLink("Edit my details", "Edit", new { Area = "", id = Model.UserProfileID }, new { Title = "Edit my details" })</li>
+            <li>@Html.ActionLink("Connect my account with Facebook", "Connect", "Facebook")</li>
+            <li>@Html.ActionLink("Change my password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change my password" })</li>
+            <li>
+                @using (Html.BeginForm(new { Action = "Delete", id = Model.UserProfileID })) {
+                <input type="submit" name="submit" id="delete" value="Delete my account" />
+                }
+            </li>
+        </ul>
+    </div>
+

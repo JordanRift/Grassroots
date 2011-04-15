@@ -1,0 +1,123 @@
+﻿@model JordanRift.Grassroots.Web.Models.UserProfileDetailsModel
+@{
+    //
+    // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
+    //
+    // THIS WORK IS LICENSED UNDER A CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-
+    // SHAREALIKE 3.0 UNPORTED LICENSE:
+    // http://creativecommons.org/licenses/by-nc-sa/3.0/
+    //
+    
+    ViewBag.Title = "Edit";
+}
+
+@section DocumentHead
+{
+    @Html.Partial("UIForm")
+}
+
+<h2>Update your info...</h2>
+
+   @using (Html.BeginForm(new { Action = "Update", Controller = "UserProfile", ID = Model.UserProfileID })) {
+        @Html.ValidationSummary(true)
+        
+        @Html.HiddenFor(m => Model.UserProfileID)
+
+        <fieldset>
+            <div class="column">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.FirstName)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.FirstName)
+                    @Html.ValidationMessageFor(model => model.FirstName)
+                </div>
+            
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.LastName)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.LastName)
+                    @Html.ValidationMessageFor(model => model.LastName)
+                </div>
+            
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Birthdate)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Birthdate, String.Format("{0:g}", Model.Birthdate))
+                    @Html.ValidationMessageFor(model => model.Birthdate)
+                </div>
+            
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Gender)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Gender)
+                    @Html.ValidationMessageFor(model => model.Gender)
+                </div>
+            </div>
+            
+            <div class="column">
+                @*<div class="editor-label">
+                    @Html.LabelFor(model => model.Email)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>*@
+            
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.PrimaryPhone)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.PrimaryPhone)
+                    @Html.ValidationMessageFor(model => model.PrimaryPhone)
+                </div>
+            
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.AddressLine1)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.AddressLine1)
+                    @Html.ValidationMessageFor(model => model.AddressLine1)
+                </div>
+            
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.AddressLine2)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.AddressLine2)
+                    @Html.ValidationMessageFor(model => model.AddressLine2)
+                </div>
+            
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.City)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.City)
+                    @Html.ValidationMessageFor(model => model.City)
+                </div>
+            
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.State)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.State)
+                    @Html.ValidationMessageFor(model => model.State)
+                </div>
+            
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ZipCode)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.ZipCode)
+                    @Html.ValidationMessageFor(model => model.ZipCode)
+                </div>
+            </div>
+            <div class="section buttons">
+                <input type="submit" value="Save" />
+                @Html.ActionLink("Cancel", "Index", new { Area = "", id = Model.UserProfileID }, new { Title = "Cancel", @class = "cancel" })
+            </div>
+        </fieldset>
+    }

@@ -1,0 +1,97 @@
+﻿@model JordanRift.Grassroots.Web.Models.OrganizationEditModel
+@{
+	//
+	// Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
+	//
+	// THIS WORK IS LICENSED UNDER A CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-
+	// SHAREALIKE 3.0 UNPORTED LICENSE:
+	// http://creativecommons.org/licenses/by-nc-sa/3.0/
+	//
+	
+	ViewBag.Title = "Edit Organization";
+}
+
+
+@section DocumentHead 
+{
+	@Html.Partial("UIForm")
+}
+
+<h2>Edit Organization</h2>
+
+		@using ( Html.BeginForm( "UpdateOrganization", "Admin" ) )
+		{ 
+			@Html.ValidationSummary( false, "Please correct the errors and try again." )
+			<div class="column">
+				<div class="editor-label">
+					@Html.LabelFor( m => m.Name ) 
+				</div>
+				<div class="editor-field">
+					@Html.TextBoxFor( m => m.Name ) 
+					@Html.ValidationMessageFor( m => m.Name ) 
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor( m => m.ContactEmail ) 
+				</div>
+				<div class="editor-field">
+					@Html.TextBoxFor( m => m.ContactEmail ) 
+					@Html.ValidationMessageFor( m => m.ContactEmail ) 
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor( m => m.ContactPhone ) 
+				</div>
+				<div class="editor-field">
+					@Html.TextBoxFor( m => m.ContactPhone ) 
+					@Html.ValidationMessageFor( m => m.ContactPhone ) 
+				</div>
+
+				<fieldset >
+					<legend>Payment Gateway</legend>
+					<!-- TODO EditorFor -->
+					<div class="editor-label">
+						@Html.LabelFor( m => m.PaymentGatewayType) 
+					</div>
+					<div class="editor-field">
+						@Html.EditorFor( m => m.PaymentGatewayType ) 
+						@Html.ValidationMessageFor( m => m.PaymentGatewayType ) 
+					</div>
+
+					<div class="editor-label">
+						@Html.LabelFor( m => m.PaymentGatewayApiKey) 
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor( m => m.PaymentGatewayApiKey ) 
+						@Html.ValidationMessageFor( m => m.PaymentGatewayApiKey ) 
+					</div>
+					<div>
+						@Html.LabelFor( m => m.PaymentGatewayApiSecret) 
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor( m => m.PaymentGatewayApiSecret ) 
+						@Html.ValidationMessageFor( m => m.PaymentGatewayApiSecret ) 
+					</div>
+				</fieldset>
+			<div>
+				<input type="submit" value="Save" class="ui-button ui-widget ui-state-active ui-corner-all ui-button-text-only"/>
+                <button id="cancel" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Cancel</button>
+			</div>
+
+			</div>
+			<div class="column">
+				@Html.LabelFor( m => m.TwitterName) <br />
+				<div class="editor-field">
+					@Html.TextBoxFor( m => m.TwitterName ) 
+					@Html.ValidationMessageFor( m => m.TwitterName ) 
+				</div>
+
+				@Html.LabelFor( m => m.VideoEmbedHtml ) <br />
+				<div class="editor-field">
+						@Html.TextAreaFor( m => m.VideoEmbedHtml  ) 
+						@Html.ValidationMessageFor( m => m.VideoEmbedHtml ) 
+				</div>
+			</div>
+			
+
+		}

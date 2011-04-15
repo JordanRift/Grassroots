@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>@ViewBag.Title</title>
+        <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/themes/grassroots-theme/jquery-ui-1.8.11.custom.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/styles.less")" rel="stylesheet" type="text/css" />
+        <script src="@Url.Content("~/scripts/html5.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+        @RenderSection("DocumentHead", required: false)
+        @Html.Partial("CustomScripts")
+    </head>
+    <body>
+        <div class="page">
+            <header>
+                <hgroup>
+                    <h1>Grassroots</h1>
+                    <h2>Social giving. Done right.</h2>
+                </hgroup>
+                <section class="user-info">
+                    @Html.Partial("LogOnUserControl")
+                </section>
+                <nav>
+                    @Html.Partial("MainNavigation")
+                </nav>
+            </header>
+            <div id="main">
+                @Html.Partial("UserFeedback")
+                @RenderBody();
+            </div>
+            <footer>
+                @Html.Partial("Footer")
+            </footer>
+        </div>
+    </body>
+</html>

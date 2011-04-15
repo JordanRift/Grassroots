@@ -1,0 +1,4 @@
+﻿@model string
+@using JordanRift.Grassroots.Framework.Helpers
+
+@Html.DropDownList("", new SelectList(UIHelpers.StateDictionary, "Value", "Key", Model), "-- State --")
