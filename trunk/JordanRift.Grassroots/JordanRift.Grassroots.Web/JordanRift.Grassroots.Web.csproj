@@ -368,4 +368,8 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>"$(SolutionDir)packages\dotless.1.1.0\Tools\dotless.compiler" "$(ProjectDir)Content\*.less"
+"$(SolutionDir)packages\dotless.1.1.0\Tools\dotless.compiler" "$(ProjectDir)Content\themes\grassroots-theme\*.less"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
