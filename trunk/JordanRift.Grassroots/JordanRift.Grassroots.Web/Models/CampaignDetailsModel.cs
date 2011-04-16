@@ -19,6 +19,6 @@ namespace JordanRift.Grassroots.Web.Models
         public decimal GoalAmount { get; set; }
         public string UrlSlug { get; set; }
         public string ImagePath { get; set; }
-        public List<CampaignDonorDetailsModel> CampaignDonors { get; set; }
+        public List<DonationDetailsModel> CampaignDonors { get; set; }
     }
 }

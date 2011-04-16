@@ -9,6 +9,8 @@
 using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Tests.Helpers;
 using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
 using JordanRift.Grassroots.Web.Controllers;
@@ -19,10 +21,11 @@ using Rhino.Mocks;
 
 namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 {
-
     [TestFixture]
     public class AccountControllerTest
     {
+
+        private IUserProfileRepository userProfileRepository;
 
         [Test]
         public void UpdatePassword_Get_Returns_View()
@@ -352,6 +355,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void ResetPassword_Returns_Redirect_On_Success()
         {
             var controller = GetAccountController();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "info@jordanrift.com";
+            userProfileRepository.Add(userProfile);
             var result = controller.ResetPassword(new ForgotPasswordModel { Email = "info@jordanrift.com" });
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             var action = result as RedirectToRouteResult;
@@ -363,24 +369,24 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void ResetPassword_Returns_Redirect_On_Failure()
         {
             var controller = GetAccountController();
-            var result = controller.ResetPassword(new ForgotPasswordModel { Email = "bad-email@jordanrift.com" });
+            var result = controller.ResetPassword(new ForgotPasswordModel { Email = "goodEmail" });
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             var action = result as RedirectToRouteResult;
             var name = action.RouteValues["Action"];
             Assert.AreEqual("ForgotPassword", name);
         }
 
-        private static AccountController GetAccountController()
+        private AccountController GetAccountController()
         {
             var fakeOrganizationRepository = new FakeOrganizationRepository();
             fakeOrganizationRepository.SetUpRepository();
-            var fakeUserProfileRepository = new FakeUserProfileRepository();
-            fakeUserProfileRepository.SetUpRepository();
+            userProfileRepository = new FakeUserProfileRepository();
+            ((FakeUserProfileRepository)userProfileRepository).SetUpRepository();
 
             var mocks = new MockRepository();
             var fakeEmailService = mocks.DynamicMock<IAccountMailer>();
             MailerBase.IsTestModeEnabled = true;
-            AccountController controller = new AccountController(fakeUserProfileRepository, fakeEmailService)
+            AccountController controller = new AccountController(userProfileRepository, fakeEmailService)
                                                {
                                                    FormsService = new MockFormsAuthenticationService(),
                                                    MembershipService = new MockMembershipService(),

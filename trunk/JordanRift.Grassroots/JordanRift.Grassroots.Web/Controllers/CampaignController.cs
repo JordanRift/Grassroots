@@ -30,7 +30,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             this.userProfileRepository = userProfileRepository;
             this.campaignMailer = campaignMailer;
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
-            Mapper.CreateMap<CampaignDonor, CampaignDonorDetailsModel>();
+            Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
             Mapper.CreateMap<CampaignDetailsModel, Campaign>();
         }
 

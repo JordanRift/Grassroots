@@ -103,6 +103,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var payment = EntityHelpers.GetValidCCPayment();
 
             var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            campaign.UserProfile = userProfile;
             campaign.Title = "General";
             campaign.CampaignDonors = new List<CampaignDonor>();
             campaignRepository.Add(campaign);
@@ -124,6 +126,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var payment = EntityHelpers.GetValidCCPayment();
 
             var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            campaign.UserProfile = userProfile;
             campaign.UrlSlug = "goodCampaign";
             campaign.CampaignDonors = new List<CampaignDonor>();
             campaignRepository.Add(campaign);
@@ -145,11 +149,13 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var payment = EntityHelpers.GetValidCCPayment();
 
             var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            campaign.UserProfile = userProfile;
             campaign.Title = "General";
             campaign.CampaignDonors = new List<CampaignDonor>();
             campaignRepository.Add(campaign);
 
-            var userProfile = EntityHelpers.GetValidUserProfile();
+            //var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
             userProfileRepository.Add(userProfile);
 
@@ -170,11 +176,13 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var payment = EntityHelpers.GetValidCCPayment();
 
             var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            campaign.UserProfile = userProfile;
             campaign.UrlSlug = "goodCampaign";
             campaign.CampaignDonors = new List<CampaignDonor>();
             campaignRepository.Add(campaign);
 
-            var userProfile = EntityHelpers.GetValidUserProfile();
+            //var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
             userProfileRepository.Add(userProfile);
 

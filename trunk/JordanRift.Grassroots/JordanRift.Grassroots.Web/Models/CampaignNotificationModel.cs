@@ -13,6 +13,6 @@ namespace JordanRift.Grassroots.Web.Models
         public string Email { get; set; }
         public string Title { get; set; }
         public string UrlSlug { get; set; }
-        public CampaignDonorDetailsModel DonationDetails { get; set; }
+        public DonationDetailsModel DonationDetails { get; set; }
     }
 }
