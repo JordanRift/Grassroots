@@ -21,7 +21,7 @@ namespace JordanRift.Grassroots.Framework.Data
 
         public UserProfile GetUserProfileByFacebookID(string facebookID)
         {
-            return ObjectContext.UserProfiles.SingleOrDefault(p => p.FacebookID == facebookID);
+            return ObjectContext.UserProfiles.FirstOrDefault(p => p.FacebookID == facebookID);
         }
 
         public IEnumerable<UserProfile> FindUserProfileByEmail(string email)
