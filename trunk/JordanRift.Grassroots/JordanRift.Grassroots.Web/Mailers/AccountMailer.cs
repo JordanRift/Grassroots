@@ -24,12 +24,9 @@ namespace JordanRift.Grassroots.Web.Mailers
 		public MailMessage Welcome(RegisterModel model)
 		{
 			var mailMessage = new MailMessage{Subject = "Ahoy there! Welcome aboard!"};
-			
 			mailMessage.To.Add(model.Email);
-			//ViewBag.Data = someObject;
             ViewData = new ViewDataDictionary(model);
 			PopulateBody(mailMessage, viewName: "Welcome");
-
 			return mailMessage;
 		}
 
@@ -37,12 +34,9 @@ namespace JordanRift.Grassroots.Web.Mailers
 		public MailMessage PasswordReset(RegisterModel model)
 		{
 			var mailMessage = new MailMessage{Subject = "Password Reset Notofication"};
-			
 			mailMessage.To.Add(model.Email);
-			//ViewBag.Data = someObject;
             ViewData = new ViewDataDictionary(model);
 			PopulateBody(mailMessage, viewName: "PasswordReset");
-
 			return mailMessage;
 		}
 
@@ -50,15 +44,10 @@ namespace JordanRift.Grassroots.Web.Mailers
 		public MailMessage PasswordChange(RegisterModel model)
 		{
 			var mailMessage = new MailMessage{Subject = "Password Change Notofication"};
-			
 			mailMessage.To.Add(model.Email);
-			//ViewBag.Data = someObject;
             ViewData = new ViewDataDictionary(model);
 			PopulateBody(mailMessage, viewName: "PasswordChange");
-
 			return mailMessage;
-		}
-
-		
+		}		
 	}
 }
