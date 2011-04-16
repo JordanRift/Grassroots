@@ -7,6 +7,7 @@
 //
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -15,26 +16,27 @@ using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
-using JordanRift.Grassroots.Framework.Services;
+using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
+using Mvc.Mailer;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
     [HandleError]
     public class AccountController : GrassrootsControllerBase
     {
-        private readonly IUserRepository userRepository;
-        private readonly IEmailService emailService;
+        private readonly IAccountMailer accountMailer;
+        private readonly IUserProfileRepository userProfileRepository;
 
         public IFormsAuthenticationService FormsService { get; set; }
         public IMembershipService MembershipService { get; set; }
 
-        public AccountController(IUserRepository userRepository, IEmailService emailService)
+        public AccountController(IUserProfileRepository userProfileRepository, IAccountMailer accountMailer)
         {
-            this.userRepository = userRepository;
-            this.emailService = emailService;
+            this.accountMailer = accountMailer;
+            this.userProfileRepository = userProfileRepository;
             Mapper.CreateMap<RegisterModel, UserProfile>();
-            Mapper.CreateMap<FacebookRegisterModel, UserProfile>();
+            Mapper.CreateMap<UserProfile, RegisterModel>();
         }
 
         protected override void Initialize(RequestContext requestContext)
@@ -120,9 +122,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                     if (status == MembershipCreateStatus.Success)
                     {
-                        // TODO: Send email notification/request for account authorization to user
-                        // Note: For email notifications, rather than buildilng strings, consider MvcMailer
-                        // http://www.hanselman.com/blog/NuGetPackageOfTheWeek2MvcMailerSendsMailsWithASPNETMVCRazorViewsAndScaffolding.aspx
+                        accountMailer.Welcome(model).SendAsync();
                         FormsService.SignIn(model.Email, false);
                         return RedirectToAction("Index", "UserProfile", new { id = userProfile.UserProfileID });
                     }
@@ -147,11 +147,13 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
+                var email = User.Identity.Name;
+
+                if (MembershipService.ChangePassword(email, model.OldPassword, model.NewPassword))
                 {
-                    // TODO: Send email notifiying user their password has changed.
-                    // Note: For email notifications, rather than buildilng strings, consider MvcMailer
-                    // http://www.hanselman.com/blog/NuGetPackageOfTheWeek2MvcMailerSendsMailsWithASPNETMVCRazorViewsAndScaffolding.aspx
+                    var userProfile = userProfileRepository.FindUserProfileByEmail(email).FirstOrDefault();
+                    var mailModel = Mapper.Map<UserProfile, RegisterModel>(userProfile);
+                    accountMailer.PasswordChange(mailModel).SendAsync();
                     return RedirectToAction("ChangePasswordSuccess");
                 }
 
@@ -187,10 +189,10 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 if (newPassword != null)
                 {
-                    // TODO: Implement this email functionality via org settings so they're configurable
-                    // Note: For email notifications, rather than buildilng strings, consider MvcMailer
-                    // http://www.hanselman.com/blog/NuGetPackageOfTheWeek2MvcMailerSendsMailsWithASPNETMVCRazorViewsAndScaffolding.aspx
-                    emailService.SendTo(model.Email, "Password Reset", string.Format("This is your new password: {0}.", newPassword));
+                    var userProfile = userProfileRepository.FindUserProfileByEmail(model.Email).FirstOrDefault();
+                    var mailerModel = Mapper.Map<UserProfile, RegisterModel>(userProfile);
+                    mailerModel.Password = newPassword;
+                    accountMailer.PasswordReset(mailerModel).SendAsync();
                     return RedirectToAction("ResetPasswordSuccess");
                 }
             }

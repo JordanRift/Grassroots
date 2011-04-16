@@ -2,8 +2,8 @@
 using System.Web.Routing;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities;
-using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Web.Helpers;
+using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models.ModelBinders;
 using Ninject;
 
@@ -75,8 +75,10 @@ namespace JordanRift.Grassroots
             kernel.Bind<IRoleRepository>().To<RoleRepository>();
             kernel.Bind<ICauseRepository>().To<CauseRepository>();
             kernel.Bind<ICauseTemplateRepository>().To<CauseTemplateRepository>();
-            kernel.Bind<IEmailService>().To<SmtpEmailService>();
             kernel.Bind<IPaymentProviderFactory>().To<PaymentProviderFactory>();
+            kernel.Bind<IAccountMailer>().To<AccountMailer>();
+            kernel.Bind<ICampaignMailer>().To<CampaignMailer>();
+            kernel.Bind<IDonateMailer>().To<DonateMailer>();
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }

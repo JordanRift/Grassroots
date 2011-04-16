@@ -12,7 +12,9 @@ using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
+using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
+using Mvc.Mailer;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
@@ -20,13 +22,15 @@ namespace JordanRift.Grassroots.Web.Controllers
     {
         private readonly ICampaignRepository campaignRepository;
         private readonly IUserProfileRepository userProfileRepository;
+        private readonly ICampaignMailer campaignMailer;
 
-        public CampaignController(ICampaignRepository campaignRepository, IUserProfileRepository userProfileRepository)
+        public CampaignController(ICampaignRepository campaignRepository, IUserProfileRepository userProfileRepository, ICampaignMailer campaignMailer)
         {
             this.campaignRepository = campaignRepository;
             this.userProfileRepository = userProfileRepository;
+            this.campaignMailer = campaignMailer;
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
-            Mapper.CreateMap<CampaignDonor, CampaignDonorDetailsModel>();
+            Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
             Mapper.CreateMap<CampaignDetailsModel, Campaign>();
         }
 
@@ -39,6 +43,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 return HttpNotFound("The Campaign you are looking for could not be found");
             }
 
+            //TODO: ViewBag.CampaignEmailBlastModel = 
             var viewModel = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
             return View("Details", viewModel);
         }
@@ -130,11 +135,12 @@ namespace JordanRift.Grassroots.Web.Controllers
             return RedirectToAction("Edit");
         }
 
+        [Authorize]
         [HttpPost]
-        public ActionResult SendEmail(CampaignEmailModel model)
+        public ActionResult SendEmail(CampaignEmailBlastModel model)
         {
-            // TODO: Implement MVC Mailer package to send out email to Campaigner's friends
-            return null;
+            campaignMailer.CampaignEmailBlast(model).SendAsync();
+            return Json(new { success = "true" });
         }
 
         private static void Map(Campaign campaign, CampaignDetailsModel viewModel)

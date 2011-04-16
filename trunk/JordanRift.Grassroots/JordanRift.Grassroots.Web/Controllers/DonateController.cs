@@ -14,8 +14,9 @@ using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
-using JordanRift.Grassroots.Framework.Services;
+using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
+using Mvc.Mailer;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
@@ -23,15 +24,15 @@ namespace JordanRift.Grassroots.Web.Controllers
     {
         private readonly ICampaignRepository campaignRepository;
         private readonly IUserProfileRepository userProfileRepository;
-        private readonly IEmailService emailService;
+        private readonly IDonateMailer donateMailer;
         private readonly IPaymentProviderFactory paymentProviderFactory;
 
         public DonateController(ICampaignRepository campaignRepository, IUserProfileRepository userProfileRepository, 
-            IEmailService emailService, IPaymentProviderFactory paymentProviderFactory)
+            IDonateMailer donateMailer, IPaymentProviderFactory paymentProviderFactory)
         {
             this.campaignRepository = campaignRepository;
             this.userProfileRepository = userProfileRepository;
-            this.emailService = emailService;
+            this.donateMailer = donateMailer;
             this.paymentProviderFactory = paymentProviderFactory;
             Mapper.CreateMap<UserProfile, Payment>();
             Mapper.CreateMap<Payment, CampaignDonor>();
@@ -106,7 +107,16 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                         campaign.CampaignDonors.Add(donation);
                         campaignRepository.Save();
-                        // TODO: Send email notificatoin for receipt of donation
+
+                        // Send receipt of payment to user
+                        donateMailer.UserDonation(model).SendAsync();
+
+                        // Send notification to campaign owner
+                        var mailerModel = Mapper.Map<CampaignDonor, DonationDetailsModel>(donation);
+                        mailerModel.Title = campaign.Title;
+                        mailerModel.Email = campaign.UserProfile.Email;
+                        donateMailer.CampaignDonation(mailerModel).SendAsync();
+
                         TempData["Donation"] = donation;
                         return RedirectToAction("ThankYou");
                     }

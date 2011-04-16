@@ -8,68 +8,33 @@
   </SettingsComponent>
   <RecentFiles>
     <RecentFiles>
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Models/d:ModelBinders/f:PaymentModelBinder.cs" caret="0" fromTop="0" />
-      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Entities/f:PaymentProviderFactory.cs" caret="243" fromTop="8" />
-      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Entities/f:Payment.cs" caret="1238" fromTop="4" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Models/f:UserProfileDetailsModel.cs" caret="545" fromTop="18" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Models/f:OrganizationEditModel.cs" caret="1737" fromTop="41" />
-      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Entities/f:Constants.cs" caret="500" fromTop="21" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Views/d:Shared/d:EditorTemplates/f:State.cshtml" caret="109" fromTop="3" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:DonateController.cs" caret="2559" fromTop="17" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Views/d:Admin/f:Index.cshtml" caret="0" fromTop="0" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:CampaignController.cs" caret="0" fromTop="0" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Views/d:Shared/d:EditorTemplates/f:PaymentGatewayType.cshtml" caret="0" fromTop="0" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Views/d:UserProfile/f:Edit.cshtml" caret="0" fromTop="0" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Views/d:UserProfile/f:Index.cshtml" caret="0" fromTop="0" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:ErrorController.cs" caret="0" fromTop="0" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Views/d:Shared/f:UserFeedback.cshtml" caret="484" fromTop="17" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Views/d:Account/f:Register.cshtml" caret="408" fromTop="14" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Views/d:Shared/f:MainNavigation.cshtml" caret="16" fromTop="0" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:AdminController.cs" caret="1511" fromTop="52" />
-      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:Fakes/f:FakeUserProfileRepository.cs" caret="1417" fromTop="42" />
-      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Data/f:IUserProfileRepository.cs" caret="554" fromTop="16" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/f:Web.config" caret="8721" fromTop="21" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Views/d:Account/f:LogOn.cshtml" caret="860" fromTop="21" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Views/d:Shared/f:_Layout.cshtml" caret="0" fromTop="0" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:AccountController.cs" caret="2333" fromTop="20" />
-      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:AccountControllerTest.cs" caret="5246" fromTop="25" />
-      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Data/f:UserProfileRepository.cs" caret="855" fromTop="23" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Views/d:Admin/f:EditOrganization.cshtml" caret="0" fromTop="0" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="1327" fromTop="23" />
-      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Data/f:GrassrootsContext.cs" caret="0" fromTop="0" />
-      <File id="BD0B4504-BA85-4ECF-8472-8082E8EF9C25/d:Services/f:GrassrootsMembershipService.cs" caret="0" fromTop="0" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/f:Global.asax.cs" caret="295" fromTop="7" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Models/f:DonationDetailsModel.cs" caret="0" fromTop="0" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Models/f:CampaignDetailsModel.cs" caret="771" fromTop="20" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Models/f:CampaignNotificationModel.cs" caret="507" fromTop="15" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:CampaignController.cs" caret="679" fromTop="9" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:AccountControllerTest.cs" caret="14960" fromTop="16" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:AccountController.cs" caret="7041" fromTop="20" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:DonateController.cs" caret="4947" fromTop="20" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:DonateControllerTests.cs" caret="7686" fromTop="20" />
     </RecentFiles>
     <RecentEdits>
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:AccountController.cs" caret="1868" fromTop="7" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:AccountController.cs" caret="2167" fromTop="15" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Views/d:Shared/f:_Layout.cshtml" caret="270" fromTop="5" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="1350" fromTop="17" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="1350" fromTop="13" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="4509" fromTop="27" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="5802" fromTop="19" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="5641" fromTop="28" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="4575" fromTop="9" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="6048" fromTop="39" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="5455" fromTop="21" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="4797" fromTop="27" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="4211" fromTop="11" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="8831" fromTop="11" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="9011" fromTop="16" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="9196" fromTop="21" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="3804" fromTop="20" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="6482" fromTop="22" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="2294" fromTop="0" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="7640" fromTop="34" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="6636" fromTop="12" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="7640" fromTop="27" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="10147" fromTop="19" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="10147" fromTop="11" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="7756" fromTop="35" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="8516" fromTop="31" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="8662" fromTop="19" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="706" fromTop="22" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="7283" fromTop="17" />
-      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:FacebookController.cs" caret="5167" fromTop="24" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Models/f:CampaignDetailsModel.cs" caret="780" fromTop="20" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Models/f:CampaignNotificationModel.cs" caret="507" fromTop="15" />
+      <File id="7D398BBF-5471-4CCC-AD7C-0A9E4BCAA435/d:Controllers/f:CampaignController.cs" caret="1347" fromTop="20" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:AccountControllerTest.cs" caret="826" fromTop="28" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:AccountControllerTest.cs" caret="695" fromTop="22" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:AccountControllerTest.cs" caret="15947" fromTop="15" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:AccountControllerTest.cs" caret="16325" fromTop="21" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:AccountControllerTest.cs" caret="15742" fromTop="11" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:AccountControllerTest.cs" caret="15330" fromTop="21" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:AccountControllerTest.cs" caret="14960" fromTop="16" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:DonateControllerTests.cs" caret="4344" fromTop="27" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:DonateControllerTests.cs" caret="5346" fromTop="27" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:DonateControllerTests.cs" caret="6346" fromTop="21" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:DonateControllerTests.cs" caret="7507" fromTop="11" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:DonateControllerTests.cs" caret="6518" fromTop="20" />
+      <File id="06C26408-B63A-47DA-ADDA-7088812DECDC/d:UnitTests/d:Controllers/f:DonateControllerTests.cs" caret="7686" fromTop="20" />
     </RecentEdits>
   </RecentFiles>
   <NAntValidationSettings>
@@ -97,9 +62,9 @@
       <Item value="AspNetUser`0" priority="7" />
       <Item value="user" priority="71" />
       <Item value="payment" priority="1" />
-      <Item value="var" priority="371" />
+      <Item value="var" priority="373" />
       <Item value="u" priority="14" />
-      <Item value="userProfile" priority="137" />
+      <Item value="userProfile" priority="140" />
       <Item value="UserProfileID" priority="1" />
       <Item value="LastName" priority="3" />
       <Item value="static" priority="16" />
@@ -119,7 +84,7 @@
       <Item value="if" priority="99" />
       <Item value="theDate" priority="1" />
       <Item value="otherDate" priority="1" />
-      <Item value="new" priority="254" />
+      <Item value="new" priority="255" />
       <Item value="ValidationResult" priority="8" />
       <Item value="base" priority="3" />
       <Item value="ErrorMessageString" priority="0" />
@@ -175,11 +140,11 @@
       <Item value="CampaignID" priority="0" />
       <Item value="repository" priority="34" />
       <Item value="ModelState" priority="16" />
-      <Item value="private" priority="95" />
+      <Item value="private" priority="96" />
       <Item value="StandardKernel`0" priority="3" />
       <Item value="FakeCampaignRepository`0" priority="1" />
       <Item value="void" priority="145" />
-      <Item value="campaign" priority="68" />
+      <Item value="campaign" priority="69" />
       <Item value="CauseTemplate`0" priority="14" />
       <Item value="DefaultAmount" priority="0" />
       <Item value="DefaultTimespanInDays" priority="0" />
@@ -197,7 +162,7 @@
       <Item value="Birthdate" priority="0" />
       <Item value="Email" priority="11" />
       <Item value="UserProfile`0" priority="41" />
-      <Item value="EntityHelpers`0" priority="40" />
+      <Item value="EntityHelpers`0" priority="41" />
       <Item value="userprofile" priority="15" />
       <Item value="SetUpAttribute`0" priority="0" />
       <Item value="campaignDonor" priority="3" />
@@ -242,7 +207,7 @@
       <Item value="CauseTemplateRepository" priority="1" />
       <Item value="UserProfileRepository" priority="13" />
       <Item value="organizationRepository" priority="50" />
-      <Item value="userProfileRepository" priority="67" />
+      <Item value="userProfileRepository" priority="68" />
       <Item value="causeTemplateRepository" priority="1" />
       <Item value="CommittableTransaction`0" priority="0" />
       <Item value="UserRepository" priority="23" />
@@ -612,7 +577,7 @@
       <Item value="response" priority="0" />
       <Item value="donation" priority="1" />
       <Item value="DonationDetailsModel" priority="0" />
-      <Item value="DonationDetailsModel`0" priority="0" />
+      <Item value="DonationDetailsModel`0" priority="2" />
       <Item value="apiUrl" priority="2" />
       <Item value="PaymentGatewayApiUrl" priority="0" />
       <Item value="fixed" priority="0" />
@@ -770,7 +735,7 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:@JordanRift.Grassroots.Tests.Helpers.EntityHelpers">
       <Item value="GetValidCampaign`0" priority="7" />
-      <Item value="GetValidUserProfile`0" priority="16" />
+      <Item value="GetValidUserProfile`0" priority="18" />
       <Item value="GetValidCampaignDonor`0" priority="0" />
       <Item value="GetValidCauseTemplate`0" priority="6" />
       <Item value="GetValidOrganization`0" priority="6" />
@@ -834,7 +799,7 @@
       <Item value="Update`0" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:JordanRift.Grassroots.Framework.Data.IUserProfileRepository">
-      <Item value="Add`0" priority="11" />
+      <Item value="Add`0" priority="12" />
       <Item value="Save`0" priority="3" />
       <Item value="GetUserProfileByEmail`0" priority="0" />
       <Item value="Exists`0" priority="3" />
@@ -999,7 +964,7 @@
       <Item value="UserProfileID" priority="3" />
       <Item value="UserProfileRepository" priority="5" />
       <Item value="Campaigns" priority="6" />
-      <Item value="Email" priority="17" />
+      <Item value="Email" priority="18" />
       <Item value="Active" priority="7" />
       <Item value="UserProfileService" priority="2" />
       <Item value="FirstName" priority="2" />
@@ -1036,7 +1001,7 @@
       <Item value="LastLoggedIn" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:JordanRift.Grassroots.Framework.Entities.Models.Campaign">
-      <Item value="UserProfile" priority="4" />
+      <Item value="UserProfile" priority="5" />
       <Item value="CampaignRepository" priority="0" />
       <Item value="CampaignID" priority="0" />
       <Item value="IsActive" priority="2" />
