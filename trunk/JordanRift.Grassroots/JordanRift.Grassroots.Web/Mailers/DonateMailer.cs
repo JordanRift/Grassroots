@@ -22,7 +22,7 @@ namespace JordanRift.Grassroots.Web.Mailers
 		}
 
 		
-		public MailMessage CampaignDonation(CampaignNotificationModel model)
+		public MailMessage CampaignDonation(DonationDetailsModel model)
 		{
             var mailMessage = new MailMessage { Subject = string.Format("A donation was received to {0} campaign!", model.Title) };
 			mailMessage.To.Add(model.Email);

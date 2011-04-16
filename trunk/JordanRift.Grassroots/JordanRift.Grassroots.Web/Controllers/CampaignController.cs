@@ -43,6 +43,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 return HttpNotFound("The Campaign you are looking for could not be found");
             }
 
+            //TODO: ViewBag.CampaignEmailBlastModel = 
             var viewModel = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
             return View("Details", viewModel);
         }

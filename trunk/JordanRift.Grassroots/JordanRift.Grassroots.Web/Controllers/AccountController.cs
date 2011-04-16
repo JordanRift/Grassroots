@@ -190,8 +190,9 @@ namespace JordanRift.Grassroots.Web.Controllers
                 if (newPassword != null)
                 {
                     var userProfile = userProfileRepository.FindUserProfileByEmail(model.Email).FirstOrDefault();
-                    var mailModel = Mapper.Map<UserProfile, RegisterModel>(userProfile);
-                    accountMailer.PasswordReset(mailModel).SendAsync();
+                    var mailerModel = Mapper.Map<UserProfile, RegisterModel>(userProfile);
+                    mailerModel.Password = newPassword;
+                    accountMailer.PasswordReset(mailerModel).SendAsync();
                     return RedirectToAction("ResetPasswordSuccess");
                 }
             }

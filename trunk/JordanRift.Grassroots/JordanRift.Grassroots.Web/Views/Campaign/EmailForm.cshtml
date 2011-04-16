@@ -1,1 +1,25 @@
-﻿
+﻿@model JordanRift.Grassroots.Web.Models.CampaignEmailBlastModel
+
+<div id="campaign-email-form" class="ui-dialog ui-widget ui-widget-content ui-corner-all  ui-draggable">
+    @using (Html.BeginForm("SendEmail", "Campaign"))
+    {
+        <fieldset>
+            <legend>Tell your friends about @Model.Title</legend>
+            @Html.HiddenFor(m => m.Title)
+            @Html.HiddenFor(m => m.UrlSlug)
+            @Html.HiddenFor(m => m.Email)
+            @Html.HiddenFor(m => m.FirstName)
+            @Html.HiddenFor(m => m.LastName)
+
+            @Html.LabelFor(m => m.EmailAddresses)
+            @Html.TextBoxFor(m => m.EmailAddresses)
+            @Html.ValidationMessageFor(m = > m.EmailAddress)
+    
+            @Html.LabelFor(m => m.CustomMessage)
+            @Html.TextAreaFor(m => m.CustomMessage)
+            @Html.ValidationMessageFor(m => m.CustomMessage)
+        </fieldset>
+        <input type="submit" id="submit" name="submit" value="Send" class="ui-button ui-widget ui-state-active ui-corner-all ui-button-text-only" />
+        <button id="cancel" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Cancel</button>
+    }
+</div>

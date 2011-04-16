@@ -6,17 +6,24 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
+using System.ComponentModel.DataAnnotations;
+
 namespace JordanRift.Grassroots.Web.Models
 {
     public class CampaignEmailBlastModel
     {
-        public string Siteurl { get; set; }
         public string UrlSlug { get; set; }
         public string Title { get; set; }
-        public string EmailAddresses { get; set; }
-        public string CustomMessage { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Email Addresses")]
+        public string EmailAddresses { get; set; }
+
+        [Required]
+        [Display(Name = "Email Message")]
+        public string CustomMessage { get; set; }
     }
 }

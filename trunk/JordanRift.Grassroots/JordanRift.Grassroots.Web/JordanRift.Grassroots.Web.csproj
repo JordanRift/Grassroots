@@ -125,20 +125,12 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CampaignEmailBlastModel.cs" />
     <Compile Include="Models\CampaignDetailsModel.cs" />
-    <Compile Include="Models\CampaignDonorDetailsModel.cs" />
     <Compile Include="Models\CampaignNotificationModel.cs" />
     <Compile Include="Models\DonationDetailsModel.cs" />
     <Compile Include="Models\OrganizationEditModel.cs" />
-    <Compile Include="Models\ViewModels\CampaignDonorViewModel.cs" />
-    <Compile Include="Models\ViewModels\CampaignViewModel.cs" />
-    <Compile Include="Models\ViewModels\CauseTemplateViewModel.cs" />
-    <Compile Include="Models\ViewModels\CauseViewModel.cs" />
     <Compile Include="Models\FacebookRegisterModel.cs" />
-    <Compile Include="Models\ViewModels\OrganizationViewModel.cs" />
     <Compile Include="Models\ModelBinders\PaymentModelBinder.cs" />
-    <Compile Include="Models\ViewModels\PaymentViewModel.cs" />
     <Compile Include="Models\UserProfileDetailsModel.cs" />
-    <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -290,9 +282,6 @@
     <Content Include="Views\Facebook\FacebookRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Campaign\EmailForm.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Donate\ThankYou.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -350,6 +339,7 @@
     <Content Include="Views\AccountMailer\PasswordChange.cshtml" />
     <Content Include="Views\CampaignMailer\CampaignEmailBlast.cshtml" />
     <Content Include="Views\CampaignMailer\_Layout.cshtml" />
+    <Content Include="Views\Campaign\EmailForm.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

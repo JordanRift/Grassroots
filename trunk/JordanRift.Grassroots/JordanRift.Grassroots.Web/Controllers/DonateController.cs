@@ -16,6 +16,7 @@ using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
 using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
+using Mvc.Mailer;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
@@ -106,7 +107,16 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                         campaign.CampaignDonors.Add(donation);
                         campaignRepository.Save();
-                        // TODO: Send email notificatoin for receipt of donation
+
+                        // Send receipt of payment to user
+                        donateMailer.UserDonation(model).SendAsync();
+
+                        // Send notification to campaign owner
+                        var mailerModel = Mapper.Map<CampaignDonor, DonationDetailsModel>(donation);
+                        mailerModel.Title = campaign.Title;
+                        mailerModel.Email = campaign.UserProfile.Email;
+                        donateMailer.CampaignDonation(mailerModel).SendAsync();
+
                         TempData["Donation"] = donation;
                         return RedirectToAction("ThankYou");
                     }

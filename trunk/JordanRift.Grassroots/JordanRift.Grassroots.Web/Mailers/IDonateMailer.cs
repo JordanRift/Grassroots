@@ -14,7 +14,7 @@ namespace JordanRift.Grassroots.Web.Mailers
 { 
     public interface IDonateMailer
     {
-		MailMessage CampaignDonation(CampaignNotificationModel model);
+		MailMessage CampaignDonation(DonationDetailsModel model);
 		MailMessage UserDonation(Payment model);
     }
 }
