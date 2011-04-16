@@ -14,10 +14,11 @@ using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
-using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Tests.Fakes;
 using JordanRift.Grassroots.Tests.Helpers;
 using JordanRift.Grassroots.Web.Controllers;
+using JordanRift.Grassroots.Web.Mailers;
+using Mvc.Mailer;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -265,8 +266,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 
         private void SetUpController(MockRepository mocks, Payment payment = null, bool isPaymentApproved = true)
         {
-            // Note: May need to change emailService to a strict mock to track calls to notification methods
-            //var emailService = mocks.DynamicMock<IEmailService>();
+            var mailer = mocks.DynamicMock<IDonateMailer>();
+            MailerBase.IsTestModeEnabled = true;
             var paymentProviderFactory = mocks.StrictMock<IPaymentProviderFactory>();
             var paymentProvider = mocks.StrictMock<IPaymentProvider>();
 
@@ -281,7 +282,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                 Expect.Call(paymentProvider.Process(payment)).IgnoreArguments().Return(response);
             }
 
-            controller = new DonateController(campaignRepository, userProfileRepository, /*emailService,*/ paymentProviderFactory)
+            controller = new DonateController(campaignRepository, userProfileRepository, mailer, paymentProviderFactory)
                              {
                                  OrganizationRepository = organizationRepository
                              };

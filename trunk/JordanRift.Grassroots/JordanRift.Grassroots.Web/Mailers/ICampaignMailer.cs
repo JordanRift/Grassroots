@@ -7,14 +7,12 @@
 //
 
 using System.Net.Mail;
-using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Web.Models;
 
 namespace JordanRift.Grassroots.Web.Mailers
 { 
-    public interface IDonateMailer
+    public interface ICampaignMailer
     {
-		MailMessage CampaignDonation(CampaignNotificationModel model);
-		MailMessage UserDonation(Payment model);
-    }
+		MailMessage CampaignEmailBlast(CampaignEmailBlastModel model);
+	}
 }

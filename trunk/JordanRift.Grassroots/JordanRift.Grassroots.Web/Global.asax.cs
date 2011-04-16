@@ -77,6 +77,8 @@ namespace JordanRift.Grassroots
             kernel.Bind<ICauseTemplateRepository>().To<CauseTemplateRepository>();
             kernel.Bind<IPaymentProviderFactory>().To<PaymentProviderFactory>();
             kernel.Bind<IAccountMailer>().To<AccountMailer>();
+            kernel.Bind<ICampaignMailer>().To<CampaignMailer>();
+            kernel.Bind<IDonateMailer>().To<DonateMailer>();
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }
