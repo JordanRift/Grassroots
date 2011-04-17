@@ -13,7 +13,7 @@
 
     <section class="dashboard">
         @Html.ActionLink("Donate", "Index", new { controller = "Donate" }, new { title = "Donate" })
-        @*@Html.Action("ProgressBar", new { controller = "Home" })*@
+        @Html.Action("ProgressBar", new { controller = "Home" })
     </section>
     <section class="social">
         <div class="video">
@@ -28,6 +28,6 @@
         </div>
     </section>
     <section class="feeds">
-        @*@Html.Action("TwitterFeed", new { controller = "Home" })
-        @Html.Action("BlogRssFeed", new { controller = "Home" })*@
+        @Html.Action("TwitterFeed", new { controller = "Home" })
+        @Html.Action("BlogRssFeed", new { controller = "Home" })
     </section>

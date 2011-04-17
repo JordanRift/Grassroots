@@ -93,6 +93,9 @@ namespace JordanRift.Grassroots.Web.Controllers
                         return RedirectToAction("Index", "Campaign", new { slug = urlSlug });
                     }
 
+                    paymentProviderFactory.ApiUrl = Organization.PaymentGatewayApiUrl;
+                    paymentProviderFactory.ApiKey = Organization.PaymentGatewayApiKey;
+                    paymentProviderFactory.ApiSecret = Organization.PaymentGatewayApiSecret;
                     var provider = paymentProviderFactory.GetPaymentProvider(Organization.PaymentGateway);
                     var result = provider.Process(model);
 

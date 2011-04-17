@@ -276,7 +276,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             var mailer = mocks.DynamicMock<IDonateMailer>();
             MailerBase.IsTestModeEnabled = true;
-            var paymentProviderFactory = mocks.StrictMock<IPaymentProviderFactory>();
+            var paymentProviderFactory = mocks.DynamicMock<IPaymentProviderFactory>();
             var paymentProvider = mocks.StrictMock<IPaymentProvider>();
 
             if (payment != null)

@@ -20,7 +20,6 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<Organization, OrganizationDetailsModel>();
         }
 
-        //[OutputCache(Duration = 60, VaryByParam = "*")]
         public ActionResult Index()
         {
             var model = Mapper.Map<Organization, OrganizationDetailsModel>(Organization);
@@ -33,22 +32,23 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
+        [OutputCache(Duration = 30, VaryByParam = "*")]
         public ActionResult ProgressBar()
         {
             var percent = 90;
             return View("ProgressBar", percent);
         }
 
-        //[OutputCache(Duration = 60, VaryByParam = "*")]
         [ChildActionOnly]
+        [OutputCache(Duration = 30, VaryByParam = "*")]
         public ActionResult TwitterFeed()
         {
             var twitterName = Organization.TwitterName;
             return View();
         }
 
-        //[OutputCache(Duration = 60, VaryByParam = "*")]
         [ChildActionOnly]
+        [OutputCache(Duration = 30, VaryByParam = "*")]
         public ActionResult BlogRssFeed()
         {
             var blogUrl = Organization.BlogRssUrl;

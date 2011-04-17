@@ -123,25 +123,26 @@
 				    @Html.TextBoxFor(model => model.Phone) 
 				    @Html.ValidationMessageFor(model => model.Phone) 
 			    </dd>
-			    <dt>@Html.LabelFor(model => model.BillingAddress)</dt>
+			    <dt>@Html.LabelFor(model => model.AddressLine1)</dt>
 			    <dd>
-				    @Html.TextBoxFor(model => model.BillingAddress) 
-				    @Html.ValidationMessageFor(model => model.BillingAddress) 
+				    @Html.TextBoxFor(model => model.AddressLine1) 
+				    @Html.ValidationMessageFor(model => model.AddressLine1)<br />
+                    @Html.TextBoxFor(model => model.AddressLine2) 
 			    </dd>
-			    <dt>@Html.LabelFor(model => model.BillingCity)</dt>
+			    <dt>@Html.LabelFor(model => model.City)</dt>
 			    <dd>
-				    @Html.TextBoxFor(model => model.BillingCity) 
-				    @Html.ValidationMessageFor(model => model.BillingCity) 
+				    @Html.TextBoxFor(model => model.City) 
+				    @Html.ValidationMessageFor(model => model.City) 
 			    </dd>
-			    <dt>@Html.LabelFor(model => model.BillingState)</dt>
+			    <dt>@Html.LabelFor(model => model.State)</dt>
 			    <dd>
-				    @Html.EditorFor(model => model.BillingState) 
-				    @Html.ValidationMessageFor(model => model.BillingState) 
+				    @Html.EditorFor(model => model.State) 
+				    @Html.ValidationMessageFor(model => model.State) 
 			    </dd>
-			    <dt>@Html.LabelFor(model => model.BillingZip)</dt>
+			    <dt>@Html.LabelFor(model => model.ZipCode)</dt>
 			    <dd>
-				    @Html.TextBoxFor(model => model.BillingZip) 
-				    @Html.ValidationMessageFor(model => model.BillingZip) 
+				    @Html.TextBoxFor(model => model.ZipCode) 
+				    @Html.ValidationMessageFor(model => model.ZipCode) 
 			    </dd>
             </dl>
 		</fieldset>

@@ -10,15 +10,20 @@ namespace JordanRift.Grassroots.Framework.Entities
 {
     public class PaymentProviderFactory : IPaymentProviderFactory
     {
-        private readonly string apiUrl;
-        private readonly string apiKey;
-        private readonly string apiSecret;
+        public string ApiUrl { get; set; }
+        public string ApiKey { get; set; }
+        public string ApiSecret { get; set; }
+
+        public PaymentProviderFactory()
+        {
+            
+        }
 
         public PaymentProviderFactory(string apiUrl, string apiKey, string apiSecret)
         {
-            this.apiUrl = apiUrl;
-            this.apiKey = apiKey;
-            this.apiSecret = apiSecret;
+            ApiUrl = apiUrl;
+            ApiKey = apiKey;
+            ApiSecret = apiSecret;
         }
 
         public IPaymentProvider GetPaymentProvider(PaymentGatewayType paymentGatewayType)
@@ -26,9 +31,9 @@ namespace JordanRift.Grassroots.Framework.Entities
             switch (paymentGatewayType)
             {
                 case PaymentGatewayType.Authorize:
-                    return new AuthorizePaymentProvider(apiUrl, apiKey, apiSecret);
+                    return new AuthorizePaymentProvider(ApiUrl, ApiKey, ApiSecret);
                 case PaymentGatewayType.PayPal:
-                    return new PayPalPaymentProvider(apiUrl, apiKey, apiSecret);
+                    return new PayPalPaymentProvider(ApiUrl, ApiKey, ApiSecret);
                 default:
                     return null;
             }

@@ -68,7 +68,7 @@ namespace JordanRift.Grassroots.Framework.Entities
         {
         }
 
-        public Payment(TransactionType transactionType)
+        /*public Payment(TransactionType transactionType)
         {
             TransactionType = transactionType;
         }
@@ -86,7 +86,7 @@ namespace JordanRift.Grassroots.Framework.Entities
                 State = userProfile.State;
                 ZipCode = userProfile.ZipCode;
             }
-        }
+        }*/
 
         public string GetFormattedDate()
         {

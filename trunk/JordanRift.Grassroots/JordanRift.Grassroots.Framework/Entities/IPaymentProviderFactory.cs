@@ -10,6 +10,9 @@ namespace JordanRift.Grassroots.Framework.Entities
 {
     public interface IPaymentProviderFactory
     {
+        string ApiUrl { get; set; }
+        string ApiKey { get; set; }
+        string ApiSecret { get; set; }
         IPaymentProvider GetPaymentProvider(PaymentGatewayType paymentGatewayType);
     }
 }

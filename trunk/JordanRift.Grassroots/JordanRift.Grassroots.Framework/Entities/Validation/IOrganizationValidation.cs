@@ -7,6 +7,7 @@
 //
 
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace JordanRift.Grassroots.Framework.Entities.Validation
 {
@@ -24,5 +25,9 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
         [RegularExpression(@"^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$",
             ErrorMessage = "Please enter a valid Contact Email Address.")]
         string ContactEmail { get; set; }
+
+        [AllowHtml]
+        [StringLength(5000)]
+        string VideoEmbedHtml { get; set; }
     }
 }
