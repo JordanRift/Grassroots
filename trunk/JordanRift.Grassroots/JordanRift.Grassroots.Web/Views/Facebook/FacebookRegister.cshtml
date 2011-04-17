@@ -16,100 +16,86 @@
     @Html.Partial("UIForm")
 }
 
-        <h3>Please complete the form below to create your account.</h3>
-        
-        @using ( Html.BeginForm("RegisterUser", "Facebook") )
-	    { 
-		    @Html.ValidationSummary( true, "Account creation was unsuccessful. Please correct the errors and try again." )
-            <div>
-                <fieldset>
-                    <legend>Account Information</legend>
-                    @Html.HiddenFor(m => m.FacebookID)
-
-                    <div class="editor-label">
-                        @Html.LabelFor( m => m.Email ) 
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor( m => m.Email ) 
-                        @Html.ValidationMessageFor( m => m.Email ) 
-                    <div class="section">
-                        Additional Information</div>
-                    <div class="editor-label">
-                        @Html.LabelFor( m => m.FirstName ) 
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor( m => m.FirstName )
-                        @Html.ValidationMessageFor( m => m.FirstName )
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor( m => m.LastName ) 
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor( m => m.LastName )
-                        @Html.ValidationMessageFor( m => m.LastName )
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor( m => m.Birthdate ) 
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor( m => m.Birthdate )
-                        @Html.ValidationMessageFor( m => m.Birthdate )
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor( m => m.Gender ) 
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor( m => m.Gender ) 
-                        @Html.ValidationMessageFor( m => m.Gender )
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor( m => m.PrimaryPhone ) 
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor( m => m.PrimaryPhone ) 
-                        @Html.ValidationMessageFor( m => m.PrimaryPhone )
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor( m => m.AddressLine1 ) 
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor( m => m.AddressLine1 )
-                        @Html.ValidationMessageFor( m => m.AddressLine1 )
-                        <br />
-                        @Html.TextBoxFor( m => m.AddressLine2 )
-                        @Html.ValidationMessageFor( m => m.AddressLine2 )
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor( m => m.City ) 
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor( m => m.City )
-                        @Html.ValidationMessageFor( m => m.City )
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor( m => m.State ) 
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor( m => m.State )
-                        @Html.ValidationMessageFor( m => m.State )
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor( m => m.ZipCode ) 
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor( m => m.ZipCode )
-                        @Html.ValidationMessageFor( m => m.ZipCode )
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor( m => m.Consent ) 
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor( m => m.Consent )
-                        @Html.ValidationMessageFor( m => m.Consent )
-                    </div>
+<hgroup>
+    <h1>Set Up Your Account</h1>
+    <h3>Fill out the form below to create a new account.</h3>
+</hgroup>
+<p>
+    <text>Passwords are required to be a minimum of</text>@ViewBag.PasswordLength<text> characters in length.</text></p>
+<div id="facebook-registration-form">
+    @using (Html.BeginForm("RegisterUser", "Facebook"))
+    {
+        <fieldset>
+            <legend>Information from your Facebook profile</legend>
+            @Html.ValidationSummary(false, "Account creation was unsuccessful. Please correct the errors and try again.")
+            <h3>Account Information</h3>
+            @Html.HiddenFor(m => m.FacebookID)
+            <dl>
+                <dt>@Html.LabelFor(m => m.Email)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+            </dl>
+            
+            <h3>About You</h3>
+            <dl>
+                <dt>@Html.LabelFor(m => m.FirstName)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.FirstName)
+                    @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(m => m.LastName)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.LastName)
+                    @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(m => m.Birthdate)</dt>
+                <dd>
+                    @Html.EditorFor(m => m.Birthdate)
+                    @Html.ValidationMessageFor(m => m.Birthdate, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(m => m.Gender)</dt>
+                <dd>
+                    @Html.EditorFor(m => m.Gender)
+                    @Html.ValidationMessageFor(m => m.Gender, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(m => m.PrimaryPhone)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.PrimaryPhone)
+                    @Html.ValidationMessageFor(m => m.PrimaryPhone, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(m => m.AddressLine1)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.AddressLine1)
+                    @Html.ValidationMessageFor(m => m.AddressLine1, null, new { @class = "ui-state-error ui-corner-all" })
                     <p>
-                        <input type="submit" value="Register" />
+                        @Html.TextBoxFor(m => m.AddressLine2)
+                        @Html.ValidationMessageFor(m => m.AddressLine2, null, new { @class = "ui-state-error ui-corner-all" })
                     </p>
-                </fieldset>
+                </dd>
+                <dt>@Html.LabelFor(m => m.City)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.City)
+                    @Html.ValidationMessageFor(m => m.City, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(m => m.State)</dt>
+                <dd>
+                    @Html.EditorFor(m => m.State)
+                    @Html.ValidationMessageFor(m => m.State, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(m => m.ZipCode)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.ZipCode)
+                    @Html.ValidationMessageFor(m => m.ZipCode, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+            </dl>
+            <div class="check-box">
+                @Html.EditorFor(m => m.Consent)
+                @Html.LabelFor(m => m.Consent)
+                @Html.ValidationMessageFor(m => m.Consent, null, new { @class = "ui-state-error ui-corner-all" })
             </div>
-	        }
+            <div>@Html.UiSubmit("Register")</div>
+        </fieldset>
+    }
+</div>
