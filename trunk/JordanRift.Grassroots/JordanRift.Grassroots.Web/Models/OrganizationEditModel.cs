@@ -38,14 +38,24 @@ namespace JordanRift.Grassroots.Web.Models
 		[DisplayName( "Organization's Twitter Username" )]
 		public string TwitterName { get; set; }
 
+        [DisplayName("Organization's Facebook Page")]
+        public string FacebookPageUrl { get; set; }
+
 		[DisplayName( "Gateway Type" )]
 		[UIHint( "PaymentGatewayType" )]
+        [Required(ErrorMessage = "Payment Gateway Type is required")]
 		public int PaymentGatewayType { get; set; }
 
+        [DisplayName("Gateway API URL")]
+        [Required(ErrorMessage = "Payment Gateway API URL is required")]
+        public string PaymentGatewayApiUrl { get; set; }
+
 		[DisplayName( "Gateway API Username/Key" )]
+        [Required]
 		public string PaymentGatewayApiKey { get; set; }
 
 		[DisplayName( "Gateway API Secret" )]
+        [Required]
 		public string PaymentGatewayApiSecret { get; set; }
 
         [AllowHtml]
