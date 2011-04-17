@@ -27,9 +27,10 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
         }
 
-        public ActionResult Index(int id = -1)
+        [Authorize]
+        public ActionResult Index()
         {
-            var userProfile = repository.GetUserProfileByID(id);
+            var userProfile = repository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
             if (userProfile != null)
             {

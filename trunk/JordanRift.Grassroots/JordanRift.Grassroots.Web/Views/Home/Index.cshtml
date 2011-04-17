@@ -1,4 +1,4 @@
-﻿@model JordanRift.Grassroots.Framework.Entities.Models.Organization
+﻿@model JordanRift.Grassroots.Web.Models.OrganizationDetailsModel
 @{
     //
     // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
@@ -8,10 +8,26 @@
     // http://creativecommons.org/licenses/by-nc-sa/3.0/
     //
     
-    ViewBag.Title = "Index";
+    ViewBag.Title = Model.Name;
 }
 
-    <h2>@ViewData["Message"]</h2>
-    <p>
-        To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-    </p>
+    <section class="dashboard">
+        @Html.ActionLink("Donate", "Index", new { controller = "Donate" }, new { title = "Donate" })
+        @*@Html.Action("ProgressBar", new { controller = "Home" })*@
+    </section>
+    <section class="social">
+        <div class="video">
+            @Html.Raw(Model.VideoEmbedHtml)
+        </div>
+        <div class="summary">
+            @Model.Summary
+        </div>
+        <div class="social">
+            <fb:like layout="button_count" show_faces="false" width="110" font="arial"></fb:like>
+            <!-- TODO: Tweet button -->
+        </div>
+    </section>
+    <section class="feeds">
+        @*@Html.Action("TwitterFeed", new { controller = "Home" })
+        @Html.Action("BlogRssFeed", new { controller = "Home" })*@
+    </section>

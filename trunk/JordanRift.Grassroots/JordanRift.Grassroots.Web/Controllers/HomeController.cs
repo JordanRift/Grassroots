@@ -7,20 +7,51 @@
 //
 
 using System.Web.Mvc;
+using AutoMapper;
+using JordanRift.Grassroots.Framework.Entities.Models;
+using JordanRift.Grassroots.Web.Models;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
     public class HomeController : GrassrootsControllerBase
     {
+        public HomeController()
+        {
+            Mapper.CreateMap<Organization, OrganizationDetailsModel>();
+        }
+
+        //[OutputCache(Duration = 60, VaryByParam = "*")]
         public ActionResult Index()
         {
-            ViewData["Message"] = "Welcome to ASP.NET MVC!";
-
-            return View();
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(Organization);
+            return View("Index", model);
         }
 
         public ActionResult About()
         {
+            return View();
+        }
+
+        [ChildActionOnly]
+        public ActionResult ProgressBar()
+        {
+            var percent = 90;
+            return View("ProgressBar", percent);
+        }
+
+        //[OutputCache(Duration = 60, VaryByParam = "*")]
+        [ChildActionOnly]
+        public ActionResult TwitterFeed()
+        {
+            var twitterName = Organization.TwitterName;
+            return View();
+        }
+
+        //[OutputCache(Duration = 60, VaryByParam = "*")]
+        [ChildActionOnly]
+        public ActionResult BlogRssFeed()
+        {
+            var blogUrl = Organization.BlogRssUrl;
             return View();
         }
     }

@@ -21,6 +21,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         [Key]
         public int OrganizationID { get; set; }
         public string Name { get; set; }
+        public string Summary { get; set; }
+        public string Description { get; set; }
         public string ContactPhone { get; set; }
         public string ContactEmail { get; set; }
         public int PaymentGatewayType { get; set; }
@@ -31,6 +33,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public string FacebookPageUrl { get; set; }
         public string VideoEmbedHtml { get; set; }
         public string TwitterName { get; set; }
+        public string BlogRssUrl { get; set; }
 
         public virtual ICollection<OrganizationSetting> OrganizationSettings { get; set; }
         public virtual ICollection<CauseTemplate> CauseTemplates { get; set; }

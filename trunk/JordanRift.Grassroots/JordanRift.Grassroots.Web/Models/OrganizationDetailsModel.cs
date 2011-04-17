@@ -13,8 +13,8 @@ using System.Web.Mvc;
 
 namespace JordanRift.Grassroots.Web.Models
 {
-	[MetadataType( typeof( OrganizationEditModel ) )]
-	public class OrganizationEditModel
+	[MetadataType( typeof( OrganizationDetailsModel ) )]
+	public class OrganizationDetailsModel
 	{
 		[Editable(false)]
 		public int OrganizationID { get; set; }
@@ -22,6 +22,9 @@ namespace JordanRift.Grassroots.Web.Models
 		[Required]
 		[DisplayName( "Organization Name" )]
 		public string Name { get; set; }
+
+        public string Summary { get; set; }
+        public string Description { get; set; }
 
 		[Required]
 		[RegularExpression( @"^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$",
@@ -61,5 +64,8 @@ namespace JordanRift.Grassroots.Web.Models
         [AllowHtml]
 		[DisplayName( "Video Embed (HTML)" )]
 		public string VideoEmbedHtml { get; set; }
+
+        [DisplayName("Blog RSS Feed URL")]
+        public string BlogRssUrl { get; set; }
 	}
 }

@@ -18,7 +18,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 	{
 		public AdminController()
 		{
-			Mapper.CreateMap<Organization, OrganizationEditModel>();
+			Mapper.CreateMap<Organization, OrganizationDetailsModel>();
 		}
 
 		//
@@ -36,15 +36,15 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 			if ( organization != null )
 			{
-				OrganizationEditModel viewModel;
+				OrganizationDetailsModel viewModel;
 
 				if ( TempData["OrganizationEditModel"] != null )
 				{
-					viewModel = TempData["OrganizationEditModel"] as OrganizationEditModel;
+					viewModel = TempData["OrganizationEditModel"] as OrganizationDetailsModel;
 				}
 				else
 				{
-					viewModel = Mapper.Map<Organization, OrganizationEditModel>( organization );
+					viewModel = Mapper.Map<Organization, OrganizationDetailsModel>( organization );
 				}
 
 				return View( viewModel );
@@ -54,7 +54,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult UpdateOrganization( OrganizationEditModel model )
+		public ActionResult UpdateOrganization( OrganizationDetailsModel model )
 		{
 			var organization = OrganizationRepository.GetDefaultOrganization();
 
@@ -70,7 +70,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			return RedirectToAction( "EditOrganization", "Admin" );
 		}
 
-		private static void Map( Organization organization, OrganizationEditModel model )
+		private static void Map( Organization organization, OrganizationDetailsModel model )
 		{
 			organization.Name = model.Name;
 			organization.ContactEmail = model.ContactEmail;

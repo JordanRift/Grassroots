@@ -36,7 +36,10 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Index_Should_Return_View_If_UserProfile_Found()
         {
-            var result = controller.Index(1);
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "goodEmail";
+            repository.Add(userProfile);
+            var result = controller.Index();
             Assert.IsInstanceOf(typeof(ViewResult), result);
         }
 

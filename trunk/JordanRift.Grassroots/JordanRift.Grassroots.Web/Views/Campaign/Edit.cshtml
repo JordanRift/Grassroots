@@ -10,9 +10,16 @@
     
     ViewBag.Title = "Edit";
 }
-
-<h2>Edit</h2>
-
+@section DocumentHead
+{
+    @Html.Partial("UIForm")
+}
+<!-- TODO: Design markup based on Index view -->
+<hgroup>
+    <h1>Edit your campaign</h1>
+    <h3>@Model.Title</h3>
+</hgroup>
+<div class="campaign-edit-form">
     @using (Html.BeginForm("Update", "Campaign", new { Area = "", id = Model.CampaignID })) {
         @Html.ValidationSummary(true)
         
@@ -54,3 +61,4 @@
             </p>
         </fieldset>
     }
+</div>

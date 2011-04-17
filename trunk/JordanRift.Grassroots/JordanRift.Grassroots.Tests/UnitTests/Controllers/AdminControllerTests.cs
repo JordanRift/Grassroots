@@ -29,7 +29,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [SetUp]
         public void SetUp()
         {
-            Mapper.CreateMap<Organization, OrganizationEditModel>();
+            Mapper.CreateMap<Organization, OrganizationDetailsModel>();
         }
 
 
@@ -68,7 +68,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void UpdateOrganization_Should_Redirect_To_Index_When_Successful()
         {
             var organization = EntityHelpers.GetValidOrganization();
-            var viewModel = Mapper.Map<Organization, OrganizationEditModel>(organization);
+            var viewModel = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             var mocks = new MockRepository();
             SetUpAdminController(mocks);
             mocks.ReplayAll();
@@ -83,7 +83,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void UpdateOrganization_Should_Redirect_To_EditOrganization_When_ModelState_Is_Invalid()
         {
             var organization = EntityHelpers.GetValidOrganization();
-            var viewModel = Mapper.Map<Organization, OrganizationEditModel>(organization);
+            var viewModel = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             var mocks = new MockRepository();
             SetUpAdminController(mocks);
             controller.ModelState.AddModelError("", "Uh oh...");

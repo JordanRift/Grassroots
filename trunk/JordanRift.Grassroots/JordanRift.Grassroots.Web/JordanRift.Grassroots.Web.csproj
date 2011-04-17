@@ -128,7 +128,7 @@
     <Compile Include="Models\CampaignDetailsModel.cs" />
     <Compile Include="Models\CampaignNotificationModel.cs" />
     <Compile Include="Models\DonationDetailsModel.cs" />
-    <Compile Include="Models\OrganizationEditModel.cs" />
+    <Compile Include="Models\OrganizationDetailsModel.cs" />
     <Compile Include="Models\FacebookRegisterModel.cs" />
     <Compile Include="Models\ModelBinders\PaymentModelBinder.cs" />
     <Compile Include="Models\UserProfileDetailsModel.cs" />
@@ -336,6 +336,9 @@
     <Content Include="Views\CampaignMailer\CampaignEmailBlast.cshtml" />
     <Content Include="Views\CampaignMailer\_Layout.cshtml" />
     <Content Include="Views\Campaign\EmailForm.cshtml" />
+    <Content Include="Views\Shared\ProgressBar.cshtml" />
+    <Content Include="Views\Home\TwitterFeed.cshtml" />
+    <Content Include="Views\Home\BlogRssFeed.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
