@@ -75,9 +75,11 @@ namespace JordanRift.Grassroots.Web.Controllers
 			organization.Name = model.Name;
 			organization.ContactEmail = model.ContactEmail;
 			organization.ContactPhone = model.ContactPhone;
+		    organization.PaymentGatewayApiUrl = model.PaymentGatewayApiUrl ?? "";
 			organization.PaymentGatewayApiKey = model.PaymentGatewayApiKey ?? "";
 			organization.PaymentGatewayApiSecret = model.PaymentGatewayApiSecret ?? "";
 			organization.PaymentGatewayType = model.PaymentGatewayType;
+		    organization.FacebookPageUrl = model.FacebookPageUrl;
 			organization.TwitterName = model.TwitterName;
 			organization.VideoEmbedHtml = model.VideoEmbedHtml;
 		}
