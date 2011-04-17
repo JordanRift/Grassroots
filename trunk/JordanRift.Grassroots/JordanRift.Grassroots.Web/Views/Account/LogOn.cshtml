@@ -16,44 +16,42 @@
     @Html.Partial("UIForm")
 }
 
-    <h1>Log In</h1>
-    <div class="column">
-        <h3>Connect with Facebook...</h3>
-        @Html.ActionLink("Connect with Facebook", "LogOn", "Facebook")
-    </div>
-    <div class="column">
-        <h3>... Or do it the old-fashioned way.</h3>
-        <p><text>Please enter your username and password.</text> @Html.ActionLink("Register", "Register") <text> if you don't have an account.</text></p>
-        @using (Html.BeginForm("AuthenticateUser", "Account", new { returnUrl = ViewBag.ReturnUrl }))
-        {
-            @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
-            <div>
-                <fieldset>
-                    <legend>Account Information</legend>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.Email)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.Email)
-                        @Html.ValidationMessageFor(m => m.Email)
-                    </div>
+<hgroup>
+    <h1>Account Log On</h1>
+    <h3><text>Please enter your username and password.</text> @Html.ActionLink("Register", "Register") <text> if you don't have an account.</text></h3>
+</hgroup>
+<div id="log-on-form">
+    @using (Html.BeginForm("AuthenticateUser", "Account", new { returnUrl = ViewBag.ReturnUrl })) {
+        <fieldset class="column">
+            <legend>Connect with Facebook...</legend>
+            @Html.ActionLink("Connect with Facebook", "LogOn", "Facebook")
+        </fieldset>
+        <fieldset class="column">
+            <legend>... Or do it the old-fashioned way.</legend>
+                @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
+                <div>
+                    <fieldset>
+                        <dl>
+                            <dt>@Html.LabelFor(m => m.Email)</dt>
+                            <dd>
+                                @Html.TextBoxFor(m => m.Email)
+                                @Html.ValidationMessageFor(m => m.Email, null, new { @class = "ui-state-error ui-corner-all" })
+                            </dd>
+                            <dt>@Html.LabelFor(m => m.Password)</dt>
+                            <dd>
+                                @Html.PasswordFor(m => m.Password)
+                                @Html.ValidationMessageFor(m => m.Password, null, new { @class = "ui-state-error ui-corner-all" })
+                            </dd>
+                        </dl>
                 
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.Password)
-                    </div>
-                    <div class="editor-field">
-                        @Html.PasswordFor(m => m.Password)
-                        @Html.ValidationMessageFor(m => m.Password)
-                    </div>
+                        <div class="check-box">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
                 
-                    <div class="editor-label">
-                        @Html.CheckBoxFor(m => m.RememberMe)
-                        @Html.LabelFor(m => m.RememberMe)
-                    </div>
-                
-                    <input type="submit" value="Log In" />
-                </fieldset>
-            </div>
-        }
-    </div>
-
+                        @Html.UiSubmit("Log On")
+                    </fieldset>
+                </div>
+        </fieldset>
+    }
+</div>
