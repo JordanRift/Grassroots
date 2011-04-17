@@ -12,186 +12,142 @@
 	ViewBag.Title = "Donate"; <!-- TODO: Add title with organization name -->
 }
 
-<h2>Donate</h2>
-
-	@{ 
-		var campaign = ViewBag.Campaign as Campaign;
-		var urlSlug = campaign != null ? campaign.UrlSlug : string.Empty;
-	}
-
-	<!-- TODO: Add heading with organization name -->
-	<script type="text/javascript" src="@Url.Content("~/Scripts/payment-form.js")"></script>
-
-	<div class="form-panel">
-		
-		@using (Html.BeginForm("ProcessDonation", "Campaign", new { Area = "", slug = urlSlug }))
-		{
-			@Html.ValidationSummary()
-            
-			<fieldset>
-				<div class="column">
-					<div class="editor-label">
-						@Html.LabelFor(model => model.Amount) 
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(model => model.Amount) 
-						@Html.ValidationMessageFor(model => model.Amount) 
-					</div>
-
-					<div class="editor-label">
-						@Html.LabelFor(model => model.PaymentType) 
-					</div>
-					<div class="editor-field">
-						@Html.EditorFor(model => model.PaymentType)
-						@Html.ValidationMessageFor(model => model.PaymentType)
-					</div>
-			
-					<div class="editor-label">
-						@Html.LabelFor(model => model.AccountNumber) 
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(model => model.AccountNumber) 
-						@Html.ValidationMessageFor(model => model.AccountNumber) 
-					</div>
-					
-					<div class="cc-info">
-						<div class="editor-label">
-							@Html.LabelFor(model => model.Expiration) 
-						</div>
-						<div class="editor-field">
-							@Html.EditorFor(model => model.Expiration) 
-							@Html.ValidationMessageFor(model => model.Expiration) 
-						</div>
-			
-						<div class="editor-label">
-							@Html.LabelFor(model => model.Cid) 
-						</div>
-						<div class="editor-field">
-							@Html.TextBoxFor(model => model.Cid) 
-							@Html.ValidationMessageFor(model => model.Cid) 
-						</div>
-					</div>
-
-					<div class="bank-info">
-						<div class="editor-label">
-							@Html.LabelFor(model => model.RoutingNumber) 
-						</div>
-						<div class="editor-field">
-							@Html.TextBoxFor(model => model.RoutingNumber) 
-							@Html.ValidationMessageFor(model => model.RoutingNumber) 
-						</div>
-			
-						<div class="editor-label">
-							@Html.LabelFor(model => model.BankName) 
-						</div>
-						<div class="editor-field">
-							@Html.TextBoxFor(model => model.BankName) 
-							@Html.ValidationMessageFor(model => model.BankName) 
-						</div>
-			
-						<div class="editor-label">
-							@Html.LabelFor(model => model.CheckType) 
-						</div>
-						<div class="editor-field">
-							@Html.EditorFor(model => model.CheckType) 
-							@Html.ValidationMessageFor(model => model.CheckType) 
-						</div>
-
-						<div class="editor-label">
-							@Html.LabelFor(model => model.CheckNumber) 
-						</div>
-						<div class="editor-field">
-							@Html.TextBoxFor(model => model.CheckNumber) 
-							@Html.ValidationMessageFor(model => model.CheckNumber) 
-						</div>
-					</div>
-
-					<div class="editor-label">
-						@Html.LabelFor(model => model.Notes) 
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(model => model.Notes) 
-						@Html.ValidationMessageFor(model => model.Notes) 
-					</div>
-				</div>
-
-				<div class="column">
-					<div class="editor-label">
-						@Html.LabelFor(model => model.FirstName) 
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(model => model.FirstName) 
-						@Html.ValidationMessageFor(model => model.FirstName) 
-					</div>
-			
-					<div class="editor-label">
-						@Html.LabelFor(model => model.LastName) 
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(model => model.LastName) 
-						@Html.ValidationMessageFor(model => model.LastName) 
-					</div>
-			
-					<div class="editor-label">
-						@Html.LabelFor(model => model.Email) 
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(model => model.Email) 
-						@Html.ValidationMessageFor(model => model.Email) 
-					</div>
-			
-					<div class="editor-label">
-						@Html.LabelFor(model => model.Phone) 
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(model => model.Phone) 
-						@Html.ValidationMessageFor(model => model.Phone) 
-					</div>
-			
-					<div class="editor-label">
-						@Html.LabelFor(model => model.BillingAddress) 
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(model => model.BillingAddress) 
-						@Html.ValidationMessageFor(model => model.BillingAddress) 
-					</div>
-			
-					<div class="editor-label">
-						@Html.LabelFor(model => model.BillingCity) 
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(model => model.BillingCity) 
-						@Html.ValidationMessageFor(model => model.BillingCity) 
-					</div>
-			
-					<div class="editor-label">
-						@Html.LabelFor(model => model.BillingState) 
-					</div>
-					<div class="editor-field">
-						@Html.EditorFor(model => model.BillingState) 
-						@Html.ValidationMessageFor(model => model.BillingState) 
-					</div>
-			
-					<div class="editor-label">
-						@Html.LabelFor(model => model.BillingZip) 
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(model => model.BillingZip) 
-						@Html.ValidationMessageFor(model => model.BillingZip) 
-					</div>
-				</div>
-			
-				<div class="section form-buttons">
-					<input type="submit" value="Submit" class="submit" />
-					@Html.ActionLink("Cancel", "Index", new { area = "", controller = "Campaign", slug = urlSlug }, new { @class = "cancel" })
-				</div> 
-			</fieldset>
-		} 
-	</div>
-	<script type="text/javascript">
-	    $(function ()
-	    {
-	        $("#Amount").val("");
-	    });
+@section DocumentHead 
+{
+    @Html.Partial("UIForm")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/payment-form.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#Amount").val("");
+        });
 	</script>
+}
 
+@{ 
+	var campaign = ViewBag.Campaign as Campaign;
+	var urlSlug = campaign != null ? campaign.UrlSlug : string.Empty;
+}
+
+<hgroup>
+    <h1>Make a Donation</h1>
+    @if (campaign != null) { 
+    <h3>@campaign.Title</h3>
+    }
+</hgroup>
+<div class="donate-form">
+	@using (Html.BeginForm("ProcessDonation", "Campaign", new { Area = "", slug = urlSlug })) {
+		@Html.ValidationSummary()
+		<fieldset class="column">
+            <legend>Payment Information</legend>
+			<dl>
+				<dt>@Html.LabelFor(model => model.Amount)</dt>
+				<dd>
+					@Html.TextBoxFor(model => model.Amount) 
+					@Html.ValidationMessageFor(model => model.Amount) 
+				</dd>
+
+				<dt>@Html.LabelFor(model => model.PaymentType)</dt>
+				<dd>
+					@Html.EditorFor(model => model.PaymentType)
+					@Html.ValidationMessageFor(model => model.PaymentType)
+				</dd>
+			
+				<dt>@Html.LabelFor(model => model.AccountNumber)</dt>
+				<dd>
+					@Html.TextBoxFor(model => model.AccountNumber) 
+					@Html.ValidationMessageFor(model => model.AccountNumber) 
+				</dd>
+            </dl>
+            <dl class="cc-info">
+				<dt>@Html.LabelFor(model => model.Expiration)</dt>
+				<dd>
+					@Html.EditorFor(model => model.Expiration) 
+					@Html.ValidationMessageFor(model => model.Expiration) 
+				</dd>
+				<dt>@Html.LabelFor(model => model.Cid)</dt>
+				<dd>
+					@Html.TextBoxFor(model => model.Cid) 
+					@Html.ValidationMessageFor(model => model.Cid) 
+				</dd>
+			</dl>
+			<dl class="bank-info">
+				<dt>@Html.LabelFor(model => model.RoutingNumber)</dt>
+				<dd>
+					@Html.TextBoxFor(model => model.RoutingNumber) 
+					@Html.ValidationMessageFor(model => model.RoutingNumber) 
+				</dd>
+				<dt>@Html.LabelFor(model => model.BankName)</dt>
+				<dd>
+					@Html.TextBoxFor(model => model.BankName) 
+					@Html.ValidationMessageFor(model => model.BankName) 
+				</dd>
+				<dt>@Html.LabelFor(model => model.CheckType)</dt>
+				<dd>
+					@Html.EditorFor(model => model.CheckType) 
+					@Html.ValidationMessageFor(model => model.CheckType) 
+				</dd>
+				<dt>@Html.LabelFor(model => model.CheckNumber)</dt>
+				<dd>
+					@Html.TextBoxFor(model => model.CheckNumber) 
+					@Html.ValidationMessageFor(model => model.CheckNumber) 
+				</dd>
+			</dl>
+            <dl>
+				<dt>@Html.LabelFor(model => model.Notes)</dt>
+				<dd>
+					@Html.TextBoxFor(model => model.Notes) 
+					@Html.ValidationMessageFor(model => model.Notes) 
+				</dd>
+			</dl>
+        </fieldset>
+        <fieldset class="column">
+            <legend>Billing Information</legend>
+            <dl>
+			    <dt>@Html.LabelFor(model => model.FirstName)</dt>
+			    <dd>
+				    @Html.TextBoxFor(model => model.FirstName) 
+				    @Html.ValidationMessageFor(model => model.FirstName) 
+			    </dd>
+			    <dt>@Html.LabelFor(model => model.LastName)</dt>
+			    <dd>
+				    @Html.TextBoxFor(model => model.LastName) 
+				    @Html.ValidationMessageFor(model => model.LastName) 
+			    </dd>
+			    <dt>@Html.LabelFor(model => model.Email)</dt>
+			    <dd>
+				    @Html.TextBoxFor(model => model.Email) 
+				    @Html.ValidationMessageFor(model => model.Email) 
+			    </dd>
+			    <dt>@Html.LabelFor(model => model.Phone)</dt>
+			    <dd>
+				    @Html.TextBoxFor(model => model.Phone) 
+				    @Html.ValidationMessageFor(model => model.Phone) 
+			    </dd>
+			    <dt>@Html.LabelFor(model => model.BillingAddress)</dt>
+			    <dd>
+				    @Html.TextBoxFor(model => model.BillingAddress) 
+				    @Html.ValidationMessageFor(model => model.BillingAddress) 
+			    </dd>
+			    <dt>@Html.LabelFor(model => model.BillingCity)</dt>
+			    <dd>
+				    @Html.TextBoxFor(model => model.BillingCity) 
+				    @Html.ValidationMessageFor(model => model.BillingCity) 
+			    </dd>
+			    <dt>@Html.LabelFor(model => model.BillingState)</dt>
+			    <dd>
+				    @Html.EditorFor(model => model.BillingState) 
+				    @Html.ValidationMessageFor(model => model.BillingState) 
+			    </dd>
+			    <dt>@Html.LabelFor(model => model.BillingZip)</dt>
+			    <dd>
+				    @Html.TextBoxFor(model => model.BillingZip) 
+				    @Html.ValidationMessageFor(model => model.BillingZip) 
+			    </dd>
+            </dl>
+		</fieldset>
+		<div>
+			@Html.UiSubmit("Submit")
+			@Html.UiCancel()
+		</div> 
+	} 
+</div>

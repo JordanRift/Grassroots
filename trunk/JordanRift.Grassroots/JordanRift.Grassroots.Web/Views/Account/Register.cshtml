@@ -18,11 +18,9 @@
     <h1>Set Up Your Account</h1>
     <h3>Fill out the form below to create a new account.</h3>
 </hgroup>
-<p>
-    <text>Passwords are required to be a minimum of</text>@ViewBag.PasswordLength<text> characters in length.</text></p>
+<p><text>Passwords are required to be a minimum of</text>@ViewBag.PasswordLength<text> characters in length.</text></p>
 <div id="account-registration-form">
-    @using (Html.BeginForm("RegisterUser", "Account"))
-    {
+    @using (Html.BeginForm("RegisterUser", "Account")) {
         <fieldset class="column">
             <legend>Connect with Facebook...</legend>
             @Html.ActionLink("Connect with Facebook", "Register", "Facebook")
