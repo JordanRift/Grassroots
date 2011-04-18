@@ -31,7 +31,7 @@ namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
         [Test]
         public void Process_Should_Return_Status_Code()
         {
-            Payment payment = new Payment { TransactionType = TransactionType.OneTime };
+            Payment payment = new Payment();
             var result = provider.Process(payment);
             Assert.AreNotEqual(result.ResponseCode, 0);
         }
@@ -39,7 +39,7 @@ namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
         [Test]
         public void Process_Should_Return_Reason_Code()
         {
-            Payment payment = new Payment { TransactionType = TransactionType.OneTime };
+            Payment payment = new Payment();
             var result = provider.Process(payment);
             Assert.Greater(result.ReasonCode, 0);
         }
@@ -59,8 +59,7 @@ namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
                                       AccountNumber = "4111111111111111",
                                       Expiration = new DateTime(2015, 1, 1),
                                       Cid = "123",
-                                      Amount = TestHelpers.GetAmount(),
-                                      TransactionType = TransactionType.OneTime
+                                      Amount = TestHelpers.GetAmount()
                                   };
 
             var result = provider.Process(payment);
@@ -74,8 +73,7 @@ namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
                                   {
                                       AccountNumber = "42",
                                       Expiration = new DateTime(2015, 1, 1),
-                                      Amount = TestHelpers.GetAmount(),
-                                      TransactionType = TransactionType.OneTime
+                                      Amount = TestHelpers.GetAmount()
                                   };
 
             var result = provider.Process(payment);
@@ -97,8 +95,7 @@ namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
                                       RoutingNumber = "122105278",
                                       PaymentType = PaymentType.ECheck,
                                       CheckNumber = "1234",
-                                      Amount = TestHelpers.GetAmount(),
-                                      TransactionType = TransactionType.OneTime
+                                      Amount = TestHelpers.GetAmount()
                                   };
 
             var result = provider.Process(payment);
@@ -120,8 +117,7 @@ namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
                                       RoutingNumber = "122105278",
                                       PaymentType = PaymentType.ECheck,
                                       CheckNumber = "1234",
-                                      Amount = TestHelpers.GetAmount(),
-                                      TransactionType = TransactionType.OneTime
+                                      Amount = TestHelpers.GetAmount()
                                   };
 
             var result = provider.Process(payment);

@@ -19,10 +19,6 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
         [Range(1.00, 100000000.00, ErrorMessage = "Please enter an amount greater than $1.00.")]
         decimal Amount { get; set; }
 
-        [DisplayName("Is this a monthly donation?")]
-        [UIHint("TransactionType")]
-        TransactionType TransactionType { get; set; }
-
         [DisplayName("My donation should go toward:")]
         string Notes { get; set; }
 

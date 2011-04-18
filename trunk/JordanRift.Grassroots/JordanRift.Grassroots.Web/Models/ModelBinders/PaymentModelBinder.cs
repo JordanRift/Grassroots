@@ -39,17 +39,6 @@ namespace JordanRift.Grassroots.Web.Models.ModelBinders
                         var checkType = controllerContext.HttpContext.Request["CheckType"].ToEnum<CheckType>();
                         payment.CheckType = checkType;
                         return;
-                    case "TransactionType":
-                        string value = controllerContext.HttpContext.Request ["TransactionType"];
-
-                        if (value != null)
-                        {
-                            value = value.Split(new[] { ',' }) [0];
-                        }
-
-                        bool isRecurring = !string.IsNullOrEmpty(value) ? bool.Parse(value) : false;
-                        payment.TransactionType = isRecurring ? TransactionType.Recurring : TransactionType.OneTime;
-                        return;
                 }
             }
 

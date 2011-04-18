@@ -129,8 +129,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
                            AccountNumber = "4111111111111111",
                            Expiration = DateTime.Now.AddYears(1),
                            Cid = "123",
-                           Amount = TestHelpers.GetAmount(),
-                           TransactionType = TransactionType.OneTime
+                           Amount = TestHelpers.GetAmount()
                        };
         }
 
@@ -149,8 +148,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
                            RoutingNumber = "122105278",
                            BankName = "Bank of Awesome",
                            CheckNumber = "1234",
-                           Amount = TestHelpers.GetAmount(),
-                           TransactionType = TransactionType.OneTime
+                           Amount = TestHelpers.GetAmount()
                        };
         }
 

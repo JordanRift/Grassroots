@@ -6,6 +6,8 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
+using System;
+
 namespace JordanRift.Grassroots.Framework.Entities
 {
     public class PaymentProviderFactory : IPaymentProviderFactory
@@ -28,6 +30,8 @@ namespace JordanRift.Grassroots.Framework.Entities
 
         public IPaymentProvider GetPaymentProvider(PaymentGatewayType paymentGatewayType)
         {
+            ValidateSettings();
+
             switch (paymentGatewayType)
             {
                 case PaymentGatewayType.Authorize:
@@ -36,6 +40,24 @@ namespace JordanRift.Grassroots.Framework.Entities
                     return new PayPalPaymentProvider(ApiUrl, ApiKey, ApiSecret);
                 default:
                     return null;
+            }
+        }
+
+        private void ValidateSettings()
+        {
+            if (string.IsNullOrEmpty(ApiUrl))
+            {
+                throw new ArgumentException("ApiUrl must be set.");
+            }
+
+            if (string.IsNullOrEmpty(ApiKey))
+            {
+                throw new ArgumentException("ApiKey must be set.");
+            }
+
+            if (string.IsNullOrEmpty(ApiSecret))
+            {
+                throw new ArgumentException("ApiSecret must be set.");
             }
         }
     }

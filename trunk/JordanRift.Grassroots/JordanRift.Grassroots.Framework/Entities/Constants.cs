@@ -23,12 +23,6 @@ namespace JordanRift.Grassroots.Framework.Entities
         PayPal = 2
     }
 
-    public enum TransactionType
-    {
-        OneTime,
-        Recurring
-    }
-
     public enum PaymentType
     {
         CC,

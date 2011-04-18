@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
-using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Entities.Validation;
 
 namespace JordanRift.Grassroots.Framework.Entities
@@ -19,7 +18,6 @@ namespace JordanRift.Grassroots.Framework.Entities
     public class Payment : IPaymentValidation
     {
         public decimal Amount { get; set; }
-        public TransactionType TransactionType { get; set; }
         public PaymentType PaymentType { get; set; }
 
         public string AccountNumber { get; set; }
@@ -48,45 +46,8 @@ namespace JordanRift.Grassroots.Framework.Entities
 
         private List<string> errors;
         public IList<string> Errors { get { return errors; } }
-
-        /// <summary>
-        /// Subscription payment interval in months (ex: monthly = 1, quarterly = 3, semi-anually = 2, etc)
-        /// </summary>
-        public int PaymentInterval 
-        { 
-            get { return paymentInvetval; }
-            set { paymentInvetval = value; } 
-        }
-
-        private int paymentInvetval = 1;
-
         public DateTime SubscriptionStart { get; set; }
-
         public string Notes { get; set; }
-
-        public Payment()
-        {
-        }
-
-        /*public Payment(TransactionType transactionType)
-        {
-            TransactionType = transactionType;
-        }
-
-        public Payment(UserProfile userProfile)
-        {
-            if (userProfile != null)
-            {
-                FirstName = userProfile.FirstName;
-                LastName = userProfile.LastName;
-                Email = userProfile.Email;
-                Phone = userProfile.PrimaryPhone;
-                AddressLine1 = string.Format("{0} {1}", userProfile.AddressLine1, userProfile.AddressLine2);
-                City = userProfile.City;
-                State = userProfile.State;
-                ZipCode = userProfile.ZipCode;
-            }
-        }*/
 
         public string GetFormattedDate()
         {
@@ -140,7 +101,7 @@ namespace JordanRift.Grassroots.Framework.Entities
         public override string ToString()
         {
             return string.Format("{0} donation from {1} {2} of {3}, Email: {4}, Phone: {5}, Address: {6} {7}, {8} {9}, Notes: {10}",
-                    TransactionType == TransactionType.OneTime ? "One Time" : "Monthly", FirstName, LastName,
+                    "One Time", FirstName, LastName,
                     Amount, Email, Phone, AddressLine1, City, State,
                     ZipCode, Notes);
         }
