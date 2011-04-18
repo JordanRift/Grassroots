@@ -68,7 +68,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
         [Required(ErrorMessage = "Please enter your primary phone number.")]
         [RegularExpression(@"^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$",
             ErrorMessage = "Please enter a valid phone number.")]
-        string Phone { get; set; }
+        string PrimaryPhone { get; set; }
 
         [DisplayName("Billing Address")]
         [Required(ErrorMessage = "Please enter your billing address.")]

@@ -35,7 +35,7 @@
     }
 </hgroup>
 <div class="donate-form">
-	@using (Html.BeginForm("ProcessDonation", "Campaign", new { Area = "", slug = urlSlug })) {
+	@using (Html.BeginForm("ProcessDonation", "Donate", new { Area = "", slug = urlSlug })) {
 		@Html.ValidationSummary()
 		<fieldset class="column">
             <legend>Payment Information</legend>
@@ -92,13 +92,6 @@
 					@Html.ValidationMessageFor(model => model.CheckNumber) 
 				</dd>
 			</dl>
-            <dl>
-				<dt>@Html.LabelFor(model => model.Notes)</dt>
-				<dd>
-					@Html.TextBoxFor(model => model.Notes) 
-					@Html.ValidationMessageFor(model => model.Notes) 
-				</dd>
-			</dl>
         </fieldset>
         <fieldset class="column">
             <legend>Billing Information</legend>
@@ -118,10 +111,10 @@
 				    @Html.TextBoxFor(model => model.Email) 
 				    @Html.ValidationMessageFor(model => model.Email) 
 			    </dd>
-			    <dt>@Html.LabelFor(model => model.Phone)</dt>
+			    <dt>@Html.LabelFor(model => model.PrimaryPhone)</dt>
 			    <dd>
-				    @Html.TextBoxFor(model => model.Phone) 
-				    @Html.ValidationMessageFor(model => model.Phone) 
+				    @Html.TextBoxFor(model => model.PrimaryPhone) 
+				    @Html.ValidationMessageFor(model => model.PrimaryPhone) 
 			    </dd>
 			    <dt>@Html.LabelFor(model => model.AddressLine1)</dt>
 			    <dd>

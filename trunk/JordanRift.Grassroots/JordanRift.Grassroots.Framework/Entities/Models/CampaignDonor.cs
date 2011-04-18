@@ -37,6 +37,14 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public DateTime DonationDate { get; set; }
         public bool Approved { get; set; }
         public string ReferenceID { get; set; }
+
+        public CampaignDonor()
+        {
+            if (DonationDate <= new DateTime(1900, 1, 1))
+            {
+                DonationDate = DateTime.Now;
+            }
+        }
 	}
 
     public class CampaignDonorConfiguration : EntityTypeConfiguration<CampaignDonor>

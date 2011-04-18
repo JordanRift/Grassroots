@@ -32,7 +32,7 @@ namespace JordanRift.Grassroots.Framework.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Phone { get; set; }
+        public string PrimaryPhone { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public string City { get; set; }
@@ -100,10 +100,8 @@ namespace JordanRift.Grassroots.Framework.Entities
 
         public override string ToString()
         {
-            return string.Format("{0} donation from {1} {2} of {3}, Email: {4}, Phone: {5}, Address: {6} {7}, {8} {9}, Notes: {10}",
-                    "One Time", FirstName, LastName,
-                    Amount, Email, Phone, AddressLine1, City, State,
-                    ZipCode, Notes);
+            return string.Format("Donation from {0} {1} of {2}, Email: {3}, Phone: {4}, Address: {5} {6}, {7} {8}",
+                    FirstName, LastName, Amount, Email, PrimaryPhone, AddressLine1, City, State, ZipCode);
         }
     }
 }
