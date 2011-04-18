@@ -33,6 +33,8 @@ namespace JordanRift.Grassroots
                 new { controller = "Campaign", action = "Index", slug = UrlParameter.Optional }
             );
 
+            RegisterDonateRoutes(routes);
+
             routes.MapRoute(
                 "UserProfile",
                 "UserProfile/{id}",
@@ -80,6 +82,27 @@ namespace JordanRift.Grassroots
             kernel.Bind<ICampaignMailer>().To<CampaignMailer>();
             kernel.Bind<IDonateMailer>().To<DonateMailer>();
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+        }
+
+        private static void RegisterDonateRoutes(RouteCollection routes)
+        {
+            routes.MapRoute(
+                "ProcessDonation",
+                "Donate/ProcessDonation",
+                new { controller = "Donate", action = "ProcessDonation" }
+            );
+
+            routes.MapRoute(
+                "DonationThankYou",
+                "Donate/ThankYou",
+                new { controller = "Donate", action = "ThankYou" }
+            );
+
+            routes.MapRoute(
+                "Donate",
+                "Donate/{slug}",
+                new { controller = "Donate", action = "Index", slug = UrlParameter.Optional }
+            );
         }
     }
 }
