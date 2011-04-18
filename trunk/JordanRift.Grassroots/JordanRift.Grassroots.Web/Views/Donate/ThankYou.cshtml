@@ -1,4 +1,5 @@
 ﻿@model JordanRift.Grassroots.Web.Models.DonationDetailsModel
+@{
     //
     // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
     //
@@ -10,5 +11,22 @@
     ViewBag.Title = "ThankYou";
 }
 
-<h2>ThankYou</h2>
+<hgroup>
+    <h1>@Model.FirstName, thank you so much!</h1>
+    <h3>Seriously, we &hearts; you! We couldn't do what we do without your generosity!</h3>
+</hgroup>
+<p>You'll be receiving an email receipt shortly. You can either print this page or keep a copy of the email for your recepit. 100% of this donation is tax deductible.</p>
+<!-- TODO: Add more specifics of donation in receipt form -->
+<dl>
+    <dt>Date:</dt>
+    <dd>@Model.DonationDate</dd>
+    <dt>Amount:</dt>
+    <dd>@Model.Amount</dd>
+</dl>
 
+<dl>
+    <dt>Name:</dt>
+    <dd>@Model.FirstName @Model.LastName</dd>
+</dl>
+
+<!-- TODO: Add social network widgets to this page... Like button, tweet button, etc -->
