@@ -93,10 +93,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                         return RedirectToAction("Index", "Campaign", new { slug = urlSlug });
                     }
 
-                    paymentProviderFactory.ApiUrl = Organization.PaymentGatewayApiUrl;
-                    paymentProviderFactory.ApiKey = Organization.PaymentGatewayApiKey;
-                    paymentProviderFactory.ApiSecret = Organization.PaymentGatewayApiSecret;
-                    var provider = paymentProviderFactory.GetPaymentProvider(Organization.PaymentGateway);
+                    var provider = GetPaymentProvider();
                     var result = provider.Process(model);
 
                     if (result.ResponseCode == PaymentResponseCode.Approved)
@@ -110,16 +107,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                         campaign.CampaignDonors.Add(donation);
                         campaignRepository.Save();
-
-                        // Send receipt of payment to user
-                        donateMailer.UserDonation(model).SendAsync();
-
-                        // Send notification to campaign owner
-                        var mailerModel = Mapper.Map<CampaignDonor, DonationDetailsModel>(donation);
-                        mailerModel.Title = campaign.Title;
-                        mailerModel.Email = campaign.UserProfile.Email;
-                        donateMailer.CampaignDonation(mailerModel).SendAsync();
-
+                        SendNotifications(model, campaign, donation);
                         TempData["Donation"] = donation;
                         return RedirectToAction("ThankYou");
                     }
@@ -172,6 +160,26 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 
             return donation;
+        }
+
+        private IPaymentProvider GetPaymentProvider()
+        {
+            paymentProviderFactory.ApiUrl = Organization.PaymentGatewayApiUrl;
+            paymentProviderFactory.ApiKey = Organization.PaymentGatewayApiKey;
+            paymentProviderFactory.ApiSecret = Organization.PaymentGatewayApiSecret;
+            return paymentProviderFactory.GetPaymentProvider(Organization.PaymentGateway);
+        }
+
+        private void SendNotifications(Payment model, Campaign campaign, CampaignDonor donation)
+        {
+            // Send receipt of payment to user
+            donateMailer.UserDonation(model).SendAsync();
+
+            // Send notification to campaign owner
+            var mailerModel = Mapper.Map<CampaignDonor, DonationDetailsModel>(donation);
+            mailerModel.Title = campaign.Title;
+            mailerModel.Email = campaign.UserProfile.Email;
+            donateMailer.CampaignDonation(mailerModel).SendAsync();
         }
     }
 }
