@@ -10,6 +10,9 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
+/// <summary>
+/// Client implementations of validation for custom data annotation attributes
+/// </summary>
 (function ($) {
     /// <summary>
     /// Adding custom client validation logic for [GreaterThanDate] attribute on the server.

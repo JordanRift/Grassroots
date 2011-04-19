@@ -23,8 +23,8 @@
             @Model.Summary
         </div>
         <div class="social">
-            <fb:like layout="button_count" show_faces="false" width="110" font="arial"></fb:like>
-            <!-- TODO: Tweet button -->
+            @Html.Partial("FacebookLikeButton")
+            @Html.Partial("TweetButton")
         </div>
     </section>
     <section class="feeds">
