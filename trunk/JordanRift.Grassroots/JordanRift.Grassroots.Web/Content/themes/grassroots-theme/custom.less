@@ -1,0 +1,27 @@
+﻿.button-style {
+	cursor: pointer;
+    display: inline-block;
+    margin-right: 0.1em;
+    overflow: visible;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none !important;
+	padding: 0.4em 1em !important;
+	color: #354242 !important;
+	background: url("images/ui-bg_highlight-hard_75_cbe86b_1x100.png") repeat-x scroll 50% 50% #CBE86B;
+	border: 1px solid #B6D060;
+}
+
+.button-active {
+	background: url("images/ui-bg_inset-soft_75_ffff9d_1x100.png") repeat-x scroll 50% 50% #FFFF9D;
+	border: 1px solid #E8E888
+}
+
+a.ui-button {
+	.button-style;
+}
+
+a.ui-button:hover {
+	.button-active;	
+}

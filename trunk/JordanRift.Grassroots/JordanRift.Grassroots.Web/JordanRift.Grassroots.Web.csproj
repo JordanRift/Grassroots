@@ -139,7 +139,6 @@
     <Content Include="Content\jquery.wijmo-open.1.1.5.css" />
     <Content Include="Scripts\grassroots.core.js" />
     <Content Include="Scripts\jquery.wijmo-open.1.1.5.min.js" />
-    <Content Include="Content\themes\grassroots-theme\custom.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\themes\grassroots-theme\images\ui-bg_diagonals-thick_30_495a5a_40x40.png" />
     <Content Include="Content\themes\grassroots-theme\images\ui-bg_flat_0_354242_40x100.png" />
@@ -343,6 +342,7 @@
     <Content Include="Views\Home\BlogRssFeed.cshtml" />
     <Content Include="Views\Shared\TweetButton.cshtml" />
     <Content Include="Views\Shared\FacebookLikeButton.cshtml" />
+    <None Include="Content\themes\grassroots-theme\custom.less" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

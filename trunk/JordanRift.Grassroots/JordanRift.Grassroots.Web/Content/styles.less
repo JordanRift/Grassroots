@@ -6,20 +6,8 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
-.two-col
-{
-	width: 480px;
-	float: left;
-	display: block;
-	position: relative;
-}
+/// Variables, Mix-Ins, etc ///
 
-.column
-{
-	.two-col;
-}
-
-// Mix-In example
 .header-style
 {
 	color: #23c3ea;
@@ -28,7 +16,7 @@
 	font-size: 40px !important;
 }
 
-#header h1
+header h1
 {
 	.header-style;
 }
