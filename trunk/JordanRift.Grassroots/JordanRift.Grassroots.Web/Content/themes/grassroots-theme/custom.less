@@ -1,4 +1,12 @@
-﻿.button-style {
+﻿//
+// Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
+//
+// THIS WORK IS LICENSED UNDER A CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-
+// SHAREALIKE 3.0 UNPORTED LICENSE:
+// http://creativecommons.org/licenses/by-nc-sa/3.0/
+//
+
+.button-style {
 	cursor: pointer;
     display: inline-block;
     margin-right: 0.1em;
@@ -18,6 +26,108 @@
 	border: 1px solid #E8E888
 }
 
+.header-style {
+	color: #23c3ea;
+	font-weight: bold;
+	font-family: Rockwell, Helvetica, Arial;
+	font-size: 40px !important;
+}
+
+.light-green {
+	color: #cbe86b;
+}
+
+.hilight {
+	color: #ffff9d;
+}
+
+.nav-style {
+	.hilight;
+	font-weight: bold;
+	font-size: 16px;
+	text-decoration: none;
+}
+
+body {
+	background: #000000 url("images/gradient-top.jpg") repeat-x;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+fieldset {
+    margin: 1em 0;
+    padding: 1em;
+    border: 1px solid #CCC;
+}
+
+header {
+	width: 980px;
+	height: 167px;
+	margin: 0px 0px -20px 10px;
+	display: block;
+	position: relative;
+	background: url("images/banner-top.png") no-repeat;
+	background-position: center bottom;
+	color: #cbe86b;
+}
+
+	header h1 {
+		width: 490px;
+		height: 103px;
+		text-indent: -2000px;
+		overflow: hidden;
+		display: block;
+		background: url("images/logo.png") no-repeat;
+	}
+
+	header h2 {
+		font-size: 25px;
+		margin: 10px 0px 0px 28px;
+	}
+
+	header section.user-info {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		font-size: 14px;
+		.light-green;
+	}
+
+		.user-info a {
+			.hilight;
+			text-decoration: none;
+		}
+
+	header nav {
+		position: absolute;
+		right: 15px;
+		top: 89px;
+	}
+		
+		#menu li {
+			display: inline;
+			padding: 0px 5px;
+		}
+
+			#menu li a {
+				.nav-style;
+			}
+
+#main h1 {
+	.header-style;
+}
+
+form > div
+{
+	clear: both;
+	float: none;
+	padding: 20px;
+}
+
+	form > div > input,
+	form > div > button {
+		margin: 10px;
+	}
+
 a.ui-button {
 	.button-style;
 }
@@ -25,3 +135,4 @@ a.ui-button {
 a.ui-button:hover {
 	.button-active;	
 }
+

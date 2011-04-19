@@ -8,15 +8,32 @@
 
 /// Variables, Mix-Ins, etc ///
 
-.header-style
-{
-	color: #23c3ea;
-	font-weight: bold;
-	font-family: Rockwell, Helvetica, Arial;
-	font-size: 40px !important;
+.two-column {
+	display: block;
+	float: left;
+	width: 400px;
+	padding: 10px 15px;
+	margin: 0px 10px;
 }
 
-header h1
-{
-	.header-style;
+.column {
+	.two-column;
 }
+
+.page {
+	width: 980px;
+	margin: 0px auto;
+}
+
+	#main {
+		width: 904px;
+		margin: 0px 20px;
+		background: #f1f1f1;
+		padding: 20px 28px;
+	}
+
+		header h1 a {
+			display: block;
+			height: 100%;
+			width: 100%;
+		}

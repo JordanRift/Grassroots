@@ -137,6 +137,10 @@
   <ItemGroup>
     <Content Include="Content\images\tweet-button.png" />
     <Content Include="Content\jquery.wijmo-open.1.1.5.css" />
+    <Content Include="Content\themes\grassroots-theme\images\banner-top.png" />
+    <Content Include="Content\themes\grassroots-theme\images\footer-bg.png" />
+    <Content Include="Content\themes\grassroots-theme\images\gradient-top.jpg" />
+    <Content Include="Content\themes\grassroots-theme\images\logo.png" />
     <Content Include="Scripts\grassroots.core.js" />
     <Content Include="Scripts\jquery.wijmo-open.1.1.5.min.js" />
     <Content Include="Content\reset.css" />
