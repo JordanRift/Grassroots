@@ -84,6 +84,15 @@
                     @Html.TextAreaFor(m => m.VideoEmbedHtml)
                     @Html.ValidationMessageFor(m => m.VideoEmbedHtml, null, new { @class = "ui-state-error ui-corner-all" })
                 </dd>
+                <dt>@Html.LabelFor(m => m.ThemeName)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.ThemeName)
+                    @Html.ValidationMessageFor(m => m.ThemeName)
+                </dd>
+                <dt>@Html.LabelFor(m => m.Summary)</dt>
+                <dd>@Html.TextAreaFor(m => m.Summary)</dd>
+                <dt>@Html.LabelFor(m => m.DescriptionHtml)</dt>
+                <dd>@Html.TextAreaFor(m => m.DescriptionHtml)</dd>
             </dl>
         </fieldset>
         <div>

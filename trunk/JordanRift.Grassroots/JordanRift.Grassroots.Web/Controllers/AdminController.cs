@@ -75,6 +75,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 			organization.Name = model.Name;
 			organization.ContactEmail = model.ContactEmail;
 			organization.ContactPhone = model.ContactPhone;
+		    organization.Summary = model.Summary;
+		    organization.DescriptionHtml = model.DescriptionHtml;
 		    organization.PaymentGatewayApiUrl = model.PaymentGatewayApiUrl ?? "";
 			organization.PaymentGatewayApiKey = model.PaymentGatewayApiKey ?? "";
 			organization.PaymentGatewayApiSecret = model.PaymentGatewayApiSecret ?? "";
@@ -82,6 +84,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		    organization.FacebookPageUrl = model.FacebookPageUrl;
 			organization.TwitterName = model.TwitterName;
 			organization.VideoEmbedHtml = model.VideoEmbedHtml;
+		    organization.ThemeName = model.ThemeName;
 		}
 	}
 }

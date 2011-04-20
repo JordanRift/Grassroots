@@ -22,7 +22,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public int OrganizationID { get; set; }
         public string Name { get; set; }
         public string Summary { get; set; }
-        public string Description { get; set; }
+        public string DescriptionHtml { get; set; }
         public string ContactPhone { get; set; }
         public string ContactEmail { get; set; }
         public int PaymentGatewayType { get; set; }
@@ -34,6 +34,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public string VideoEmbedHtml { get; set; }
         public string TwitterName { get; set; }
         public string BlogRssUrl { get; set; }
+        public string ThemeName { get; set; }
 
         public virtual ICollection<OrganizationSetting> OrganizationSettings { get; set; }
         public virtual ICollection<CauseTemplate> CauseTemplates { get; set; }
@@ -47,6 +48,14 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         {
             get { return  (PaymentGatewayType) PaymentGatewayType; }
             set { PaymentGatewayType = (int) value; }
+        }
+
+        public Organization()
+        {
+            if (string.IsNullOrEmpty(ThemeName))
+            {
+                ThemeName = "grassroots-theme";
+            }
         }
 
         public OrganizationSetting GetSetting(string key)

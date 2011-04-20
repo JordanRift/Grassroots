@@ -20,6 +20,13 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
             ErrorMessage = "Please enter a valid Contact Phone Number.")]
         string ContactPhone { get; set; }
 
+        [MaxLength]
+        string Summary { get; set; }
+
+        [AllowHtml]
+        [MaxLength]
+        string DescriptionHtml { get; set; }
+
         // NOTE: We used this one on One Mission. Not sure if it's more strict/accurate... just adding it for reference
         // @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
         [RegularExpression(@"^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$",
@@ -27,7 +34,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
         string ContactEmail { get; set; }
 
         [AllowHtml]
-        [StringLength(5000)]
+        [StringLength(1000)]
         string VideoEmbedHtml { get; set; }
     }
 }
