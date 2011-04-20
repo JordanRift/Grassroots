@@ -323,7 +323,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\styles.less" />
-    <Content Include="Views\Shared\CustomScripts.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordSuccess.cshtml" />
     <Content Include="Views\Donate\Index.cshtml" />
@@ -347,6 +346,7 @@
     <Content Include="Views\Shared\TweetButton.cshtml" />
     <Content Include="Views\Shared\FacebookLikeButton.cshtml" />
     <None Include="Content\themes\grassroots-theme\custom.less" />
+    <Content Include="Views\Shared\ThemeCss.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

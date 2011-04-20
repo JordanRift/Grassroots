@@ -1,17 +1,15 @@
 ﻿<!DOCTYPE html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraph.org/schema/">
     <head>
-        <meta charset="utf-8" />
         <title>@ViewBag.Title</title>
+        <meta charset="utf-8" />
         <link href="@Url.Content("~/Content/reset.css")" rel="stylesheet" type="text/css" />
         <link href="@Url.Content("~/Content/styles.css")" rel="stylesheet" type="text/css" />
-        <link href="@Url.Content("~/Content/themes/grassroots-theme/jquery-ui-1.8.11.custom.css")" rel="stylesheet" type="text/css" />
-        <link href="@Url.Content("~/Content/themes/grassroots-theme/custom.css")" rel="Stylesheet" type="text/css" />
+        @Html.Action("ThemeCss", new { controller = "Home" })
         <script src="@Url.Content("~/scripts/html5.js")" type="text/javascript"></script>
         <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
         <script src="@Url.Content("~/scripts/grassroots.core.js")" type="text/javascript"></script>
         @RenderSection("DocumentHead", required: false)
-        @Html.Partial("CustomScripts")
     </head>
     <body>
         <div class="page">

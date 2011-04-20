@@ -30,27 +30,25 @@
             <legend>... Or do it the old-fashioned way.</legend>
                 @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
                 <div>
-                    <fieldset>
-                        <dl>
-                            <dt>@Html.LabelFor(m => m.Email)</dt>
-                            <dd>
-                                @Html.TextBoxFor(m => m.Email)
-                                @Html.ValidationMessageFor(m => m.Email, null, new { @class = "ui-state-error ui-corner-all" })
-                            </dd>
-                            <dt>@Html.LabelFor(m => m.Password)</dt>
-                            <dd>
-                                @Html.PasswordFor(m => m.Password)
-                                @Html.ValidationMessageFor(m => m.Password, null, new { @class = "ui-state-error ui-corner-all" })
-                            </dd>
-                        </dl>
+                    <dl>
+                        <dt>@Html.LabelFor(m => m.Email)</dt>
+                        <dd>
+                            @Html.TextBoxFor(m => m.Email)
+                            @Html.ValidationMessageFor(m => m.Email, null, new { @class = "ui-state-error ui-corner-all" })
+                        </dd>
+                        <dt>@Html.LabelFor(m => m.Password)</dt>
+                        <dd>
+                            @Html.PasswordFor(m => m.Password)
+                            @Html.ValidationMessageFor(m => m.Password, null, new { @class = "ui-state-error ui-corner-all" })
+                        </dd>
+                    </dl>
                 
-                        <div class="check-box">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
+                    <div class="check-box">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Html.LabelFor(m => m.RememberMe)
+                    </div>
                 
-                        @Html.UiSubmit("Log On")
-                    </fieldset>
+                    @Html.UiSubmit("Log On")
                 </div>
         </fieldset>
     }

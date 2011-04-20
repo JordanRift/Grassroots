@@ -1,0 +1,10 @@
+﻿@model JordanRift.Grassroots.Web.Models.OrganizationDetailsModel
+@{
+    Layout = null;
+
+    var uiUrl = string.Format("~/Content/themes/{0}/jquery-ui-1.8.11.custom.css", Model.ThemeName);
+    var customUrl = string.Format("~/Content/themes/{0}/custom.css", Model.ThemeName);
+}
+
+        <link href="@Url.Content(uiUrl)" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content(customUrl)" rel="Stylesheet" type="text/css" />

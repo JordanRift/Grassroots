@@ -54,5 +54,13 @@ namespace JordanRift.Grassroots.Web.Controllers
             var blogUrl = Organization.BlogRssUrl;
             return View();
         }
+
+        [ChildActionOnly]
+        [OutputCache(Duration = 10, VaryByParam = "none")]
+        public ActionResult ThemeCss()
+        {
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(Organization);
+            return View(model);
+        }
     }
 }
