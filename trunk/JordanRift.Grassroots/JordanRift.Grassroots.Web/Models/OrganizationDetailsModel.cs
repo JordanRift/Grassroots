@@ -24,7 +24,9 @@ namespace JordanRift.Grassroots.Web.Models
 		public string Name { get; set; }
 
         public string Summary { get; set; }
-        public string Description { get; set; }
+
+        [AllowHtml]
+        public string DescriptionHtml { get; set; }
 
 		[Required]
 		[RegularExpression( @"^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$",
@@ -67,5 +69,9 @@ namespace JordanRift.Grassroots.Web.Models
 
         [DisplayName("Blog RSS Feed URL")]
         public string BlogRssUrl { get; set; }
+
+        [Required]
+        [DisplayName("Theme Name")]
+        public string ThemeName { get; set; }
 	}
 }
