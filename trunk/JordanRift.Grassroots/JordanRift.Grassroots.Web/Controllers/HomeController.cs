@@ -6,6 +6,7 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -19,6 +20,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         public HomeController()
         {
             Mapper.CreateMap<Organization, OrganizationDetailsModel>();
+            Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
         }
 
         public ActionResult Index()
@@ -32,8 +34,15 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View();
         }
 
+        public ActionResult Projects()
+        {
+            var templates = Organization.CauseTemplates;
+            var model = templates.Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
+            return View(model);
+        }
+
         [ChildActionOnly]
-        [OutputCache(Duration = 30, VaryByParam = "*")]
+        [OutputCache(Duration = 120, VaryByParam = "none")]
         public ActionResult ProgressBar()
         {
             var total = Organization.CalculateTotalDonations();
