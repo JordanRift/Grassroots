@@ -150,10 +150,25 @@ header {
 		width: 602px;
 		float: left;
 		margin: 30px 0px;
+		position: relative;
 	}
 
 		#progressbar {
 			margin-top: 5px;
+		}
+
+		.progress-indicator {
+			position: absolute;
+			border-left: 1px solid #495a5a;
+			height: 15px;
+			margin-left: 1px;
+			padding: 35px 0px 0px 5px;
+			top: 30px;
+			opacity: 0;
+		}
+
+		.ui-progressbar-value {
+			display: none;
 		}
 
 	#main > .dashboard > .donate {

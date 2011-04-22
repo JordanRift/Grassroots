@@ -3,9 +3,22 @@
     Layout = null;
 }
 
+<script type="text/javascript">
+    $(function () {
+        setTimeout("animateProgressbar();", 1500);
+    });
+
+    function animateProgressbar() {
+        var $progressbar = $(".ui-progressbar-value");
+        var px = $progressbar.outerWidth();
+        $progressbar.css("width", "0px").show().animate({ width: '+=' + px + 'px' }, 2000);
+        $(".progress-indicator").animate({ left: '+=' + px + 'px', opacity: 1 }, 2000);
+    }
+</script>
 <div id="progress">
     <h3><span class="label">YTD Total:</span> @Model.Amount.ToString("C")</h3>
     <div id="progressbar" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100">
         <div class="ui-progressbar-value ui-widget-header ui-corner-left" style="width: @Model.Percent%;"></div>
     </div>
+    <div class="progress-indicator">@Model.Percent%</div>
 </div>
