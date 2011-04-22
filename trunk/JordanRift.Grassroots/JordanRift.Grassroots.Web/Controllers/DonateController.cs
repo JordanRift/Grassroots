@@ -105,6 +105,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                             campaign.CampaignDonors = new List<CampaignDonor>();
                         }
 
+                        donation.Approved = true;
                         campaign.CampaignDonors.Add(donation);
                         campaignRepository.Save();
                         SendNotifications(model, campaign, donation);

@@ -6,6 +6,7 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Entities.Models;
@@ -35,8 +36,15 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 30, VaryByParam = "*")]
         public ActionResult ProgressBar()
         {
-            var percent = 90;
-            return View("ProgressBar", percent);
+            var total = Organization.CalculateTotalDonations();
+            var percent = (int) ((total / Organization.YtdGoal) * 100);
+            var model = new ProgressBarModel
+                            {
+                                Amount = total,
+                                Percent = percent
+                            };
+
+            return View("ProgressBar", model);
         }
 
         [ChildActionOnly]

@@ -1,5 +1,11 @@
-﻿@model int
+﻿@model JordanRift.Grassroots.Web.Models.ProgressBarModel
 @{
     Layout = null;
 }
-<!-- TODO: Render out progress bar based on value of model -->
+
+<div id="progress">
+    <h3>YTD Total: @Model.Amount</h3>
+    <div id="progressbar" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+        <div class="ui-progressbar-value ui-widget-header ui-corner-left" style="width: @Model.Percent%;"></div>
+    </div>
+</div>
