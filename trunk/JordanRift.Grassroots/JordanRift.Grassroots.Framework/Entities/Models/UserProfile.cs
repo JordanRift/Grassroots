@@ -18,7 +18,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 {
 	[MetadataType(typeof(IUserProfileValidation))]
     [Table("gr_UserProfile")]
-    public class UserProfile : IUserProfileValidation, IValidatableObject
+    public class UserProfile : IUserProfileValidation, IValidatableObject, ICanCalculate
 	{
         [Key]
         public int UserProfileID { get; set; }
@@ -59,6 +59,20 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public IEnumerable<Campaign> GetActiveCampaigns()
         {
             return Campaigns == null ? new List<Campaign>() : Campaigns.Where(c => c.IsActive);
+        }
+
+        public decimal CalculateTotalDonations()
+        {
+            var total = 0m;
+
+            if (Campaigns != null)
+            {
+                total = Campaigns.Sum(campaign => (from c in campaign.CampaignDonors
+                                                   where c.Approved
+                                                   select c.Amount).Sum());
+            }
+
+            return total;
         }
 
 	    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

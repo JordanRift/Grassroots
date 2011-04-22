@@ -76,6 +76,7 @@
     <Compile Include="Data\UserProfileRepository.cs" />
     <Compile Include="Data\UserRepository.cs" />
     <Compile Include="Entities\AuthorizePaymentProvider.cs" />
+    <Compile Include="Entities\ICanCalculate.cs" />
     <Compile Include="Entities\IPaymentProviderFactory.cs" />
     <Compile Include="Entities\Validation\NotEqualToAttribute.cs" />
     <Compile Include="Helpers\RepositoryFactory.cs" />

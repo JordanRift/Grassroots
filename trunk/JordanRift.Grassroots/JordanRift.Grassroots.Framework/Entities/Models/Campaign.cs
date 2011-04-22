@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.ModelConfiguration;
+using System.Linq;
 using JordanRift.Grassroots.Framework.Entities.Validation;
 using JordanRift.Grassroots.Framework.Services;
 
@@ -17,7 +18,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [MetadataType(typeof(ICampaignValidation))]
     [Table("gr_Campaign")]
-    public class Campaign : ICampaignValidation, IValidatableObject
+    public class Campaign : ICampaignValidation, IValidatableObject, ICanCalculate
     {
         [Key]
         public int CampaignID { get; set; }
@@ -74,6 +75,20 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
                 EndDate = DateTime.Now.AddDays(CauseTemplate.DefaultTimespanInDays);
                 GoalAmount = CauseTemplate.DefaultAmount;
             }
+        }
+
+        public decimal CalculateTotalDonations()
+        {
+            var total = 0m;
+
+            if (CampaignDonors != null)
+            {
+                total = (from c in CampaignDonors
+                         where c.Approved
+                         select c.Amount).Sum();
+            }
+
+            return total;
         }
 
         /// <summary>

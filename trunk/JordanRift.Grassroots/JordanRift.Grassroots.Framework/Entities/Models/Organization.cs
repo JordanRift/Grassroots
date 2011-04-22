@@ -17,7 +17,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [MetadataType(typeof(IOrganizationValidation))]
     [Table("gr_Organization")]
-    public class Organization : IOrganizationValidation
+    public class Organization : IOrganizationValidation, ICanCalculate
     {
         [Key]
         public int OrganizationID { get; set; }
@@ -71,8 +71,9 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
             if (Campaigns != null)
             {
+                var newYear = new DateTime(DateTime.Now.Year, 1, 1);
                 total = Campaigns.Sum(campaign => (from c in campaign.CampaignDonors
-                                                   where c.Approved
+                                                   where c.Approved && (c.DonationDate >= newYear && c.DonationDate <= DateTime.Now)
                                                    select c.Amount).Sum());
             }
 
