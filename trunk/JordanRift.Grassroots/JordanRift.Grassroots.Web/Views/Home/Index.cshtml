@@ -17,16 +17,16 @@
             @Html.ActionLink("Donate Now", "Index", new { controller = "Donate" }, new { title = "Donate", @class = "ui-button ui-corner-all" })
         </aside>
     </section>
-    <section class="social">
+    <section class="info">
         <div class="video">
             @Html.Raw(Model.VideoEmbedHtml)
-        </div>
-        <div class="summary">
-            @Model.Summary
         </div>
         <div class="social">
             @Html.Partial("FacebookLikeButton")
             @Html.Partial("TweetButton")
+        </div>
+        <div class="summary">
+            @Model.Summary
         </div>
     </section>
     <section class="feeds">

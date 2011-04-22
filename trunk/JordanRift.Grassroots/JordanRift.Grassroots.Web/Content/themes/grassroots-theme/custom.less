@@ -56,6 +56,11 @@
 	text-decoration: none;
 }
 
+.transparent {
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
 body {
 	background: #000000 url("images/gradient-top.jpg") repeat-x;
 	font-family: Helvetica, Arial, sans-serif;
@@ -164,7 +169,7 @@ header {
 			margin-left: 1px;
 			padding: 35px 0px 0px 5px;
 			top: 30px;
-			opacity: 0;
+			.transparent;
 		}
 
 		.ui-progressbar-value {
