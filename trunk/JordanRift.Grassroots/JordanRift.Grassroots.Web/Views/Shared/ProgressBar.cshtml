@@ -4,7 +4,7 @@
 }
 
 <div id="progress">
-    <h3>YTD Total: @Model.Amount</h3>
+    <h3><span class="label">YTD Total:</span> @Model.Amount.ToString("C")</h3>
     <div id="progressbar" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100">
         <div class="ui-progressbar-value ui-widget-header ui-corner-left" style="width: @Model.Percent%;"></div>
     </div>
