@@ -72,6 +72,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
                               Name = "My Organization",
                               ContactPhone = "(480) 321-1234",
                               ContactEmail = "joe@yahoo.com",
+                              YtdGoal = 1000.00m,
                               PaymentGatewayType = (int) PaymentGatewayType.Authorize,
                               PaymentGatewayApiUrl = "http://test.authorize.net",
                               PaymentGatewayApiKey = "12345",

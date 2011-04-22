@@ -40,6 +40,10 @@ namespace JordanRift.Grassroots.Web.Models
 			ErrorMessage = "Please enter a valid email address." )]
 		public string ContactEmail { get; set; }
 
+        [Required]
+        [DisplayName("Year To Date Goal")]
+        public decimal YtdGoal { get; set; }
+
 		[DisplayName( "Organization's Twitter Username" )]
 		public string TwitterName { get; set; }
 

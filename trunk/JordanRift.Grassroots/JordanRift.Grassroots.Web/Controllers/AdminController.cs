@@ -75,6 +75,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			organization.Name = model.Name;
 			organization.ContactEmail = model.ContactEmail;
 			organization.ContactPhone = model.ContactPhone;
+		    organization.YtdGoal = model.YtdGoal;
 		    organization.Summary = model.Summary;
 		    organization.DescriptionHtml = model.DescriptionHtml;
 		    organization.PaymentGatewayApiUrl = model.PaymentGatewayApiUrl ?? "";

@@ -38,6 +38,11 @@
                     @Html.TextBoxFor(m => m.ContactPhone)
                     @Html.ValidationMessageFor(m => m.ContactPhone, null, new { @class = "ui-state-error ui-corner-all" })
                 </dd>
+                <dt>@Html.LabelFor(m => m.YtdGoal)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.YtdGoal)
+                    @Html.ValidationMessageFor(m => m.YtdGoal)
+                </dd>
             </dl>
         </fieldset>
         <fieldset>
