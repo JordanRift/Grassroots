@@ -32,6 +32,7 @@ namespace JordanRift.Grassroots
             );
 
             RegisterDonateRoutes(routes);
+            RegisterHomeRoutes(routes);
 
             routes.MapRoute(
                 "UserProfile",
@@ -100,6 +101,15 @@ namespace JordanRift.Grassroots
                 "Donate",
                 "Donate/{slug}",
                 new { controller = "Donate", action = "Index", slug = UrlParameter.Optional }
+            );
+        }
+
+        private static void RegisterHomeRoutes(RouteCollection routes)
+        {
+            routes.MapRoute(
+                "About",
+                "About",
+                new { controller = "Home", action = "About" }
             );
         }
     }
