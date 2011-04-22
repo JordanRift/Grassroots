@@ -17,10 +17,8 @@ namespace JordanRift.Grassroots
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-#if !DEBUG 
             // Require https globally
             filters.Add(new RequireHttpsAttribute()); 
-#endif
         }
 
         public static void RegisterRoutes(RouteCollection routes)
