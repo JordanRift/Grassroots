@@ -41,14 +41,23 @@
                 <dt>@Html.LabelFor(m => m.YtdGoal)</dt>
                 <dd>
                     @Html.TextBoxFor(m => m.YtdGoal)
-                    @Html.ValidationMessageFor(m => m.YtdGoal)
+                    @Html.ValidationMessageFor(m => m.YtdGoal, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(m => m.FiscalYearStartMonth)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.FiscalYearStartMonth)
+                    @Html.ValidationMessageFor(m => m.FiscalYearStartMonth, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(m => m.FiscalYearStartDay)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.FiscalYearStartDay)
+                    @Html.ValidationMessageFor(m => m.FiscalYearStartDay, null, new { @class = "ui-state-error ui-corner-all" })
                 </dd>
             </dl>
         </fieldset>
         <fieldset>
             <legend>Payment Gateway Settings</legend>
             <dl>
-                <!-- TODO EditorFor -->
                 <dt>@Html.LabelFor(m => m.PaymentGatewayType)</dt>
                 <dd>
                     @Html.EditorFor(m => m.PaymentGatewayType)

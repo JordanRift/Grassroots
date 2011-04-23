@@ -26,7 +26,11 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public string DescriptionHtml { get; set; }
         public string ContactPhone { get; set; }
         public string ContactEmail { get; set; }
+        
         public decimal YtdGoal { get; set; }
+        public int FiscalYearStartMonth { get; set; }
+        public int FiscalYearStartDay { get; set; }
+
         public int PaymentGatewayType { get; set; }
         public string PaymentGatewayApiUrl { get; set; }
         public string PaymentGatewayApiKey { get; set; }
@@ -52,6 +56,12 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
             set { PaymentGatewayType = (int) value; }
         }
 
+        [NotMapped]
+        public DateTime FiscalYearStart
+        {
+            get { return new DateTime(DateTime.Now.Year, FiscalYearStartMonth, FiscalYearStartDay); }
+        }
+
         public Organization()
         {
             if (string.IsNullOrEmpty(ThemeName))
@@ -71,9 +81,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
             if (Campaigns != null)
             {
-                var newYear = new DateTime(DateTime.Now.Year, 1, 1);
                 total = Campaigns.Sum(campaign => (from c in campaign.CampaignDonors
-                                                   where c.Approved && (c.DonationDate >= newYear && c.DonationDate <= DateTime.Now)
+                                                   where c.Approved && (c.DonationDate >= FiscalYearStart && c.DonationDate <= DateTime.Now)
                                                    select c.Amount).Sum());
             }
 

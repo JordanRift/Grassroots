@@ -6,7 +6,6 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Web.Mvc;
@@ -23,9 +22,20 @@ namespace JordanRift.Grassroots.Web.Models
 		[DisplayName( "Organization Name" )]
 		public string Name { get; set; }
 
+        [Required]
+        [Display(Name = "Fiscal Year Start Month")]
+        [Range(1, 12)]
+        public int FiscalYearStartMonth { get; set; }
+
+        [Required]
+        [Display(Name = "Fiscal Year Start Day")]
+        [Range(1, 31)]
+        public int FiscalYearStartDay { get; set; }
+
         public string Summary { get; set; }
 
         [AllowHtml]
+        [Display(Name = "Description (HTML)")]
         public string DescriptionHtml { get; set; }
 
 		[Required]
@@ -42,6 +52,7 @@ namespace JordanRift.Grassroots.Web.Models
 
         [Required]
         [DisplayName("Year To Date Goal")]
+        [DataType(DataType.Currency)]
         public decimal YtdGoal { get; set; }
 
 		[DisplayName( "Organization's Twitter Username" )]

@@ -24,6 +24,14 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
         [Display(Name = "Year to date goal")]
         decimal YtdGoal { get; set; }
 
+        [Required]
+        [Range(1, 12)]
+        int FiscalYearStartMonth { get; set; }
+
+        [Required]
+        [Range(1, 31)]
+        int FiscalYearStartDay { get; set; }
+
         [MaxLength]
         string Summary { get; set; }
 
@@ -31,10 +39,9 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
         [MaxLength]
         string DescriptionHtml { get; set; }
 
-        // NOTE: We used this one on One Mission. Not sure if it's more strict/accurate... just adding it for reference
-        // @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
-        [RegularExpression(@"^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$",
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
             ErrorMessage = "Please enter a valid Contact Email Address.")]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.EmailAddress)]
         string ContactEmail { get; set; }
 
         [AllowHtml]

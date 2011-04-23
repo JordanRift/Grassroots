@@ -76,6 +76,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 			organization.ContactEmail = model.ContactEmail;
 			organization.ContactPhone = model.ContactPhone;
 		    organization.YtdGoal = model.YtdGoal;
+		    organization.FiscalYearStartMonth = model.FiscalYearStartMonth;
+		    organization.FiscalYearStartDay = model.FiscalYearStartDay;
 		    organization.Summary = model.Summary;
 		    organization.DescriptionHtml = model.DescriptionHtml;
 		    organization.PaymentGatewayApiUrl = model.PaymentGatewayApiUrl ?? "";
