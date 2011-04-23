@@ -134,6 +134,8 @@
     <Content Include="Content\themes\grassroots-theme\images\banner-top.png" />
     <Content Include="Content\themes\grassroots-theme\images\footer-bg.png" />
     <Content Include="Content\themes\grassroots-theme\images\gradient-top.jpg" />
+    <Content Include="Content\themes\grassroots-theme\images\heading-bg.png" />
+    <Content Include="Content\themes\grassroots-theme\images\heading-corner.png" />
     <Content Include="Content\themes\grassroots-theme\images\logo.png" />
     <Content Include="Scripts\grassroots.core.js" />
     <Content Include="Scripts\jquery.wijmo-open.1.1.5.min.js" />

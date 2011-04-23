@@ -60,7 +60,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 			if ( ModelState.IsValid )
 			{
-				Map( organization, model );
+				MapOrganization( organization, model );
 				OrganizationRepository.Save();
 				
 				return RedirectToAction( "Index", "Admin" );
@@ -70,7 +70,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			return RedirectToAction( "EditOrganization", "Admin" );
 		}
 
-		private static void Map( Organization organization, OrganizationDetailsModel model )
+		private static void MapOrganization( Organization organization, OrganizationDetailsModel model )
 		{
 			organization.Name = model.Name;
 			organization.ContactEmail = model.ContactEmail;

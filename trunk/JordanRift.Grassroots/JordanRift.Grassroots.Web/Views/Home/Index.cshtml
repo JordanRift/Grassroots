@@ -11,13 +11,13 @@
     ViewBag.Title = Model.Name;
 }
 
-    <section class="dashboard">
+    <div class="dashboard">
         @Html.Action("ProgressBar", new { controller = "Home" })
         <aside class="donate">
             @Html.ActionLink("Donate Now", "Index", new { controller = "Donate" }, new { title = "Donate", @class = "ui-button ui-corner-all" })
         </aside>
-    </section>
-    <section class="info">
+    </div>
+    <div class="info">
         <div class="video">
             @Html.Raw(Model.VideoEmbedHtml)
         </div>
@@ -28,8 +28,8 @@
         <div class="summary">
             @Model.Summary
         </div>
-    </section>
-    <section class="feeds">
+    </div>
+    <div class="feeds">
         @Html.Action("TwitterFeed", new { controller = "Home" })
         @Html.Action("BlogRssFeed", new { controller = "Home" })
-    </section>
+    </div>
