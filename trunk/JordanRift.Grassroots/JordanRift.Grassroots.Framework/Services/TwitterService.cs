@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using JordanRift.Grassroots.Framework.Entities;
@@ -43,7 +44,7 @@ namespace JordanRift.Grassroots.Framework.Services
                                    Message = item.text,
                                    ImageUrl = item.user.profile_image_url,
                                    ScreenName = item.user.screen_name,
-                                   RelativeDate = item.created_at
+                                   RelativeDate = GetRelativeDate(item.created_at.ToString())
                                });
             }
 
@@ -52,9 +53,31 @@ namespace JordanRift.Grassroots.Framework.Services
 
         private static string GetRelativeDate(string jsonDate)
         {
-            // TODO: Parse date returned by Twitter REST API and create a friendly relative date.
             // ex: Mon Apr 25 08:37:12 +0000 2011
-            return jsonDate;
+
+            jsonDate = jsonDate.Replace("\\", "");
+            jsonDate = jsonDate.Replace("\"", "");
+            const string format = "ddd MMM dd HH:mm:ss zzzz yyyy";
+            var date = DateTime.ParseExact(jsonDate, format, CultureInfo.InvariantCulture);
+
+            var timespan = DateTime.Now - date;
+
+            if (timespan <= TimeSpan.FromSeconds(60))
+            {
+                return timespan.Seconds + " seconds";
+            }
+
+            if (timespan <= TimeSpan.FromMinutes(60))
+            {
+                return timespan.Minutes + " minutes";
+            }
+
+            if (timespan <= TimeSpan.FromHours(24))
+            {
+                return timespan.Hours + " hours";
+            }
+
+            return timespan.Days + " days";
         }
     }
 }
