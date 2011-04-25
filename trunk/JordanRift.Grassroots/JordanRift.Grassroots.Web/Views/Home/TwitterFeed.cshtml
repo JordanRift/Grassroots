@@ -1,15 +1,20 @@
 ﻿@model IEnumerable<JordanRift.Grassroots.Framework.Entities.Tweet>
 @{
     Layout = null;
+
+    var screenName = Model.First().ScreenName;
 }
 
-<ul class="tweets">
-@foreach (var tweet in Model) { 
-    <li>
-        <img src="@tweet.ImageUrl" alt="@tweet.ScreenName" height="48" width="48" />
-        <strong>@tweet.ScreenName</strong>
-        <span>@tweet.Message</span>
-        <span class="date">@tweet.RelativeDate</span>
-    </li>
-}
-</ul>
+<div class="tweets column">
+    <h2><a href="http://twitter.com/@screenName" title="Follow @OrganizationName on Twitter" target="_blank">Follow @OrganizationName on Twitter</a></h2>
+    <ul>
+    @foreach (var tweet in Model) { 
+        <li>
+            <img src="@tweet.ImageUrl" alt="@tweet.ScreenName" height="48" width="48" />
+            <strong><a href="http://twitter.com/@tweet.ScreenName" title="@tweet.ScreenName" target="_blank">@tweet.ScreenName</a></strong>
+            <span>@Html.Raw(tweet.Message)</span>
+            <span class="meta">@tweet.RelativeDate</span>
+        </li>
+    }
+    </ul>
+</div>

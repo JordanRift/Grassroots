@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using JordanRift.Grassroots.Framework.Entities;
 using Newtonsoft.Json.Linq;
 
@@ -41,7 +42,7 @@ namespace JordanRift.Grassroots.Framework.Services
             {
                 tweets.Add(new Tweet
                                {
-                                   Message = item.text,
+                                   Message = LinkifyTweet(item.text.ToString()),
                                    ImageUrl = item.user.profile_image_url,
                                    ScreenName = item.user.screen_name,
                                    RelativeDate = GetRelativeDate(item.created_at.ToString())
@@ -78,6 +79,12 @@ namespace JordanRift.Grassroots.Framework.Services
             }
 
             return timespan.Days + " days";
+        }
+
+        private static string LinkifyTweet(string tweet)
+        {
+            // TODO: Inject links into content of tweet for embedded links, usernames and hashtags
+            return tweet;
         }
     }
 }
