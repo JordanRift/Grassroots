@@ -73,6 +73,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		private static void MapOrganization( Organization organization, OrganizationDetailsModel model )
 		{
 			organization.Name = model.Name;
+		    organization.Tagline = model.Tagline;
 			organization.ContactEmail = model.ContactEmail;
 			organization.ContactPhone = model.ContactPhone;
 		    organization.YtdGoal = model.YtdGoal;

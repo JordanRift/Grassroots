@@ -23,6 +23,9 @@ namespace JordanRift.Grassroots.Web.Models
 		public string Name { get; set; }
 
         [Required]
+        public string Tagline { get; set; }
+
+        [Required]
         [Display(Name = "Fiscal Year Start Month")]
         [Range(1, 12)]
         public int FiscalYearStartMonth { get; set; }

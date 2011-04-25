@@ -25,7 +25,7 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
 
         public string OrganizationTagline
         {
-            get { return string.Empty; }
+            get { return organization.Tagline; }
         }
 
         protected GrassrootsWebViewPage()

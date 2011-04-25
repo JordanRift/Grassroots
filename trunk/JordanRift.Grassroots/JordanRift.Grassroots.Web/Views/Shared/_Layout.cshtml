@@ -15,8 +15,8 @@
         <div class="page">
             <header>
                 <hgroup>
-                    <h1><a href="@Url.Action("Index", new { controller = "Home" })" title="Home">Grassroots</a></h1>
-                    <h2>Social giving. Done right.</h2>
+                    <h1><a href="@Url.Action("Index", new { controller = "Home" })" title="@OrganizationName">@OrganizationName</a></h1>
+                    <h2>@OrganizationTagline</h2>
                 </hgroup>
                 <section class="user-info">
                     @Html.Partial("LogOnUserControl")

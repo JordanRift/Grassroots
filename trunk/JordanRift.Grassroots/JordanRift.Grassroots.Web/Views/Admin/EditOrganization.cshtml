@@ -28,6 +28,11 @@
                     @Html.TextBoxFor(m => m.Name)
                     @Html.ValidationMessageFor(m => m.Name, null, new { @class = "ui-state-error ui-corner-all" })
                 </dd>
+                <dt>@Html.LabelFor(m => m.Tagline)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.Tagline)
+                    @Html.ValidationMessageFor(m => m.Tagline)
+                </dd>
                 <dt>@Html.LabelFor(m => m.ContactEmail)</dt>
                 <dd>
                     @Html.TextBoxFor(m => m.ContactEmail)
