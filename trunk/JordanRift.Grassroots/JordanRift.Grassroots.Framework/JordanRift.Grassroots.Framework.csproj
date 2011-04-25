@@ -76,11 +76,14 @@
     <Compile Include="Data\UserProfileRepository.cs" />
     <Compile Include="Data\UserRepository.cs" />
     <Compile Include="Entities\AuthorizePaymentProvider.cs" />
+    <Compile Include="Entities\BlogPost.cs" />
     <Compile Include="Entities\ICanCalculate.cs" />
     <Compile Include="Entities\IPaymentProviderFactory.cs" />
+    <Compile Include="Entities\Tweet.cs" />
     <Compile Include="Entities\Validation\NotEqualToAttribute.cs" />
     <Compile Include="Helpers\RepositoryFactory.cs" />
     <Compile Include="Helpers\SingletonCache.cs" />
+    <Compile Include="Services\BlogService.cs" />
     <Compile Include="Services\CampaignService.cs" />
     <Compile Include="Services\GrassrootsMembershipService.cs" />
     <Compile Include="Entities\Models\Campaign.cs" />
@@ -128,6 +131,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Services\GrassrootsRoleService.cs" />
+    <Compile Include="Services\TwitterService.cs" />
     <Compile Include="Services\UserProfileService.cs" />
   </ItemGroup>
   <ItemGroup>

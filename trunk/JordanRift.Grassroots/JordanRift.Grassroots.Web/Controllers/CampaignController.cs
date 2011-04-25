@@ -159,7 +159,8 @@ namespace JordanRift.Grassroots.Web.Controllers
             var model = new ProgressBarModel
                             {
                                 Amount = total,
-                                Percent = percent
+                                Percent = percent,
+                                GoalName = "Raised so far"
                             };
 
             return View("ProgressBar", model);
