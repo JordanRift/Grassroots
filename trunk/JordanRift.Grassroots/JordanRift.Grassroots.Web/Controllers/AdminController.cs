@@ -87,6 +87,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			organization.PaymentGatewayType = model.PaymentGatewayType;
 		    organization.FacebookPageUrl = model.FacebookPageUrl;
 			organization.TwitterName = model.TwitterName;
+		    organization.BlogRssUrl = model.BlogRssUrl;
 			organization.VideoEmbedHtml = model.VideoEmbedHtml;
 		    organization.ThemeName = model.ThemeName;
 		}

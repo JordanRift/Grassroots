@@ -7,18 +7,44 @@
 //
 
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.Net;
+using System.Xml.Linq;
+using Argotic.Common;
+using Argotic.Syndication;
 using JordanRift.Grassroots.Framework.Entities;
 
 namespace JordanRift.Grassroots.Framework.Services
 {
-    public class BlogService
+    public class BlogService : IBlogService
     {
-        public BlogPost GetLatestPost(string url)
+        public BlogPost GetLatestPost(string feedUrl)
         {
-            return null;
+            var feed = GenericSyndicationFeed.Create(new Uri(feedUrl));
+            var feedPost = feed.Items.First();
+
+            var blogPost = new BlogPost
+                               {
+                                   Title = feedPost.Title,
+                                   PostDate = feedPost.PublishedOn,
+                                   Summary = feedPost.Summary,
+                               };
+
+            if (feed.Format == SyndicationContentFormat.Rss)
+            {
+                var rssFeed = feed.Resource as RssFeed;
+
+                if (rssFeed != null)
+                {
+                    var rsspost = rssFeed.Channel.Items.First();
+                    blogPost.Author = rsspost.Author;
+                    blogPost.Body = rsspost.Description;
+                    blogPost.Url = rsspost.Link.ToString();
+                }
+            }
+
+            return blogPost;
         }
     }
 }

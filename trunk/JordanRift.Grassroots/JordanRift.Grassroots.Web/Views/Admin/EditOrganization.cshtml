@@ -98,6 +98,11 @@
                     @Html.TextBoxFor(m => m.TwitterName)
                     @Html.ValidationMessageFor(m => m.TwitterName, null, new { @class = "ui-state-error ui-corner-all" })
                 </dd>
+                <dt>@Html.LabelFor(m => m.BlogRssUrl)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.BlogRssUrl)
+                    @Html.ValidationMessageFor(m => m.BlogRssUrl)
+                </dd>
                 <dt>@Html.LabelFor(m => m.VideoEmbedHtml)</dt>
                 <dd>
                     @Html.TextAreaFor(m => m.VideoEmbedHtml)

@@ -2,3 +2,10 @@
 @{
     Layout = null;
 }
+
+<div class="blog-post">
+    <h2><a href="@Model.Url" title="@Model.Title" target="_blank">@Model.Title</a></h2>
+    <span class="meta">@Model.Author @Model.PostDate</span>
+    @Html.Raw(Model.Summary)
+    <a href="@Model.Url" title="Read more..." target="_blank">Read more...</a>
+</div>
