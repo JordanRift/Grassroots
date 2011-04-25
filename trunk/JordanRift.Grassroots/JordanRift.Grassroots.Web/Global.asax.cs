@@ -80,6 +80,7 @@ namespace JordanRift.Grassroots
             kernel.Bind<IAccountMailer>().To<AccountMailer>();
             kernel.Bind<ICampaignMailer>().To<CampaignMailer>();
             kernel.Bind<IDonateMailer>().To<DonateMailer>();
+            kernel.Bind<IUserProfileMailer>().To<UserProfileMailer>();
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
 

@@ -2,3 +2,14 @@
 @{
     Layout = null;
 }
+
+<ul class="tweets">
+@foreach (var tweet in Model) { 
+    <li>
+        <img src="@tweet.ImageUrl" alt="@tweet.ScreenName" height="48" width="48" />
+        <strong>@tweet.ScreenName</strong>
+        <span>@tweet.Message</span>
+        <span class="date">@tweet.RelativeDate</span>
+    </li>
+}
+</ul>

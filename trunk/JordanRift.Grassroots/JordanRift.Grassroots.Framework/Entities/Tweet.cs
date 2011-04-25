@@ -6,14 +6,13 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace JordanRift.Grassroots.Framework.Entities
 {
     public class Tweet
     {
+        public string ScreenName { get; set; }
+        public string Message { get; set; }
+        public string RelativeDate { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
