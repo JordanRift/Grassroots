@@ -80,6 +80,7 @@
     <Compile Include="Entities\IPaymentProviderFactory.cs" />
     <Compile Include="Entities\Validation\NotEqualToAttribute.cs" />
     <Compile Include="Helpers\RepositoryFactory.cs" />
+    <Compile Include="Helpers\SingletonCace.cs" />
     <Compile Include="Services\CampaignService.cs" />
     <Compile Include="Services\GrassrootsMembershipService.cs" />
     <Compile Include="Entities\Models\Campaign.cs" />
