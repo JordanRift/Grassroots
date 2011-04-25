@@ -31,7 +31,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         public ActionResult About()
         {
-            return View();
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(Organization);
+            return View(model);
         }
 
         public ActionResult Projects()

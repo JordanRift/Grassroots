@@ -1,4 +1,5 @@
-﻿@{
+﻿@model JordanRift.Grassroots.Web.Models.OrganizationDetailsModel
+@{
     //
     // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
     //
@@ -10,7 +11,7 @@
     ViewBag.Title = "About Us";
 }
 
-    <h2>About</h2>
-    <p>
-        Put content here.
-    </p>
+<hgroup>
+    <h1>About @OrganizationName</h1>
+</hgroup>
+@Html.Raw(Model.DescriptionHtml)
