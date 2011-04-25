@@ -57,7 +57,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 30, VaryByParam = "*")]
+        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult TwitterFeed()
         {
             var twitterName = Organization.TwitterName;
@@ -65,7 +65,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 30, VaryByParam = "*")]
+        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult BlogRssFeed()
         {
             var blogUrl = Organization.BlogRssUrl;
