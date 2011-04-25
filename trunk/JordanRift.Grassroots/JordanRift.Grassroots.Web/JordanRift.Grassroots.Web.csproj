@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\NinjectDependencyResolver.cs" />
+    <Compile Include="Helpers\UI\GrassrootsWebViewPage.cs" />
     <Compile Include="Mailers\AccountMailer.cs" />
     <Compile Include="Mailers\CampaignMailer.cs" />
     <Compile Include="Mailers\DonateMailer.cs" />

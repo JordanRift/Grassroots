@@ -26,14 +26,16 @@
 @{ 
 	var campaign = ViewBag.Campaign as Campaign;
 	var urlSlug = campaign != null ? campaign.UrlSlug : string.Empty;
+    var title = campaign != null ? campaign.Title : "our general fund";
 }
 
 <hgroup>
     <h1>Make a Donation</h1>
-    @if (campaign != null) { 
-    <h3>@campaign.Title</h3>
-    }
+    <h3>This donation will be applied toward @title.</h3>
 </hgroup>
+ 
+ <!-- TODO: Consider adding progress bar here... -->
+
 <div class="donate-form">
 	@using (Html.BeginForm("ProcessDonation", "Donate", new { Area = "", slug = urlSlug })) {
 		@Html.ValidationSummary()
