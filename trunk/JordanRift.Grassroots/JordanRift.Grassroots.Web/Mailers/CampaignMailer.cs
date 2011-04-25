@@ -17,7 +17,7 @@ namespace JordanRift.Grassroots.Web.Mailers
 	{
 		public CampaignMailer()
 		{
-			MasterName="_Layout";
+            MasterName = "_EmailLayout";
 		}
 
 		public MailMessage CampaignEmailBlast(CampaignEmailBlastModel model)

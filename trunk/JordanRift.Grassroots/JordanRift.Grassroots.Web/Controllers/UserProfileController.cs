@@ -12,17 +12,21 @@ using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
+using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
+using Mvc.Mailer;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
     public class UserProfileController : GrassrootsControllerBase
     {
         private readonly IUserProfileRepository repository;
+        private readonly IUserProfileMailer mailer;
 
-        public UserProfileController(IUserProfileRepository repository)
+        public UserProfileController(IUserProfileRepository repository, IUserProfileMailer mailer)
         {
             this.repository = repository;
+            this.mailer = mailer;
             Mapper.CreateMap<UserProfile, UserProfileDetailsModel>();
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
         }
@@ -111,7 +115,8 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 
             repository.Save();
-            // TODO: Send notification to user regarding tax info retention, account re-activation, etc
+            var mailerModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
+            mailer.TaxInfo(mailerModel).SendAsync();
             return RedirectToAction("LogOff", "Account");
         }
 
@@ -134,7 +139,8 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 
             repository.Save();
-            // TODO: Send notification to user regarding tax info retention, account re-activation, etc
+            var mailerModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
+            mailer.TaxInfo(mailerModel).SendAsync();
             return RedirectToAction("Index");
         }
 

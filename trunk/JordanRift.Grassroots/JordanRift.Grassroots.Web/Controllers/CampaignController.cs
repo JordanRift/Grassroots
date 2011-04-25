@@ -143,6 +143,28 @@ namespace JordanRift.Grassroots.Web.Controllers
             return Json(new { success = "true" });
         }
 
+        [ChildActionOnly]
+        [OutputCache(Duration = 120, VaryByParam = "id")]
+        public ActionResult ProgressBar(int id)
+        {
+            var campaign = campaignRepository.GetCampaignByID(id);
+
+            if (campaign == null)
+            {
+                return HttpNotFound("The campaign you are looking for could not be found.");
+            }
+
+            var total = campaign.CalculateTotalDonations();
+            var percent = (int) ((total / campaign.GoalAmount) * 100);
+            var model = new ProgressBarModel
+                            {
+                                Amount = total,
+                                Percent = percent
+                            };
+
+            return View("ProgressBar", model);
+        }
+
         private static void Map(Campaign campaign, CampaignDetailsModel viewModel)
         {
             campaign.UrlSlug = viewModel.UrlSlug;

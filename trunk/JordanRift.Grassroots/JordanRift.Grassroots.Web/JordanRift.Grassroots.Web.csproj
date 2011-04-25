@@ -116,6 +116,8 @@
     <Compile Include="Mailers\IAccountMailer.cs" />
     <Compile Include="Mailers\ICampaignMailer.cs" />
     <Compile Include="Mailers\IDonateMailer.cs" />
+    <Compile Include="Mailers\IUserProfileMailer.cs" />
+    <Compile Include="Mailers\UserProfileMailer.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CampaignEmailBlastModel.cs" />
     <Compile Include="Models\CampaignDetailsModel.cs" />
@@ -180,7 +182,7 @@
     <Content Include="Scripts\payment-form.js" />
     <Content Include="Views\DonateMailer\CampaignDonation.cshtml" />
     <Content Include="Views\DonateMailer\UserDonation.cshtml" />
-    <Content Include="Views\DonateMailer\_Layout.cshtml" />
+    <Content Include="Views\Shared\_EmailLayout.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -331,12 +333,10 @@
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Error\404.cshtml" />
     <Content Include="Views\Error\403.cshtml" />
-    <Content Include="Views\AccountMailer\_Layout.cshtml" />
     <Content Include="Views\AccountMailer\Welcome.cshtml" />
     <Content Include="Views\AccountMailer\PasswordReset.cshtml" />
     <Content Include="Views\AccountMailer\PasswordChange.cshtml" />
     <Content Include="Views\CampaignMailer\CampaignEmailBlast.cshtml" />
-    <Content Include="Views\CampaignMailer\_Layout.cshtml" />
     <Content Include="Views\Campaign\EmailForm.cshtml" />
     <Content Include="Views\Shared\ProgressBar.cshtml" />
     <Content Include="Views\Home\TwitterFeed.cshtml" />
@@ -346,6 +346,7 @@
     <None Include="Content\themes\grassroots-theme\custom.less" />
     <Content Include="Views\Shared\ThemeCss.cshtml" />
     <Content Include="Views\Home\Projects.cshtml" />
+    <Content Include="Views\UserProfileMailer\TaxInfo.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

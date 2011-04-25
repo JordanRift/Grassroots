@@ -7,7 +7,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -26,6 +25,9 @@ namespace JordanRift.Grassroots.Web.Models
         [Required]
         [DisplayName("Last Name")]
         public string LastName { get; set; }
+
+        [Editable(false)]
+        public string Email { get; set; }
 
         [Required]
         [UIHint("DateTime")]

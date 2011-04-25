@@ -80,7 +80,7 @@
     <Compile Include="Entities\IPaymentProviderFactory.cs" />
     <Compile Include="Entities\Validation\NotEqualToAttribute.cs" />
     <Compile Include="Helpers\RepositoryFactory.cs" />
-    <Compile Include="Helpers\SingletonCace.cs" />
+    <Compile Include="Helpers\SingletonCache.cs" />
     <Compile Include="Services\CampaignService.cs" />
     <Compile Include="Services\GrassrootsMembershipService.cs" />
     <Compile Include="Entities\Models\Campaign.cs" />
@@ -112,9 +112,6 @@
     <Compile Include="Entities\Validation\IUserValidation.cs" />
     <Compile Include="Helpers\UnitOfWorkScope.cs" />
     <Compile Include="Entities\Models\UserProfile.cs" />
-    <Compile Include="Helpers\EmailHelpers.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Helpers\EnumHelpers.cs">
       <SubType>Code</SubType>
     </Compile>

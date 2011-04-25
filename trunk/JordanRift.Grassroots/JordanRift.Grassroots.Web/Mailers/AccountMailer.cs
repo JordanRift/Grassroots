@@ -17,7 +17,7 @@ namespace JordanRift.Grassroots.Web.Mailers
 	{
 		public AccountMailer()
 		{
-			MasterName="_Layout";
+		    MasterName = "_EmailLayout";
 		}
 
 		
