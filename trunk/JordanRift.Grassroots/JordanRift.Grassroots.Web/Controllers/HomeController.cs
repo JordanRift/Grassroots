@@ -6,11 +6,11 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Entities.Models;
+using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Web.Models;
 
 namespace JordanRift.Grassroots.Web.Controllers
@@ -42,7 +42,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 120, VaryByParam = "none")]
+        [OutputCache(Duration = 150, VaryByParam = "none")]
         public ActionResult ProgressBar()
         {
             var total = Organization.CalculateTotalDonations();
@@ -57,23 +57,39 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 30, VaryByParam = "none")]
+        [OutputCache(Duration = 300, VaryByParam = "none")]
         public ActionResult TwitterFeed()
         {
             var twitterName = Organization.TwitterName;
-            return View();
+
+            if (!string.IsNullOrEmpty(twitterName))
+            {
+                var twitterService = new TwitterService();
+                var tweets = twitterService.GetTweets(twitterName);
+                return View(tweets);
+            }
+
+            return null;
+        }
+
+        [ChildActionOnly]
+        [OutputCache(Duration = 300, VaryByParam = "none")]
+        public ActionResult BlogRssFeed()
+        {
+            var blogUrl = Organization.BlogRssUrl;
+
+            if (!string.IsNullOrEmpty(blogUrl))
+            {
+                var blogService = new BlogService();
+                var post = blogService.GetLatestPost(blogUrl);
+                return View(post);
+            }
+
+            return null;
         }
 
         [ChildActionOnly]
         [OutputCache(Duration = 30, VaryByParam = "none")]
-        public ActionResult BlogRssFeed()
-        {
-            var blogUrl = Organization.BlogRssUrl;
-            return View();
-        }
-
-        [ChildActionOnly]
-        [OutputCache(Duration = 10, VaryByParam = "none")]
         public ActionResult ThemeCss()
         {
             var model = Mapper.Map<Organization, OrganizationDetailsModel>(Organization);
