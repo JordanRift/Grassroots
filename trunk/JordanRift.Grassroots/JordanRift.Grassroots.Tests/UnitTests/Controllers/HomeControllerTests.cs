@@ -6,13 +6,13 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
-using System.Collections.Generic;
-using JordanRift.Grassroots.Framework.Entities;
+using NUnit.Framework;
 
-namespace JordanRift.Grassroots.Framework.Services
+namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 {
-    public interface ITwitterService
+    [TestFixture]
+    public class HomeControllerTests
     {
-        IEnumerable<Tweet> GetTweets(string twitterName, int count = 5);
+
     }
 }

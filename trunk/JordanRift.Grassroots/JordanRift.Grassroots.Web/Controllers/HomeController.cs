@@ -17,8 +17,13 @@ namespace JordanRift.Grassroots.Web.Controllers
 {
     public class HomeController : GrassrootsControllerBase
     {
-        public HomeController()
+        private readonly ITwitterService twitterService;
+        private readonly IBlogService blogService;
+
+        public HomeController(ITwitterService twitterService, IBlogService blogService)
         {
+            this.twitterService = twitterService;
+            this.blogService = blogService;
             Mapper.CreateMap<Organization, OrganizationDetailsModel>();
             Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
         }
@@ -66,7 +71,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (!string.IsNullOrEmpty(twitterName))
             {
-                var twitterService = new TwitterService();
                 var tweets = twitterService.GetTweets(twitterName);
                 return View(tweets);
             }
@@ -82,7 +86,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (!string.IsNullOrEmpty(blogUrl))
             {
-                var blogService = new BlogService();
                 var post = blogService.GetLatestPost(blogUrl);
                 return View(post);
             }

@@ -82,7 +82,20 @@ namespace JordanRift.Grassroots.Framework.Services
 
         private static string LinkifyTweet(string tweet)
         {
-            // TODO: Inject links into content of tweet for embedded links, usernames and hashtags
+            tweet = tweet.Trim(new[] { '"' });
+
+            const string urlPattern = @"((www\.|(http|https|ftp|news|file)+\:\/\/)[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@=.+?,##%&~-]*[^.|\'|\# |!|\(|?|,| |>|<|;|\)])";
+            var regex = new Regex(urlPattern, RegexOptions.IgnoreCase);
+            tweet = regex.Replace(tweet, "<a href=\"$1\" title=\"Click to open in a new tab\" target=\"_blank\">$1</a>").Replace("href=\"www", "href=\"http://www");
+
+            const string hashtagPattern = @"(^|\s)#(\w+)";
+            regex = new Regex(hashtagPattern, RegexOptions.IgnoreCase);
+            tweet = regex.Replace(tweet, "<a href=\"http://search.twitter.com/search?q=%23$2\" title=\"Search $2 on Twitter\" target=\"_blank\">#$2</a>");
+
+            const string usernamePattern = @"(^|\s)@(\w+)";
+            regex = new Regex(usernamePattern, RegexOptions.IgnoreCase);
+            tweet = regex.Replace(tweet, "<a href=\"http://twitter.com/$2\" title=\"Go to $2's Twitter profile\" target=\"_blank\">@$2</a>");
+            
             return tweet;
         }
     }
