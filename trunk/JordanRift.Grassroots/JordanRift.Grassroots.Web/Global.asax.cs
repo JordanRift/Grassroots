@@ -64,6 +64,8 @@ namespace JordanRift.Grassroots
 
             // Custom ModelBinders
             ModelBinders.Binders[typeof(Payment)] = new PaymentModelBinder();
+
+            RegisterGlobalFilters(GlobalFilters.Filters);
         }
 
         private static void RegisterDependencyResolver()

@@ -58,8 +58,7 @@ namespace JordanRift.Grassroots.Framework.Services
 
             jsonDate = jsonDate.Replace("\\", "");
             jsonDate = jsonDate.Replace("\"", "");
-            const string format = "ddd MMM dd HH:mm:ss zzzz yyyy";
-            var date = DateTime.ParseExact(jsonDate, format, CultureInfo.InvariantCulture);
+            var date = DateTime.ParseExact(jsonDate, "ddd MMM dd HH:mm:ss zzzz yyyy", CultureInfo.InvariantCulture);
 
             var timespan = DateTime.Now - date;
 
