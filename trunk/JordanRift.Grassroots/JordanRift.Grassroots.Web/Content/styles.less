@@ -85,6 +85,48 @@ section, aside, article, hgroup, nav, header, footer {
 			clear: both;
 		}
 
+form dt, form dd {
+	display: block;
+	position: relative;
+}
+
+form dd {
+	padding-bottom: 10px;
+}
+
+.field-validation-error
+{
+    /*color: #ff0000;*/
+	display: block;
+	position: absolute;
+	padding: 5px;
+	font-size: 12px;
+	top: 0px;
+	left: 170px;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
 .blogger-post-footer {
 	display: none;
 }
