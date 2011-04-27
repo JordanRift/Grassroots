@@ -33,7 +33,9 @@
     <h3>This donation will be applied toward @title.</h3>
 </hgroup>
  
- <!-- TODO: Consider adding progress bar here... -->
+ @if (campaign != null) { 
+@Html.Action("ProgressBar", new { controller = "Campaign", id = campaign.CampaignID })
+ }
 
 <div class="donate-form">
 	@using (Html.BeginForm("ProcessDonation", "Donate", new { Area = "", slug = urlSlug })) {

@@ -52,18 +52,6 @@ Grassroots.initPayment = function () {
     });
 }
 
-//GrassrootsEvents = [];
-
-//Configure RequireJS
-//require({ priority: ['jquery-1.4.4.min'] },
-//    ['jquery-1.4.4.min', 'modernizr-1.7.min', 'grassroots.ui'],
-//    function () {
-//        for (var i = 0; i < GrassrootsEvents.length; i++) {
-//            eval(GrassrootsEvents[i]);
-//        }
-//    }
-//);
-
 /// <summary>
 /// Since the official Tweet button doesn't support SSL, we'll roll our own for now.
 /// </summary>
