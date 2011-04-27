@@ -23,6 +23,7 @@
 }
 
 @{ 
+    // TODO: change Campaign object into a viewmodel here... no need for the actual entity to be exposed in the view
 	var campaign = ViewBag.Campaign as Campaign;
 	var urlSlug = campaign != null ? campaign.UrlSlug : string.Empty;
     var title = campaign != null ? campaign.Title : "our general fund";
