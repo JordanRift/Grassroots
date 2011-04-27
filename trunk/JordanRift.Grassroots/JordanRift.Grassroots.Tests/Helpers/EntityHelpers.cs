@@ -70,9 +70,14 @@ namespace JordanRift.Grassroots.Tests.Helpers
             var org = new Organization
                           {
                               Name = "My Organization",
+                              Tagline = "We are so cool",
+                              Summary = "Summary",
+                              DescriptionHtml = "<h1>Description</h1>",
                               ContactPhone = "(480) 321-1234",
                               ContactEmail = "joe@yahoo.com",
                               YtdGoal = 1000.00m,
+                              FiscalYearStartDay = 1,
+                              FiscalYearStartMonth = 1,
                               PaymentGatewayType = (int) PaymentGatewayType.Authorize,
                               PaymentGatewayApiUrl = "http://test.authorize.net",
                               PaymentGatewayApiKey = "12345",
@@ -80,6 +85,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
                               FacebookPageUrl = "facebook.com/myorganization",
                               VideoEmbedHtml = "<iframe />",
                               TwitterName = "@myorganization",
+                              BlogRssUrl = "http://www.rss.com",
                               OrganizationSettings = new List<OrganizationSetting>()
                           };
 

@@ -169,13 +169,8 @@
     <Content Include="Content\themes\grassroots-theme\images\ui-icons_ffff9d_256x240.png" />
     <Content Include="Content\themes\grassroots-theme\jquery-ui-1.8.11.custom.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\cufon-yui.js" />
-    <Content Include="Scripts\grassroots.customValidation.js" />
-    <Content Include="Scripts\jquery-1.4.4-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.4.4.js" />
-    <Content Include="Scripts\jquery-1.4.4.min.js" />
+    <Content Include="Scripts\grassroots.validate.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.custom.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.4.custom.min.js" />
     <Content Include="Scripts\jquery.tablesorter.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
