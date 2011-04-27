@@ -5,15 +5,8 @@
 
 <script type="text/javascript">
     $(function () {
-        setTimeout("animateProgressbar();", 1500);
+        setTimeout("Grassroots.progressbar();", 1500);
     });
-
-    function animateProgressbar() {
-        var $progressbar = $(".ui-progressbar-value");
-        var px = $progressbar.outerWidth();
-        $progressbar.css("width", "0px").show().animate({ width: '+=' + px + 'px' }, 2000);
-        $(".progress-indicator").animate({ left: '+=' + px + 'px', opacity: 1 }, 2000);
-    }
 </script>
 <div id="progress">
     <h3><span class="label">@Model.GoalName:</span> @Model.Amount.ToString("C")</h3>

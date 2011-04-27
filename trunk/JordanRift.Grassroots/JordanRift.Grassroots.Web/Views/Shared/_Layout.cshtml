@@ -6,9 +6,11 @@
         <link href="@Url.Content("~/Content/reset.css")" rel="stylesheet" type="text/css" />
         <link href="@Url.Content("~/Content/styles.css")" rel="stylesheet" type="text/css" />
         @Html.Action("ThemeCss", new { controller = "Home" })
-        <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+
+        <script src="@Url.Content("~/Scripts/jquery-1.5.2.min.js")" type="text/javascript"></script>
         <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
         <script src="@Url.Content("~/scripts/grassroots.core.js")" type="text/javascript"></script>
+        
         @RenderSection("DocumentHead", required: false)
     </head>
     <body>
