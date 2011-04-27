@@ -1,4 +1,4 @@
-﻿/// <reference path="jquery-1.4.4-vsdoc.js" />
+﻿/// <reference path="jquery-1.5.2-vsdoc.js" />
 
 //
 // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
@@ -18,6 +18,16 @@ Grassroots.progressbar = function () {
         $progressbar.css("width", "0px").show().animate({ width: '+=' + px + 'px' }, 2000);
         $(".progress-indicator").animate({ left: '+=' + px + 'px', opacity: 1 }, 2000);
     }
+}
+
+Grassroots.formui = function () {
+    $(".datePicker").datepicker();
+    $("fieldset").addClass("ui-widget").addClass("ui-corner-all");
+    $("button, input:submit, input:button}").button();
+    $(":input[type='text'],:input[type='textarea'], input[type='password'], input[type='email']").wijtextbox();
+    $("select").wijdropdown();
+    $(":input[type='radio']").wijradio();
+    $(":input[type='checkbox']").wijcheckbox();
 }
 
 //GrassrootsEvents = [];
