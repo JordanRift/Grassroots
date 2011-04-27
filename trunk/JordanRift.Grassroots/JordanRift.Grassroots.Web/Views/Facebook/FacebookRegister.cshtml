@@ -27,7 +27,7 @@
     {
         <fieldset>
             <legend>Information from your Facebook profile</legend>
-            @Html.ValidationSummary(false, "Account creation was unsuccessful. Please correct the errors and try again.")
+            @Html.ValidationSummary(false, "Account creation was unsuccessful. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
             <h3>Account Information</h3>
             @Html.HiddenFor(m => m.FacebookID)
             <dl>

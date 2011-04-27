@@ -13,13 +13,13 @@
 
             @Html.LabelFor(m => m.EmailAddresses)
             @Html.TextBoxFor(m => m.EmailAddresses)
-            @Html.ValidationMessageFor(m = > m.EmailAddress)
+            @Html.ValidationMessageFor(m = > m.EmailAddress, new { @class = "ui-widget ui-state-error ui-corner-all" })
     
             @Html.LabelFor(m => m.CustomMessage)
             @Html.TextAreaFor(m => m.CustomMessage)
-            @Html.ValidationMessageFor(m => m.CustomMessage)
+            @Html.ValidationMessageFor(m => m.CustomMessage, new { @class = "ui-widget ui-state-error ui-corner-all" })
         </fieldset>
-        <input type="submit" id="submit" name="submit" value="Send" class="ui-button ui-widget ui-state-active ui-corner-all ui-button-text-only" />
-        <button id="cancel" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Cancel</button>
+        @Html.UiSubmit("Send")
+        @Html.UiCancel()
     }
 </div>

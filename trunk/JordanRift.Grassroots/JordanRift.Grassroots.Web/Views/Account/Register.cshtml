@@ -18,7 +18,7 @@
     <h1>Set Up Your Account</h1>
     <h3>Fill out the form below to create a new account.</h3>
 </hgroup>
-<p><text>Passwords are required to be a minimum of</text>@ViewBag.PasswordLength<text> characters in length.</text></p>
+<p><text>Passwords are required to be a minimum of </text>@ViewBag.PasswordLength<text> characters in length.</text></p>
 <div id="account-registration-form">
     @using (Html.BeginForm("RegisterUser", "Account")) {
         <fieldset class="column">
@@ -27,7 +27,7 @@
         </fieldset>
         <fieldset class="column">
             <legend>... Or do it the old fashioned way.</legend>
-            @Html.ValidationSummary(false, "Account creation was unsuccessful. Please correct the errors and try again.")
+            @Html.ValidationSummary(false, "Account creation was unsuccessful. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
             <h3>Account Information</h3>
             <dl>
                 <dt>@Html.LabelFor(m => m.Email)</dt>

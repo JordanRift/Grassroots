@@ -28,7 +28,7 @@
         </fieldset>
         <fieldset class="column">
             <legend>... Or do it the old-fashioned way.</legend>
-                @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
+                @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
                 <div>
                     <dl>
                         <dt>@Html.LabelFor(m => m.Email)</dt>

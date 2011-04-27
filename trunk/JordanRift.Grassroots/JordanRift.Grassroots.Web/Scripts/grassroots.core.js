@@ -30,6 +30,28 @@ Grassroots.formui = function () {
     $(":input[type='checkbox']").wijcheckbox();
 }
 
+Grassroots.initPayment = function () {
+    $(".bank-info").hide();
+    $("#Amount").val('');
+
+    $(".payment-type").change(function () {
+        var val = $(this).val();
+
+        if (val == "CC") {
+            $(".bank-info").slideUp(function () {
+                $(".cc-info").slideDown();
+            });
+        }
+        else {
+            $(".cc-info").slideUp(function () {
+                $(".bank-info").slideDown();
+            });
+        }
+
+        return false;
+    });
+}
+
 //GrassrootsEvents = [];
 
 //Configure RequireJS

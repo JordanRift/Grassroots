@@ -178,7 +178,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
-    <Content Include="Scripts\payment-form.js" />
     <Content Include="Views\DonateMailer\CampaignDonation.cshtml" />
     <Content Include="Views\DonateMailer\UserDonation.cshtml" />
     <Content Include="Views\Shared\_EmailLayout.cshtml" />

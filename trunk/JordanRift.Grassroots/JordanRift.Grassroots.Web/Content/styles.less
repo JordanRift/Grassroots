@@ -90,14 +90,25 @@ form dt, form dd {
 	position: relative;
 }
 
+	form dt label {
+		font-size: 14px;
+		font-weight: bold;
+		display: block;
+		padding-bottom: 5px;
+	}
+
 form dd {
 	padding-bottom: 10px;
 }
 
-.field-validation-error
-{
-    /*color: #ff0000;*/
-	display: block;
+form fieldset > legend {
+	padding: 5px;
+	font-size: 16px;
+	color: #999999;
+}
+
+.field-validation-error {
+    display: block;
 	position: absolute;
 	padding: 5px;
 	font-size: 12px;
@@ -105,25 +116,34 @@ form dd {
 	left: 170px;
 }
 
-.field-validation-valid
-{
+.field-validation-valid {
     display: none;
 }
 
-.input-validation-error
-{
+.input-validation-error {
     border: 1px solid #ff0000;
     background-color: #ffeeee;
 }
 
-.validation-summary-errors
-{
-    font-weight: bold;
-    color: #ff0000;
+.validation-summary-errors {
+	font-weight: normal;
+	font-size: 14px;
+	padding: 10px;
+	margin: 10px;
 }
 
-.validation-summary-valid
-{
+	.validation-summary-errors span {
+		font-weight: bold;
+		display: block;
+		padding-bottom: 10px;
+	}
+
+	.validation-summary-errors ul {
+		font-weight: 12px;
+		margin-left: 10px;
+	}
+
+.validation-summary-valid {
     display: none;
 }
 

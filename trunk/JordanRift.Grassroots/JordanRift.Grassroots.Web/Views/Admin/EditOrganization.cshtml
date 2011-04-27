@@ -21,7 +21,7 @@
     @using (Html.BeginForm("UpdateOrganization", "Admin")) { 
         <fieldset>
             <legend>Organization Settings</legend>
-            @Html.ValidationSummary(false, "Please correct the errors and try again.")
+            @Html.ValidationSummary(false, "Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
             <dl>
                 <dt>@Html.LabelFor(m => m.Name)</dt>
                 <dd>
