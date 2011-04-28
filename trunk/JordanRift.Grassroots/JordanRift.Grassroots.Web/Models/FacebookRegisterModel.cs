@@ -60,5 +60,7 @@ namespace JordanRift.Grassroots.Web.Models
         public string ZipCode { get; set; }
 
         public bool Consent { get; set; }
+
+        public string ImagePath { get; set; }
     }
 }

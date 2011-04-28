@@ -29,6 +29,10 @@
             <legend>Information from your Facebook profile</legend>
             @Html.ValidationSummary(false, "Account creation was unsuccessful. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
             <h3>Account Information</h3>
+            @if (!string.IsNullOrEmpty(Model.ImagePath)) {
+            <img src="@Model.ImagePath" alt="@Model.FirstName @Model.LastName on Facebook" />
+            @Html.HiddenFor(m => m.ImagePath)
+            }
             @Html.HiddenFor(m => m.FacebookID)
             <dl>
                 <dt>@Html.LabelFor(m => m.Email)</dt>

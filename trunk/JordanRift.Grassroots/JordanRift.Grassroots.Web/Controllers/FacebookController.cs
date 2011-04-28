@@ -132,7 +132,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                     if (userProfile != null && string.IsNullOrEmpty(userProfile.FacebookID))
                     {
-                        userProfile.FacebookID = me.id; //id.ToString();
+                        userProfile.FacebookID = me.id;
+                        userProfile.ImagePath = GetFacebookImagePath(me, userProfile.ImagePath);
                         userProfileRepository.Save();
                         success = true;
 
@@ -263,15 +264,31 @@ namespace JordanRift.Grassroots.Web.Controllers
                                     FacebookID = me.id,
                                     Gender = me.gender,
                                     Email = me.email,
-                                    Birthdate = DateTime.Parse(me.birthday)
+                                    Birthdate = DateTime.Parse(me.birthday),
+                                    ImagePath = GetFacebookImagePath(me)
                                 };
 
             string location = me.location.name;
             var locArray = location.Split(new[] { ',' });
             viewModel.City = locArray[0].Trim();
+            
             var pair = UIHelpers.StateDictionary.FirstOrDefault(s => s.Key.ToLower() == locArray[1].Trim().ToLower());
             viewModel.State = pair.Value;
             return viewModel;
+        }
+
+        private static string GetFacebookImagePath(dynamic me, string existingImagePath = "content/images/avatar.jpg")
+        {
+            var path = existingImagePath;
+
+            if (me.link != null)
+            {
+                var link = me.link.ToString();
+                var linkPart = link.Substring(link.LastIndexOf('/') + 1);
+                path = string.Format("https://graph.facebook.com/{0}/picture", linkPart);
+            }
+
+            return path;
         }
     }
 }
