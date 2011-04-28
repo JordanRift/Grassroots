@@ -140,7 +140,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             repository.Save();
             var mailerModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
-            mailer.TaxInfo(mailerModel).SendAsync();
+            mailer.WelcomeBack(mailerModel).SendAsync();
+            TempData["UserFeedback"] = "Welcome back! We're glad you're with us again!";
             return RedirectToAction("Index");
         }
 

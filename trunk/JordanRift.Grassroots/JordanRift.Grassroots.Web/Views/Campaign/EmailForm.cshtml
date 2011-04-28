@@ -1,8 +1,9 @@
 ﻿@model JordanRift.Grassroots.Web.Models.CampaignEmailBlastModel
 
-<div id="campaign-email-form" class="ui-dialog ui-widget ui-widget-content ui-corner-all  ui-draggable">
+<div id="campaign-email-form" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable">
     @using (Html.BeginForm("SendEmail", "Campaign"))
     {
+        @Html.ValidationSummary(false, "Unable to send email. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
         <fieldset>
             <legend>Tell your friends about @Model.Title</legend>
             @Html.HiddenFor(m => m.Title)

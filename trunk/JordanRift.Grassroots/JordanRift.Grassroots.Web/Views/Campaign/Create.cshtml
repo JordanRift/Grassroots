@@ -10,69 +10,47 @@
     
     ViewBag.Title = "Create";
 }
+
+@section DocumentHead {
+    @Html.Partial("UIForm")
+}
+
 <!-- TODO: Design create form using tab-panel -->
-<h2>Create</h2>
-
+<hgroup>
+    <h1>Create your campaign</h1>
+    <h3>@OrganizationTagline</h3>
+</hgroup>
+<div id="campaign-create-form">
     @using (Html.BeginForm("CreateCampaign", "Campaign", new { Area = "" })) {
-        @Html.ValidationSummary(true) 
-
+        @Html.ValidationSummary(false, "Unable to create campaign. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
         <fieldset>
-            <legend>Fields</legend>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Title) 
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Title) 
-                @Html.ValidationMessageFor(model => model.Title) 
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Description) 
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Description) 
-                @Html.ValidationMessageFor(model => model.Description) 
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.StartDate) 
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.StartDate) 
-                @Html.ValidationMessageFor(model => model.StartDate) 
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.EndDate) 
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.EndDate) 
-                @Html.ValidationMessageFor(model => model.EndDate) 
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.GoalAmount) 
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.GoalAmount) 
-                @Html.ValidationMessageFor(model => model.GoalAmount) 
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.UrlSlug) 
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.UrlSlug) 
-                @Html.ValidationMessageFor(model => model.UrlSlug) 
-            </div>
-            
-            <p>
-                <input type="submit" value="Create" />
-            </p>
+            <legend>Campaign Details</legend>
+            <dl>
+                <dt>@Html.LabelFor(model => model.Title)</dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.Title) 
+                    @Html.ValidationMessageFor(model => model.Title, null, new { @class = "ui-state-error ui-corner-all" }) 
+                </dd>
+                <dt>@Html.LabelFor(model => model.Description)</dt>
+                <dd>
+                    @Html.TextAreaFor(model => model.Description) 
+                    @Html.ValidationMessageFor(model => model.Description, null, new { @class = "ui-state-error ui-corner-all" }) 
+                </dd>
+                <dt>@Html.LabelFor(model => model.GoalAmount)</dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.GoalAmount) 
+                    @Html.ValidationMessageFor(model => model.GoalAmount, null, new { @class = "ui-state-error ui-corner-all" }) 
+                </dd>
+                <dt>@Html.LabelFor(model => model.UrlSlug)</dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.UrlSlug) 
+                    @Html.ValidationMessageFor(model => model.UrlSlug, null, new { @class = "ui-state-error ui-corner-all" }) 
+                </dd>
+            </dl>
         </fieldset>
+        <div>
+            @Html.UiSubmit("Create")
+        </div>
     } 
-
-    <div>
-        @Html.ActionLink("Back to List", "Index") 
-    </div>
+</div>
+    

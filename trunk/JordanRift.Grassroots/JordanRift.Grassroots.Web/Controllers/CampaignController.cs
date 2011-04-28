@@ -159,6 +159,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             var model = new ProgressBarModel
                             {
                                 Amount = total,
+                                GoalAmount = campaign.GoalAmount,
                                 Percent = percent,
                                 GoalName = "Raised so far"
                             };

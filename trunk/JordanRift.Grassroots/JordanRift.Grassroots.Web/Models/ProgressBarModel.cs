@@ -12,6 +12,7 @@ namespace JordanRift.Grassroots.Web.Models
     {
         public int Percent { get; set; }
         public decimal Amount { get; set; }
+        public decimal GoalAmount { get; set; }
         public string GoalName { get; set; }
     }
 }

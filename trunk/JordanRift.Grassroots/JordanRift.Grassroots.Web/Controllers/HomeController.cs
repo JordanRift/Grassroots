@@ -56,6 +56,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             var model = new ProgressBarModel
                             {
                                 Amount = total,
+                                GoalAmount = Organization.YtdGoal,
                                 Percent = percent,
                                 GoalName = "YTD Total"
                             };

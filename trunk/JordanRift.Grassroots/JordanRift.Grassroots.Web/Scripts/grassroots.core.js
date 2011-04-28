@@ -24,7 +24,7 @@ Grassroots.formui = function () {
     $(".datePicker").datepicker();
     $("fieldset").addClass("ui-widget").addClass("ui-corner-all");
     $("button, input:submit, input:button}").button();
-    $(":input[type='text'],:input[type='textarea'], input[type='password'], input[type='email']").wijtextbox();
+    $(":input[type='text'], textarea, input[type='password'], input[type='email']").wijtextbox();
     $("select").wijdropdown();
     $(":input[type='radio']").wijradio();
     $(":input[type='checkbox']").wijcheckbox();

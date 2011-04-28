@@ -21,7 +21,7 @@
 </hgroup>
 <div id="user-profile-edit-form">
     @using (Html.BeginForm(new { Action = "Update", Controller = "UserProfile", ID = Model.UserProfileID })) {
-        @Html.ValidationSummary(false, "Could not save your profile. Please correct the following errors and try again.", , new { @class = "ui-widget ui-state-error ui-corner-all" })
+        @Html.ValidationSummary(false, "Could not save your profile. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
         <fieldset class="column">
             <dl>
                 <dt>@Html.LabelFor(model => model.FirstName)</dt>
