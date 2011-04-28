@@ -20,16 +20,22 @@ namespace JordanRift.Grassroots.Web.Mailers
             MasterName = "_EmailLayout";
 		}
 
-		
 		public MailMessage TaxInfo(UserProfileDetailsModel model)
 		{
-			var mailMessage = new MailMessage{Subject = "Your account information..."};
+		    var mailMessage = new MailMessage { Subject = "So long, farewell..." };
 			mailMessage.To.Add(model.Email);
 			ViewData = new ViewDataDictionary(model);
 			PopulateBody(mailMessage, viewName: "TaxInfo");
 			return mailMessage;
 		}
 
-		
+		public MailMessage WelcomeBack(UserProfileDetailsModel model)
+		{
+		    var mailMessage = new MailMessage { Subject = "Welcome back!" };
+            mailMessage.To.Add(model.Email);
+            ViewData = new ViewDataDictionary(model);
+            PopulateBody(mailMessage, viewName: "WelcomeBack");
+		    return mailMessage;
+		}
 	}
 }

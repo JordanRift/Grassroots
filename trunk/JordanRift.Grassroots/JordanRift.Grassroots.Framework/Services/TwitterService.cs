@@ -90,11 +90,11 @@ namespace JordanRift.Grassroots.Framework.Services
 
             const string hashtagPattern = @"(^|\s)#(\w+)";
             regex = new Regex(hashtagPattern, RegexOptions.IgnoreCase);
-            tweet = regex.Replace(tweet, "<a href=\"http://search.twitter.com/search?q=%23$2\" title=\"Search $2 on Twitter\" target=\"_blank\">#$2</a>");
+            tweet = regex.Replace(tweet, "$1<a href=\"http://search.twitter.com/search?q=%23$2\" title=\"Search $2 on Twitter\" target=\"_blank\">#$2</a>");
 
             const string usernamePattern = @"(^|\s)@(\w+)";
             regex = new Regex(usernamePattern, RegexOptions.IgnoreCase);
-            tweet = regex.Replace(tweet, "<a href=\"http://twitter.com/$2\" title=\"Go to $2's Twitter profile\" target=\"_blank\">@$2</a>");
+            tweet = regex.Replace(tweet, "$1<a href=\"http://twitter.com/$2\" title=\"Go to $2's Twitter profile\" target=\"_blank\">@$2</a>");
             
             return tweet;
         }

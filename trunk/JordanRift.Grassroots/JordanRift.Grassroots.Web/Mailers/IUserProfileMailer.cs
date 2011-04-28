@@ -13,9 +13,7 @@ namespace JordanRift.Grassroots.Web.Mailers
 { 
     public interface IUserProfileMailer
     {
-				
 		MailMessage TaxInfo(UserProfileDetailsModel model);
-		
-		
-	}
+        MailMessage WelcomeBack(UserProfileDetailsModel model);
+    }
 }
