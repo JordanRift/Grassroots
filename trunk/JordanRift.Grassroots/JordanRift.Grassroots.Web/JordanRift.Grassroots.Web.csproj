@@ -134,6 +134,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\avatar.jpg" />
+    <Content Include="Content\images\fb-login.jpg" />
+    <Content Include="Content\images\fb-register.jpg" />
     <Content Include="Content\images\tweet-button.png" />
     <Content Include="Content\jquery.wijmo-open.1.1.5.css" />
     <Content Include="Content\themes\grassroots-theme\images\banner-top.png" />
@@ -345,6 +348,7 @@
     <Content Include="Views\UserProfileMailer\WelcomeBack.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CauseTemplate.cshtml" />
     <Content Include="Views\Campaign\DonationGrid.cshtml" />
+    <Content Include="Views\Shared\FacebookLikeButtonWithPictures.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
