@@ -284,7 +284,10 @@ namespace JordanRift.Grassroots.Web.Controllers
             if (me.link != null)
             {
                 var link = me.link.ToString();
-                var linkPart = link.Substring(link.LastIndexOf('/') + 1);
+                var linkPart = link.IndexOf("?id=") // If no friendly url available for user...
+                    ? link.Substring(link.LastIndexOf('=') + 1) // use query string 
+                    : link.Substring(link.LastIndexOf('/') + 1);
+                
                 path = string.Format("https://graph.facebook.com/{0}/picture", linkPart);
             }
 
