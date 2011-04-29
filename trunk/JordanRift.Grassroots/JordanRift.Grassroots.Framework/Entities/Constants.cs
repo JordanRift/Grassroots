@@ -45,6 +45,12 @@ namespace JordanRift.Grassroots.Framework.Entities
         InReview = 4
     }
 
+    public static class EntityConstants
+    {
+        public const string DEFAULT_AVATAR_PATH = "content/images/avatar.jpg";
+        public const string DEFAULT_CAMPAIGN_IMAGE_PATH = "content/images/campaign.jpg";
+    }
+
     public static class ConfigConstants
     {
         public const string LOG_ITEM_REPOSITORY = "ILogItemRepositoryType";

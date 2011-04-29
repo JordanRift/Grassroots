@@ -10,15 +10,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using JordanRift.Grassroots.Framework.Data;
 
 namespace JordanRift.Grassroots.Framework.Helpers
 {
 	public static class UIHelpers
 	{
-		public static readonly IDictionary<string, string> TripTypeDictionary = new Dictionary<string, string> {
-			{"House Build", "HouseBuild"},
-			{"Medical Clinic", "Medical"}
-		};
+	    public static IDictionary<string, string> CauseTemplateDictionary;
+
+	    public static SelectList CauseTemplateSelectList
+	    {
+	        get
+	        {
+                if (CauseTemplateDictionary == null)
+                {
+                    CauseTemplateDictionary = new Dictionary<string, string>();
+                    var repository = RepositoryFactory.GetRepository<IOrganizationRepository>();
+                    var organization = repository.GetDefaultOrganization();
+
+                    foreach (var ct in organization.CauseTemplates)
+                    {
+                        CauseTemplateDictionary.Add(new KeyValuePair<string, string>(ct.CauseTemplateID.ToString(), ct.Name));
+                    }
+                }
+
+                return new SelectList(CauseTemplateDictionary, "Value", "Key");
+	        }
+	    }
 
 		public static readonly IDictionary<string, string> ExpMonthDictionary = new Dictionary<string, string> {
 			{"01", "1"},

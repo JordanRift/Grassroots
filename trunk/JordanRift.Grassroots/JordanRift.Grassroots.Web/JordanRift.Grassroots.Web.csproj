@@ -120,6 +120,7 @@
     <Compile Include="Mailers\IUserProfileMailer.cs" />
     <Compile Include="Mailers\UserProfileMailer.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CampaignCreateModel.cs" />
     <Compile Include="Models\CampaignEmailBlastModel.cs" />
     <Compile Include="Models\CampaignDetailsModel.cs" />
     <Compile Include="Models\CampaignNotificationModel.cs" />
@@ -196,7 +197,10 @@
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\UserContent\campaign\" />
+    <Folder Include="Content\UserContent\profile\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
@@ -249,9 +253,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\State.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\TransactionType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\ChangePassword.cshtml" />
@@ -342,6 +343,7 @@
     <Content Include="Views\Home\Projects.cshtml" />
     <Content Include="Views\UserProfileMailer\TaxInfo.cshtml" />
     <Content Include="Views\UserProfileMailer\WelcomeBack.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CauseTemplate.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

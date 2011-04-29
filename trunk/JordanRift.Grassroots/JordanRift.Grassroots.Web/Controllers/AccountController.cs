@@ -14,6 +14,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
 using JordanRift.Grassroots.Web.Mailers;
@@ -104,10 +105,13 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                MembershipCreateStatus status;
+                UserProfile userProfile;
+
                 using (new UnitOfWorkScope())
                 using (var transactionScope = new TransactionScope())
                 {
-                    var userProfile = Mapper.Map<RegisterModel, UserProfile>(model);
+                    userProfile = Mapper.Map<RegisterModel, UserProfile>(model);
                     var organization = OrganizationRepository.GetDefaultOrganization();
 
                     if (organization.UserProfiles == null)
@@ -115,17 +119,18 @@ namespace JordanRift.Grassroots.Web.Controllers
                         organization.UserProfiles = new List<UserProfile>();
                     }
 
+                    userProfile.ImagePath = EntityConstants.DEFAULT_AVATAR_PATH;
                     organization.UserProfiles.Add(userProfile);
                     OrganizationRepository.Save();
-                    var status = MembershipService.CreateUser(model.Email, model.Password, model.Email);
+                    status = MembershipService.CreateUser(model.Email, model.Password, model.Email);
                     transactionScope.Complete();
+                }
 
-                    if (status == MembershipCreateStatus.Success)
-                    {
-                        accountMailer.Welcome(model).SendAsync();
-                        FormsService.SignIn(model.Email, false);
-                        return RedirectToAction("Index", "UserProfile", new { id = userProfile.UserProfileID });
-                    }
+                if (status == MembershipCreateStatus.Success)
+                {
+                    accountMailer.Welcome(model).SendAsync();
+                    FormsService.SignIn(model.Email, false);
+                    return RedirectToAction("Index", "UserProfile", new { id = userProfile.UserProfileID });
                 }
             }
 

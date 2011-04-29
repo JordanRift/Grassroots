@@ -6,10 +6,12 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
 using JordanRift.Grassroots.Web.Mailers;
@@ -32,6 +34,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
             Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
             Mapper.CreateMap<CampaignDetailsModel, Campaign>();
+            Mapper.CreateMap<CampaignCreateModel, Campaign>();
         }
 
         public ActionResult Index(string slug = "")
@@ -51,19 +54,31 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            var viewModel = TempData["CampaignDetailsModel"] as CampaignDetailsModel ?? new CampaignDetailsModel();
+            var viewModel = TempData["CampaignDetailsModel"] as CampaignCreateModel ?? new CampaignCreateModel();
+            var templates = Organization.CauseTemplates;
+
+            if (templates.Count > 1)
+            {
+                viewModel.ShouldRenderDropdown = true;
+            }
+            else
+            {
+                viewModel.ShouldRenderDropdown = false;
+                viewModel.CauseTemplateID = templates.First().CauseTemplateID;
+            }
+
             return View("Create", viewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult CreateCampaign(CampaignDetailsModel model)
+        public ActionResult CreateCampaign(CampaignCreateModel model)
         {
             if (ModelState.IsValid)
             {
                 using (new UnitOfWorkScope())
                 {
-                    var campaign = Mapper.Map<CampaignDetailsModel, Campaign>(model);
+                    var campaign = Mapper.Map<CampaignCreateModel, Campaign>(model);
                     var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
                     if (userProfile.GetActiveCampaigns().Any())
@@ -74,6 +89,15 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                     var organization = userProfile.Organization;
                     var causeTemplate = organization.CauseTemplates.FirstOrDefault(t => t.CauseTemplateID == model.CauseTemplateID);
+                    campaign.StartDate = DateTime.Now;
+                    campaign.EndDate = DateTime.Now.AddDays(causeTemplate.DefaultTimespanInDays);
+                    campaign.GoalAmount = causeTemplate.DefaultAmount;
+
+                    // TODO: Save image to disk and set path in campaign object (~/Content/UserContent/campaign/{campaignID}.jpg)
+                    if (string.IsNullOrEmpty(campaign.ImagePath))
+                    {
+                        campaign.ImagePath = EntityConstants.DEFAULT_CAMPAIGN_IMAGE_PATH;
+                    }
 
                     organization.Campaigns.Add(campaign);
                     causeTemplate.Campaigns.Add(campaign);
@@ -81,7 +105,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     campaignRepository.Save();
                 }
 
-                return RedirectToAction("Index", model.UrlSlug);
+                return RedirectToAction("Index", "Campaign", new { slug = model.UrlSlug });
             }
 
             TempData["CampaignDetailsModel"] = model;

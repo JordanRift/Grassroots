@@ -35,6 +35,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             controller = GetCampaignController();
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
+            Mapper.CreateMap<Campaign, CampaignCreateModel>();
         }
 
         [Test]
@@ -83,7 +84,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void CreateCampaign_Should_Redirect_To_Index_If_Successful()
         {
             var campaign = EntityHelpers.GetValidCampaign();
-            var viewModel = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
+            var viewModel = Mapper.Map<Campaign, CampaignCreateModel>(campaign);
             var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Campaigns = new List<Campaign>();
             userProfile.Email = "goodEmail";
@@ -104,7 +105,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void CreateCampaign_Should_Redirect_To_Create_If_ModelState_Not_Valid()
         {
             var campaign = EntityHelpers.GetValidCampaign();
-            var viewModel = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
+            var viewModel = Mapper.Map<Campaign, CampaignCreateModel>(campaign);
             controller.ModelState.AddModelError("", "Something bad has happened.");
             var result = controller.CreateCampaign(viewModel);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
@@ -116,7 +117,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void CreateCampaign_Should_Redirect_To_Index_If_Active_Campaign_Already_Present()
         {
             var campaign = EntityHelpers.GetValidCampaign();
-            var viewModel = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
+            var viewModel = Mapper.Map<Campaign, CampaignCreateModel>(campaign);
             var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
             campaign.UserProfile = userProfile;
@@ -266,6 +267,10 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 
         private CampaignController GetCampaignController()
         {
+            var organizationRepository = new FakeOrganizationRepository();
+            organizationRepository.SetUpRepository();
+            var organization = organizationRepository.GetDefaultOrganization();
+            organization.CauseTemplates = new List<CauseTemplate> { EntityHelpers.GetValidCauseTemplate() };
             campaignRepository = new FakeCampaignRepository();
             ((FakeCampaignRepository)campaignRepository).SetUpRepository();
             userProfileRepository = new FakeUserProfileRepository();
@@ -273,7 +278,12 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var mocks = new MockRepository();
             var mailer = mocks.DynamicMock<ICampaignMailer>();
             MailerBase.IsTestModeEnabled = true;
-            var upc = new CampaignController(campaignRepository, userProfileRepository, mailer);
+            var upc = new CampaignController(campaignRepository, userProfileRepository, mailer)
+                          {
+                              OrganizationRepository = organizationRepository,
+                              Organization = organization
+                          };
+
             upc.ControllerContext = new ControllerContext
                                         {
                                             Controller = upc,

@@ -6,6 +6,7 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,6 +14,10 @@ namespace JordanRift.Grassroots.Web.Models
 {
     public class CampaignDetailsModel
     {
+        //
+        // Campaign Details
+        //
+
         [Editable(false)]
         public int CampaignID { get; set; }
 
@@ -31,9 +36,32 @@ namespace JordanRift.Grassroots.Web.Models
         [Required]
         public string UrlSlug { get; set; }
         
-        //[Required]
         public string ImagePath { get; set; }
+        public DateTime StartDate { get; set; }
+        
+        //[GreaterThanDate("StartDate")]
+        public DateTime EndDate { get; set; }
+
+        //
+        // Donations
+        //
         
         public List<DonationDetailsModel> Donations { get; set; }
+
+        //
+        // User Profile Details
+        //
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+
+        //
+        // Cause/CauseTemplate Details
+        //
+
+        public bool AmountIsConfigurable { get; set; }
+        public bool TimespanIsConfigurable { get; set; }
+        public string VideoEmbedHtml { get; set; }
     }
 }
