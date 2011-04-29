@@ -344,6 +344,7 @@
     <Content Include="Views\UserProfileMailer\TaxInfo.cshtml" />
     <Content Include="Views\UserProfileMailer\WelcomeBack.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CauseTemplate.cshtml" />
+    <Content Include="Views\Campaign\DonationGrid.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

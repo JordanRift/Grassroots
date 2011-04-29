@@ -32,6 +32,9 @@ namespace JordanRift.Grassroots.Web.Controllers
             this.userProfileRepository = userProfileRepository;
             this.campaignMailer = campaignMailer;
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
+            Mapper.CreateMap<UserProfile, CampaignDetailsModel>();
+            Mapper.CreateMap<CauseTemplate, CampaignDetailsModel>();
+            Mapper.CreateMap<Campaign, CampaignEmailBlastModel>();
             Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
             Mapper.CreateMap<CampaignDetailsModel, Campaign>();
             Mapper.CreateMap<CampaignCreateModel, Campaign>();
@@ -46,8 +49,8 @@ namespace JordanRift.Grassroots.Web.Controllers
                 return HttpNotFound("The Campaign you are looking for could not be found");
             }
 
-            //TODO: ViewBag.CampaignEmailBlastModel = 
-            var viewModel = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
+            ViewBag.EmailBlastModel = MapEmailBlast(campaign);
+            var viewModel = MapDetailsModel(campaign);
             return View("Details", viewModel);
         }
 
@@ -150,7 +153,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                Map(campaign, model);
+                MapCampaign(campaign, model);
                 campaignRepository.Save();
                 return RedirectToAction("Index");
             }
@@ -191,12 +194,38 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View("ProgressBar", model);
         }
 
-        private static void Map(Campaign campaign, CampaignDetailsModel viewModel)
+        private static void MapCampaign(Campaign campaign, CampaignDetailsModel viewModel)
         {
             campaign.UrlSlug = viewModel.UrlSlug;
             campaign.Title = viewModel.Title;
             campaign.Description = viewModel.Description;
             campaign.ImagePath = viewModel.ImagePath;
+        }
+
+        private static CampaignEmailBlastModel MapEmailBlast(Campaign campaign)
+        {
+            var model = Mapper.Map<Campaign, CampaignEmailBlastModel>(campaign);
+            var userProfile = campaign.UserProfile;
+            model.FirstName = userProfile.FirstName;
+            model.LastName = userProfile.LastName;
+            model.Email = userProfile.Email;
+            return model;
+        }
+
+        private static CampaignDetailsModel MapDetailsModel(Campaign campaign)
+        {
+            var model = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
+            var userProfile = campaign.UserProfile;
+            var causeTemplate = campaign.CauseTemplate;
+            model.FirstName = userProfile.FirstName;
+            model.LastName = userProfile.LastName;
+            model.AmountIsConfigurable = causeTemplate.AmountIsConfigurable;
+            model.TimespanIsConfigurable = causeTemplate.TimespanIsConfigurable;
+            model.VideoEmbedHtml = causeTemplate.VideoEmbedHtml;
+            model.Donations = campaign.CampaignDonors
+                .Where(d => d.Approved)
+                .Select(Mapper.Map<CampaignDonor, DonationDetailsModel>).ToList();
+            return model;
         }
     }
 }

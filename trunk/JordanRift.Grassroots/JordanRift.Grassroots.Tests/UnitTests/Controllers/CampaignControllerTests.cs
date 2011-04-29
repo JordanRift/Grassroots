@@ -64,6 +64,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             var campaign = EntityHelpers.GetValidCampaign();
             campaign.UrlSlug = "goodUrlSlug";
+            campaign.UserProfile = EntityHelpers.GetValidUserProfile();
+            campaign.CauseTemplate = EntityHelpers.GetValidCauseTemplate();
+            campaign.CampaignDonors = new List<CampaignDonor>();
             campaignRepository.Add(campaign);
             var result = controller.Index("goodUrlSlug");
             Assert.IsInstanceOf(typeof(ViewResult), result);

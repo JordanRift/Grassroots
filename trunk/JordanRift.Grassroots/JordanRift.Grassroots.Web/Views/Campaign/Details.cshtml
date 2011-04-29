@@ -1,4 +1,5 @@
 ﻿@model JordanRift.Grassroots.Web.Models.CampaignDetailsModel
+@using JordanRift.Grassroots.Web.Models
 @{
     //
     // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
@@ -9,32 +10,46 @@
     //
     
 	ViewBag.Title = Model.Title;
+
+    var daysRemaining = Model.EndDate - Model.StartDate;
+    var total = Model.Donations.Sum(d => d.Amount);
+    var emailBlastModel = ViewBag.EmailBlastModel as CampaignEmailBlastModel;
 }
 
-    <h2>@Model.Title</h2>
-
-    <fieldset>
-        <legend>Fields</legend>
-        
-        <div class="display-label">Title</div>
-        <div class="display-field">@Model.Title </div>
-        
-        <div class="display-label">Description</div>
-        <div class="display-field">@Model.Description </div>
-        
-        <div class="display-label">StartDate</div>
-        <div class="display-field">@String.Format("{0:g}", Model.StartDate) </div>
-        
-        <div class="display-label">EndDate</div>
-        <div class="display-field">@String.Format("{0:g}", Model.EndDate) </div>
-        
-        <div class="display-label">GoalAmount</div>
-        <div class="display-field">@String.Format("{0:F}", Model.GoalAmount) </div>
-        
-        <div class="display-label">UrlSlug</div>
-        <div class="display-field">@Model.UrlSlug </div>
-        
-    </fieldset>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { slug = Model.UrlSlug })
-    </p>
+    <hgroup>
+        <h1>@Model.Title</h1>
+    </hgroup>
+    <div class="dashboard">
+        @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
+        <aside class="donate">
+            @Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
+        </aside>
+        <ul>
+            <li>@daysRemaining.Days Days Left</li>
+            <li>@total.ToString("C") Raised</li>
+            <li>@Model.Donations.Count Donations</li>
+            <li>@Model.GoalAmount.ToString("C") Goal</li>
+        </ul>
+    </div>
+    <section class="social">
+        <img src="@Model.ImagePath" alt="@Model.Title" />
+        <div>
+            <p>Share this with your friends</p>
+            <!-- TODO: Build URL for campaign w/ copy button here... -->
+            @Html.Partial("FacebookLikeButton")
+            @Html.Partial("TweetButton")
+            @Html.Partial("EmailForm", emailBlastModel)
+        </div>
+    </section>
+    <section class="summary">
+        <div>
+            <h2>In @Model.FirstName's Words...</h2>
+            <p>@Model.Description</p>
+        </div>
+        <div>
+            @Html.Raw(Model.VideoEmbedHtml)
+        </div>
+    </section>
+    <section class="donations">
+        @Html.Partial("DonationGrid", Model.Donations)
+    </section>
