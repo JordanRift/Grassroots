@@ -68,5 +68,11 @@ namespace JordanRift.Grassroots.Web.Models
         public bool AmountIsConfigurable { get; set; }
         public bool TimespanIsConfigurable { get; set; }
         public string VideoEmbedHtml { get; set; }
+
+        //
+        // Security
+        //
+
+        public bool CurrentUserIsOwner { get; set; }
     }
 }

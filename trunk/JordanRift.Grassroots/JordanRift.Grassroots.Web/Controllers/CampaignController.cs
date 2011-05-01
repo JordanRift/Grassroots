@@ -127,7 +127,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             var userProfile = campaign.UserProfile;
 
-            if (User.Identity.Name != userProfile.Email)
+            if (User.Identity.Name.ToLower() != userProfile.Email.ToLower())
             {
                 TempData["ErrorMessage"] = "Sorry, you don't have permission to edit this Campaign.";
                 return RedirectToAction("Index", new { slug = campaign.UrlSlug });
@@ -141,14 +141,21 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Update(CampaignDetailsModel model)
+        public ActionResult Update(CampaignDetailsModel model, int id = -1)
         {
-            var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
-            var campaign = userProfile.GetActiveCampaigns().FirstOrDefault();
+            var campaign = campaignRepository.GetCampaignByID(id);
 
             if (campaign == null)
             {
                 return HttpNotFound("The Campaign you are looking for could not be found.");
+            }
+
+            var userProfile = campaign.UserProfile;
+
+            if (User.Identity.Name.ToLower() != userProfile.Email.ToLower())
+            {
+                TempData["ErrorMessage"] = "Sorry, you don't have permission to edit this Campaign.";
+                return RedirectToAction("Index", new { slug = campaign.UrlSlug });
             }
 
             if (ModelState.IsValid)
@@ -212,7 +219,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             return model;
         }
 
-        private static CampaignDetailsModel MapDetailsModel(Campaign campaign)
+        private CampaignDetailsModel MapDetailsModel(Campaign campaign)
         {
             var model = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
             var userProfile = campaign.UserProfile;
@@ -225,6 +232,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             model.Donations = campaign.CampaignDonors
                 .Where(d => d.Approved)
                 .Select(Mapper.Map<CampaignDonor, DonationDetailsModel>).ToList();
+            model.CurrentUserIsOwner = (User.Identity.Name.ToLower() == userProfile.Email.ToLower());
             return model;
         }
     }

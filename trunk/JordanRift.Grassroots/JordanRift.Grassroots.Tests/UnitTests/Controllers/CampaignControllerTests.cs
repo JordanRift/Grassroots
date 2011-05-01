@@ -170,16 +170,31 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
+        public void Update_Should_Redirect_To_Index_If_User_Is_Not_Campaign_Owner()
+        {
+            var campaign = EntityHelpers.GetValidCampaign();
+            var viewModel = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "someOtherUser";
+            campaign.UserProfile = userProfile;
+            campaignRepository.Add(campaign);
+            var result = controller.Update(viewModel, campaign.CampaignID);
+            Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
+            var actionName = ((RedirectToRouteResult)result).RouteValues["Action"];
+            Assert.AreEqual("Index", actionName);
+        }
+
+        [Test]
         public void Update_Should_Redirect_To_Edit_If_ModelState_Not_Valid()
         {
             var campaign = EntityHelpers.GetValidCampaign();
             var viewModel = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
             var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            userProfile.Campaigns = new List<Campaign> { campaign };
-            userProfileRepository.Add(userProfile);
+            campaign.UserProfile = userProfile;
+            campaignRepository.Add(campaign);
             controller.ModelState.AddModelError("", "Something bad has happened.");
-            var result = controller.Update(viewModel);
+            var result = controller.Update(viewModel, campaign.CampaignID);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             var actionName = ((RedirectToRouteResult) result).RouteValues["Action"];
             Assert.AreEqual("Edit", actionName);
@@ -204,9 +219,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var viewModel = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
             var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            userProfile.Campaigns = new List<Campaign> { campaign };
-            userProfileRepository.Add(userProfile);
-            var result = controller.Update(viewModel);
+            campaign.UserProfile = userProfile;
+            campaignRepository.Add(campaign);
+            var result = controller.Update(viewModel, campaign.CampaignID);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             var actionName = ((RedirectToRouteResult)result).RouteValues["Action"];
             Assert.AreEqual("Index", actionName);
@@ -220,9 +235,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             viewModel.Title = "New Title";
             var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            userProfile.Campaigns = new List<Campaign> { campaign };
-            userProfileRepository.Add(userProfile);
-            controller.Update(viewModel);
+            campaign.UserProfile = userProfile;
+            campaignRepository.Add(campaign);
+            controller.Update(viewModel, campaign.CampaignID);
             Assert.AreEqual(campaign.Title, viewModel.Title);
         }
 
@@ -234,9 +249,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             viewModel.Description = "New Description";
             var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            userProfile.Campaigns = new List<Campaign> { campaign };
-            userProfileRepository.Add(userProfile);
-            controller.Update(viewModel);
+            campaign.UserProfile = userProfile;
+            campaignRepository.Add(campaign);
+            controller.Update(viewModel, campaign.CampaignID);
             Assert.AreEqual(campaign.Description, viewModel.Description);
         }
 
@@ -248,9 +263,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             viewModel.UrlSlug = "newslug";
             var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            userProfile.Campaigns = new List<Campaign> { campaign };
-            userProfileRepository.Add(userProfile);
-            controller.Update(viewModel);
+            campaign.UserProfile = userProfile;
+            campaignRepository.Add(campaign);
+            controller.Update(viewModel, campaign.CampaignID);
             Assert.AreEqual(campaign.UrlSlug, viewModel.UrlSlug);
         }
 
@@ -262,9 +277,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             viewModel.ImagePath = "/new/image/path.jpg";
             var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            userProfile.Campaigns = new List<Campaign> { campaign };
-            userProfileRepository.Add(userProfile);
-            controller.Update(viewModel);
+            campaign.UserProfile = userProfile;
+            campaignRepository.Add(campaign);
+            controller.Update(viewModel, campaign.CampaignID);
             Assert.AreEqual(campaign.ImagePath, viewModel.ImagePath);
         }
 
