@@ -272,14 +272,32 @@ header {
 		}
 
 footer {
-	width: 980px;
-	height: 195px;
+	width: 920px;
+	height: 135px;
 	background: url("images/footer-bg.png") no-repeat;
 	display: block;
 	margin: -14px 0px 0px 11px;
+	padding: 30px;
 	float: none;
 	clear: both;
 }
+
+	footer aside {
+		float: right;
+		font-size: 12px;
+		text-align: right;
+		margin-left: 28px;
+		.medium-gray;
+	}
+
+		footer aside a {
+			.light-green;
+			text-decoration: none;
+		}
+
+		footer aside a:hover {
+			text-decoration: underline;
+		}
 
 form > div
 {
@@ -292,6 +310,8 @@ form > div
 	form > div > button {
 		margin: 10px;
 	}
+
+
 
 a.ui-button {
 	.button-style;
