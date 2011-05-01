@@ -20,63 +20,67 @@
     @Html.Parital("UIForm")
 }
 
-    <div class="title">
-        @Html.LabelFor(m => m.Title)
-        @Html.TextBoxFor(m => m.Title)
-        @Html.ValidationMessageFor(m => m.Title)
-    </div>
-    <div class="dashboard">
-        @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
-        <aside class="donate">
-            @Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
-        </aside>
-        <ul>
-            @if (Model.TimespanIsConfigurable) { 
-            <li>
-                @Html.EditorFor(m => m.EndDate)
-                @Html.ValidationMessageFor(m => m.EndDate)
-                @Html.HiddenFor(m => m.StartDate)
-            </li>
-            }
-            else {
-            <li>@daysRemaining.Days Days Left</li>
-            }
-            <li>@total.ToString("C") Raised</li>
-            <li>@Model.Donations.Count Donations</li>
-            @if (Model.AmountIsConfigurable) {
-            <li>
-                @Html.TextBoxFor(m => m.GoalAmount)
-                @Html.ValidationMessageFor(m => m.GoalAmount)
-            </li>
-            }
-            else { 
-            <li>@Model.GoalAmount.ToString("C") Goal</li>
-            }
-        </ul>
-    </div>
-    <section class="social">
-        <input type="file" name="imagePath" id="imagePath" />
-        <div>
-            <p>Share this with your friends</p>
-            <!-- TODO: Build URL for campaign w/ copy button here... -->
-            <div class="url">
-                @Html.TextBoxFor(m => m.UrlSlug)
-                @Html.ValidationMessageFor(m => m.UrlSlug)
+<div id="campaign-edit-form">
+    @Html.BeginForm("Update", "Campaign", new { id = Model.CampaignID }) {
+        <div class="title">
+            @Html.LabelFor(m => m.Title)
+            @Html.TextBoxFor(m => m.Title)
+            @Html.ValidationMessageFor(m => m.Title)
+        </div>
+        <div class="dashboard">
+            @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
+            <aside class="donate">
+                @Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
+            </aside>
+            <ul>
+                @if (Model.TimespanIsConfigurable) { 
+                <li>
+                    @Html.EditorFor(m => m.EndDate)
+                    @Html.ValidationMessageFor(m => m.EndDate)
+                    @Html.HiddenFor(m => m.StartDate)
+                </li>
+                }
+                else {
+                <li>@daysRemaining.Days Days Left</li>
+                }
+                <li>@total.ToString("C") Raised</li>
+                <li>@Model.Donations.Count Donations</li>
+                @if (Model.AmountIsConfigurable) {
+                <li>
+                    @Html.TextBoxFor(m => m.GoalAmount)
+                    @Html.ValidationMessageFor(m => m.GoalAmount)
+                </li>
+                }
+                else { 
+                <li>@Model.GoalAmount.ToString("C") Goal</li>
+                }
+            </ul>
+        </div>
+        <section class="social">
+            <input type="file" name="imagePath" id="imagePath" />
+            <div>
+                <p>Share this with your friends</p>
+                <!-- TODO: Build URL for campaign w/ copy button here... -->
+                <div class="url">
+                    @Html.TextBoxFor(m => m.UrlSlug)
+                    @Html.ValidationMessageFor(m => m.UrlSlug)
+                </div>
+                @Html.Partial("FacebookLikeButtonWithPictures")
+                @Html.Partial("TweetButton")
+                @Html.Partial("EmailForm", emailBlastModel)
             </div>
-            @Html.Partial("FacebookLikeButtonWithPictures")
-            @Html.Partial("TweetButton")
-            @Html.Partial("EmailForm", emailBlastModel)
-        </div>
-    </section>
-    <section class="summary">
-        <div>
-            <h2>In @Model.FirstName's Words...</h2>
-            <p>@Html.TextBoxFor(m => m.Description)</p>
-        </div>
-        <div>
-            @Html.Raw(Model.VideoEmbedHtml)
-        </div>
-    </section>
-    <section class="donations">
-        @Html.Partial("DonationGrid", Model.Donations)
-    </section>
+        </section>
+        <section class="summary">
+            <div>
+                <h2>In @Model.FirstName's Words...</h2>
+                <p>@Html.TextBoxFor(m => m.Description)</p>
+            </div>
+            <div>
+                @Html.Raw(Model.VideoEmbedHtml)
+            </div>
+        </section>
+        <section class="donations">
+            @Html.Partial("DonationGrid", Model.Donations)
+        </section>
+    }
+</div>

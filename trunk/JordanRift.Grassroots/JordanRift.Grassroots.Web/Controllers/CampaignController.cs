@@ -136,6 +136,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             var viewModel = TempData["CampaignDetailsModel"] == null ? 
                 TempData["CampaignDetailsModel"] as CampaignDetailsModel : 
                 Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
+            ViewBag.EmailBlastModel = MapEmailBlast(campaign);
             return View("Edit", viewModel);
         }
 
