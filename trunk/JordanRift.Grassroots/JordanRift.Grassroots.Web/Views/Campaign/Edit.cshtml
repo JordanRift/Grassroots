@@ -1,4 +1,5 @@
 ﻿@model JordanRift.Grassroots.Web.Models.CampaignDetailsModel
+@using JordanRift.Grassroots.Web.Models
 @{
     //
     // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
@@ -8,57 +9,78 @@
     // http://creativecommons.org/licenses/by-nc-sa/3.0/
     //
     
-    ViewBag.Title = "Edit";
+	ViewBag.Title = "Editing " + Model.Title;
+
+    var daysRemaining = Model.EndDate - Model.StartDate;
+    var total = Model.Donations.Sum(d => d.Amount);
+    var emailBlastModel = ViewBag.EmailBlastModel as CampaignEmailBlastModel;
 }
-@section DocumentHead
-{
-    @Html.Partial("UIForm")
+
+@section DocumentHead {
+    @Html.Parital("UIForm")
 }
-<!-- TODO: Design markup based on Index view -->
-<hgroup>
-    <h1>Edit your campaign</h1>
-    <h3>@Model.Title</h3>
-</hgroup>
-<div class="campaign-edit-form">
-    @using (Html.BeginForm("Update", "Campaign", new { Area = "", id = Model.CampaignID })) {
-        @Html.ValidationSummary(true)
-        
-        <fieldset>
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Title) 
+
+<div id="campaign-edit-form">
+    @Html.BeginForm("Update", "Campaign", new { id = Model.CampaignID }) {
+        <div class="title">
+            @Html.LabelFor(m => m.Title)
+            @Html.TextBoxFor(m => m.Title)
+            @Html.ValidationMessageFor(m => m.Title)
+        </div>
+        <div class="dashboard">
+            @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
+            <aside class="donate">
+                @Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
+            </aside>
+            <ul>
+                @if (Model.TimespanIsConfigurable) { 
+                <li>
+                    @Html.EditorFor(m => m.EndDate)
+                    @Html.ValidationMessageFor(m => m.EndDate)
+                    @Html.HiddenFor(m => m.StartDate)
+                </li>
+                }
+                else {
+                <li>@daysRemaining.Days Days Left</li>
+                }
+                <li>@total.ToString("C") Raised</li>
+                <li>@Model.Donations.Count Donations</li>
+                @if (Model.AmountIsConfigurable) {
+                <li>
+                    @Html.TextBoxFor(m => m.GoalAmount)
+                    @Html.ValidationMessageFor(m => m.GoalAmount)
+                </li>
+                }
+                else { 
+                <li>@Model.GoalAmount.ToString("C") Goal</li>
+                }
+            </ul>
+        </div>
+        <section class="social">
+            <input type="file" name="imagePath" id="imagePath" />
+            <div>
+                <p>Share this with your friends</p>
+                <!-- TODO: Build URL for campaign w/ copy button here... -->
+                <div class="url">
+                    @Html.TextBoxFor(m => m.UrlSlug)
+                    @Html.ValidationMessageFor(m => m.UrlSlug)
+                </div>
+                @Html.Partial("FacebookLikeButtonWithPictures")
+                @Html.Partial("TweetButton")
+                @Html.Partial("EmailForm", emailBlastModel)
             </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Title) 
-                @Html.ValidationMessageFor(model => model.Title) 
+        </section>
+        <section class="summary">
+            <div>
+                <h2>In @Model.FirstName's Words...</h2>
+                <p>@Html.TextBoxFor(m => m.Description)</p>
             </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Description) 
+            <div>
+                @Html.Raw(Model.VideoEmbedHtml)
             </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Description) 
-                @Html.ValidationMessageFor(model => model.Description) 
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.GoalAmount) 
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.GoalAmount, String.Format("{0:F}", Model.GoalAmount)) 
-                @Html.ValidationMessageFor(model => model.GoalAmount) 
-            </div>
-            
-            <div class="editor-label">
-                @Html.LabelFor(model => model.UrlSlug) 
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.UrlSlug) 
-                @Html.ValidationMessageFor(model => model.UrlSlug) 
-            </div>
-            
-            <p>
-                <input type="submit" value="Save" />
-            </p>
-        </fieldset>
+        </section>
+        <section class="donations">
+            @Html.Partial("DonationGrid", Model.Donations)
+        </section>
     }
 </div>

@@ -19,6 +19,11 @@
     <hgroup>
         <h1>@Model.Title</h1>
     </hgroup>
+    @if (Model.CurrentUserIsOwner) { 
+    <aside class="edit">
+        @Html.ActionLink("Edit this campaign", "Edit", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
+    </aside>
+    }
     <div class="dashboard">
         @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
         <aside class="donate">
@@ -38,7 +43,9 @@
             <!-- TODO: Build URL for campaign w/ copy button here... -->
             @Html.Partial("FacebookLikeButtonWithPictures")
             @Html.Partial("TweetButton")
+            @if (Model.CurrentUserIsOwner) { 
             @Html.Partial("EmailForm", emailBlastModel)
+            }
         </div>
     </section>
     <section class="summary">
