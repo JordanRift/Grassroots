@@ -1,3 +1,15 @@
 ﻿@{
     Layout = null;
 }
+
+<nav>
+    @Html.Partial("MainNavigation")
+</nav>
+<aside class="copyright">
+    <p>
+        &copy; Copyright @OrganizationName @DateTime.Now.Year.<br />
+        All rights reserved.<br />
+        Powered by <a href="http://projectgrassroots.com" title="Grassroots" target="_blank">Grassroots</a>, 
+        a <a href="http://jordanrift.com" title="Jordan Rift" target="_blank">Jordan Rift</a> venture.
+    </p>
+</aside>
