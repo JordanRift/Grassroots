@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using JordanRift.Grassroots.Framework.Entities.Validation;
 
 namespace JordanRift.Grassroots.Web.Models
 {
@@ -37,9 +38,13 @@ namespace JordanRift.Grassroots.Web.Models
         public string UrlSlug { get; set; }
         
         public string ImagePath { get; set; }
+
+        [UIHint("DateTime")]
         public DateTime StartDate { get; set; }
         
-        //[GreaterThanDate("StartDate")]
+        [Required]
+        [GreaterThanDate("StartDate")]
+        [UIHint("DateTime")]
         public DateTime EndDate { get; set; }
 
         //
