@@ -26,7 +26,7 @@
         <div class="title">
             @Html.LabelFor(m => m.Title)
             @Html.TextBoxFor(m => m.Title)
-            @Html.ValidationMessageFor(m => m.Title)
+            @Html.ValidationMessageFor(m => m.Title, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
         </div>
         <div class="dashboard">
             @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
@@ -37,7 +37,7 @@
                 @if (Model.TimespanIsConfigurable) { 
                 <li>
                     @Html.EditorFor(m => m.EndDate)
-                    @Html.ValidationMessageFor(m => m.EndDate)
+                    @Html.ValidationMessageFor(m => m.EndDate, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                     @Html.HiddenFor(m => m.StartDate)
                 </li>
                 }
@@ -53,7 +53,7 @@
                 @if (Model.AmountIsConfigurable) {
                 <li>
                     @Html.TextBoxFor(m => m.GoalAmount)
-                    @Html.ValidationMessageFor(m => m.GoalAmount)
+                    @Html.ValidationMessageFor(m => m.GoalAmount, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </li>
                 }
                 else { 
@@ -68,7 +68,7 @@
                 <!-- TODO: Build URL for campaign w/ copy button here... -->
                 <div class="url">
                     @Html.TextBoxFor(m => m.UrlSlug)
-                    @Html.ValidationMessageFor(m => m.UrlSlug)
+                    @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </div>
                 @Html.Partial("FacebookLikeButtonWithPictures")
                 @Html.Partial("TweetButton")
@@ -77,7 +77,10 @@
         <section class="summary">
             <div>
                 <h2>In @Model.FirstName's Words...</h2>
-                <p>@Html.TextAreaFor(m => m.Description)</p>
+                <p>
+                    @Html.TextAreaFor(m => m.Description)
+                    @Html.ValidationMessageFor(m => m.Description, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+                </p>
             </div>
             <div>
                 @Html.Raw(Model.VideoEmbedHtml)

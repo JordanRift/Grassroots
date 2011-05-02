@@ -65,7 +65,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 300, VaryByParam = "none")]
+        [OutputCache(Duration = 600, VaryByParam = "none")]
         public ActionResult TwitterFeed()
         {
             var twitterName = Organization.TwitterName;
