@@ -284,7 +284,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             if (me.link != null)
             {
                 var link = me.link.ToString();
-                var linkPart = link.IndexOf("?id=") // If no friendly url available for user...
+                var linkPart = link.IndexOf("?id=") > -1 // If no friendly url available for user...
                     ? link.Substring(link.LastIndexOf('=') + 1) // use query string 
                     : link.Substring(link.LastIndexOf('/') + 1);
                 

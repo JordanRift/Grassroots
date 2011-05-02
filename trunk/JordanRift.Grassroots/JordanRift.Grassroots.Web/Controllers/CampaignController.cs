@@ -133,9 +133,10 @@ namespace JordanRift.Grassroots.Web.Controllers
                 return RedirectToAction("Index", new { slug = campaign.UrlSlug });
             }
 
-            var viewModel = TempData["CampaignDetailsModel"] == null ? 
-                TempData["CampaignDetailsModel"] as CampaignDetailsModel : 
-                Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
+            //var viewModel = TempData["CampaignDetailsModel"] == null ? 
+            //    TempData["CampaignDetailsModel"] as CampaignDetailsModel : 
+            //    MapDetailsModel(campaign);
+            var viewModel = MapDetailsModel(campaign);
             ViewBag.EmailBlastModel = MapEmailBlast(campaign);
             return View("Edit", viewModel);
         }
