@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<JordanRift.Grassroots.Framework.Entities.Tweet>
 @{
     Layout = null;
-
-    var screenName = Model.First().ScreenName;
 }
 
+@if (Model.Count() > 0) {
+    var screenName = Model.First().ScreenName;
 <div class="tweets column">
     <h2><a href="http://twitter.com/@screenName" title="Follow @OrganizationName on Twitter" target="_blank">Follow @OrganizationName on Twitter</a></h2>
     <ul>
@@ -18,3 +18,4 @@
     }
     </ul>
 </div>
+    }
