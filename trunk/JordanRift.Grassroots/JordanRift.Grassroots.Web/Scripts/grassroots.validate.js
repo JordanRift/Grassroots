@@ -17,17 +17,16 @@
     /// <summary>
     /// Adding custom client validation logic for [GreaterThanDate] attribute on the server.
     /// </summary>
-    $.validator.addMethod("greater", function (value, element, param) {
-        return Date.parse(value) > Date.parse($(param).val());
+    $.validator.addMethod("greater", function (value, element, params) {
+        var startDate = Date.parse($("#" + params).val());
+        var endDate = Date.parse(value);
+        return endDate > startDate;
     });
 
     /// <summary>
     /// Adding custom client validation logic for [GreaterThanDate] attribute on the server.
     /// </summary>
-    $.validator.unobtrusive.adapters.add("greater", ["otherproperty"], function (options) {
-        options.rules["greater"] = "#" + options.params.other;
-        options.messages["greater"] = options.message;
-    });
+    $.validator.unobtrusive.addapters.addSingleVal("greater", "otherproperty");
 
     /// <summary>
     /// Adding custom client validation logic for [NotEqualTo] attribute on the server.
