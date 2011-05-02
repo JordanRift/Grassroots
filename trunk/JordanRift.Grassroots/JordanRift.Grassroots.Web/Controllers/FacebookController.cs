@@ -27,6 +27,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         public FacebookController(IUserProfileRepository userProfileRepository)
         {
             this.userProfileRepository = userProfileRepository;
+			Mapper.CreateMap<FacebookRegisterModel, UserProfile>();
         }
 
         /// <summary>

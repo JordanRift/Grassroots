@@ -63,6 +63,9 @@ namespace JordanRift.Grassroots.Web.Models
         [RegularExpression(@"(^\d{5}$)|(^\d{5}-\d{4}$)", ErrorMessage = "Please enter a valid zip code.")]
         public string ZipCode { get; set; }
 
+		[Editable( false )]
+		public string FacebookID { get; set; }
+
         //public List<CampaignDetailsModel> Campaigns { get; set; }
     }
 }
