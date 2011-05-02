@@ -35,16 +35,19 @@ namespace JordanRift.Grassroots.Web.Models
         public decimal GoalAmount { get; set; }
         
         [Required]
+        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Please enter only alpha-numeric characters.")]
         public string UrlSlug { get; set; }
         
         public string ImagePath { get; set; }
 
         [UIHint("DateTime")]
+        [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
         
         [Required]
         [GreaterThanDate("StartDate")]
         [UIHint("DateTime")]
+        [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
 
         //

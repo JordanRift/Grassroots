@@ -164,11 +164,11 @@ namespace JordanRift.Grassroots.Web.Controllers
             {
                 MapCampaign(campaign, model);
                 campaignRepository.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { slug = campaign.UrlSlug });
             }
 
             TempData["CampaignDetailsModel"] = model;
-            return RedirectToAction("Edit");
+            return RedirectToAction("Edit", new { slug = campaign.UrlSlug });
         }
 
         [Authorize]
@@ -208,7 +208,18 @@ namespace JordanRift.Grassroots.Web.Controllers
             campaign.UrlSlug = viewModel.UrlSlug;
             campaign.Title = viewModel.Title;
             campaign.Description = viewModel.Description;
-            campaign.ImagePath = viewModel.ImagePath;
+            //campaign.ImagePath = viewModel.ImagePath;
+            var template = campaign.CauseTemplate;
+
+            if (template.AmountIsConfigurable)
+            {
+                campaign.GoalAmount = viewModel.GoalAmount;
+            }
+
+            if (template.TimespanIsConfigurable)
+            {
+                campaign.EndDate = viewModel.EndDate;
+            }
         }
 
         private static CampaignEmailBlastModel MapEmailBlast(Campaign campaign)
