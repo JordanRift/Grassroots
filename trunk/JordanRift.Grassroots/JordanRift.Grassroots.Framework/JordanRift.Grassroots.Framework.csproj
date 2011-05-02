@@ -146,7 +146,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Services\GrassrootsRoleService.cs" />
+    <Compile Include="Services\GravatarService.cs" />
     <Compile Include="Services\IBlogService.cs" />
+    <Compile Include="Services\IGravatarService.cs" />
     <Compile Include="Services\ITwitterService.cs" />
     <Compile Include="Services\TwitterService.cs" />
     <Compile Include="Services\UserProfileService.cs" />

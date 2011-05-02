@@ -14,9 +14,9 @@ using System.Web.Routing;
 using System.Web.Security;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
-using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
+using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
 using Mvc.Mailer;
@@ -119,7 +119,8 @@ namespace JordanRift.Grassroots.Web.Controllers
                         organization.UserProfiles = new List<UserProfile>();
                     }
 
-                    userProfile.ImagePath = EntityConstants.DEFAULT_AVATAR_PATH;
+                    var gravatarService = new GravatarService();
+                    userProfile.ImagePath = gravatarService.GetGravatarPictureUrl(userProfile.Email);
                     organization.UserProfiles.Add(userProfile);
                     OrganizationRepository.Save();
                     status = MembershipService.CreateUser(model.Email, model.Password, model.Email);

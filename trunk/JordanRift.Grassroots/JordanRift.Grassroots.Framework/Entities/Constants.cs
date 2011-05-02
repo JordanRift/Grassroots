@@ -47,7 +47,6 @@ namespace JordanRift.Grassroots.Framework.Entities
 
     public static class EntityConstants
     {
-        public const string DEFAULT_AVATAR_PATH = "content/images/avatar.jpg";
         public const string DEFAULT_CAMPAIGN_IMAGE_PATH = "content/images/campaign.jpg";
     }
 
