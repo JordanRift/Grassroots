@@ -30,7 +30,10 @@
         <h3>I want to...</h3>
         <ul>
             <li>@Html.ActionLink("Edit my details", "Edit", new { Area = "", id = Model.UserProfileID }, new { Title = "Edit my details" })</li>
-            <li>@Html.ActionLink("Connect my account with Facebook", "Connect", "Facebook")</li>
+			@if ( Model.FacebookID == null || Model.FacebookID == "" )
+			{
+			<li>@Html.ActionLink( "Connect my account with Facebook", "Connect", "Facebook" )</li>
+			}
             <li>@Html.ActionLink("Change my password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change my password" })</li>
             <li>
                 @using (Html.BeginForm(new { Action = "Delete", id = Model.UserProfileID })) {
