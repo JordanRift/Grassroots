@@ -268,12 +268,16 @@ namespace JordanRift.Grassroots.Web.Controllers
                                     ImagePath = GetFacebookImagePath(me)
                                 };
 
-            string location = me.location.name;
-            var locArray = location.Split(new[] { ',' });
-            viewModel.City = locArray[0].Trim();
-            
-            var pair = UIHelpers.StateDictionary.FirstOrDefault(s => s.Key.ToLower() == locArray[1].Trim().ToLower());
-            viewModel.State = pair.Value;
+			// If the user's FB location is not set, we can't do anything.
+			if ( me.location != null )
+			{
+				string location = me.location.name;
+				var locArray = location.Split( new[] { ',' } );
+				viewModel.City = locArray[0].Trim();
+
+				var pair = UIHelpers.StateDictionary.FirstOrDefault( s => s.Key.ToLower() == locArray[1].Trim().ToLower() );
+				viewModel.State = pair.Value;
+			}
             return viewModel;
         }
 
