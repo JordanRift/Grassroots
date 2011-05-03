@@ -77,6 +77,10 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
             }
         }
 
+        /// <summary>
+        /// Calculates the total raised by the current campaign.
+        /// </summary>
+        /// <returns>Total raised</returns>
         public decimal CalculateTotalDonations()
         {
             var total = 0m;

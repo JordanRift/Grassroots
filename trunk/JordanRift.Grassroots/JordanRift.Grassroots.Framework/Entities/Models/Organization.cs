@@ -60,7 +60,20 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         [NotMapped]
         public DateTime FiscalYearStart
         {
-            get { return new DateTime(DateTime.Now.Year, FiscalYearStartMonth, FiscalYearStartDay); }
+            get
+            {
+                var currentMonth = DateTime.Now.Month;
+                var currentDay = DateTime.Now.Day;
+                int fiscalYear = DateTime.Now.Year;
+
+                if ((FiscalYearStartMonth > currentMonth) ||
+                    (FiscalYearStartMonth == currentMonth && FiscalYearStartDay > currentDay))
+                {
+                    fiscalYear = DateTime.Now.Year - 1;
+                }
+
+                return new DateTime(fiscalYear, FiscalYearStartMonth, FiscalYearStartDay);
+            }
         }
 
         public Organization()
@@ -76,6 +89,10 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
             return OrganizationSettings.FirstOrDefault(s => s.Name == key);
         }
 
+        /// <summary>
+        /// Calculates the total raised across all campaigns of the organization during the current fiscal year.
+        /// </summary>
+        /// <returns>Total raised during current fiscal year</returns>
         public decimal CalculateTotalDonations()
         {
             var total = 0m;
