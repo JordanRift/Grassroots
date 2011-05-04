@@ -35,7 +35,7 @@ projects. Without these guys, Grassroots would not be possible...
 * [EntityFramework](http://nuget.org/List/Packages/EntityFramework) by Microsoft
 * [Facebook SDK](http://facebooksdk.codeplex.com/) by Jim Zimmerman, Nathan Totten, Prabir Shrestha
 * [jQuery](http://jquery.com) by John Resig
-* [jQuery Validation](http://bassistance.de/jquery-plugins/jquery-plugin-validation/) by Jorn Zaefferer
+* [jQuery Validation](http://bassistance.de/jquery-plugins/jquery-plugin-validation/) by J&ouml;rn Zaefferer
 * [Modernizr](http://www.modernizr.com/) by Faruk Ates, Paul Irish, Alex Sexton
 * [MvcContrib.Mvc3.TestHelper](http://mvccontrib.codeplex.com/) by Outercurve Foundation
 * [MvcMailer](https://github.com/smsohan/MvcMailer) by S. M. SOHAN
