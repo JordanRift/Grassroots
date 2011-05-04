@@ -31,7 +31,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
 		                   Summary = "We are going to build houses...",
 		                   VideoEmbedHtml = "",
 		                   DescriptionHtml = "<h1>Houses</h1>Everyone wants a house, right? ...",
-		                   ImagePath = ""
+		                   ImagePath = "content/images/causetemplate/template.jpg"
 		               };
 		}
 
@@ -115,6 +115,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
 		                              ZipCode = "85213",
 		                              Consent = true,
                                       Active = true,
+                                      ImagePath = "content/images/users/1.jpg",
                                       Users = new List<User>()
 		                          };
 

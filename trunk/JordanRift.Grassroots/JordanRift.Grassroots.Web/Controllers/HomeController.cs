@@ -64,6 +64,10 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View("ProgressBar", model);
         }
 
+        /// <summary>
+        /// Cache for 10 min, to try to minimize impact of request throttling by Twitter's public REST API.
+        /// </summary>
+        /// <returns></returns>
         [ChildActionOnly]
         [OutputCache(Duration = 600, VaryByParam = "none")]
         public ActionResult TwitterFeed()

@@ -16,18 +16,23 @@ using Facebook;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
+using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
+using Mvc.Mailer;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
     public class FacebookController : GrassrootsControllerBase
     {
         private readonly IUserProfileRepository userProfileRepository;
-        
-        public FacebookController(IUserProfileRepository userProfileRepository)
+        private readonly IAccountMailer accountMailer;
+
+        public FacebookController(IUserProfileRepository userProfileRepository, IAccountMailer accountMailer)
         {
             this.userProfileRepository = userProfileRepository;
+            this.accountMailer = accountMailer;
 			Mapper.CreateMap<FacebookRegisterModel, UserProfile>();
+            Mapper.CreateMap<FacebookRegisterModel, RegisterModel>();
         }
 
         /// <summary>
@@ -223,6 +228,8 @@ namespace JordanRift.Grassroots.Web.Controllers
                     organization.UserProfiles.Add(userProfile);
                     OrganizationRepository.Save();
                     FormsAuthentication.SetAuthCookie(userProfile.Email, false);
+                    var mailerModel = Mapper.Map<FacebookRegisterModel, RegisterModel>(model);
+                    accountMailer.Welcome(mailerModel).SendAsync();
                 }
 
                 if (Url.IsLocalUrl(returnUrl))

@@ -112,16 +112,15 @@ namespace JordanRift.Grassroots.Web.Controllers
                 using (var transactionScope = new TransactionScope())
                 {
                     userProfile = Mapper.Map<RegisterModel, UserProfile>(model);
-                    var organization = OrganizationRepository.GetDefaultOrganization();
 
-                    if (organization.UserProfiles == null)
+                    if (Organization.UserProfiles == null)
                     {
-                        organization.UserProfiles = new List<UserProfile>();
+                        Organization.UserProfiles = new List<UserProfile>();
                     }
 
                     var gravatarService = new GravatarService();
                     userProfile.ImagePath = gravatarService.GetGravatarPictureUrl(userProfile.Email);
-                    organization.UserProfiles.Add(userProfile);
+                    Organization.UserProfiles.Add(userProfile);
                     OrganizationRepository.Save();
                     status = MembershipService.CreateUser(model.Email, model.Password, model.Email);
                     transactionScope.Complete();
