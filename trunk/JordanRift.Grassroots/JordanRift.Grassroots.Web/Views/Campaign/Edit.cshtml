@@ -33,7 +33,18 @@
             <aside class="donate">
                 @Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
             </aside>
-            <ul>
+            <ul class="stats break">
+                @if (Model.AmountIsConfigurable) {
+                <li class="first">
+                    @Html.TextBoxFor(m => m.GoalAmount)
+                    @Html.ValidationMessageFor(m => m.GoalAmount, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+                </li>
+                }
+                else { 
+                <li><span>@Model.GoalAmount.ToString("C")</span> Campaign Goal</li>
+                }
+                <li><span>@total.ToString("C")</span> Raised</li>
+                <li><span>@Model.Donations.Count</span> Donations</li>
                 @if (Model.TimespanIsConfigurable) { 
                 <li>
                     @Html.EditorFor(m => m.EndDate)
@@ -42,22 +53,11 @@
                 </li>
                 }
                 else {
-                <li>
-                    @daysRemaining.Days Days Left
+                <li class="last">
+                    <span>@daysRemaining.Days</span> Days Left
                     @Html.HiddenFor(m => m.StartDate)
                     @Html.HiddenFor(m => m.EndDate)
                 </li>
-                }
-                <li>@total.ToString("C") Raised</li>
-                <li>@Model.Donations.Count Donations</li>
-                @if (Model.AmountIsConfigurable) {
-                <li>
-                    @Html.TextBoxFor(m => m.GoalAmount)
-                    @Html.ValidationMessageFor(m => m.GoalAmount, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
-                </li>
-                }
-                else { 
-                <li>@Model.GoalAmount.ToString("C") Goal</li>
                 }
             </ul>
         </div>
