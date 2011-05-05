@@ -21,12 +21,12 @@
         <div class="video">
             @Html.Raw(Model.VideoEmbedHtml)
         </div>
-        <div class="social">
-            @Html.Partial("FacebookLikeButton")
-            @Html.Partial("TweetButton")
-        </div>
         <div class="summary">
-            @Model.Summary
+            <p>@Model.Summary</p>
+            <aside class="social">
+                @Html.Partial("FacebookLikeButton")
+                @Html.Partial("TweetButton")
+            </aside>
         </div>
     </div>
     <div class="feeds">
