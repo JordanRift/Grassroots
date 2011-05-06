@@ -1,0 +1,82 @@
+﻿@model JordanRift.Grassroots.Web.Models.CauseTemplateCreateModel
+
+@{
+	//
+	// Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
+	//
+	// THIS WORK IS LICENSED UNDER A CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-
+	// SHAREALIKE 3.0 UNPORTED LICENSE:
+	// http://creativecommons.org/licenses/by-nc-sa/3.0/
+	//
+	ViewBag.Title = "Create a new Cause Template";
+}
+@section DocumentHead 
+{
+	@Html.Partial( "UIForm" )
+}
+<hgroup>
+	<h1>Create New Project</h1>
+</hgroup>
+<div id="edit-form">
+	@using (Html.BeginForm(new { Action = "CreateCauseTemplate", Controller = "Admin" } ))
+	{ 
+		<fieldset>
+			<legend>Project Settings</legend>
+			@Html.ValidationSummary( false, "Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" } )
+			<dl>
+				<dt>@Html.LabelFor( m => m.Name )</dt>
+				<dd>@Html.TextBoxFor( m => m.Name )
+					@Html.ValidationMessageFor( m => m.Name, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+				<dt>@Html.LabelFor( m => m.ActionVerb )</dt>
+				<dd>@Html.TextBoxFor( m => m.ActionVerb )
+					@Html.ValidationMessageFor( m => m.ActionVerb, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+				<dt>@Html.LabelFor( m => m.GoalName )</dt>
+				<dd>@Html.TextBoxFor( m => m.GoalName )
+					@Html.ValidationMessageFor( m => m.GoalName, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+				<dt>@Html.LabelFor( m => m.Active )</dt>
+				<dd>@Html.EditorFor( m => m.Active )
+					@Html.ValidationMessageFor( m => m.Active, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+				<dt>@Html.LabelFor( m => m.AmountIsConfigurable )</dt>
+				<dd>@Html.EditorFor( m => m.AmountIsConfigurable )
+					@Html.ValidationMessageFor( m => m.AmountIsConfigurable, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+				<dt>@Html.LabelFor( m => m.DefaultAmount )</dt>
+				<dd>@Html.EditorFor( m => m.DefaultAmount )
+					@Html.ValidationMessageFor( m => m.DefaultAmount, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+				<dt>@Html.LabelFor( m => m.TimespanIsConfigurable )</dt>
+				<dd>@Html.EditorFor( m => m.TimespanIsConfigurable )
+					@Html.ValidationMessageFor( m => m.TimespanIsConfigurable, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+				<dt>@Html.LabelFor( m => m.DefaultTimespanInDays )</dt>
+				<dd>@Html.EditorFor( m => m.DefaultTimespanInDays )
+					@Html.ValidationMessageFor( m => m.DefaultTimespanInDays, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+				<dt>@Html.LabelFor( m => m.ImagePath )</dt>
+				<dd>@Html.TextBoxFor( m => m.ImagePath )
+					@Html.ValidationMessageFor( m => m.ImagePath, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+				<dt>@Html.LabelFor( m => m.VideoEmbedHtml )</dt>
+				<dd>@Html.TextAreaFor( m => m.VideoEmbedHtml )
+					@Html.ValidationMessageFor( m => m.VideoEmbedHtml, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+				<dt>@Html.LabelFor( m => m.Summary )</dt>
+				<dd>@Html.TextAreaFor( m => m.Summary )
+					@Html.ValidationMessageFor( m => m.Summary, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+				<dt>@Html.LabelFor( m => m.DescriptionHtml )</dt>
+				<dd>@Html.TextAreaFor( m => m.DescriptionHtml )
+					@Html.ValidationMessageFor( m => m.DescriptionHtml, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+			</dl>
+		</fieldset>
+		<div>
+			@Html.UiSubmit( "Create" )
+			@Html.UiCancel()
+		</div>
+	}
+</div>
