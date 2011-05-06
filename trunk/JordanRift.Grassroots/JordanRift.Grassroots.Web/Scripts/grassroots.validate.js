@@ -26,7 +26,7 @@
     /// <summary>
     /// Adding custom client validation logic for [GreaterThanDate] attribute on the server.
     /// </summary>
-    $.validator.unobtrusive.addapters.addSingleVal("greater", "otherproperty");
+    $.validator.unobtrusive.adapters.addSingleVal("greater", "otherproperty");
 
     /// <summary>
     /// Adding custom client validation logic for [NotEqualTo] attribute on the server.
