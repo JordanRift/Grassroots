@@ -11,8 +11,6 @@
 .two-column {
 	display: block;
 	float: left;
-	width: 400px;
-	padding: 10px 15px;
 	margin: 0px 10px;
 }
 
@@ -24,6 +22,14 @@ section, aside, article, hgroup, nav, header, footer {
 
 .column {
 	.two-column;
+	width: 400px;
+	padding: 10px 15px;
+}
+
+fieldset.column {
+	.two-column;
+	padding: 30px;
+	width: 370px;
 }
 
 .page {
@@ -121,7 +127,26 @@ section, aside, article, hgroup, nav, header, footer {
 					font-size: 32px;
 					display: block;
 				}
+		
+		#main > .share-campaign,
+		#main > .summary,
+		#main > .donations {
+			padding: 30px;
+		}
 
+		#main > .share-campaign {
+			margin: 20px 0px 0px;
+			height: 100px;
+		}
+
+		#main > .summary {
+			min-height: 253px;
+		}
+
+		#main > .summary,
+		#main > .donations {
+			margin: 30px 0px 30px;
+		}
 
 form dt, form dd {
 	display: block;
@@ -139,10 +164,18 @@ form dd {
 	padding-bottom: 10px;
 }
 
+form dd > p  {
+	padding-top: 5px;
+}
+
 form fieldset > legend {
 	padding: 5px;
 	font-size: 16px;
 	color: #999999;
+}
+
+form fieldset > p.tip {
+	padding: 20px 0px;
 }
 
 .field-validation-error {
@@ -151,7 +184,7 @@ form fieldset > legend {
 	padding: 5px;
 	font-size: 12px;
 	top: 0px;
-	left: 170px;
+	left: 210px;
 }
 
 #campaign-edit-form .field-validation-error {
@@ -192,6 +225,42 @@ form fieldset > legend {
     display: none;
 }
 
+.wijmo-wijdropdown {
+	width: 200px !important;
+}
+
+.wijmo-wijtextbox {
+	width: 190px !important;
+}
+
+textarea.wijmo-wijtextbox {
+	width: 300px !important;
+}
+
+div.check-box {
+	padding-bottom: 10px;
+}
+
 .blogger-post-footer {
 	display: none;
+}
+
+.fb-login {
+	display: block;
+	background: url(images/fb-login.jpg);
+	height: 22px;
+	width: 65px;
+	text-indent: -2000px;
+	overflow: hidden;
+	margin: 20px 0px;
+}
+
+.fb-register {
+	display: block;
+	background: url(images/fb-register.jpg);
+	height: 22px;
+	width: 83px;
+	text-indent: -2000px;
+	overflow: hidden;
+	margin: 20px 0px;
 }

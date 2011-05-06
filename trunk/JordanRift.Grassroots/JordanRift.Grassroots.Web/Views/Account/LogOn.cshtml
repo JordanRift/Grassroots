@@ -24,7 +24,8 @@
     @using (Html.BeginForm("AuthenticateUser", "Account", new { returnUrl = ViewBag.ReturnUrl })) {
         <fieldset class="column">
             <legend>Connect with Facebook...</legend>
-            @Html.ActionLink("Connect with Facebook", "LogOn", "Facebook")
+            <p>Already have your Facebook account connected to @OrganizationName? Click the link below to sign in.</p>
+            @Html.ActionLink("Connect with Facebook", "LogOn", new { controller = "Facebook" }, new { @class = "fb-login" })
         </fieldset>
         <fieldset class="column">
             <legend>... Or do it the old-fashioned way.</legend>

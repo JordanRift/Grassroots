@@ -18,17 +18,19 @@
     <h1>Set Up Your Account</h1>
     <h3>Fill out the form below to create a new account.</h3>
 </hgroup>
-<p><text>Passwords are required to be a minimum of </text>@ViewBag.PasswordLength<text> characters in length.</text></p>
 <div id="account-registration-form">
     @using (Html.BeginForm("RegisterUser", "Account")) {
         <fieldset class="column">
             <legend>Connect with Facebook...</legend>
-            @Html.ActionLink("Connect with Facebook", "Register", "Facebook")
+            <p>Click the button below to sign up with Facebook. You'll be redirected to grant @OrganizationName permission to access
+            your profile, and sent right back here to complete the registration process.</p>
+            @Html.ActionLink("Connect with Facebook", "Register", new { controller = "Facebook" }, new { @class = "fb-register" })
         </fieldset>
         <fieldset class="column">
             <legend>... Or do it the old fashioned way.</legend>
             @Html.ValidationSummary(false, "Account creation was unsuccessful. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
             <h3>Account Information</h3>
+            <p class="tip"><text>Passwords are required to be a minimum of </text>@ViewBag.PasswordLength<text> characters in length.</text></p>
             <dl>
                 <dt>@Html.LabelFor(m => m.Email)</dt>
                 <dd>

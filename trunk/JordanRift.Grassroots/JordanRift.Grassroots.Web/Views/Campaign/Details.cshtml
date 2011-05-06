@@ -36,10 +36,10 @@
             <li class="last"><span>@daysRemaining.Days</span> Days Remaining</li>
         </ul>
     </div>
-    <section class="social">
-        <img src="@Model.ImagePath" alt="@Model.Title" />
+    <section class="share-campaign">
+        @* TODO: <img src="@Model.ImagePath" alt="@Model.Title" />*@
         <div>
-            <p>Share this with your friends</p>
+            <h3>Share this with your friends</h3>
             @Url.Action("Index", "Campaign", new { slug = Model.UrlSlug }, Request.Url != null ? Request.Url.Scheme : "https")
             @Html.Partial("FacebookLikeButtonWithPictures")
             @Html.Partial("TweetButton")
