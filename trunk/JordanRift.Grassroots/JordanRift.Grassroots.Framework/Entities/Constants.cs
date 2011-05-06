@@ -47,7 +47,7 @@ namespace JordanRift.Grassroots.Framework.Entities
 
     public static class EntityConstants
     {
-        public const string DEFAULT_CAMPAIGN_IMAGE_PATH = "content/images/campaign.jpg";
+        public const string DEFAULT_CAMPAIGN_IMAGE_PATH = "http://lorempixum.com/450/278/people/";
     }
 
     public static class ConfigConstants

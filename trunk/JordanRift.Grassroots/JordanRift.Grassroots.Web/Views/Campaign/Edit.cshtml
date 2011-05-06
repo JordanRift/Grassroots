@@ -61,34 +61,38 @@
                 }
             </ul>
         </div>
-        <section class="social">
+        <section class="share-campaign">
             <input type="file" name="imagePath" id="imagePath" />
-            <div>
+            <div class="share">
                 <p>Share this with your friends</p>
-                <!-- TODO: Build URL for campaign w/ copy button here... -->
-                <div class="url">
+                
+                <div class="span">
+                    @Html.LabelFor(m => m.UrlSlug)
                     @Html.TextBoxFor(m => m.UrlSlug)
                     @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </div>
-                @Html.Partial("FacebookLikeButtonWithPictures")
-                @Html.Partial("TweetButton")
+
+                <ul>
+                    <li>@Html.Partial("TweetButton")</li>
+                </ul>
+
+                <div class="fb">@Html.Partial("FacebookLikeButtonWithPictures")</div>
+                <div class="break"></div>
             </div>
         </section>
         <section class="summary">
-            <div>
+            <div class="body">
                 <h2>In @Model.FirstName's Words...</h2>
                 <p>
                     @Html.TextAreaFor(m => m.Description)
                     @Html.ValidationMessageFor(m => m.Description, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </p>
             </div>
-            <div>
+            <div class="video">
                 @Html.Raw(Model.VideoEmbedHtml)
             </div>
         </section>
-        <section class="donations">
-            @Html.Partial("DonationGrid", Model.Donations)
-        </section>
+        @Html.Partial("DonationGrid", Model.Donations)
         <div>
             @Html.UiSubmit("Submit")
         </div>

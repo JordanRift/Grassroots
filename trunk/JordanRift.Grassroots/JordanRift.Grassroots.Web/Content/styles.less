@@ -128,23 +128,69 @@ fieldset.column {
 					display: block;
 				}
 		
-		#main > .share-campaign,
-		#main > .summary,
-		#main > .donations {
+		#main .share-campaign,
+		#main .summary,
+		#main .donations {
 			padding: 30px;
 		}
 
-		#main > .share-campaign {
+		#main .share-campaign {
 			margin: 20px 0px 0px;
-			height: 100px;
+			min-height: 278px;
 		}
 
-		#main > .summary {
+			.share-campaign > img {
+				display: block;
+				float: left;
+			}
+
+			.share-campaign > .share {
+				float: left;
+				width: 350px;
+				padding-left: 30px;
+				text-align: center;
+			}
+
+				.share > .url {
+					display: block;
+					padding: 20px 0px;
+				}
+
+					.url > .wijmo-wijtextbox {
+						width: 350px !important;
+					}
+
+				.share > ul {
+					display: block;
+				}
+
+					.share > ul > li {
+						display: inline;
+					}
+
+				.share > .fb {
+					margin-top: 20px;
+				}
+
+		#main .summary {
 			min-height: 253px;
 		}
 
-		#main > .summary,
-		#main > .donations {
+			#main > .summary > div {
+				float: left;
+			}
+
+			.summary > .video {
+				width: 450px;
+			}
+
+			.summary > .body {
+				padding-right: 30px;
+				width: 350px;
+			}
+
+		#main .summary,
+		#main .donations {
 			margin: 30px 0px 30px;
 		}
 
