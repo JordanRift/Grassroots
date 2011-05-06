@@ -41,7 +41,7 @@
         </ul>
     </div>
     <section class="share-campaign">
-        <img src="@Model.ImagePath" alt="@Model.Title" />
+        <img src="@Model.ImagePath" alt="@Model.Title" class="campaign-img" />
         <div class="share">
             <h3>Share this with your friends</h3>
             <span class="url">
@@ -67,6 +67,7 @@
         <div class="video">
             @Html.Raw(Model.VideoEmbedHtml)
         </div>
+        <div class="break"></div>
     </section>
     @Html.Partial("DonationGrid", Model.Donations)
 

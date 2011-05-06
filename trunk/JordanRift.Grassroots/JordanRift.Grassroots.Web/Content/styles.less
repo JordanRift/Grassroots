@@ -143,10 +143,17 @@ fieldset.column {
 			min-height: 278px;
 		}
 
-			.share-campaign > img {
+			.share-campaign > .campaign-img {
 				display: block;
 				float: left;
+				width: 450px;
+				min-height: 278px;
+				text-align: center;
 			}
+
+				.campaign-img > img {
+					margin-bottom: 20px;
+				}
 
 			.share-campaign > .share {
 				float: left;
@@ -162,6 +169,10 @@ fieldset.column {
 
 					.url > .wijmo-wijtextbox {
 						width: 350px !important;
+					}
+
+					.url > .short {
+						width: 100px !important;
 					}
 
 				.share > ul {
@@ -180,7 +191,8 @@ fieldset.column {
 			min-height: 253px;
 		}
 
-			#main > .summary > div {
+			#main > .summary > div,
+			#campaign-edit-form .summary > div {
 				float: left;
 			}
 
@@ -191,6 +203,11 @@ fieldset.column {
 			.summary > .body {
 				padding-right: 30px;
 				width: 350px;
+			}
+
+			.summary .wijmo-wijtextbox {
+				width: 330px !important;
+				height: 200px;
 			}
 
 		#main .summary,
@@ -216,6 +233,10 @@ fieldset.column {
 			#main table .wide {
 				width: 400px;
 			}
+
+form .right {
+	float: right;
+}
 
 form dt, form dd {
 	display: block;
@@ -302,8 +323,10 @@ form fieldset > p.tip {
 	width: 190px !important;
 }
 
-textarea.wijmo-wijtextbox {
+textarea.wijmo-wijtextbox,
+textarea.ui-state-active {
 	width: 300px !important;
+	background-position: left bottom !important;
 }
 
 div.check-box {
@@ -332,4 +355,8 @@ div.check-box {
 	text-indent: -2000px;
 	overflow: hidden;
 	margin: 20px 0px;
+}
+
+.ui-widget-overlay {
+	display: none;
 }
