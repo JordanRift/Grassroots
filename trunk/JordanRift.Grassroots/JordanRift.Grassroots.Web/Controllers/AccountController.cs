@@ -109,8 +109,12 @@ namespace JordanRift.Grassroots.Web.Controllers
                 UserProfile userProfile;
 
                 using (new UnitOfWorkScope())
-                using (var transactionScope = new TransactionScope())
+                using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
+                    // Updating usage of TransactionScope to require a new transaction to be created every time.
+                    // This should ensure best compatiblity through a variety of SQL database environments 
+                    // (e.g. - SQL Server, MySQL, SQL Azure).
+
                     userProfile = Mapper.Map<RegisterModel, UserProfile>(model);
 
                     if (Organization.UserProfiles == null)
