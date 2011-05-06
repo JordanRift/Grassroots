@@ -34,7 +34,7 @@ namespace JordanRift.Grassroots.Framework.Helpers
                     }
                 }
 
-                return new SelectList(CauseTemplateDictionary, "Value", "Key");
+                return new SelectList(CauseTemplateDictionary, "Key", "Value");
 	        }
 	    }
 

@@ -300,7 +300,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     ? link.Substring(link.LastIndexOf('=') + 1) // use query string 
                     : link.Substring(link.LastIndexOf('/') + 1);
                 
-                path = string.Format("https://graph.facebook.com/{0}/picture", linkPart);
+                path = string.Format("https://graph.facebook.com/{0}/picture?type=normal", linkPart);
             }
 
             return path;

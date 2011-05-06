@@ -12,31 +12,155 @@
     ViewBag.Title = string.Format("{0}'s Profile", Model.FirstName);
 }
 
+<style type="text/css">
+#userprofile img 
+{
+	float: left;
+	margin-right: 20px;
+}
+#userprofile td.heading
+{
+	font-weight: bold;
+}
+#userprofile table.userprofile
+{
+	float: left;
+	margin-top: 0px;
+}
+#userprofile table.userprofile tr
+{
+    border-top: none;
+}
+#userprofile table.userprofile td
+{
+    padding: 3px 10px;
+}
+#userprofile table.userprofile td.heading 
+{
+    width: 65px;
+}
+
+#MyCampaignStats
+{
+	float:right;
+}
+#MyCampaignStats div.box
+{
+	border: 1px solid #e5e5e5;
+	background-color: #fafafa;
+	padding: 10px;
+}
+
+div.campaigns
+{
+	clear: both;
+}
+
+#MyCampaignStats h3
+{
+	margin-left: 8px;
+	font-size: 16px;
+}
+
+div.box h5
+{
+	border-bottom: 1px solid #aaaaaa;
+	margin-bottom: 4px;
+}
+div.box p
+{
+	margin-bottom: 8px;
+}
+</style>
+
+<div id="userprofile">
 <h2>Welcome back @Model.FirstName!</h2>
-    @{ var campaigns = ViewBag.Campaigns as List<Campaign>; }
+	@if ( !string.IsNullOrEmpty( Model.ImagePath ) )
+	{
+        <img src="@Model.ImagePath" alt="@Model.FirstName @Model.LastName"/>
+    }
+	<table class="userprofile">
+		<tbody>
+		<tr>
+			<td class="heading">Email</td>
+			<td>@Model.Email</td>
+		</tr>
+		<tr>
+			<td class="heading">Phone</td>
+			<td>@Model.PrimaryPhone</td>
+		</tr>
+		<tr>
+			<td class="heading">Address</td>
+			<td>@Model.AddressLine1<br />
+				@if ( @Model.AddressLine2 != null && @Model.AddressLine2 != string.Empty )
+				{
+	   				@Model.AddressLine2<br />
+				}
+				@Model.City, @Model.State</td>
+		</tr>
+		<tr>
+			<td class="heading">Age</td>
+			<td>@Model.Age</td>
+		</tr>
+		<tr>
+			<td class="heading">Last Visit</td>
+			<td>Today</td>
+		</tr>
+		</tbody>
+	</table>
+
+    @{ var campaigns = @Model.Campaigns; }
+
+	<div id="MyCampaignStats">
+	<h3>My Campaigns</h3>
+		<div class="box">
+			<p>
+			@if ( @Model.Campaigns == null )
+			{
+				<text>0</text>
+			}
+			else
+			{
+				@campaigns.Count
+			}
+			Campaigns </p>
+			<p>$@Model.TotalRaised Raised</p>
+			@if ( @Model.TotalHoursServed != 0m )
+			{
+				<p>@Model.TotalHoursServed <text>Hours Served</text></p>
+			}
+
+			<h5>Other Campaigns</h5>
+			<p>@Model.TotalDonationsMade Donations Made</p>
+			<p>$@Model.TotalDonationsGiven Given</p>
+			<p>@Model.TotalNumberCampaignsDonatedTo Campaigns Donated To</p>
+		</div>
+	</div>
+</div>
 
     <div class="campaigns">
-        @if (campaigns == null || campaigns.Count == 0)
-        {
-        <h3><text>We noticed you have't started a campaign yet. </text> @Html.ActionLink("Click here", "Create", new { Controller = "Campaign", Area = "" }, new { Title = "Click here" }) <text> to get started!</text></h3>
-        }
-        else
-        {
-        @Html.Partial("CampaignList", campaigns.OrderByDescending(c => c.StartDate));
-        }
+        @if ( campaigns == null || campaigns.Count == 0 )
+		{
+        <h3><text>We noticed you have't started a campaign yet. </text> @Html.ActionLink( "Click here", "Create", new { Controller = "Campaign", Area = "" }, new { Title = "Click here" } ) <text> to get started!</text></h3>
+		}
+		else
+		{
+        //@Html.Partial( "CampaignList", campaigns.OrderByDescending( c => c.StartDate ) );
+		}
     </div>
 
     <div class="dashboard">
         <h3>I want to...</h3>
         <ul>
-            <li>@Html.ActionLink("Edit my details", "Edit", new { Area = "", id = Model.UserProfileID }, new { Title = "Edit my details" })</li>
+            <li>@Html.ActionLink( "Edit my details", "Edit", new { Area = "", id = Model.UserProfileID }, new { Title = "Edit my details" } )</li>
 			@if ( Model.FacebookID == null || Model.FacebookID == "" )
-			{
+   {
 			<li>@Html.ActionLink( "Connect my account with Facebook", "Connect", "Facebook" )</li>
-			}
-            <li>@Html.ActionLink("Change my password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change my password" })</li>
+   }
+            <li>@Html.ActionLink( "Change my password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change my password" } )</li>
             <li>
-                @using (Html.BeginForm(new { Action = "Delete", id = Model.UserProfileID })) {
+                @using ( Html.BeginForm( new { Action = "Delete", id = Model.UserProfileID } ) )
+				{
                 <input type="submit" name="submit" id="delete" value="Delete my account" />
                 }
             </li>

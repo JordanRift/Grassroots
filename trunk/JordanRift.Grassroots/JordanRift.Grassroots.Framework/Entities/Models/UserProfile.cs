@@ -50,6 +50,18 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         [NotMapped]
         public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }
 
+		[NotMapped]
+		public int Age
+		{
+			get
+			{
+				DateTime now = DateTime.Today;
+				int age = now.Year - Birthdate.Year;
+				if ( Birthdate > now.AddYears( -age ) ) age--;
+				return age;
+			}
+		}
+
         [NotMapped]
         public UserProfileService UserProfileService { get; set; }
 
@@ -62,6 +74,70 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
             return Campaigns == null ? new List<Campaign>() : Campaigns.Where(c => c.IsActive);
         }
 
+		/// <summary>
+		/// Calculates the total hours served by the user.
+		/// </summary>
+		/// <returns>Total hours served</returns>
+		public decimal CalculateTotalHoursServed()
+		{
+			// TODO:
+			var total = 0m;
+			return total;
+		}
+
+		/// <summary>
+		/// Calculates the total donations given by the user.
+		/// </summary>
+		/// <returns>Total donations given</returns>
+		public decimal CalculateTotalDonationsGiven()
+		{
+			var total = 0m;
+
+			if ( CampaignDonors != null )
+			{
+				total = (from c in CampaignDonors
+						where c.Approved
+						select c.Amount ).Sum();
+			}
+
+			return total;
+		}
+
+		/// <summary>
+		/// Calculates the total number of donations made by the user.
+		/// </summary>
+		/// <returns>Total number of donations made</returns>
+		public int CalculateTotalNumberOfDonationsMade()
+		{
+			var total = 0;
+
+			if ( CampaignDonors != null )
+			{
+				total = ( from c in CampaignDonors
+						  where c.Approved
+						  select c ).Count();
+			}
+
+			return total;
+		}
+
+		/// <summary>
+		/// Calculates the total number of campaigns that the user made donations to.
+		/// </summary>
+		/// <returns>Total number of campaigns donated to</returns>
+		public int CalculateTotalNumberOfCampaignsDonatedTo()
+		{
+			var total = 0;
+
+			if ( CampaignDonors != null )
+			{
+				total = ( from c in CampaignDonors
+						  where c.Approved
+						  select c.CampaignID ).Distinct().Count();
+			}
+
+			return total;
+		}
         /// <summary>
         /// Calculates the total raised by all of the User's campaigns.
         /// </summary>
