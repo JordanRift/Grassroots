@@ -6,10 +6,12 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
+using System.Linq;
 using System.Web.Mvc;
 using JordanRift.Grassroots.Web.Models;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using AutoMapper;
+using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
@@ -19,6 +21,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 		public AdminController()
 		{
 			Mapper.CreateMap<Organization, OrganizationDetailsModel>();
+			Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
+			Mapper.CreateMap<CauseTemplateCreateModel, CauseTemplate>();
 		}
 
 		//
@@ -28,6 +32,93 @@ namespace JordanRift.Grassroots.Web.Controllers
 		{
 			return View();
 		}
+
+		#region CauseTemplate (aka Project) stuff
+
+		public ActionResult EditCauseTemplate(int id)
+		{
+			var causeTemplate = Organization.CauseTemplates.FirstOrDefault( c => c.CauseTemplateID == id );
+
+			if ( causeTemplate != null )
+			{
+				var viewModel = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>( causeTemplate );
+
+				return View( viewModel );
+			}
+
+			return HttpNotFound( "The project could not be found." );
+		}
+
+		public ActionResult CauseTemplateList()
+		{
+			var templates = Organization.CauseTemplates;
+			var model = templates.Select( Mapper.Map<CauseTemplate, CauseTemplateDetailsModel> ).ToList();
+			return View( model );
+		}
+
+		public ActionResult CreateCauseTemplate()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		[Authorize]
+		public ActionResult UpdateCauseTemplate( CauseTemplateDetailsModel model )
+		{
+			var causeTemplate = Organization.CauseTemplates.FirstOrDefault( c => c.CauseTemplateID == model.CauseTemplateID );
+
+			if ( causeTemplate == null )
+			{
+				return HttpNotFound( "The project could not be found." );
+			}
+
+			if ( !ModelState.IsValid )
+			{
+				TempData["CauseTemplateDetailsModel"] = model;
+				return RedirectToAction( "EditCauseTemplate", "Admin" );
+			}
+
+			MapCauseTemplate( causeTemplate, model );
+			OrganizationRepository.Save();
+
+			return RedirectToAction( "CauseTemplateList", "Admin" );
+		}
+
+		[HttpPost]
+		[Authorize]
+		public ActionResult CreateCauseTemplate( CauseTemplateCreateModel model )
+		{
+			if ( ! ModelState.IsValid )
+			{
+				TempData["CauseTemplateCreateModel"] = model;
+				return RedirectToAction( "CreateCauseTemplate", "Admin" );
+			}
+
+			var causeTemplate = Mapper.Map<CauseTemplateCreateModel, CauseTemplate>( model );
+			Organization.CauseTemplates.Add( causeTemplate );
+			OrganizationRepository.Save();
+
+			return RedirectToAction( "CauseTemplateList", "Admin" );
+		}
+
+
+		private static void MapCauseTemplate( CauseTemplate causeTemplate, CauseTemplateDetailsModel model )
+		{
+			causeTemplate.Name = model.Name;
+			causeTemplate.ActionVerb = model.ActionVerb;
+			causeTemplate.Active = model.Active;
+			causeTemplate.AmountIsConfigurable = model.AmountIsConfigurable;
+			causeTemplate.DefaultAmount = model.DefaultAmount;
+			causeTemplate.DefaultTimespanInDays = model.DefaultTimespanInDays;
+			causeTemplate.DescriptionHtml = model.DescriptionHtml;
+			causeTemplate.GoalName = model.GoalName;
+			causeTemplate.ImagePath = model.ImagePath;
+			causeTemplate.Summary = model.Summary;
+			causeTemplate.TimespanIsConfigurable = model.TimespanIsConfigurable;
+			causeTemplate.VideoEmbedHtml = model.VideoEmbedHtml;
+		}
+
+		#endregion
 
 		public ActionResult EditOrganization()
 		{

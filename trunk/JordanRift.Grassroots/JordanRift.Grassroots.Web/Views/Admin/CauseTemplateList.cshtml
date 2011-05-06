@@ -1,4 +1,5 @@
-﻿@model IEnumerable<JordanRift.Grassroots.Framework.Entities.Models.CauseTemplate>
+﻿@model IEnumerable<JordanRift.Grassroots.Web.Models.CauseTemplateDetailsModel>
+				
 @{
     //
     // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
@@ -11,5 +12,41 @@
     ViewBag.Title = "CauseTemplateList";
 }
 
-<h2>CauseTemplateList</h2>
-
+<h2>Projects</h2>
+<!-- layout to be replaced later -->
+<table>
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Action
+            </th>
+            <th>
+                Goal Name
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActionVerb)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoalName)
+            </td>
+            <td>
+				@Html.ActionLink("Edit", "EditCauseTemplate", new { id=item.CauseTemplateID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@Html.ActionLink("Create New", "CreateCauseTemplate" )
