@@ -12,7 +12,7 @@
                 <th>Name</th>
                 <th>Amount</th>
                 <th>Date</th>
-                @* TODO: <th>Comment</th>*@
+                <th class="wide">Comments</th>
             </tr>
         </thead>
         <tbody>
@@ -21,7 +21,7 @@
                 <td>@i.FirstName @i.LastName</td>
                 <td>@i.Amount.ToString("C")</td>
                 <td>@i.DonationDate.ToShortDateString()</td>
-                @* TODO: <td>@i.Comment</td>*@
+                 <td>@i.Comments</td>
             </tr>
             }
         </tbody>

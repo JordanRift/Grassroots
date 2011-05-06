@@ -12,12 +12,26 @@ namespace JordanRift.Grassroots.Web.Models
 {
     public class DonationDetailsModel
     {
+        //
+        // Campaign fields
+        //
+
         public string Title { get; set; }
+        
+        //
+        // User Profile fields
+        //
+
         public string Email { get; set; }
         
+        //
+        // CampaignDonor fields
+        //
+
         public decimal Amount { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DonationDate { get; set; }
+        public string Comments { get; set; }
     }
 }

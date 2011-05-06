@@ -245,6 +245,12 @@ namespace JordanRift.Grassroots.Web.Controllers
             model.Donations = campaign.CampaignDonors
                 .Where(d => d.Approved)
                 .Select(Mapper.Map<CampaignDonor, DonationDetailsModel>).ToList();
+
+            foreach (var d in model.Donations)
+            {
+                d.Title = campaign.Title;
+            }
+
             model.CurrentUserIsOwner = (User.Identity.Name.ToLower() == userProfile.Email.ToLower());
             return model;
         }

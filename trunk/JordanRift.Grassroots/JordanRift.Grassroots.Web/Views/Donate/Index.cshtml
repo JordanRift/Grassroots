@@ -96,6 +96,13 @@
 					@Html.ValidationMessageFor(model => model.CheckNumber, null, new { @class = "ui-state-error ui-corner-all" }) 
 				</dd>
 			</dl>
+            <dl>
+                <dt>@Html.LabelFor(model => model.Comments)</dt>
+                <dd>
+                    @Html.TextAreaFor(model => model.Comments)
+                    @Html.ValidationMessageFor(model => model.Comments)
+                </dd>
+            </dl>
         </fieldset>
         <fieldset class="column">
             <legend>Billing Information</legend>
