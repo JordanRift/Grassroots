@@ -22,6 +22,10 @@
 	color: #ffff9d;
 }
 
+.light-gray {
+	color: #e5e5e5;
+}
+
 .medium-gray {
 	color: #999999;
 }
@@ -51,6 +55,12 @@
 	font-size: 48px;
 }
 
+.round-corners {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+}
 
 .nav-style {
 	.hilight;
@@ -153,6 +163,10 @@ header {
 	padding-left: 10px;
 }
 
+#main > hgroup.campaign {
+	height: 90px;
+}
+
 	#main > hgroup > h1 {
 		background: url("images/heading-bg.png") no-repeat right top;
 		height: 72px;
@@ -201,7 +215,7 @@ header {
 	}
 
 	#main > .dashboard > #progress {
-		width: 602px;
+		width: 668px;
 		float: left;
 		margin: 30px 0px;
 	}
@@ -236,15 +250,52 @@ header {
 		}
 
 	#main > .dashboard > .donate {
-		width: 300px;
+		width: 156px;
 		text-align: center;
 		float: left;
-		margin: 60px 0px 30px;
+		margin: 60px 0px 30px 40px;
 	}
 
 		.dashboard > .donate > .ui-button {
-			width: 130px;
+			width: 167px;
+			margin-right: 0px;
 		}
+
+			.stats > li {
+				background: #e5e5e5;
+				.round-corners;
+				.medium-gray;
+				width: 194px;
+				border: 1px solid #cccccc;
+			}
+
+				.stats > li > span {
+					.dark-green;
+				}
+
+	#main table thead tr {
+		border-bottom: 1px solid #cccccc;
+	}
+
+		#main table th {
+			.medium-gray;
+		}
+
+	#main table tbody tr {
+		border-top: 1px dotted #cccccc;
+	}
+
+	#main table tbody tr:first-child {
+		border-top: none;
+	}
+
+#main > .summary,
+#main > .share-campaign,
+#main > .donations  {
+	.round-corners;
+	background: #e5e5e5;
+	border: 1px solid #cccccc;
+}
 
 #main > .feeds {
 	margin-top: 30px;

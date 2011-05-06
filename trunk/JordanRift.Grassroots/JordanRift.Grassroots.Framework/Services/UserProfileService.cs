@@ -6,10 +6,8 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
-using System;
 using System.Linq;
 using JordanRift.Grassroots.Framework.Data;
-using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Framework.Services

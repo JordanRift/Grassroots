@@ -16,7 +16,7 @@
     var emailBlastModel = ViewBag.EmailBlastModel as CampaignEmailBlastModel;
 }
 
-    <hgroup>
+    <hgroup class="campaign">
         <h1>@Model.Title</h1>
     </hgroup>
     @if (Model.CurrentUserIsOwner) { 
@@ -29,23 +29,21 @@
         <aside class="donate">
             @Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
         </aside>
-        <ul>
-            <li>@daysRemaining.Days Days Left</li>
-            <li>@total.ToString("C") Raised</li>
-            <li>@Model.Donations.Count Donations</li>
-            <li>@Model.GoalAmount.ToString("C") Goal</li>
+        <ul class="stats break">
+            <li class="first"><span>@Model.GoalAmount.ToString("C")</span> Campaign Goal</li>
+            <li><span>@total.ToString("C")</span> Raised to Date</li>
+            <li><span>@Model.Donations.Count</span> Individual Donations</li>
+            <li class="last"><span>@daysRemaining.Days</span> Days Remaining</li>
         </ul>
     </div>
-    <section class="social">
-        <img src="@Model.ImagePath" alt="@Model.Title" />
+    <section class="share-campaign">
+        @* TODO: <img src="@Model.ImagePath" alt="@Model.Title" />*@
         <div>
-            <p>Share this with your friends</p>
-            <!-- TODO: Build URL for campaign w/ copy button here... -->
+            <h3>Share this with your friends</h3>
+            @Url.Action("Index", "Campaign", new { slug = Model.UrlSlug }, Request.Url != null ? Request.Url.Scheme : "https")
             @Html.Partial("FacebookLikeButtonWithPictures")
             @Html.Partial("TweetButton")
-            @if (Model.CurrentUserIsOwner) { 
-            @Html.Partial("EmailForm", emailBlastModel)
-            }
+            <a href="#" id="email">Email your friends</a>
         </div>
     </section>
     <section class="summary">
@@ -60,3 +58,9 @@
     <section class="donations">
         @Html.Partial("DonationGrid", Model.Donations)
     </section>
+
+    @section DocumentBottom {
+        @if (Model.CurrentUserIsOwner) { 
+        @Html.Partial("EmailForm", emailBlastModel)
+        }
+    }

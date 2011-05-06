@@ -37,6 +37,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public DateTime DonationDate { get; set; }
         public bool Approved { get; set; }
         public string ReferenceID { get; set; }
+        public string Notes { get; set; }
 
         public CampaignDonor()
         {

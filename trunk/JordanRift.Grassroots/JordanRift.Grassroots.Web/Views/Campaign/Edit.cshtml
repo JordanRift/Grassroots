@@ -21,38 +21,43 @@
 }
 
 <div id="campaign-edit-form">
-    @Html.BeginForm("Update", "Campaign", new { id = Model.CampaignID }) {
+    @using (Html.BeginForm("Update", "Campaign", new { area = "", id = Model.CampaignID })) {
+        @Html.ValidationSummary(false, "Unable to save your campaign. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
         <div class="title">
             @Html.LabelFor(m => m.Title)
             @Html.TextBoxFor(m => m.Title)
-            @Html.ValidationMessageFor(m => m.Title)
+            @Html.ValidationMessageFor(m => m.Title, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
         </div>
         <div class="dashboard">
             @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
             <aside class="donate">
                 @Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
             </aside>
-            <ul>
+            <ul class="stats break">
+                @if (Model.AmountIsConfigurable) {
+                <li class="first">
+                    @Html.TextBoxFor(m => m.GoalAmount)
+                    @Html.ValidationMessageFor(m => m.GoalAmount, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+                </li>
+                }
+                else { 
+                <li><span>@Model.GoalAmount.ToString("C")</span> Campaign Goal</li>
+                }
+                <li><span>@total.ToString("C")</span> Raised</li>
+                <li><span>@Model.Donations.Count</span> Donations</li>
                 @if (Model.TimespanIsConfigurable) { 
                 <li>
                     @Html.EditorFor(m => m.EndDate)
-                    @Html.ValidationMessageFor(m => m.EndDate)
+                    @Html.ValidationMessageFor(m => m.EndDate, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                     @Html.HiddenFor(m => m.StartDate)
                 </li>
                 }
                 else {
-                <li>@daysRemaining.Days Days Left</li>
-                }
-                <li>@total.ToString("C") Raised</li>
-                <li>@Model.Donations.Count Donations</li>
-                @if (Model.AmountIsConfigurable) {
-                <li>
-                    @Html.TextBoxFor(m => m.GoalAmount)
-                    @Html.ValidationMessageFor(m => m.GoalAmount)
+                <li class="last">
+                    <span>@daysRemaining.Days</span> Days Left
+                    @Html.HiddenFor(m => m.StartDate)
+                    @Html.HiddenFor(m => m.EndDate)
                 </li>
-                }
-                else { 
-                <li>@Model.GoalAmount.ToString("C") Goal</li>
                 }
             </ul>
         </div>
@@ -63,7 +68,7 @@
                 <!-- TODO: Build URL for campaign w/ copy button here... -->
                 <div class="url">
                     @Html.TextBoxFor(m => m.UrlSlug)
-                    @Html.ValidationMessageFor(m => m.UrlSlug)
+                    @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </div>
                 @Html.Partial("FacebookLikeButtonWithPictures")
                 @Html.Partial("TweetButton")
@@ -72,7 +77,10 @@
         <section class="summary">
             <div>
                 <h2>In @Model.FirstName's Words...</h2>
-                <p>@Html.TextBoxFor(m => m.Description)</p>
+                <p>
+                    @Html.TextAreaFor(m => m.Description)
+                    @Html.ValidationMessageFor(m => m.Description, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+                </p>
             </div>
             <div>
                 @Html.Raw(Model.VideoEmbedHtml)
@@ -81,5 +89,8 @@
         <section class="donations">
             @Html.Partial("DonationGrid", Model.Donations)
         </section>
+        <div>
+            @Html.UiSubmit("Submit")
+        </div>
     }
 </div>

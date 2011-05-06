@@ -2,6 +2,12 @@
 
 <!-- TODO: Add email icon/button to pop open jQuery UI dialog email form -->
 
+<script type="text/javascript">
+    $(function () {
+        $("#campaign-email-form").dialog();
+    });
+</script>
+
 <div id="campaign-email-form" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable">
     @using (Html.BeginForm("SendEmail", "Campaign"))
     {
@@ -26,3 +32,4 @@
         @Html.UiCancel()
     }
 </div>
+<div id="campaign-email-form-overlay" class="ui-widget-overlay"></div>

@@ -26,7 +26,7 @@
         <fieldset class="panel">
             <legend>Choose a cause...</legend>
             @Html.EditorFor(m => m.CauseTemplateID)
-            @Html.ValidationMessageFor(m => m.CauseTemplateID)
+            @Html.ValidationMessageFor(m => m.CauseTemplateID, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
         </fieldset>
         }
         else {
@@ -38,12 +38,12 @@
                 <dt>@Html.LabelFor(m => m.Title)</dt>
                 <dd>
                     @Html.TextBoxFor(m => m.Title)
-                    @Html.ValidationMessageFor(m => m.Title)
+                    @Html.ValidationMessageFor(m => m.Title, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </dd>
                 <dt>@Html.LabelFor(m => m.Description)</dt>
                 <dd>
                     @Html.TextAreaFor(m => m.Description)
-                    @Html.ValidationMessageFor(m => m.Description)
+                    @Html.ValidationMessageFor(m => m.Description, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </dd>
             </dl>
         </fieldset>
@@ -54,7 +54,7 @@
         <fieldset class="panel">
             <legend>Friendly URL</legend>
             @Html.TextBoxFor(m => m.UrlSlug)
-            @Html.ValidationMessageFor(m => m.UrlSlug)
+            @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
         </fieldset>
         <div>
             @Html.UiSubmit("Create")

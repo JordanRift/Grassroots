@@ -62,6 +62,10 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
             return Campaigns == null ? new List<Campaign>() : Campaigns.Where(c => c.IsActive);
         }
 
+        /// <summary>
+        /// Calculates the total raised by all of the User's campaigns.
+        /// </summary>
+        /// <returns>Total raised</returns>
         public decimal CalculateTotalDonations()
         {
             var total = 0m;

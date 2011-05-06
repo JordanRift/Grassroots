@@ -18,30 +18,37 @@ namespace JordanRift.Grassroots.Framework.Services
     {
         public BlogPost GetLatestPost(string feedUrl)
         {
-            var feed = GenericSyndicationFeed.Create(new Uri(feedUrl));
-            var feedPost = feed.Items.First();
-
-            var blogPost = new BlogPost
-                               {
-                                   Title = feedPost.Title,
-                                   PostDate = feedPost.PublishedOn,
-                                   Summary = feedPost.Summary,
-                               };
-
-            if (feed.Format == SyndicationContentFormat.Rss)
+            try
             {
-                var rssFeed = feed.Resource as RssFeed;
+                var feed = GenericSyndicationFeed.Create(new Uri(feedUrl));
+                var feedPost = feed.Items.First();
 
-                if (rssFeed != null)
+                var blogPost = new BlogPost
                 {
-                    var rsspost = rssFeed.Channel.Items.First();
-                    blogPost.Author = rsspost.Author;
-                    blogPost.Body = rsspost.Description;
-                    blogPost.Url = rsspost.Link.ToString();
-                }
-            }
+                    Title = feedPost.Title,
+                    PostDate = feedPost.PublishedOn,
+                    Summary = feedPost.Summary,
+                };
 
-            return blogPost;
+                if (feed.Format == SyndicationContentFormat.Rss)
+                {
+                    var rssFeed = feed.Resource as RssFeed;
+
+                    if (rssFeed != null)
+                    {
+                        var rsspost = rssFeed.Channel.Items.First();
+                        blogPost.Author = rsspost.Author;
+                        blogPost.Body = rsspost.Description;
+                        blogPost.Url = rsspost.Link.ToString();
+                    }
+                }
+
+                return blogPost;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

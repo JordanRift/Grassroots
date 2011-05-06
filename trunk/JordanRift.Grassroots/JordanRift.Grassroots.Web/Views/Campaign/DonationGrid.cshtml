@@ -2,3 +2,29 @@
 @{
     Layout = null;
 }
+
+@if (Model != null && Model.Count() > 0) {
+<section class="donations">
+    <h3>Donations to @Model.First().Title</h3>
+    <table class="donor-grid">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th class="wide">Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model) { 
+            <tr>
+                <td>@i.FirstName @i.LastName</td>
+                <td>@i.Amount.ToString("C")</td>
+                <td>@i.DonationDate.ToShortDateString()</td>
+                 <td>@i.Comments</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</section>
+}

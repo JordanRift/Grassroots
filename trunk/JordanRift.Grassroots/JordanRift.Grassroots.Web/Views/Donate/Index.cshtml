@@ -96,6 +96,13 @@
 					@Html.ValidationMessageFor(model => model.CheckNumber, null, new { @class = "ui-state-error ui-corner-all" }) 
 				</dd>
 			</dl>
+            <dl>
+                <dt>@Html.LabelFor(model => model.Comments)</dt>
+                <dd>
+                    @Html.TextAreaFor(model => model.Comments)
+                    @Html.ValidationMessageFor(model => model.Comments)
+                </dd>
+            </dl>
         </fieldset>
         <fieldset class="column">
             <legend>Billing Information</legend>
@@ -123,8 +130,11 @@
 			    <dt>@Html.LabelFor(model => model.AddressLine1)</dt>
 			    <dd>
 				    @Html.TextBoxFor(model => model.AddressLine1) 
-				    @Html.ValidationMessageFor(model => model.AddressLine1, null, new { @class = "ui-state-error ui-corner-all" })<br />
-                    @Html.TextBoxFor(model => model.AddressLine2) 
+				    @Html.ValidationMessageFor(model => model.AddressLine1, null, new { @class = "ui-state-error ui-corner-all" })
+                    <p>
+                        @Html.TextBoxFor(model => model.AddressLine2)
+                        @Html.ValidationMessageFor(model => model.AddressLine2, null, new { @class = "ui-state-error ui-corner-all" })
+                    </p>
 			    </dd>
 			    <dt>@Html.LabelFor(model => model.City)</dt>
 			    <dd>

@@ -53,6 +53,11 @@
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.3.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MySql.Data.6.3.6\lib\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -67,7 +72,9 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -127,7 +134,6 @@
     <Compile Include="Entities\Models\OrganizationSetting.cs" />
     <Compile Include="Entities\Payment.cs" />
     <Compile Include="Entities\PaymentResponse.cs" />
-    <Compile Include="Entities\SubscriptionResponse.cs" />
     <Compile Include="Entities\Validation\IUserValidation.cs" />
     <Compile Include="Helpers\UnitOfWorkScope.cs" />
     <Compile Include="Entities\Models\UserProfile.cs" />
@@ -147,7 +153,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Services\GrassrootsRoleService.cs" />
+    <Compile Include="Services\GravatarService.cs" />
     <Compile Include="Services\IBlogService.cs" />
+    <Compile Include="Services\IGravatarService.cs" />
     <Compile Include="Services\ITwitterService.cs" />
     <Compile Include="Services\TwitterService.cs" />
     <Compile Include="Services\UserProfileService.cs" />

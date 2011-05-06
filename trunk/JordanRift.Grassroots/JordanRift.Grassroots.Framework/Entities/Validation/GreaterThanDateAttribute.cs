@@ -58,11 +58,15 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
         {
-            var rule = new ModelClientValidationRule();
-            rule.ErrorMessage = FormatErrorMessage(metadata.GetDisplayName());
-            rule.ValidationType = "greater";
-            rule.ValidationParameters.Add("otherproperty", OtherPropertyName);
-            yield return rule;
+            var clientValidationRule = new ModelClientValidationRule
+                           {
+                               ErrorMessage = FormatErrorMessage(metadata.GetDisplayName()),
+                               ValidationType = "greater"
+                           };
+
+            clientValidationRule.ValidationParameters.Add("otherproperty", OtherPropertyName);
+            
+            return new[] { clientValidationRule };
         }
     }
 }

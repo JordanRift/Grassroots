@@ -11,8 +11,6 @@
 .two-column {
 	display: block;
 	float: left;
-	width: 400px;
-	padding: 10px 15px;
 	margin: 0px 10px;
 }
 
@@ -24,6 +22,14 @@ section, aside, article, hgroup, nav, header, footer {
 
 .column {
 	.two-column;
+	width: 400px;
+	padding: 10px 15px;
+}
+
+fieldset.column {
+	.two-column;
+	padding: 30px;
+	width: 370px;
 }
 
 .page {
@@ -61,17 +67,25 @@ section, aside, article, hgroup, nav, header, footer {
 				width: 450px;
 			}
 
-			#main > .info > .social {
+			/*#main > .info > .social {
 				width: 130px;
 				padding-left: 20px;
 				text-align: center;
-			}
+			}*/
 
 			#main > .info > .summary {
 				float: right;
-				width: 280px;
-				padding-left: 20px;
+				width: 400px;
+				padding-left: 40px;
 			}
+
+				.summary > .social {
+					display: block;
+					text-align: center;
+					margin: 20px 30px 0px 20px;
+					border-top: 1px solid #e5e5e5;
+					padding-top: 20px;
+				}
 
 		#main .feeds {
 			clear: both;
@@ -84,6 +98,74 @@ section, aside, article, hgroup, nav, header, footer {
 			height: 1px;
 			clear: both;
 		}
+
+
+		#main .dashboard .stats {
+			display: block;
+			height: 100px;
+		}
+
+			.stats > li {
+				display: block;
+				float: left;
+				width: 196px;
+				height: 70px;
+				text-align: center;
+				margin: 0px 20px;
+				padding-top: 20px;
+			}
+
+			.stats > .first {
+				margin-left: 0px;
+			}
+
+			.stats > .last {
+				margin-right: 0px;
+			}
+
+				.stats > li > span {
+					font-size: 32px;
+					display: block;
+				}
+		
+		#main > .share-campaign,
+		#main > .summary,
+		#main > .donations {
+			padding: 30px;
+		}
+
+		#main > .share-campaign {
+			margin: 20px 0px 0px;
+			height: 100px;
+		}
+
+		#main > .summary {
+			min-height: 253px;
+		}
+
+		#main > .summary,
+		#main > .donations {
+			margin: 30px 0px 30px;
+		}
+
+		#main table {
+			display: block;
+			margin-top: 20px;
+		}
+
+			#main table th {
+				text-align: left;
+			}
+
+			#main table td,
+			#main table th {
+				width: 150px;
+				padding: 5px 10px;
+			}
+
+			#main table .wide {
+				width: 400px;
+			}
 
 form dt, form dd {
 	display: block;
@@ -101,10 +183,18 @@ form dd {
 	padding-bottom: 10px;
 }
 
+form dd > p  {
+	padding-top: 5px;
+}
+
 form fieldset > legend {
 	padding: 5px;
 	font-size: 16px;
 	color: #999999;
+}
+
+form fieldset > p.tip {
+	padding: 20px 0px;
 }
 
 .field-validation-error {
@@ -113,7 +203,14 @@ form fieldset > legend {
 	padding: 5px;
 	font-size: 12px;
 	top: 0px;
-	left: 170px;
+	left: 210px;
+}
+
+#campaign-edit-form .field-validation-error {
+	display: inline;
+	left: 0px;
+	margin-left: 10px;
+	position: relative;
 }
 
 .field-validation-valid {
@@ -147,6 +244,42 @@ form fieldset > legend {
     display: none;
 }
 
+.wijmo-wijdropdown {
+	width: 200px !important;
+}
+
+.wijmo-wijtextbox {
+	width: 190px !important;
+}
+
+textarea.wijmo-wijtextbox {
+	width: 300px !important;
+}
+
+div.check-box {
+	padding-bottom: 10px;
+}
+
 .blogger-post-footer {
 	display: none;
+}
+
+.fb-login {
+	display: block;
+	background: url(images/fb-login.jpg);
+	height: 22px;
+	width: 65px;
+	text-indent: -2000px;
+	overflow: hidden;
+	margin: 20px 0px;
+}
+
+.fb-register {
+	display: block;
+	background: url(images/fb-register.jpg);
+	height: 22px;
+	width: 83px;
+	text-indent: -2000px;
+	overflow: hidden;
+	margin: 20px 0px;
 }

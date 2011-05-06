@@ -14,12 +14,12 @@ namespace JordanRift.Grassroots.Framework.Data
 {
     public class OrganizationRepository : GrassrootsRepositoryBase, IOrganizationRepository
     {
-        private static ObjectCache cache;
-        private const string DEFAULT_ORG_CACHE_KEY = "MyC.DefaultOrganization";
+        //private static ObjectCache cache;
+        //private const string DEFAULT_ORG_CACHE_KEY = "Grassroots.DefaultOrganization";
 
         public OrganizationRepository()
         {
-            cache = MemoryCache.Default;
+            //cache = MemoryCache.Default;
         }
 
         public Organization GetOrganizationByID(int id)
@@ -58,12 +58,12 @@ namespace JordanRift.Grassroots.Framework.Data
         void IOrganizationRepository.Save()
         {
             base.Save();
-            ClearCache();
+            //ClearCache();
         }
 
-        private static void ClearCache()
-        {
-            cache.Remove(DEFAULT_ORG_CACHE_KEY);
-        }
+        //private static void ClearCache()
+        //{
+        //    cache.Remove(DEFAULT_ORG_CACHE_KEY);
+        //}
     }
 }

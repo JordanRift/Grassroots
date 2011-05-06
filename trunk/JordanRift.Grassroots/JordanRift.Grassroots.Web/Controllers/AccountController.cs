@@ -14,9 +14,9 @@ using System.Web.Routing;
 using System.Web.Security;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
-using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
+using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
 using Mvc.Mailer;
@@ -109,18 +109,22 @@ namespace JordanRift.Grassroots.Web.Controllers
                 UserProfile userProfile;
 
                 using (new UnitOfWorkScope())
-                using (var transactionScope = new TransactionScope())
+                using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    userProfile = Mapper.Map<RegisterModel, UserProfile>(model);
-                    var organization = OrganizationRepository.GetDefaultOrganization();
+                    // Updating usage of TransactionScope to require a new transaction to be created every time.
+                    // This should ensure best compatiblity through a variety of SQL database environments 
+                    // (e.g. - SQL Server, MySQL, SQL Azure).
 
-                    if (organization.UserProfiles == null)
+                    userProfile = Mapper.Map<RegisterModel, UserProfile>(model);
+
+                    if (Organization.UserProfiles == null)
                     {
-                        organization.UserProfiles = new List<UserProfile>();
+                        Organization.UserProfiles = new List<UserProfile>();
                     }
 
-                    userProfile.ImagePath = EntityConstants.DEFAULT_AVATAR_PATH;
-                    organization.UserProfiles.Add(userProfile);
+                    var gravatarService = new GravatarService();
+                    userProfile.ImagePath = gravatarService.GetGravatarPictureUrl(userProfile.Email);
+                    Organization.UserProfiles.Add(userProfile);
                     OrganizationRepository.Save();
                     status = MembershipService.CreateUser(model.Email, model.Password, model.Email);
                     transactionScope.Complete();

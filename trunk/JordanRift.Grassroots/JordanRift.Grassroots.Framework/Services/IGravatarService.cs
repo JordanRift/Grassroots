@@ -6,13 +6,11 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
-using System.Collections.Generic;
-
-namespace JordanRift.Grassroots.Framework.Entities
+namespace JordanRift.Grassroots.Framework.Services
 {
-    public class SubscriptionResponse
+    public interface IGravatarService
     {
-        public string ResponseCode { get; set; }
-        public List<string> Messages { get; set; }
+        string HashEmail(string email);
+        string GetGravatarPictureUrl(string email);
     }
 }

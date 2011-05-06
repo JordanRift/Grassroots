@@ -32,24 +32,31 @@ namespace JordanRift.Grassroots.Framework.Services
                 twitterName = twitterName.Replace("@", "");
             }
 
-            var client = new WebClient();
-            var response = client.DownloadString(new Uri(
-                string.Format("https://api.twitter.com/1/statuses/user_timeline.json?screen_name={0}", twitterName)));
-            dynamic json = JArray.Parse(response);
-            var tweets = new List<Tweet>();
-
-            foreach (var item in json)
+            try
             {
-                tweets.Add(new Tweet
-                               {
-                                   Message = LinkifyTweet(item.text.ToString()),
-                                   ImageUrl = item.user.profile_image_url,
-                                   ScreenName = item.user.screen_name,
-                                   RelativeDate = GetRelativeDate(item.created_at.ToString())
-                               });
-            }
+                var client = new WebClient();
+                var response = client.DownloadString(new Uri(
+                    string.Format("https://api.twitter.com/1/statuses/user_timeline.json?screen_name={0}", twitterName)));
+                dynamic json = JArray.Parse(response);
+                var tweets = new List<Tweet>();
 
-            return tweets.Take(count);
+                foreach (var item in json)
+                {
+                    tweets.Add(new Tweet
+                    {
+                        Message = LinkifyTweet(item.text.ToString()),
+                        ImageUrl = item.user.profile_image_url,
+                        ScreenName = item.user.screen_name,
+                        RelativeDate = GetRelativeDate(item.created_at.ToString())
+                    });
+                }
+
+                return tweets.Take(count);
+            }
+            catch
+            {
+                return new List<Tweet>();
+            }
         }
 
         private static string GetRelativeDate(string jsonDate)
