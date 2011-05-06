@@ -195,7 +195,7 @@ header {
 	.medium-green;
 }
 
-	#main form h3 {
+	#main form fieldset h3 {
 		.dark-green;
 		font-size: 18px;
 	}
@@ -214,7 +214,7 @@ header {
 		margin: 0px 0px 30px 0px;
 	}
 
-	#main > .dashboard > #progress {
+	#main .dashboard > #progress {
 		width: 668px;
 		float: left;
 		margin: 30px 0px;
@@ -249,14 +249,14 @@ header {
 			display: none;
 		}
 
-	#main > .dashboard > .donate {
+	#main .dashboard > .donate {
 		width: 156px;
 		text-align: center;
 		float: left;
 		margin: 60px 0px 30px 40px;
 	}
 
-		.dashboard > .donate > .ui-button {
+		.dashboard .donate > .ui-button {
 			width: 167px;
 			margin-right: 0px;
 		}
@@ -289,9 +289,9 @@ header {
 		border-top: none;
 	}
 
-#main > .summary,
-#main > .share-campaign,
-#main > .donations  {
+#main .summary,
+#main .share-campaign,
+#main .donations  {
 	.round-corners;
 	background: #e5e5e5;
 	border: 1px solid #cccccc;
@@ -370,6 +370,12 @@ a.ui-button {
 
 a.ui-button:hover {
 	.button-active;	
+}
+
+.ui-state-focus {
+	-moz-box-shadow: 0px 0px 1px 2px #cccccc;
+	-webkit-box-shadow: 0px 0px 1px 2px #cccccc;
+	box-shadow: 0px 0px 1px 2px #cccccc;
 }
 
 .wijmo-dropdown-label {

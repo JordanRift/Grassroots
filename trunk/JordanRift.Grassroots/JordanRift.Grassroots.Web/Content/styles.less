@@ -73,19 +73,23 @@ fieldset.column {
 				text-align: center;
 			}*/
 
-			#main > .info > .summary {
+			#main > .info > .org-summary {
 				float: right;
 				width: 400px;
 				padding-left: 40px;
 			}
 
-				.summary > .social {
+				.org-summary > .social {
 					display: block;
 					text-align: center;
 					margin: 20px 30px 0px 20px;
 					border-top: 1px solid #e5e5e5;
 					padding-top: 20px;
 				}
+
+					.org-summary > .social > li {
+						display: inline;
+					}
 
 		#main .feeds {
 			clear: both;
@@ -128,23 +132,86 @@ fieldset.column {
 					display: block;
 				}
 		
-		#main > .share-campaign,
-		#main > .summary,
-		#main > .donations {
+		#main .share-campaign,
+		#main .summary,
+		#main .donations {
 			padding: 30px;
 		}
 
-		#main > .share-campaign {
+		#main .share-campaign {
 			margin: 20px 0px 0px;
-			height: 100px;
+			min-height: 278px;
 		}
 
-		#main > .summary {
+			.share-campaign > .campaign-img {
+				display: block;
+				float: left;
+				width: 450px;
+				min-height: 278px;
+				text-align: center;
+			}
+
+				.campaign-img > img {
+					margin-bottom: 20px;
+				}
+
+			.share-campaign > .share {
+				float: left;
+				width: 350px;
+				padding-left: 30px;
+				text-align: center;
+			}
+
+				.share > .url {
+					display: block;
+					padding: 20px 0px;
+				}
+
+					.url > .wijmo-wijtextbox {
+						width: 350px !important;
+					}
+
+					.url > .short {
+						width: 100px !important;
+					}
+
+				.share > ul {
+					display: block;
+				}
+
+					.share > ul > li {
+						display: inline;
+					}
+
+				.share > .fb {
+					margin-top: 20px;
+				}
+
+		#main .summary {
 			min-height: 253px;
 		}
 
-		#main > .summary,
-		#main > .donations {
+			#main > .summary > div,
+			#campaign-edit-form .summary > div {
+				float: left;
+			}
+
+			.summary > .video {
+				width: 450px;
+			}
+
+			.summary > .body {
+				padding-right: 30px;
+				width: 350px;
+			}
+
+			.summary .wijmo-wijtextbox {
+				width: 330px !important;
+				height: 200px;
+			}
+
+		#main .summary,
+		#main .donations {
 			margin: 30px 0px 30px;
 		}
 
@@ -166,6 +233,10 @@ fieldset.column {
 			#main table .wide {
 				width: 400px;
 			}
+
+form .right {
+	float: right;
+}
 
 form dt, form dd {
 	display: block;
@@ -252,8 +323,10 @@ form fieldset > p.tip {
 	width: 190px !important;
 }
 
-textarea.wijmo-wijtextbox {
+textarea.wijmo-wijtextbox,
+textarea.ui-state-active {
 	width: 300px !important;
+	background-position: left bottom !important;
 }
 
 div.check-box {
@@ -282,4 +355,8 @@ div.check-box {
 	text-indent: -2000px;
 	overflow: hidden;
 	margin: 20px 0px;
+}
+
+.ui-widget-overlay {
+	display: none;
 }

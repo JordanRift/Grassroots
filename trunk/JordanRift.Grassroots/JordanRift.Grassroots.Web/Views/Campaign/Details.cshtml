@@ -16,6 +16,10 @@
     var emailBlastModel = ViewBag.EmailBlastModel as CampaignEmailBlastModel;
 }
 
+@section DocumentHead {
+    @Html.Partial("UIForm")
+}
+
     <hgroup class="campaign">
         <h1>@Model.Title</h1>
     </hgroup>
@@ -37,27 +41,35 @@
         </ul>
     </div>
     <section class="share-campaign">
-        @* TODO: <img src="@Model.ImagePath" alt="@Model.Title" />*@
-        <div>
+        <img src="@Model.ImagePath" alt="@Model.Title" class="campaign-img" />
+        <div class="share">
             <h3>Share this with your friends</h3>
-            @Url.Action("Index", "Campaign", new { slug = Model.UrlSlug }, Request.Url != null ? Request.Url.Scheme : "https")
-            @Html.Partial("FacebookLikeButtonWithPictures")
-            @Html.Partial("TweetButton")
-            <a href="#" id="email">Email your friends</a>
+            <span class="url">
+                @Html.TextBox("Url", Url.Action("Index", "Campaign", new { slug = Model.UrlSlug }, Request.Url != null ? Request.Url.Scheme : "https"))
+            </span>
+            
+            <ul>
+                <li>@Html.Partial("TweetButton")</li>
+            @if (Model.CurrentUserIsOwner) {
+                <li><a href="#" id="email">Email your friends</a></li>
+            }
+            </ul>
+            
+            <div class="fb">@Html.Partial("FacebookLikeButtonWithPictures")</div>
         </div>
+        <div class="break"></div>
     </section>
     <section class="summary">
-        <div>
+        <div class="body">
             <h2>In @Model.FirstName's Words...</h2>
             <p>@Model.Description</p>
         </div>
-        <div>
+        <div class="video">
             @Html.Raw(Model.VideoEmbedHtml)
         </div>
+        <div class="break"></div>
     </section>
-    <section class="donations">
-        @Html.Partial("DonationGrid", Model.Donations)
-    </section>
+    @Html.Partial("DonationGrid", Model.Donations)
 
     @section DocumentBottom {
         @if (Model.CurrentUserIsOwner) { 

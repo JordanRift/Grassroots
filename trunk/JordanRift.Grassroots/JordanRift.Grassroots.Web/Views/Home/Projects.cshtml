@@ -8,39 +8,22 @@
     <h1>@OrganizationName's Projects</h1>
     <h3>Want to get involved? These are the ways you can help.</h3>
 </hgroup>
-
 <table>
     <thead>
         <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Goal Amount
-            </th>
-            <th>
-                Campaign Length
-            </th>
-            <th>
-                Summary
-            </th>
+            <th>Name</th>
+            <th>Goal Amount</th>
+            <th>Campaign Length</th>
+            <th class="wide">Summary</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DefaultAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DefaultTimespanInDays)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Summary)
-            </td>
+            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            <td>@item.DefaultAmount.ToString("C")</td>
+            <td>@Html.DisplayFor(modelItem => item.DefaultTimespanInDays) days</td>
+            <td>@Html.DisplayFor(modelItem => item.Summary)</td>
         </tr>
 }
     </tbody>

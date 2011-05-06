@@ -20,6 +20,9 @@
     @Html.Partial("UIForm")
 }
 
+<hgroup class="campaign">
+    <h1>@Model.Title</h1>
+</hgroup>
 <div id="campaign-edit-form">
     @using (Html.BeginForm("Update", "Campaign", new { area = "", id = Model.CampaignID })) {
         @Html.ValidationSummary(false, "Unable to save your campaign. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
@@ -27,6 +30,10 @@
             @Html.LabelFor(m => m.Title)
             @Html.TextBoxFor(m => m.Title)
             @Html.ValidationMessageFor(m => m.Title, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+            <span class="right">
+                @Html.UiSubmit("Submit Changes")
+                @Html.ActionLink("Cancel", "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Cancel", @class = "cancel" })
+            </span>
         </div>
         <div class="dashboard">
             @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
@@ -41,12 +48,12 @@
                 </li>
                 }
                 else { 
-                <li><span>@Model.GoalAmount.ToString("C")</span> Campaign Goal</li>
+                <li class="first"><span>@Model.GoalAmount.ToString("C")</span> Campaign Goal</li>
                 }
                 <li><span>@total.ToString("C")</span> Raised</li>
                 <li><span>@Model.Donations.Count</span> Donations</li>
                 @if (Model.TimespanIsConfigurable) { 
-                <li>
+                <li class="last">
                     @Html.EditorFor(m => m.EndDate)
                     @Html.ValidationMessageFor(m => m.EndDate, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                     @Html.HiddenFor(m => m.StartDate)
@@ -61,36 +68,45 @@
                 }
             </ul>
         </div>
-        <section class="social">
-            <input type="file" name="imagePath" id="imagePath" />
-            <div>
-                <p>Share this with your friends</p>
-                <!-- TODO: Build URL for campaign w/ copy button here... -->
+        <section class="share-campaign">
+            <div class="campaign-img">
+                <img src="@Model.ImagePath" alt="@Model.Title" />
+                <input type="file" name="imagePath" id="imagePath" />
+            </div>
+            <div class="share">
+                <h3>Share this with your friends</h3>
+                
                 <div class="url">
-                    @Html.TextBoxFor(m => m.UrlSlug)
+                    <span>http://@Request.Url.Host/CampaignFor/</span>
+                    @Html.TextBoxFor(m => m.UrlSlug, new { @class = "short" })
                     @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </div>
-                @Html.Partial("FacebookLikeButtonWithPictures")
-                @Html.Partial("TweetButton")
+
+                <ul>
+                    <li>@Html.Partial("TweetButton")</li>
+                </ul>
+
+                <div class="fb">@Html.Partial("FacebookLikeButtonWithPictures")</div>
             </div>
+            <div class="break"></div>
         </section>
         <section class="summary">
-            <div>
+            <div class="body">
                 <h2>In @Model.FirstName's Words...</h2>
-                <p>
+                <div>
                     @Html.TextAreaFor(m => m.Description)
                     @Html.ValidationMessageFor(m => m.Description, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
-                </p>
+                </div>
             </div>
-            <div>
+            <div class="video">
                 @Html.Raw(Model.VideoEmbedHtml)
             </div>
+            <div class="break"></div>
         </section>
-        <section class="donations">
-            @Html.Partial("DonationGrid", Model.Donations)
-        </section>
+        @Html.Partial("DonationGrid", Model.Donations)
         <div>
-            @Html.UiSubmit("Submit")
+            @Html.UiSubmit("Submit Changes")
+            @Html.ActionLink("Cancel", "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Cancel", @class = "cancel" })
         </div>
     }
 </div>
