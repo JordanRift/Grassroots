@@ -11,7 +11,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Administration</h2>
+<hgroup>
+    <h1>Administrative Dashboard</h1>
+</hgroup>
+<section>
+    @Html.Action("ProgressBar", new { controller = "Home" })
+</section>
 
-<a href="@Url.Action("EditOrganization")">Edit Organization</a> | 
-<a href="@Url.Action("CauseTemplateList")">Edit Project Types</a>
+<ul class="column">
+    <li><a href="@Url.Action("EditOrganization")">Application Settings</a></li>
+    <li><a href="@Url.Action("CauseTemplateList")">Manage Project Types</a></li>
+    <li><a href="@Url.Content("~/elmah.axd")" target="_blank">Error Messages</a></li>
+</ul>
+
+<ul class="column">
+    <li>Manage Campaigns</li>
+    <li>Manage Users</li>
+    <li>Manage Projects</li>
+</ul>
