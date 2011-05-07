@@ -30,11 +30,11 @@ namespace JordanRift.Grassroots.Web.Mailers
                                           model.FirstName, model.LastName))
                                   };
 
-		    var emails = model.EmailAddresses.Split(new[] { ',', ';', ' ' });
+		    var emails = model.EmailAddresses.Split(new[] { ',', ';' });
 
             foreach (var email in emails)
             {
-                mailMessage.To.Add(email);
+                mailMessage.To.Add(email.Trim());
             }
             
             ViewData = new ViewDataDictionary(model);

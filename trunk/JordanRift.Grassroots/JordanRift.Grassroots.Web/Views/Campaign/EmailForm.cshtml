@@ -1,17 +1,14 @@
 ﻿@model JordanRift.Grassroots.Web.Models.CampaignEmailBlastModel
 
-<!-- TODO: Add email icon/button to pop open jQuery UI dialog email form -->
-
 <script type="text/javascript">
     $(function () {
-        $("#campaign-email-form").dialog({ autoOpen: false });
+        Grassroots.initEmailForm();
     });
 </script>
 
 <div id="campaign-email-form" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable">
     @using (Html.BeginForm("SendEmail", "Campaign"))
     {
-        @Html.ValidationSummary(false, "Unable to send email. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
         <fieldset>
             <legend>Tell your friends about @Model.Title</legend>
             @Html.HiddenFor(m => m.Title)
@@ -19,17 +16,17 @@
             @Html.HiddenFor(m => m.Email)
             @Html.HiddenFor(m => m.FirstName)
             @Html.HiddenFor(m => m.LastName)
-
-            @Html.LabelFor(m => m.EmailAddresses)
-            @Html.TextBoxFor(m => m.EmailAddresses)
-            @Html.ValidationMessageFor(m => m.EmailAddresses, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
-    
-            @Html.LabelFor(m => m.CustomMessage)
-            @Html.TextAreaFor(m => m.CustomMessage)
-            @Html.ValidationMessageFor(m => m.CustomMessage, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+            <dl>
+                <dt>@Html.LabelFor(m => m.EmailAddresses)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.EmailAddresses, new { placeholder = "jon@gmail.com,jane@yaoo.com" })
+                    @Html.ValidationMessageFor(m => m.EmailAddresses, null, new { @class = "ui-widget ui-state-error ui-corner-all"  })
+                </dd>
+                <dt>@Html.LabelFor(m => m.CustomMessage)</dt>
+                <dd>
+                    @Html.TextAreaFor(m => m.CustomMessage, new { placeholder = "Type your optional message here..." })
+                </dd>
+            </dl>
         </fieldset>
-        @Html.UiSubmit("Send")
-        @Html.UiCancel()
     }
 </div>
-<div id="campaign-email-form-overlay" class="ui-widget-overlay"></div>

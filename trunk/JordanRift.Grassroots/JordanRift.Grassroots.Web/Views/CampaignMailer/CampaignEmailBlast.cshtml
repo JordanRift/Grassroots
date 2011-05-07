@@ -9,6 +9,8 @@ the cause they're championing: <strong>@Model.Title</strong>.</p>
 
 <p>Here's what they have to say:</p>
 
+@if (!string.IsNullOrEmpty(Model.CustomMessage)) {
 <p><em>@Model.CustomMessage</em></p>
+}
 
-<p>To learn more, head on over @Html.ActionLink("here", "Index", "Campaign", new { slug = @Model.UrlSlug }).</p>
+<p>To learn more, head on over @Html.ActionLink("here", "Index", "Campaign", new { slug = @Model.UrlSlug }) to have a look-see!</p>

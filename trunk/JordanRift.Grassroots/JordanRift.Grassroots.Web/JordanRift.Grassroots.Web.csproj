@@ -319,7 +319,7 @@
     <Content Include="Views\Admin\EditOrganization.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\UserList.cshtml" />
+    <Content Include="Views\Campaign\UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\EditUserProfile.cshtml" />

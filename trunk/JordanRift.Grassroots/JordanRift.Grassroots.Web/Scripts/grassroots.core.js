@@ -52,6 +52,48 @@ Grassroots.initPayment = function () {
     });
 }
 
+Grassroots.initEmailForm = function () {
+    $("#email-blast").button()
+			.click(function () {
+			    $("#campaign-email-form").dialog("open");
+			    $(".ui-widget-overlay").show();
+			    return false;
+			});
+
+    $("#campaign-email-form").dialog({
+        autoOpen: false,
+        height: 460,
+        width: 520,
+        modal: true,
+        title: "Email your friends",
+        closeText: "",
+        buttons: {
+            "Send email": function () {
+                var $form = $("#campaign-email-form > form");
+
+                if ($form.valid()) {
+                    // trigger AJAX post to server to send email
+
+                }
+
+                return false;
+            },
+            Cancel: function () {
+                $(this).dialog("close");
+            }
+        },
+        close: function () {
+            $(".ui-widget-overlay").hide();
+            $("#campaign-email-form input, #campaign-email-form textarea").val("");
+
+            // Reset jquery validation
+            $(".ui-state-error")
+                    .removeClass("field-validation-error")
+                    .addClass("field-validation-valid");
+        }
+    });
+}
+
 /// <summary>
 /// Since the official Tweet button doesn't support SSL, we'll roll our own for now.
 /// </summary>
