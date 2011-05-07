@@ -8,6 +8,7 @@
 
 using System;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
@@ -175,12 +176,26 @@ namespace JordanRift.Grassroots.Web.Controllers
         [HttpPost]
         public ActionResult SendEmail(CampaignEmailBlastModel model)
         {
-            // TODO: Add access control here to ensure email can't be used to somebody other than the campaign owner as spam
+            var campaign = campaignRepository.GetCampaignByUrlSlug(model.UrlSlug);
 
-            if (ModelState.IsValid)
+            if (campaign != null)
             {
-                campaignMailer.CampaignEmailBlast(model).SendAsync();
-                return Json(new { success = "true" });
+                var userProfile = campaign.UserProfile;
+
+                // Only allow email to send if the campaign owner is currently logged in
+                if (User.Identity.Name.ToLower() == userProfile.Email.ToLower())
+                {
+                    if (ModelState.IsValid)
+                    {
+                        campaignMailer.CampaignEmailBlast(model).SendAsync();
+                        return Json(new { success = "true" });
+                    }
+                }
+                else
+                {
+                    // If not, return 403 status code
+                    Response.StatusCode = (int) HttpStatusCode.Forbidden;
+                }
             }
 
             return Json(new { success = "false" });
