@@ -26,5 +26,8 @@ namespace JordanRift.Grassroots.Web.Models
 
         [Display(Name = "Email Message")]
         public string CustomMessage { get; set; }
+
+        [Editable(false)]
+        public string Url { get; set; }
     }
 }

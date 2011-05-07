@@ -53,8 +53,7 @@ Grassroots.initPayment = function () {
 }
 
 Grassroots.initEmailForm = function () {
-    $("#email-blast").button()
-			.click(function () {
+    $("#email-blast").click(function () {
 			    $("#campaign-email-form").dialog("open");
 			    $(".ui-widget-overlay").show();
 			    return false;

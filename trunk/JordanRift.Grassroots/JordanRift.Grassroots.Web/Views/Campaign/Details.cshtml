@@ -51,7 +51,7 @@
             <ul>
                 <li>@Html.Partial("TweetButton")</li>
             @if (Model.CurrentUserIsOwner) {
-                <li><a href="#" id="email-blast">Email your friends</a></li>
+                <li><a href="#" id="email-blast" title="Email your friends"><img src="@Url.Content("~/Content/images/icon_email.gif")" alt="Email your friends" height="30" width="30" /></a></li>
             }
             </ul>
             

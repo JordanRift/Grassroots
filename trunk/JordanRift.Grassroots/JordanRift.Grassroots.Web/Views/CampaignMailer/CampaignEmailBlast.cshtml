@@ -13,4 +13,4 @@ the cause they're championing: <strong>@Model.Title</strong>.</p>
 <p><em>@Model.CustomMessage</em></p>
 }
 
-<p>To learn more, head on over @Html.ActionLink("here", "Index", "Campaign", new { slug = @Model.UrlSlug }) to have a look-see!</p>
+<p>To learn more, head on over <a href="@Model.Url">here</a> to have a look-see!</p>

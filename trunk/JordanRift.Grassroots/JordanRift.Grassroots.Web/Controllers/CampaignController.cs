@@ -187,6 +187,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+                        model.Url = Url.Action("Index", "Campaign", new { slug = model.UrlSlug }, Request.Url != null ? Request.Url.Scheme : "https");
                         campaignMailer.CampaignEmailBlast(model).SendAsync();
                         return Json(new { success = "true" });
                     }
