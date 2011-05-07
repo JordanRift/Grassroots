@@ -175,8 +175,15 @@ namespace JordanRift.Grassroots.Web.Controllers
         [HttpPost]
         public ActionResult SendEmail(CampaignEmailBlastModel model)
         {
-            campaignMailer.CampaignEmailBlast(model).SendAsync();
-            return Json(new { success = "true" });
+            // TODO: Add access control here to ensure email can't be used to somebody other than the campaign owner as spam
+
+            if (ModelState.IsValid)
+            {
+                campaignMailer.CampaignEmailBlast(model).SendAsync();
+                return Json(new { success = "true" });
+            }
+
+            return Json(new { success = "false" });
         }
 
         [ChildActionOnly]

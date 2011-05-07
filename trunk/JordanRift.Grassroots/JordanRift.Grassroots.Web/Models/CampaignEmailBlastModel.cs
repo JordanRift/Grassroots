@@ -20,7 +20,7 @@ namespace JordanRift.Grassroots.Web.Models
 
         [Required]
         [Display(Name = "Email Addresses")]
-        [RegularExpression(@"^((\s*[a-zA-Z0-9\._%-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,4}\s*[,;]){1,5}?)?(\s*[a-zA-Z0-9\._%-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,4})*$", 
+        [RegularExpression(@"^((\s*[a-zA-Z0-9\._%-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,4}\s*[,;]){1,4}?)?(\s*[a-zA-Z0-9\._%-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,4})*$", 
             ErrorMessage = "Please enter between 1 and 5 valid email addresses")]
         public string EmailAddresses { get; set; }
 

@@ -72,8 +72,29 @@ Grassroots.initEmailForm = function () {
                 var $form = $("#campaign-email-form > form");
 
                 if ($form.valid()) {
-                    // trigger AJAX post to server to send email
+                    var jsonData = '{ "Title":"' + $("#Title").val() + '", ';
+                    jsonData += '"UrlSlug":"' + $("#UrlSlug").val() + '", ';
+                    jsonData += '"Email":"' + $("#Email").val() + '", ';
+                    jsonData += '"FirstName":"' + $("#FirstName").val() + '", ';
+                    jsonData += '"LastName":"' + $("#LastName").val() + '", ';
+                    jsonData += '"EmailAddresses":"' + $("#EmailAddresses").val() + '", ';
+                    jsonData += '"CustomMessage":"' + $("#CustomMessage").val() + '" }';
 
+                    $.ajax({
+                        url: "/Campaign/SendEmail",
+                        type: "POST",
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: jsonData,
+                    })
+                    .success(function(result) {
+                        // TODO: Give user success feedback. Close dialog.
+                        alert("success");
+                    })
+                    .error(function (xhr, status, error) {
+                        // TODO:Give user error feedback. Prompt to try again.
+                        alert(status);
+                    });
                 }
 
                 return false;

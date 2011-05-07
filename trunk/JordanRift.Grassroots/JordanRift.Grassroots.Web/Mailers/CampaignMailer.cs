@@ -6,6 +6,7 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
+using System.Linq;
 using System.Web.Mvc;
 using JordanRift.Grassroots.Web.Models;
 using Mvc.Mailer;
@@ -32,7 +33,7 @@ namespace JordanRift.Grassroots.Web.Mailers
 
 		    var emails = model.EmailAddresses.Split(new[] { ',', ';' });
 
-            foreach (var email in emails)
+            foreach (var email in emails.Where(email => !string.IsNullOrWhiteSpace(email)))
             {
                 mailMessage.To.Add(email.Trim());
             }
