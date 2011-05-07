@@ -88,6 +88,9 @@ namespace JordanRift.Grassroots.Web.Models
 		[Editable( false )]
 		public int TotalNumberCampaignsDonatedTo { get; set; }
 
+        [Editable(false)]
+        public DateTime LastVisit { get; set; }
+
 		public List<CampaignDetailsModel> Campaigns { get; set; }
 	}
 }

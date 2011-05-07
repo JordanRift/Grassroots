@@ -6,6 +6,7 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -38,15 +39,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 			if (userProfile != null)
 			{
-				// TODO: Map campaigns to a viewmodel
-				//ViewData["Campaigns"] = userProfile.Campaigns;
-				var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
-				viewModel.Campaigns = userProfile.Campaigns.Select( Mapper.Map<Campaign, CampaignDetailsModel> ).ToList();
-				viewModel.TotalRaised = userProfile.CalculateTotalDonations();
-				viewModel.TotalHoursServed = userProfile.CalculateTotalHoursServed();
-				viewModel.TotalDonationsMade = userProfile.CalculateTotalNumberOfDonationsMade();
-				viewModel.TotalDonationsGiven = userProfile.CalculateTotalDonationsGiven();
-				viewModel.TotalNumberCampaignsDonatedTo = userProfile.CalculateTotalNumberOfCampaignsDonatedTo();
+			    var viewModel = MapUserProfileDetails(userProfile);
 				return View(viewModel);
 			}
 
@@ -164,5 +157,20 @@ namespace JordanRift.Grassroots.Web.Controllers
 			userProfile.State = viewModel.State;
 			userProfile.ZipCode = viewModel.ZipCode;
 		}
+
+        private static UserProfileDetailsModel MapUserProfileDetails(UserProfile userProfile)
+        {
+            var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
+            viewModel.Campaigns = userProfile.Campaigns
+                    .Select(Mapper.Map<Campaign, CampaignDetailsModel>)
+                    .OrderByDescending(c => c.EndDate).ToList();
+            viewModel.TotalRaised = userProfile.CalculateTotalDonations();
+            viewModel.TotalHoursServed = userProfile.CalculateTotalHoursServed();
+            viewModel.TotalDonationsMade = userProfile.CalculateTotalNumberOfDonationsMade();
+            viewModel.TotalDonationsGiven = userProfile.CalculateTotalDonationsGiven();
+            viewModel.TotalNumberCampaignsDonatedTo = userProfile.CalculateTotalNumberOfCampaignsDonatedTo();
+            viewModel.LastVisit = userProfile.Users.Any() ? userProfile.Users.First().LastLoggedIn : DateTime.Now;
+            return viewModel;
+        }
 	}
 }

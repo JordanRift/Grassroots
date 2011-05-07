@@ -1,10 +1,9 @@
-﻿@model IEnumerable<JordanRift.Grassroots.Framework.Entities.Models.Campaign>
+﻿@model IEnumerable<JordanRift.Grassroots.Web.Models.CampaignDetailsModel>
 
-<ul>
-    @foreach (var campaign in Model) 
-    {
-    <li>@Html.ActionLink(campaign.Title, "Index", 
-            new { Controller = "Campaign", Area = "", slug = campaign.UrlSlug }, 
-            new { Title = campaign.Title, @class = campaign.IsActive ? "active" : "" })</li>
+@if (Model != null && Model.Count() > 0) {
+<ul class="campaign-list">
+    @foreach (var campaign in Model) {
+    <li>@Html.ActionLink(campaign.Title, "Index", new { controller = "Campaign", slug = campaign.UrlSlug }, new { title = campaign.Title })</li>
     }
 </ul>
+    }

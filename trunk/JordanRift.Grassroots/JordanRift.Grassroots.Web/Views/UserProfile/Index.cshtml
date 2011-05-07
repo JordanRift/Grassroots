@@ -73,14 +73,19 @@ div.box p
 }
 </style>
 
+<hgroup>
+    <h1>Hi there, @Model.FirstName</h1>
+</hgroup>
 <div id="userprofile">
-<h2>Welcome back @Model.FirstName!</h2>
-	@if ( !string.IsNullOrEmpty( Model.ImagePath ) )
-	{
+	@if ( !string.IsNullOrEmpty( Model.ImagePath ) ) {
         <img src="@Model.ImagePath" alt="@Model.FirstName @Model.LastName"/>
     }
 	<table class="userprofile">
 		<tbody>
+        <tr>
+            <td class="heading">Name</td>
+            <td>@Model.FirstName @Model.LastName</td>
+        </tr>
 		<tr>
 			<td class="heading">Email</td>
 			<td>@Model.Email</td>
@@ -92,8 +97,7 @@ div.box p
 		<tr>
 			<td class="heading">Address</td>
 			<td>@Model.AddressLine1<br />
-				@if ( @Model.AddressLine2 != null && @Model.AddressLine2 != string.Empty )
-				{
+				@if ( @Model.AddressLine2 != null && @Model.AddressLine2 != string.Empty ) {
 	   				@Model.AddressLine2<br />
 				}
 				@Model.City, @Model.State</td>
@@ -104,7 +108,7 @@ div.box p
 		</tr>
 		<tr>
 			<td class="heading">Last Visit</td>
-			<td>Today</td>
+			<td>@Model.LastVisit</td>
 		</tr>
 		</tbody>
 	</table>
@@ -112,22 +116,20 @@ div.box p
     @{ var campaigns = @Model.Campaigns; }
 
 	<div id="MyCampaignStats">
-	<h3>My Campaigns</h3>
+	<h3>@Model.FirstName's Campaigns</h3>
 		<div class="box">
 			<p>
-			@if ( @Model.Campaigns == null )
-			{
-				<text>0</text>
+			@if ( Model.Campaigns == null ) {
+				<text>No</text>
 			}
-			else
-			{
+			else {
 				@campaigns.Count
 			}
 			Campaigns </p>
-			<p>$@Model.TotalRaised Raised</p>
-			@if ( @Model.TotalHoursServed != 0m )
+			<p>@Model.TotalRaised.ToString("C") Raised</p>
+			@if ( Model.TotalHoursServed > 0m )
 			{
-				<p>@Model.TotalHoursServed <text>Hours Served</text></p>
+				<p>@Model.TotalHoursServed Hours Served</p>
 			}
 
 			<h5>Other Campaigns</h5>
@@ -139,13 +141,11 @@ div.box p
 </div>
 
     <div class="campaigns">
-        @if ( campaigns == null || campaigns.Count == 0 )
-		{
+        @if ( campaigns == null || campaigns.Count == 0 ) {
         <h3><text>We noticed you have't started a campaign yet. </text> @Html.ActionLink( "Click here", "Create", new { Controller = "Campaign", Area = "" }, new { Title = "Click here" } ) <text> to get started!</text></h3>
 		}
-		else
-		{
-        //@Html.Partial( "CampaignList", campaigns.OrderByDescending( c => c.StartDate ) );
+		else {
+        @Html.Partial( "CampaignList", campaigns );
 		}
     </div>
 
@@ -153,14 +153,12 @@ div.box p
         <h3>I want to...</h3>
         <ul>
             <li>@Html.ActionLink( "Edit my details", "Edit", new { Area = "", id = Model.UserProfileID }, new { Title = "Edit my details" } )</li>
-			@if ( Model.FacebookID == null || Model.FacebookID == "" )
-   {
+			@if ( Model.FacebookID == null || Model.FacebookID == "" ) {
 			<li>@Html.ActionLink( "Connect my account with Facebook", "Connect", "Facebook" )</li>
-   }
+            }
             <li>@Html.ActionLink( "Change my password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change my password" } )</li>
             <li>
-                @using ( Html.BeginForm( new { Action = "Delete", id = Model.UserProfileID } ) )
-				{
+                @using ( Html.BeginForm( new { Action = "Delete", id = Model.UserProfileID } ) ) {
                 <input type="submit" name="submit" id="delete" value="Delete my account" />
                 }
             </li>
