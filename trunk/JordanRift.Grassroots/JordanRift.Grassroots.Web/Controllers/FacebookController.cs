@@ -84,7 +84,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "UserProfile");
         }
 
         /// <summary>

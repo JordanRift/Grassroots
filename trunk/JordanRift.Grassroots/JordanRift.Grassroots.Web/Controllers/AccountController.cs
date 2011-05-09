@@ -77,7 +77,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                         return Redirect(returnUrl);
                     }
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "UserProfile");
                 }
 
                 ModelState.AddModelError("", "The username or password you provided are incorrect.");
