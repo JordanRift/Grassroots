@@ -26,6 +26,7 @@
 <div id="campaign-edit-form">
     @using (Html.BeginForm("Update", "Campaign", new { area = "", id = Model.CampaignID })) {
         @Html.ValidationSummary(false, "Unable to save your campaign. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
+        @Html.HiddenFor(m => m.CampaignID)
         <div class="title">
             @Html.LabelFor(m => m.Title)
             @Html.TextBoxFor(m => m.Title)

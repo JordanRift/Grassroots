@@ -17,11 +17,12 @@ namespace JordanRift.Grassroots.Web.Controllers
         /// Remote validation method to receive ajax call to confirm email address will be unique.
         /// </summary>
         /// <param name="email">email address to check against</param>
+        /// <param name="userProfileID">user profile ID to check against in the database</param>
         /// <returns>JSON true/false result</returns>
-        public JsonResult CheckEmail(string email)
+        public JsonResult CheckEmail(string email, int userProfileID = -1)
         {
             // Flip boolean logic to return true if is valid (e.g. - Email does not exist in repository).
-            var result = UserProfile.IsUnique(null, email, -1);
+            var result = UserProfile.IsUnique(null, email, userProfileID);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -29,10 +30,11 @@ namespace JordanRift.Grassroots.Web.Controllers
         /// Remote validation method to receive ajax call to confirm that url slug will be unique.
         /// </summary>
         /// <param name="urlSlug">url slug to check against</param>
+        /// <param name="campaignID">campaign ID to check against in the database</param>
         /// <returns>JSON true/false result</returns>
-        public JsonResult CheckUrlSlug(string urlSlug)
+        public JsonResult CheckUrlSlug(string urlSlug, int campaignID = -1)
         {
-            var result = Campaign.IsUnique(null, urlSlug, -1);
+            var result = Campaign.IsUnique(null, urlSlug, campaignID);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

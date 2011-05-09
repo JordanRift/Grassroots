@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using JordanRift.Grassroots.Framework.Entities.Validation;
 
 namespace JordanRift.Grassroots.Web.Models
@@ -36,6 +37,7 @@ namespace JordanRift.Grassroots.Web.Models
         
         [Required]
         [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Please enter only alpha-numeric characters.")]
+        [Remote("CheckUrlSlug", "Validation", AdditionalFields = "CampaignID", ErrorMessage = "That friendly URL is already in use. Please try another one.")]
         public string UrlSlug { get; set; }
         
         public string ImagePath { get; set; }

@@ -26,7 +26,8 @@ namespace JordanRift.Grassroots.Web.Models
         
         [Required]
         [Display(Name = "Friendly URL")]
-        [Remote("CheckUrlSlug", "Validation")]
+        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Please enter only alpha-numeric characters.")]
+        [Remote("CheckUrlSlug", "Validation", ErrorMessage = "That friendly URL is already in use. Please try another one.")]
         public string UrlSlug { get; set; }
 
         [Required]
