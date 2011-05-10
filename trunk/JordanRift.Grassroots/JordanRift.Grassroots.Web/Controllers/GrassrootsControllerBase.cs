@@ -33,19 +33,19 @@ namespace JordanRift.Grassroots.Web.Controllers
             set { organizationRepository = value; }
         }
 
-        public Organization Organization
-        {
-            get
-            {
-                if (organization == null)
-                {
-                    organization = OrganizationRepository.GetDefaultOrganization();
-                }
+        //public Organization GetOrganization(bool readOnly = true)
+        //{
+        //    get
+        //    {
+        //        if (organization == null)
+        //        {
+        //            organization = OrganizationRepository.GetDefaultOrganization();
+        //        }
 
-                return organization;
-            }
+        //        return organization;
+        //    }
 
-            set { organization = value; }
-        }
+        //    set { organization = value; }
+        //}
     }
 }

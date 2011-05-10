@@ -48,7 +48,7 @@ namespace JordanRift.Grassroots.Tests.Fakes
             return organizations.FirstOrDefault(o => o.OrganizationID == id);
         }
 
-        public Organization GetDefaultOrganization()
+        public Organization GetDefaultOrganization(bool readOnly = true)
         {
             return organizations.FirstOrDefault();
         }

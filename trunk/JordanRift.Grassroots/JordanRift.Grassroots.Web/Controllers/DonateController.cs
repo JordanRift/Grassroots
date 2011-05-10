@@ -165,10 +165,11 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         private IPaymentProvider GetPaymentProvider()
         {
-            paymentProviderFactory.ApiUrl = Organization.PaymentGatewayApiUrl;
-            paymentProviderFactory.ApiKey = Organization.PaymentGatewayApiKey;
-            paymentProviderFactory.ApiSecret = Organization.PaymentGatewayApiSecret;
-            return paymentProviderFactory.GetPaymentProvider(Organization.PaymentGateway);
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            paymentProviderFactory.ApiUrl = organization.PaymentGatewayApiUrl;
+            paymentProviderFactory.ApiKey = organization.PaymentGatewayApiKey;
+            paymentProviderFactory.ApiSecret = organization.PaymentGatewayApiSecret;
+            return paymentProviderFactory.GetPaymentProvider(organization.PaymentGateway);
         }
 
         private void SendNotifications(Payment model, Campaign campaign, CampaignDonor donation)

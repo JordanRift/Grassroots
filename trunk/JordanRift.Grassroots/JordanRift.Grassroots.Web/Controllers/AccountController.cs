@@ -116,15 +116,16 @@ namespace JordanRift.Grassroots.Web.Controllers
                     // (e.g. - SQL Server, MySQL, SQL Azure).
 
                     userProfile = Mapper.Map<RegisterModel, UserProfile>(model);
+                    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 
-                    if (Organization.UserProfiles == null)
+                    if (organization.UserProfiles == null)
                     {
-                        Organization.UserProfiles = new List<UserProfile>();
+                        organization.UserProfiles = new List<UserProfile>();
                     }
 
                     var gravatarService = new GravatarService();
                     userProfile.ImagePath = gravatarService.GetGravatarPictureUrl(userProfile.Email);
-                    Organization.UserProfiles.Add(userProfile);
+                    organization.UserProfiles.Add(userProfile);
                     OrganizationRepository.Save();
                     status = MembershipService.CreateUser(model.Email, model.Password, model.Email);
                     transactionScope.Complete();

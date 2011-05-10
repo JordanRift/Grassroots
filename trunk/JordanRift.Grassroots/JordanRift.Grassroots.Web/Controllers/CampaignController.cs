@@ -59,7 +59,8 @@ namespace JordanRift.Grassroots.Web.Controllers
         public ActionResult Create()
         {
             var viewModel = TempData["CampaignDetailsModel"] as CampaignCreateModel ?? new CampaignCreateModel();
-            var templates = Organization.CauseTemplates;
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var templates = organization.CauseTemplates;
 
             if (templates.Count > 1)
             {

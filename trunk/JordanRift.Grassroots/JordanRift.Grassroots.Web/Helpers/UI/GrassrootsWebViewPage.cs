@@ -31,7 +31,7 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
         protected GrassrootsWebViewPage()
         {
             organizationRepository = RepositoryFactory.GetRepository<IOrganizationRepository>();
-            organization = organizationRepository.GetDefaultOrganization();
+            organization = organizationRepository.GetDefaultOrganization(readOnly: true);
         }
     }
 }

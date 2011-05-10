@@ -30,19 +30,22 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         public ActionResult Index()
         {
-            var model = Mapper.Map<Organization, OrganizationDetailsModel>(Organization);
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             return View("Index", model);
         }
 
         public ActionResult About()
         {
-            var model = Mapper.Map<Organization, OrganizationDetailsModel>(Organization);
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             return View(model);
         }
 
         public ActionResult Projects()
         {
-            var templates = Organization.CauseTemplates;
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var templates = organization.CauseTemplates;
             var model = templates.Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
             return View(model);
         }
@@ -51,12 +54,13 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 150, VaryByParam = "none")]
         public ActionResult ProgressBar()
         {
-            var total = Organization.CalculateTotalDonations();
-            var percent = (int) ((total / Organization.YtdGoal) * 100);
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var total = organization.CalculateTotalDonations();
+            var percent = (int) ((total / organization.YtdGoal) * 100);
             var model = new ProgressBarModel
                             {
                                 Amount = total,
-                                GoalAmount = Organization.YtdGoal,
+                                GoalAmount = organization.YtdGoal,
                                 Percent = percent,
                                 GoalName = "YTD Total"
                             };
@@ -72,7 +76,8 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 600, VaryByParam = "none")]
         public ActionResult TwitterFeed()
         {
-            var twitterName = Organization.TwitterName;
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var twitterName = organization.TwitterName;
 
             if (!string.IsNullOrEmpty(twitterName))
             {
@@ -87,7 +92,8 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 300, VaryByParam = "none")]
         public ActionResult BlogRssFeed()
         {
-            var blogUrl = Organization.BlogRssUrl;
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var blogUrl = organization.BlogRssUrl;
 
             if (!string.IsNullOrEmpty(blogUrl))
             {
@@ -102,7 +108,8 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult ThemeCss()
         {
-            var model = Mapper.Map<Organization, OrganizationDetailsModel>(Organization);
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             return View(model);
         }
     }

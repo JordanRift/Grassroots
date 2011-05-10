@@ -37,7 +37,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		public ActionResult EditCauseTemplate(int id)
 		{
-			var causeTemplate = Organization.CauseTemplates.FirstOrDefault( c => c.CauseTemplateID == id );
+		    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+			var causeTemplate = organization.CauseTemplates.FirstOrDefault( c => c.CauseTemplateID == id );
 
 			if ( causeTemplate != null )
 			{
@@ -51,7 +52,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		public ActionResult CauseTemplateList()
 		{
-			var templates = Organization.CauseTemplates;
+		    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+			var templates = organization.CauseTemplates;
 			var model = templates.Select( Mapper.Map<CauseTemplate, CauseTemplateDetailsModel> ).ToList();
 			return View( model );
 		}
@@ -65,7 +67,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[Authorize]
 		public ActionResult UpdateCauseTemplate( CauseTemplateDetailsModel model )
 		{
-			var causeTemplate = Organization.CauseTemplates.FirstOrDefault( c => c.CauseTemplateID == model.CauseTemplateID );
+		    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+			var causeTemplate = organization.CauseTemplates.FirstOrDefault( c => c.CauseTemplateID == model.CauseTemplateID );
 
 			if ( causeTemplate == null )
 			{
@@ -94,8 +97,9 @@ namespace JordanRift.Grassroots.Web.Controllers
 				return RedirectToAction( "CreateCauseTemplate", "Admin" );
 			}
 
+		    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 			var causeTemplate = Mapper.Map<CauseTemplateCreateModel, CauseTemplate>( model );
-			Organization.CauseTemplates.Add( causeTemplate );
+			organization.CauseTemplates.Add( causeTemplate );
 			OrganizationRepository.Save();
 
 			return RedirectToAction( "CauseTemplateList", "Admin" );
@@ -123,7 +127,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		public ActionResult EditOrganization()
 		{
 			// Perhaps someday we'll pull this from the route?
-			var organization = OrganizationRepository.GetDefaultOrganization();
+			var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
 
 			if ( organization != null )
 			{
@@ -147,7 +151,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[HttpPost]
 		public ActionResult UpdateOrganization( OrganizationDetailsModel model )
 		{
-			var organization = OrganizationRepository.GetDefaultOrganization();
+			var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 
 			if ( ModelState.IsValid )
 			{

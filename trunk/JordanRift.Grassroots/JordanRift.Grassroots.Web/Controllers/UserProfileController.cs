@@ -33,10 +33,12 @@ namespace JordanRift.Grassroots.Web.Controllers
 		}
 
 		[Authorize]
-		public ActionResult Index()
+		public ActionResult Index(int id = -1)
 		{
-			var userProfile = repository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
-
+		    var userProfile = id != -1 
+                ? repository.GetUserProfileByID(id) 
+                : repository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+			
 			if (userProfile != null)
 			{
 			    var viewModel = MapUserProfileDetails(userProfile);

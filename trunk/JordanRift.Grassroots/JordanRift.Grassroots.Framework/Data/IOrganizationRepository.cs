@@ -13,7 +13,7 @@ namespace JordanRift.Grassroots.Framework.Data
     public interface IOrganizationRepository
     {
         Organization GetOrganizationByID(int id);
-        Organization GetDefaultOrganization();
+        Organization GetDefaultOrganization(bool readOnly = true);
         void Add(Organization organization);
         void Delete(Organization organization);
         void Save();

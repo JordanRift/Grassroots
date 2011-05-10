@@ -218,7 +218,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 using (new UnitOfWorkScope())
                 {
-                    var organization = OrganizationRepository.GetDefaultOrganization();
+                    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 
                     if (organization.UserProfiles == null)
                     {

@@ -298,8 +298,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             MailerBase.IsTestModeEnabled = true;
             var upc = new CampaignController(campaignRepository, userProfileRepository, mailer)
                           {
-                              OrganizationRepository = organizationRepository,
-                              Organization = organization
+                              OrganizationRepository = organizationRepository//,
+                              //Organization = organization
                           };
 
             upc.ControllerContext = new ControllerContext
