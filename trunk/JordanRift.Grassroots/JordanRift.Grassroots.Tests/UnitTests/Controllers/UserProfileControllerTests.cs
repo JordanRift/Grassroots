@@ -7,6 +7,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
@@ -41,6 +42,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
+            userProfile.Campaigns = new List<Campaign>();
             repository.Add(userProfile);
             var result = controller.Index();
             Assert.IsInstanceOf(typeof(ViewResult), result);

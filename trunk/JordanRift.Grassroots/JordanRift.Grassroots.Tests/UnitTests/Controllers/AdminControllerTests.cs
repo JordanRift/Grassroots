@@ -97,7 +97,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         private void SetUpAdminController(MockRepository mocks, bool shouldFindOrganization = true)
         {
             organizationRepository = mocks.DynamicMock<IOrganizationRepository>();
-            Expect.Call(organizationRepository.GetDefaultOrganization())
+            Expect.Call(organizationRepository.GetDefaultOrganization(readOnly: false))
                 .Return(shouldFindOrganization ? EntityHelpers.GetValidOrganization() : null);
 
             controller = new AdminController

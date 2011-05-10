@@ -165,7 +165,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             // Assert
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
-            Assert.AreEqual("Home", redirectResult.RouteValues["controller"]);
+            Assert.AreEqual("UserProfile", redirectResult.RouteValues["controller"]);
             Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
             Assert.IsTrue(((MockFormsAuthenticationService)controller.FormsService).SignIn_WasCalled);
         }
