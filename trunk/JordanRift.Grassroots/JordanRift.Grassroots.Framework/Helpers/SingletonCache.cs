@@ -14,7 +14,7 @@ namespace JordanRift.Grassroots.Framework.Helpers
     /// <summary>
     /// Singleton implementation to act as a wrapper for a MemoryCache object.
     /// </summary>
-    public class SingletonCache
+    internal sealed class SingletonCache
     {
         // Lazy<T> in this usage does act as a thread-safe instance of the generic type. No need for "volatile".
         private static readonly Lazy<SingletonCache> instance = new Lazy<SingletonCache>(() => new SingletonCache());
@@ -24,9 +24,9 @@ namespace JordanRift.Grassroots.Framework.Helpers
             get { return instance.Value; }
         }
 
-        private MemoryCache cache;
+        private ObjectCache cache;
 
-        public MemoryCache Cache
+        public ObjectCache Cache
         {
             get { return cache ?? (cache = MemoryCache.Default); }
         }
