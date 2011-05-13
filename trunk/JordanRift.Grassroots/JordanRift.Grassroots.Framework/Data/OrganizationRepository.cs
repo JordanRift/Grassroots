@@ -6,9 +6,7 @@
 // http://creativecommons.org/licenses/by-nc-sa/3.0/
 //
 
-using System;
 using System.Linq;
-using System.Runtime.Caching;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
 
@@ -17,11 +15,13 @@ namespace JordanRift.Grassroots.Framework.Data
     public class OrganizationRepository : GrassrootsRepositoryBase, IOrganizationRepository
     {
         private const string DEFAULT_ORG_CACHE_KEY = "Grassroots.DefaultOrganization";
-        private readonly SingletonCache instance;
+        //private readonly SingletonCache instance;
+        private ICache cache;
 
         public OrganizationRepository()
         {
-            instance = SingletonCache.Instance;
+            //instance = SingletonCache.Instance;
+            cache = CacheFactory.GetCache();
         }
 
         public Organization GetOrganizationByID(int id)
@@ -31,17 +31,16 @@ namespace JordanRift.Grassroots.Framework.Data
 
         public Organization GetDefaultOrganization(bool readOnly = true)
         {
-            if (readOnly && instance.Cache.Any(i => i.Key == DEFAULT_ORG_CACHE_KEY))
+            if (readOnly && cache.Any(i => i.Key == DEFAULT_ORG_CACHE_KEY))
             {
-                return instance.Cache.Get(DEFAULT_ORG_CACHE_KEY) as Organization;
+                return cache.Get(DEFAULT_ORG_CACHE_KEY) as Organization;
             }
 
             var organization = ObjectContext.Organizations.FirstOrDefault();
 
             if (organization != null && readOnly)
             {
-                instance.Cache.Add(new CacheItem(DEFAULT_ORG_CACHE_KEY, organization),
-                                   new CacheItemPolicy { SlidingExpiration = TimeSpan.FromMinutes(5) });
+                cache.Add(DEFAULT_ORG_CACHE_KEY, organization);
             }
 
             return organization;
@@ -65,7 +64,7 @@ namespace JordanRift.Grassroots.Framework.Data
 
         private void ClearCache()
         {
-            instance.Cache.Remove(DEFAULT_ORG_CACHE_KEY);
+            cache.Remove(DEFAULT_ORG_CACHE_KEY);
         }
     }
 }

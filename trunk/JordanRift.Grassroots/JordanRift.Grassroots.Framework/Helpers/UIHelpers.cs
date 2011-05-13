@@ -30,7 +30,11 @@ namespace JordanRift.Grassroots.Framework.Helpers
 
                     foreach (var ct in organization.CauseTemplates)
                     {
-                        CauseTemplateDictionary.Add(new KeyValuePair<string, string>(ct.CauseTemplateID.ToString(), ct.Name));
+                        if (ct.Active)
+                        {
+                            CauseTemplateDictionary.Add(
+                                new KeyValuePair<string, string>(ct.CauseTemplateID.ToString(), ct.Name));
+                        }
                     }
                 }
 

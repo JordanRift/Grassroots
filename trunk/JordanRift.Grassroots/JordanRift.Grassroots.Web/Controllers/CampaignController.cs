@@ -60,9 +60,9 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             var viewModel = TempData["CampaignDetailsModel"] as CampaignCreateModel ?? new CampaignCreateModel();
             var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            var templates = organization.CauseTemplates;
+            var templates = organization.CauseTemplates.Where(ct => ct.Active);
 
-            if (templates.Count > 1)
+            if (templates.Count() > 1)
             {
                 viewModel.ShouldRenderDropdown = true;
             }

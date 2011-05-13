@@ -106,7 +106,10 @@
     <Compile Include="Entities\Tweet.cs" />
     <Compile Include="Entities\Validation\ICauseNoteValidation.cs" />
     <Compile Include="Entities\Validation\NotEqualToAttribute.cs" />
+    <Compile Include="Helpers\CacheFactory.cs" />
+    <Compile Include="Helpers\ICache.cs" />
     <Compile Include="Helpers\RepositoryFactory.cs" />
+    <Compile Include="Helpers\InMemoryCache.cs" />
     <Compile Include="Helpers\SingletonCache.cs" />
     <Compile Include="Services\BlogService.cs" />
     <Compile Include="Services\CampaignService.cs" />
