@@ -129,24 +129,21 @@ div.box p
 			    <li><span>@Model.TotalNumberCampaignsDonatedTo</span> Campaigns Donated To</li>
 		    </ul>
 	    </aside>
+
+        <div class="user-dashboard">
+            <h3>I want to...</h3>
+            <ul>
+                <li>@Html.ActionLink( "Edit my details", "Edit", new { Area = "", id = Model.UserProfileID }, new { Title = "Edit my details" } )</li>
+			    @if ( Model.FacebookID == null || Model.FacebookID == "" ) {
+			    <li>@Html.ActionLink( "Connect to Facebook", "Connect", "Facebook" )</li>
+                }
+                <li>@Html.ActionLink( "Change my password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change my password" } )</li>
+                <li>@Html.ActionLink("Deactivate my account", "Deactivate", new { Controller = "Account", Area = "" }, new { Title = "Deactivate my account" })</li>
+            </ul>
+        </div>
+
         <div class="break"></div>
     </section>
-
-    <div class="dashboard">
-        <h3>I want to...</h3>
-        <ul>
-            <li>@Html.ActionLink( "Edit my details", "Edit", new { Area = "", id = Model.UserProfileID }, new { Title = "Edit my details" } )</li>
-			@if ( Model.FacebookID == null || Model.FacebookID == "" ) {
-			<li>@Html.ActionLink( "Connect my account with Facebook", "Connect", "Facebook" )</li>
-            }
-            <li>@Html.ActionLink( "Change my password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change my password" } )</li>
-            <li>
-                @using ( Html.BeginForm( new { Action = "Delete", id = Model.UserProfileID } ) ) {
-                <input type="submit" name="submit" id="delete" value="Delete my account" />
-                }
-            </li>
-        </ul>
-    </div>
 
     <section class="campaigns">
         @if ( campaigns == null || campaigns.Count == 0 ) {
