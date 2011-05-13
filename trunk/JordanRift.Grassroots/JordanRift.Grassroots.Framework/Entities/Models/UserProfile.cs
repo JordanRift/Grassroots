@@ -46,6 +46,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<CampaignDonor> CampaignDonors { get; set; }
         public virtual ICollection<Campaign> Campaigns { get; set; }
+        public virtual ICollection<CauseNote> CauseNotes { get; set; }
 
         [NotMapped]
         public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }

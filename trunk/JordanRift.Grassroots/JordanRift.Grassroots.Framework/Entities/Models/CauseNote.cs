@@ -40,6 +40,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 		public CauseNoteConfiguration()
 		{
 			this.HasRequired( d => d.Cause ).WithMany( c => c.CauseNotes ).HasForeignKey( d => d.CauseID);
+		    this.HasRequired(u => u.UserProfile).WithMany(c => c.CauseNotes).HasForeignKey(d => d.UserProfileID);
 		}
 	}
 }
