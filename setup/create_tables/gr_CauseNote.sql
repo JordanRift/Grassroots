@@ -1,7 +1,7 @@
 USE [Grassroots]
 GO
 
-/****** Object:  Table [dbo].[gr_CauseNote]    Script Date: 05/13/2011 11:05:55 ******/
+/****** Object:  Table [dbo].[gr_CauseNote]    Script Date: 05/13/2011 11:58:11 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -20,6 +20,14 @@ CREATE TABLE [dbo].[gr_CauseNote](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+GO
+
+ALTER TABLE [dbo].[gr_CauseNote]  WITH CHECK ADD  CONSTRAINT [FK_gr_CauseNote_gr_Cause] FOREIGN KEY([CauseID])
+REFERENCES [dbo].[gr_Cause] ([CauseID])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[gr_CauseNote] CHECK CONSTRAINT [FK_gr_CauseNote_gr_Cause]
 GO
 
 ALTER TABLE [dbo].[gr_CauseNote]  WITH CHECK ADD  CONSTRAINT [FK_gr_CauseNote_gr_UserProfile] FOREIGN KEY([UserProfileID])
