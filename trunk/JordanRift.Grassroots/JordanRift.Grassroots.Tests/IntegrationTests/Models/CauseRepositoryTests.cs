@@ -14,6 +14,8 @@ using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
 using JordanRift.Grassroots.Tests.Helpers;
 using NUnit.Framework;
+using JordanRift.Grassroots.Framework.Services;
+using System;
 
 namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
 {
@@ -26,6 +28,9 @@ namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
         private Cause cause;
         private CauseTemplate causeTemplate;
         private Organization organization;
+
+		private UserProfile userProfile;
+		private User user;
 
         [SetUp]
         public void SetUp()
@@ -129,13 +134,45 @@ namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
             }
         }
 
+		//TODO Verify this works
+		[Test]
+		public void Add_Should_Add_CauseNote_To_Database()
+		{
+			using ( new UnitOfWorkScope() )
+			using ( new TransactionScope() )
+			{
+				ArrangeCauseTest();
+				CauseNote note = cause.CreateNote();
+
+				note.Text = "This is a test note.";
+				note.UserProfile = organization.UserProfiles.FirstOrDefault();
+				note.EntryDate = DateTime.Now;
+
+				causeRepository.AddNote( note );
+				causeRepository.Save();
+				Assert.IsNotNull( cause.CauseNotes );
+				Assert.Greater( cause.CauseNotes.Count, 0 );
+			}
+		}
+
         private void ArrangeCauseTest()
         {
             organization = EntityHelpers.GetValidOrganization();
+			organization.UserProfiles = new List<UserProfile>();
             organization.CauseTemplates = new List<CauseTemplate>();
             organization.Causes = new List<Cause>();
             organizationRepository.Add(organization);
             organizationRepository.Save();
+
+			userProfile = EntityHelpers.GetValidUserProfile();
+			userProfile.Users = new List<User>();
+			userProfile.UserProfileService = new UserProfileService( new UserProfileRepository() );
+			organization.UserProfiles.Add( userProfile );
+			organizationRepository.Save();
+
+			user = EntityHelpers.GetValidUser();
+			userProfile.Users.Add( user );
+			organizationRepository.Save();
 
             causeTemplate = EntityHelpers.GetValidCauseTemplate();
             causeTemplate.Causes = new List<Cause>();

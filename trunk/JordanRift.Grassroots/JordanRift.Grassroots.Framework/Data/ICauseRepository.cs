@@ -11,14 +11,15 @@ using System.Linq;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
-    public interface ICauseRepository
-    {
+	public interface ICauseRepository
+	{
 		IQueryable<Cause> FindAllCauses();
 		IQueryable<Cause> FindActiveCauses();
 		IQueryable<Cause> FindCausesByCauseTemplateID(int causeTemplateID);
 		Cause GetCauseByID( int id );
 		void Add(Cause cause);
+		void AddNote( CauseNote note );
 		void Delete(Cause cause);
-        void Save();
-    }
+		void Save();
+	}
 }

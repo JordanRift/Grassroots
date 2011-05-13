@@ -45,6 +45,11 @@ namespace JordanRift.Grassroots.Framework.Data
 			ObjectContext.Causes.Add( cause );
 		}
 
+		public void AddNote( CauseNote note )
+		{
+			ObjectContext.CauseNotes.Add( note );
+		}
+
 		public void Delete( Cause cause )
 		{
 			ObjectContext.Causes.Remove( cause );

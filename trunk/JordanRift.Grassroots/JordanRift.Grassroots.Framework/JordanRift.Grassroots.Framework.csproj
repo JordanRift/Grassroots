@@ -102,7 +102,9 @@
     <Compile Include="Entities\BlogPost.cs" />
     <Compile Include="Entities\ICanCalculate.cs" />
     <Compile Include="Entities\IPaymentProviderFactory.cs" />
+    <Compile Include="Entities\Models\CauseNote.cs" />
     <Compile Include="Entities\Tweet.cs" />
+    <Compile Include="Entities\Validation\ICauseNoteValidation.cs" />
     <Compile Include="Entities\Validation\NotEqualToAttribute.cs" />
     <Compile Include="Helpers\RepositoryFactory.cs" />
     <Compile Include="Helpers\SingletonCache.cs" />
