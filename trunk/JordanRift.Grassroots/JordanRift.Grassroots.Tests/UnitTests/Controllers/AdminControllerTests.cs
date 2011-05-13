@@ -61,7 +61,6 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             mocks.ReplayAll();
             var result = controller.EditOrganization();
             Assert.IsInstanceOf(typeof(HttpNotFoundResult), result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -70,7 +69,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var organization = EntityHelpers.GetValidOrganization();
             var viewModel = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             var mocks = new MockRepository();
-            SetUpAdminController(mocks);
+            SetUpAdminController(mocks, repoReadOnly: false);
             mocks.ReplayAll();
             var result = controller.UpdateOrganization(viewModel);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
@@ -94,10 +93,10 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.AreEqual("EditOrganization", actionName);
         }
 
-        private void SetUpAdminController(MockRepository mocks, bool shouldFindOrganization = true)
+        private void SetUpAdminController(MockRepository mocks, bool shouldFindOrganization = true, bool repoReadOnly = true)
         {
             organizationRepository = mocks.DynamicMock<IOrganizationRepository>();
-            Expect.Call(organizationRepository.GetDefaultOrganization(readOnly: false))
+            Expect.Call(organizationRepository.GetDefaultOrganization(readOnly: repoReadOnly))
                 .Return(shouldFindOrganization ? EntityHelpers.GetValidOrganization() : null);
 
             controller = new AdminController
