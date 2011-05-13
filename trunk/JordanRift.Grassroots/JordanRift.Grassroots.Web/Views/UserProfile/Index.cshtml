@@ -10,9 +10,11 @@
     //
     
     ViewBag.Title = string.Format("{0}'s Profile", Model.FirstName);
+    var campaigns = Model.Campaigns;
+    var campaignCount = campaigns != null ? campaigns.Count.ToString() : "No";
 }
 
-<style type="text/css">
+@*<style type="text/css">
 #userprofile img 
 {
 	float: left;
@@ -71,83 +73,64 @@ div.box p
 {
 	margin-bottom: 8px;
 }
-</style>
+</style>*@
 
-<hgroup>
-    <h1>Hi there, @Model.FirstName</h1>
-</hgroup>
-<div id="userprofile">
-	@if ( !string.IsNullOrEmpty( Model.ImagePath ) ) {
+    <hgroup>
+        <h1>Hi there, @Model.FirstName</h1>
+    </hgroup>
+    <section class="user-info">
         <img src="@Model.ImagePath" alt="@Model.FirstName @Model.LastName"/>
-    }
-	<table class="userprofile">
-		<tbody>
-        <tr>
-            <td class="heading">Name</td>
-            <td>@Model.FirstName @Model.LastName</td>
-        </tr>
-		<tr>
-			<td class="heading">Email</td>
-			<td>@Model.Email</td>
-		</tr>
-		<tr>
-			<td class="heading">Phone</td>
-			<td>@Model.PrimaryPhone</td>
-		</tr>
-		<tr>
-			<td class="heading">Address</td>
-			<td>@Model.AddressLine1<br />
-				@if ( @Model.AddressLine2 != null && @Model.AddressLine2 != string.Empty ) {
-	   				@Model.AddressLine2<br />
-				}
-				@Model.City, @Model.State</td>
-		</tr>
-		<tr>
-			<td class="heading">Age</td>
-			<td>@Model.Age</td>
-		</tr>
-		<tr>
-			<td class="heading">Last Visit</td>
-			<td>@Model.LastVisit</td>
-		</tr>
-		</tbody>
-	</table>
+	    <table>
+		    <tbody>
+                <tr>
+                    <td class="heading">Name</td>
+                    <td>@Model.FirstName @Model.LastName</td>
+                </tr>
+		        <tr>
+			        <td class="heading">Email</td>
+			        <td><a href="mailto:@Model.Email" title="@Model.Email">@Model.Email</a></td>
+		        </tr>
+		        <tr>
+			        <td class="heading">Phone</td>
+			        <td>@Model.PrimaryPhone</td>
+		        </tr>
+		        <tr>
+			        <td class="heading">Address</td>
+			        <td>@Model.AddressLine1<br />
+				        @if ( @Model.AddressLine2 != null && @Model.AddressLine2 != string.Empty ) {
+	   				        @Model.AddressLine2<br />
+				        }
+				        @Model.City, @Model.State @Model.ZipCode</td>
+		        </tr>
+		        <tr>
+			        <td class="heading">Age</td>
+			        <td>@Model.Age</td>
+		        </tr>
+		        <tr>
+			        <td class="heading">Last Visit</td>
+			        <td>@Model.LastVisit</td>
+		        </tr>
+		    </tbody>
+	    </table>
 
-    @{ var campaigns = @Model.Campaigns; }
-
-	<div id="MyCampaignStats">
-	<h3>@Model.FirstName's Campaigns</h3>
-		<div class="box">
-			<p>
-			@if ( Model.Campaigns == null ) {
-				<text>No</text>
-			}
-			else {
-				@campaigns.Count
-			}
-			Campaigns </p>
-			<p>@Model.TotalRaised.ToString("C") Raised</p>
-			@if ( Model.TotalHoursServed > 0m )
-			{
-				<p>@Model.TotalHoursServed Hours Served</p>
-			}
-
-			<h5>Other Campaigns</h5>
-			<p>@Model.TotalDonationsMade Donations Made</p>
-			<p>$@Model.TotalDonationsGiven Given</p>
-			<p>@Model.TotalNumberCampaignsDonatedTo Campaigns Donated To</p>
-		</div>
-	</div>
-</div>
-
-    <div class="campaigns">
-        @if ( campaigns == null || campaigns.Count == 0 ) {
-        <h3><text>We noticed you have't started a campaign yet. </text> @Html.ActionLink( "Click here", "Create", new { Controller = "Campaign", Area = "" }, new { Title = "Click here" } ) <text> to get started!</text></h3>
-		}
-		else {
-        @Html.Partial( "CampaignList", campaigns );
-		}
-    </div>
+	    <aside class="stats">
+	        <h3>@Model.FirstName's Impact</h3>
+		    <ul>
+                <li><span>@campaignCount</span> Campaigns</li>
+			    <li><span>@Model.TotalRaised.ToString("C")</span> Raised</li>
+			    @if ( Model.TotalHoursServed > 0m ) {
+				<li><span>@Model.TotalHoursServed</span> Hours Served</li>
+       }
+            </ul>
+            <h3>@Model.FirstName's Contribution to Others</h3>
+            <ul>
+			    <li><span>@Model.TotalDonationsMade</span> Donations Made</li>
+			    <li><span>$@Model.TotalDonationsGiven</span> Given</li>
+			    <li><span>@Model.TotalNumberCampaignsDonatedTo</span> Campaigns Donated To</li>
+		    </ul>
+	    </aside>
+        <div class="break"></div>
+    </section>
 
     <div class="dashboard">
         <h3>I want to...</h3>
@@ -164,4 +147,17 @@ div.box p
             </li>
         </ul>
     </div>
+
+    <section class="campaigns">
+        @if ( campaigns == null || campaigns.Count == 0 ) {
+        <h3><text>We noticed you have't started a campaign yet. </text> @Html.ActionLink( "Click here", "Create", new { Controller = "Campaign", Area = "" }, new { Title = "Click here" } ) <text> to get started!</text></h3>
+		}
+		else {
+        @Html.Partial( "CampaignList", campaigns );
+		}
+    </section>
+
+    <section class="notes">
+        <!-- TODO: Notes attached to the user will go here... -->
+    </section>
 

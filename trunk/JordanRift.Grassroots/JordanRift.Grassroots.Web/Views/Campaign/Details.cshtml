@@ -28,7 +28,7 @@
         @Html.ActionLink("Edit this campaign", "Edit", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
     </aside>
     }
-    <div class="dashboard">
+    <section class="dashboard">
         @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
         <aside class="donate">
             @Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
@@ -39,7 +39,7 @@
             <li><span>@Model.Donations.Count</span> Individual Donations</li>
             <li class="last"><span>@daysRemaining.Days</span> Days Remaining</li>
         </ul>
-    </div>
+    </section>
     <section class="share-campaign">
         <img src="@Model.ImagePath" alt="@Model.Title" class="campaign-img" />
         <div class="share">
