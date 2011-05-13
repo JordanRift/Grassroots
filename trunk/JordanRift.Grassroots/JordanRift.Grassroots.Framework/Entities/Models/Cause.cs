@@ -13,32 +13,47 @@ using JordanRift.Grassroots.Framework.Entities.Validation;
 
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
-    [MetadataType(typeof(ICauseValidation))]
-    [Table("gr_Cause")]
-    public class Cause : ICauseValidation
-    {
-        [Key]
-        public int CauseID { get; set; }
-        public int OrganizationID { get; set; }
-        public virtual Organization Organization { get; set; }
-        public int CauseTemplateID { get; set; }
-        public virtual CauseTemplate CauseTemplate { get; set; }
-        public string Name { get; set; }
-        public bool Active { get; set; }
-        public string Summary { get; set; }
-        public string VideoEmbedHtml { get; set; }
-        public string DescriptionHtml { get; set; }
-        public string ImagePath { get; set; }
+	[MetadataType( typeof( ICauseValidation ) )]
+	[Table( "gr_Cause" )]
+	public class Cause : ICauseValidation
+	{
+		[Key]
+		public int CauseID { get; set; }
+		public int OrganizationID { get; set; }
+		public virtual Organization Organization { get; set; }
+		public int CauseTemplateID { get; set; }
+		public virtual CauseTemplate CauseTemplate { get; set; }
+		public string Name { get; set; }
+		public bool Active { get; set; }
+		public string Summary { get; set; }
+		public string VideoEmbedHtml { get; set; }
+		public string DescriptionHtml { get; set; }
+		public string ImagePath { get; set; }
 
-        public virtual ICollection<Campaign> Campaigns { get; set; }
-    }
+		public virtual ICollection<Campaign> Campaigns { get; set; }
+		public virtual ICollection<CauseNote> CauseNotes { get; set; }
 
-    public class CauseConfiguration : EntityTypeConfiguration<Cause>
-    {
-        public CauseConfiguration()
-        {
-            this.HasRequired(c => c.Organization).WithMany(o => o.Causes).HasForeignKey(c => c.OrganizationID);
-            this.HasRequired(c => c.CauseTemplate).WithMany(t => t.Causes).HasForeignKey(c => c.CauseTemplateID);
-        }
-    }
+		/// <summary>
+		/// Used to create a new instance of a CauseNote object for this cause.
+		/// </summary>
+		/// <returns>New note for this cause.</returns>
+		public CauseNote CreateNote()
+		{
+			var note = new CauseNote
+							{
+								CauseID = this.CauseID
+							};
+
+			return note;
+		}
+	}
+
+	public class CauseConfiguration : EntityTypeConfiguration<Cause>
+	{
+		public CauseConfiguration()
+		{
+			this.HasRequired(c => c.Organization).WithMany(o => o.Causes).HasForeignKey(c => c.OrganizationID);
+			this.HasRequired(c => c.CauseTemplate).WithMany(t => t.Causes).HasForeignKey(c => c.CauseTemplateID);
+		}
+	}
 }
