@@ -20,19 +20,11 @@
     <h1>Set Up Your Account</h1>
     <h3>Fill out the form below to create a new account.</h3>
 </hgroup>
-<p>
-    <text>Passwords are required to be a minimum of</text>@ViewBag.PasswordLength<text> characters in length.</text></p>
 <div id="facebook-registration-form">
-    @using (Html.BeginForm("RegisterUser", "Facebook"))
-    {
-        <fieldset>
-            <legend>Information from your Facebook profile</legend>
-            @Html.ValidationSummary(false, "Account creation was unsuccessful. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
-            <h3>Account Information</h3>
-            @if (!string.IsNullOrEmpty(Model.ImagePath)) {
-            <img src="@Model.ImagePath" alt="@Model.FirstName @Model.LastName on Facebook" />
-            @Html.HiddenFor(m => m.ImagePath)
-            }
+    @using (Html.BeginForm("RegisterUser", "Facebook")) {
+        @Html.ValidationSummary(false, "Account creation was unsuccessful. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
+        <fieldset class="column">
+            <legend>Account Information</legend>
             @Html.HiddenFor(m => m.FacebookID)
             <dl>
                 <dt>@Html.LabelFor(m => m.Email)</dt>
@@ -41,8 +33,13 @@
                     @Html.ValidationMessageFor(m => m.Email, null, new { @class = "ui-state-error ui-corner-all" })
                 </dd>
             </dl>
-            
-            <h3>About You</h3>
+            @if (!string.IsNullOrEmpty(Model.ImagePath)) {
+            <img src="@Model.ImagePath" alt="@Model.FirstName @Model.LastName on Facebook" />
+            @Html.HiddenFor(m => m.ImagePath)
+            }
+        </fieldset>
+        <fieldset class="column">
+            <legend>Information from your Facebook profile</legend>
             <dl>
                 <dt>@Html.LabelFor(m => m.FirstName)</dt>
                 <dd>

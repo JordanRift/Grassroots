@@ -23,7 +23,7 @@ namespace JordanRift.Grassroots.Web.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         [DisplayName("Email Address")]
-        [Remote("CheckEmail", "Validation", ErrorMessage = "Invalid Username")]
+        [Remote("CheckEmail", "Validation", ErrorMessage = "That email address is already in use. Please try another one.")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
             ErrorMessage = "Please enter a valid email address.")]
         public string Email { get; set; }
