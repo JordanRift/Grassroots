@@ -92,5 +92,8 @@ namespace JordanRift.Grassroots.Web.Models
         public DateTime LastVisit { get; set; }
 
 		public List<CampaignDetailsModel> Campaigns { get; set; }
+
+        [Editable(false)]
+        public string Role { get; set; }
 	}
 }

@@ -185,6 +185,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             viewModel.TotalDonationsGiven = userProfile.CalculateTotalDonationsGiven();
             viewModel.TotalNumberCampaignsDonatedTo = userProfile.CalculateTotalNumberOfCampaignsDonatedTo();
             viewModel.LastVisit = userProfile.Users.Any() ? userProfile.Users.First().LastLoggedIn : DateTime.Now;
+            viewModel.Role = userProfile.Role != null ? userProfile.Role.Description : "Registered User";
             return viewModel;
         }
 	}

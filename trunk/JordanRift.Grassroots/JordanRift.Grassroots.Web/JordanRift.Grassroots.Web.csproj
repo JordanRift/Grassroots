@@ -377,6 +377,7 @@
     <Content Include="Views\Campaign\DonationGrid.cshtml" />
     <Content Include="Views\Shared\FacebookLikeButtonWithPictures.cshtml" />
     <Content Include="Views\Admin\CreateCauseTemplate.cshtml" />
+    <Content Include="Views\UserProfile\DeactivateAccount.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

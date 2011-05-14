@@ -250,13 +250,17 @@ fieldset.column {
 			margin: 0px 50px 0px 0px;
 		}
 
-		#main .user-info > table .heading {
-			width: 100px;
+		.user-info > img {
+			margin-top: 10px;
 		}
 
-		#main .user-info > table td {
-			width: 200px;
-		}
+			#main .user-info > table .heading {
+				width: 100px;
+			}
+
+			#main .user-info > table td {
+				width: 200px;
+			}
 
 		#main .user-info > .user-dashboard {
 			padding-top: 20px;
@@ -264,12 +268,18 @@ fieldset.column {
 
 			#main .user-info > .user-dashboard li {
 				display: inline-block;
-				width: 150px;
+				*display: inline;
+				width: 130px;
+				padding: 10px 7px;
 			}
 
-				.user-info > .user-dashboard li a,
-				.user-info > .user-dashboard li input {
-					width: 150px;
+			#main .user-info > .user-dashboard li:first-child {
+				padding-left: 0px;
+			}
+
+				.user-info > .user-dashboard li a {
+					width: 130px;
+					padding: 0.4em 0em;
 				}
 
 		#main .user-info > aside {
@@ -289,6 +299,11 @@ fieldset.column {
 					padding: 5px 0px;
 					text-align: center;
 				}
+
+		#main .campaigns ul {
+			margin: 10px 0px 20px;
+			display: block;
+		}
 
 form fieldset {
 	position: relative;
