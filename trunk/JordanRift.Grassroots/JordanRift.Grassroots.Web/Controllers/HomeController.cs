@@ -46,7 +46,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
             var templates = organization.CauseTemplates;
-            var model = templates.Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
+            var model = templates.Where(t => t.Active).Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
             return View(model);
         }
 
