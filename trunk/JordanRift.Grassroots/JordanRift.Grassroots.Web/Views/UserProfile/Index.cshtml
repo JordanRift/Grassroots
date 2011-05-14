@@ -141,7 +141,7 @@ div.box p
 			    <li>@Html.ActionLink( "Link to Facebook", "Connect", "Facebook" )</li>
                 }
                 <li>@Html.ActionLink( "Change Password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change my password" } )</li>
-                <li>@Html.ActionLink("Disable Account", "Deactivate", new { Controller = "Account", Area = "" }, new { Title = "Deactivate my account" })</li>
+                <li>@Html.ActionLink("Disable Account", "DeactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Deactivate my account" })</li>
             </ul>
         </div>
 
@@ -150,7 +150,7 @@ div.box p
 
     <section class="campaigns">
         @if ( campaigns == null || campaigns.Count == 0 ) {
-        <h3><text>We noticed you have't started a campaign yet. </text> @Html.ActionLink( "Click here", "Create", new { Controller = "Campaign", Area = "" }, new { Title = "Click here" } ) <text> to get started!</text></h3>
+        <h3>We noticed you have't started a campaign yet. @Html.ActionLink( "Click here", "Create", new { Controller = "Campaign", Area = "" }, new { Title = "Click here" } ) to get started!</h3>
 		}
 		else {
         <h3>@Model.FirstName's Recent Campaigns</h3>

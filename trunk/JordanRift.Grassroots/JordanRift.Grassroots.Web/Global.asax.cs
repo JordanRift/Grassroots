@@ -36,12 +36,6 @@ namespace JordanRift.Grassroots
             RegisterHomeRoutes(routes);
 
             routes.MapRoute(
-                "UserProfile",
-                "UserProfile/{id}",
-                new { controller = "UserProfile", action = "Index", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
                 "CampaignModify",
                 "Campaign/{action}/{slug}", // URL with url-slug appended
                 new { controller = "Campaign", action = "Edit", slug = UrlParameter.Optional }

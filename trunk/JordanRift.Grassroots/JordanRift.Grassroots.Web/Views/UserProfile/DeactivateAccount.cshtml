@@ -4,4 +4,19 @@
     ViewBag.Title = "DeactivateAccount";
 }
 
-<h2>DeactivateAccount</h2>
+<hgroup>
+    <h1>Say it ain't so!</h1>
+    <h3>We hope to see you back soon!</h3>
+</hgroup>
+<section id="deactivate-form">
+    @using (Html.BeginForm("Deactivate", "UserProfile")) {
+        <p>We're sorry you have to go. We won't delete your account. It'd just be mean, and we actually need to hang
+        onto it for tax reporting purposes. <strong>Are you sure you have to go?</strong></p>
+        
+        <div>
+            @Html.UiSubmit("Yes, deactivate my account")
+            @Html.ActionLink("No way, get me out of here!", "Index", new { controller = "UserProfile", area = "" }, new { title = "No way, get me out of here!", @class="cancel" })
+        </div>
+    }
+    <div class="break"></div>
+</section>
