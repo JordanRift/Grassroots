@@ -73,6 +73,9 @@ namespace JordanRift.Grassroots.Web.Models
 		[Editable(false)]
 		public int Age { get; set; }
 
+        [Editable(false)]
+        public bool Active { get; set; }
+
 		[Editable( false )]
 		public decimal TotalRaised { get; set; }
 

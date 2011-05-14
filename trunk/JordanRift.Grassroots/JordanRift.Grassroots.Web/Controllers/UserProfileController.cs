@@ -134,6 +134,19 @@ namespace JordanRift.Grassroots.Web.Controllers
 			return RedirectToAction("LogOff", "Account");
 		}
 
+        [Authorize]
+        public ActionResult ReactivateAccount()
+        {
+            var userProfile = repository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+
+            if (userProfile == null)
+            {
+                return HttpNotFound("The User Profile you are looking for could not be found.");
+            }
+
+            return View();
+        }
+
 		[Authorize]
 		[HttpPost]
 		public ActionResult Reactivate()

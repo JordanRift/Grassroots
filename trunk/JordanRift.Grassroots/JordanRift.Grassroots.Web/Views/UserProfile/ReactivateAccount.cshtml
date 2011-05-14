@@ -1,0 +1,20 @@
+﻿@model JordanRift.Grassroots.Web.Models.UserProfileDetailsModel
+
+@{
+    ViewBag.Title = "ReactivateAccount";
+}
+
+<hgroup>
+    <h1>Is it really true?</h1>
+    <h3>You're coming back!</h3>
+</hgroup>
+<section id="reactivate-form">
+    @using (Html.BeginForm("Reactivate", "UserProfile")) { 
+        <p>Sweet! We knew you'd come back eventually. We even kept all your stuff just the way you left it.</p>
+        
+        <div>
+            @Html.UiSubmit("Reactivate my account")
+            @Html.ActionLink("Just kidding! I'm not really coming back.", "Index", new { controller = "UserProfile", area = "" }, new { title = "Just kidding! I'm not really coming back." })
+        </div>
+    }
+</section>
