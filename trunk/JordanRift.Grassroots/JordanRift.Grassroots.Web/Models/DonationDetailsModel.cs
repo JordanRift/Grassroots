@@ -17,6 +17,7 @@ namespace JordanRift.Grassroots.Web.Models
         //
 
         public string Title { get; set; }
+        public string UrlSlug { get; set; }
         
         //
         // User Profile fields

@@ -108,7 +108,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                         donation.Approved = true;
                         campaign.CampaignDonors.Add(donation);
                         campaignRepository.Save();
-                        SendNotifications(model, campaign, donation);
+                        SendNotifications(campaign, donation);
                         TempData["Donation"] = donation;
                         return RedirectToAction("ThankYou");
                     }
@@ -131,7 +131,10 @@ namespace JordanRift.Grassroots.Web.Controllers
                 return HttpNotFound("The donation you are looking for could not be found.");
             }
 
+            var campaign = donation.Campaign;
             var viewModel = Mapper.Map<CampaignDonor, DonationDetailsModel>(donation);
+            viewModel.Title = campaign.Title;
+            viewModel.UrlSlug = campaign.UrlSlug;
             return View(viewModel);
         }
 
@@ -172,14 +175,15 @@ namespace JordanRift.Grassroots.Web.Controllers
             return paymentProviderFactory.GetPaymentProvider(organization.PaymentGateway);
         }
 
-        private void SendNotifications(Payment model, Campaign campaign, CampaignDonor donation)
+        private void SendNotifications(Campaign campaign, CampaignDonor donation)
         {
             // Send receipt of payment to user
-            donateMailer.UserDonation(model).SendAsync();
-
-            // Send notification to campaign owner
             var mailerModel = Mapper.Map<CampaignDonor, DonationDetailsModel>(donation);
             mailerModel.Title = campaign.Title;
+            mailerModel.UrlSlug = campaign.UrlSlug;
+            donateMailer.UserDonation(mailerModel).SendAsync();
+
+            // Send notification to campaign owner
             mailerModel.Email = campaign.UserProfile.Email;
             donateMailer.CampaignDonation(mailerModel).SendAsync();
         }

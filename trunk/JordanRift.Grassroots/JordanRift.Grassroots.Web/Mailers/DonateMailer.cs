@@ -7,7 +7,6 @@
 //
 
 using System.Web.Mvc;
-using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Web.Models;
 using Mvc.Mailer;
 using System.Net.Mail;
@@ -31,7 +30,7 @@ namespace JordanRift.Grassroots.Web.Mailers
 			return mailMessage;
 		}
 		
-		public MailMessage UserDonation(Payment model)
+		public MailMessage UserDonation(DonationDetailsModel model)
 		{
 		    var mailMessage = new MailMessage { Subject = "Thank you for your generosity!" };
 			mailMessage.To.Add(model.Email);
