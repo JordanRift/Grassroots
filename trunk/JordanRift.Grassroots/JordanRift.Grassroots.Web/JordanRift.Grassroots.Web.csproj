@@ -379,6 +379,7 @@
     <Content Include="Views\Admin\CreateCauseTemplate.cshtml" />
     <Content Include="Views\UserProfile\DeactivateAccount.cshtml" />
     <Content Include="Views\UserProfile\ReactivateAccount.cshtml" />
+    <Content Include="Views\Shared\DonationReceipt.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

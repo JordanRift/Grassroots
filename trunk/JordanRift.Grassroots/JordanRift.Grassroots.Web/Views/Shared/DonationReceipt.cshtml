@@ -1,0 +1,22 @@
+﻿@model JordanRift.Grassroots.Web.Models.DonationDetailsModel
+
+<p>Your donation will be applied toward @Model.Title, benefitting @OrganizationName.</p>
+
+<table>
+    <tbody>
+        <tr>
+            <td><strong>Name</strong></td>
+            <td>@Model.FirstName @Model.LastName</td>
+        </tr>
+        <tr>
+            <td><strong>Amount</strong></td>
+            <td>@Model.Amount.ToString("C")</td>
+        </tr>
+        <tr>
+            <td><strong>Date Received</strong></td>
+            <td>@Model.DonationDate</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>@OrganizationName is a registered 501(c)3. 100% of your donation is tax deductible.</p>

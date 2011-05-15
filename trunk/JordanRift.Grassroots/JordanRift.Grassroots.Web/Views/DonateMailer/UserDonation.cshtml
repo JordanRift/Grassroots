@@ -1,4 +1,4 @@
-@model JordanRift.Grassroots.Framework.Entities.Payment
+@model JordanRift.Grassroots.Web.Models.DonationDetailsModel
 @{
     Layout = "~/Views/Shared/_EmailLayout.cshtml";
 }
@@ -6,8 +6,12 @@
 
 <p>Dear @Model.FirstName @Model.LastName,</p>
 
-<p>Thank you so much for your generous donation of <strong>@Model.Amount</strong>!</p>
+<p>Thank you so much for your generous donation of <strong>@Model.Amount.ToString("C")</strong>!</p>
+
+@Html.Partial("DonationReceipt")
 
 <p>Your payment has been approved and received as of @DateTime.Now.ToLongDateString(). Please keep a copy of this email as your receipt.</p>
 
 <p>Thanks again!</p>
+
+<p><strong>@OrganizationName</strong></p>
