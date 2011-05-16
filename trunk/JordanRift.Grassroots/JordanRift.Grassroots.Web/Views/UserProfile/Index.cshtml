@@ -86,6 +86,9 @@
                 else {
                 <li>@Html.ActionLink("Activate Account", "ReactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Activate Account" })</li>
                 }
+                @if (User.IsInRole("Administrator")) {
+                <li>@Html.ActionLink("Admin Dashboard", "Index", new { Controller = "Admin", Area = "" }, new { Title = "Admin Dashboard" })</li>
+                }
             </ul>
         </div>
 
