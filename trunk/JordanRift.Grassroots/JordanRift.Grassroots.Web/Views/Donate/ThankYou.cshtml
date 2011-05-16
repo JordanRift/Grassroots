@@ -9,6 +9,7 @@
     //
     
     ViewBag.Title = "ThankYou";
+    ViewBag.UrlToLike = Url.Action("Index", "Campaign", new { slug = Model.UrlSlug }, Request.Url != null ? Request.Url.Scheme : "https");
     var linkText = string.Format("Back to {0}", Model.Title);
 }
 
@@ -21,18 +22,17 @@
 
     @Html.Partial("DonationReceipt")
     <p>@Html.ActionLink(linkText, "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = linkText })</p>
+    
     <!-- TODO: Consider hiding this if no campaign present... -->
     <h3>Share this with your friends!</h3>
     <ul>
         <li>
-            <div id="fb-root"></div>
-            <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-            <fb:like href="@Url.Action("Index", "Campaign", new { slug = Model.UrlSlug }, Request.Url != null ? Request.Url.Scheme : "https")" send="true" width="450" show_faces="true" font="arial"></fb:like>
+            @Html.Partial("FacebookLikeButtonWithPictures")
         </li>
         <li>
-            <!-- TODO: Consider adding ability to pass in the url to tweet -->
             @Html.Partial("TweetButton")
         </li>
     </ul>
+
     <div class="break"></div>
 </section>
