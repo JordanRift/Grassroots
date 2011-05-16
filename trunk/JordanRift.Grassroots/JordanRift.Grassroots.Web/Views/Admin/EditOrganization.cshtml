@@ -18,107 +18,122 @@
     <h1>Edit Your Orgazation Settings</h1>
 </hgroup>
 <div id="organization-edit-form">
-    @using (Html.BeginForm("UpdateOrganization", "Admin")) { 
-        <fieldset>
-            <legend>Organization Settings</legend>
-            @Html.ValidationSummary(false, "Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
-            <dl>
-                <dt>@Html.LabelFor(m => m.Name)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.Name)
-                    @Html.ValidationMessageFor(m => m.Name, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.Tagline)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.Tagline)
-                    @Html.ValidationMessageFor(m => m.Tagline)
-                </dd>
-                <dt>@Html.LabelFor(m => m.ContactEmail)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.ContactEmail)
-                    @Html.ValidationMessageFor(m => m.ContactEmail, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.ContactPhone)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.ContactPhone)
-                    @Html.ValidationMessageFor(m => m.ContactPhone, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.YtdGoal)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.YtdGoal)
-                    @Html.ValidationMessageFor(m => m.YtdGoal, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.FiscalYearStartMonth)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.FiscalYearStartMonth)
-                    @Html.ValidationMessageFor(m => m.FiscalYearStartMonth, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.FiscalYearStartDay)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.FiscalYearStartDay)
-                    @Html.ValidationMessageFor(m => m.FiscalYearStartDay, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-            </dl>
-        </fieldset>
-        <fieldset>
-            <legend>Payment Gateway Settings</legend>
-            <dl>
-                <dt>@Html.LabelFor(m => m.PaymentGatewayType)</dt>
-                <dd>
-                    @Html.EditorFor(m => m.PaymentGatewayType)
-                    @Html.ValidationMessageFor(m => m.PaymentGatewayType, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.PaymentGatewayApiUrl)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.PaymentGatewayApiUrl)
-                    @Html.ValidationMessageFor(m => m.PaymentGatewayApiUrl, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.PaymentGatewayApiKey)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.PaymentGatewayApiKey)
-                    @Html.ValidationMessageFor(m => m.PaymentGatewayApiKey, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.PaymentGatewayApiSecret)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.PaymentGatewayApiSecret)
-                    @Html.ValidationMessageFor(m => m.PaymentGatewayApiSecret, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-            </dl>
-        </fieldset>
-        <fieldset>
-            <legend>Social Network / Content Settings</legend>
-            <dl>
-                <dt>@Html.LabelFor(m => m.FacebookPageUrl)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.FacebookPageUrl)
-                    @Html.ValidationMessageFor(m => m.FacebookPageUrl)
-                </dd>
-                <dt>@Html.LabelFor(m => m.TwitterName)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.TwitterName)
-                    @Html.ValidationMessageFor(m => m.TwitterName, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.BlogRssUrl)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.BlogRssUrl)
-                    @Html.ValidationMessageFor(m => m.BlogRssUrl)
-                </dd>
-                <dt>@Html.LabelFor(m => m.VideoEmbedHtml)</dt>
-                <dd>
-                    @Html.TextAreaFor(m => m.VideoEmbedHtml)
-                    @Html.ValidationMessageFor(m => m.VideoEmbedHtml, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.ThemeName)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.ThemeName)
-                    @Html.ValidationMessageFor(m => m.ThemeName)
-                </dd>
-                <dt>@Html.LabelFor(m => m.Summary)</dt>
-                <dd>@Html.TextAreaFor(m => m.Summary)</dd>
-                <dt>@Html.LabelFor(m => m.DescriptionHtml)</dt>
-                <dd>@Html.TextAreaFor(m => m.DescriptionHtml)</dd>
-            </dl>
-        </fieldset>
+    @using (Html.BeginForm("UpdateOrganization", "Admin")) {
+        @Html.ValidationSummary(false, "Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
+        <section class="column">
+            <fieldset>
+                <legend>Organization Settings</legend>
+                <dl>
+                    <dt>@Html.LabelFor(m => m.Name)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.Name)
+                        @Html.ValidationMessageFor(m => m.Name, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.Tagline)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.Tagline)
+                        @Html.ValidationMessageFor(m => m.Tagline)
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.ContactEmail)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.ContactEmail)
+                        @Html.ValidationMessageFor(m => m.ContactEmail, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.ContactPhone)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.ContactPhone)
+                        @Html.ValidationMessageFor(m => m.ContactPhone, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.YtdGoal)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.YtdGoal)
+                        @Html.ValidationMessageFor(m => m.YtdGoal, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.FiscalYearStartMonth)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.FiscalYearStartMonth)
+                        @Html.ValidationMessageFor(m => m.FiscalYearStartMonth, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.FiscalYearStartDay)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.FiscalYearStartDay)
+                        @Html.ValidationMessageFor(m => m.FiscalYearStartDay, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                </dl>
+            </fieldset>
+            <fieldset>
+                <legend>Social Network Settings</legend>
+                <dl>
+                    <dt>@Html.LabelFor(m => m.FacebookPageUrl)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.FacebookPageUrl)
+                        @Html.ValidationMessageFor(m => m.FacebookPageUrl)
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.TwitterName)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.TwitterName)
+                        @Html.ValidationMessageFor(m => m.TwitterName, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.BlogRssUrl)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.BlogRssUrl)
+                        @Html.ValidationMessageFor(m => m.BlogRssUrl)
+                    </dd>
+                </dl>
+            </fieldset>
+        </section>
+        <section class="column">
+            <fieldset>
+                <legend>Payment Gateway Settings</legend>
+                <dl>
+                    <dt>@Html.LabelFor(m => m.PaymentGatewayType)</dt>
+                    <dd>
+                        @Html.EditorFor(m => m.PaymentGatewayType)
+                        @Html.ValidationMessageFor(m => m.PaymentGatewayType, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.PaymentGatewayApiUrl)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.PaymentGatewayApiUrl)
+                        @Html.ValidationMessageFor(m => m.PaymentGatewayApiUrl, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.PaymentGatewayApiKey)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.PaymentGatewayApiKey)
+                        @Html.ValidationMessageFor(m => m.PaymentGatewayApiKey, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.PaymentGatewayApiSecret)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.PaymentGatewayApiSecret)
+                        @Html.ValidationMessageFor(m => m.PaymentGatewayApiSecret, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                </dl>
+            </fieldset>
+            <fieldset>
+                <legend>Content Settings</legend>
+                <dl>
+                    <dt>@Html.LabelFor(m => m.ThemeName)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.ThemeName)
+                        @Html.ValidationMessageFor(m => m.ThemeName)
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.VideoEmbedHtml)</dt>
+                    <dd>
+                        @Html.TextAreaFor(m => m.VideoEmbedHtml)
+                        @Html.ValidationMessageFor(m => m.VideoEmbedHtml, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.Summary)</dt>
+                    <dd>
+                        @Html.TextAreaFor(m => m.Summary)
+                        @Html.ValidationMessageFor(m => m.Summary, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.DescriptionHtml)</dt>
+                    <dd>
+                        @Html.TextAreaFor(m => m.DescriptionHtml)
+                        @Html.ValidationMessageFor(m => m.DescriptionHtml, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                </dl>
+            </fieldset>
+        </section>
         <div>
             @Html.UiSubmit("Save")
             @Html.UiCancel()

@@ -36,7 +36,7 @@ namespace JordanRift.Grassroots.Web.Helpers
         /// <returns>Html representation of a cancel button</returns>
         public static MvcHtmlString UiCancel(this HtmlHelper helper, string value = "Cancel")
         {
-            return new MvcHtmlString(string.Format("<button id=\"cancel\" class=\"ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only\">{0}</button>", value));
+            return new MvcHtmlString(string.Format("<button id=\"cancel\" class=\"cancel ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only\">{0}</button>", value));
         }
 
         //public static MvcHtmlString UiValidationFor<TModel, TValue>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> expression)

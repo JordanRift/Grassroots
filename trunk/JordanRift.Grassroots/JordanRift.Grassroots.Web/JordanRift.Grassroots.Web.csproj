@@ -149,7 +149,6 @@
     <Compile Include="Models\CampaignDetailsModel.cs" />
     <Compile Include="Models\CampaignNotificationModel.cs" />
     <Compile Include="Models\CauseTemplateDetailsModel.cs" />
-    <Compile Include="Models\CauseTemplateCreateModel.cs" />
     <Compile Include="Models\DonationDetailsModel.cs" />
     <Compile Include="Models\OrganizationDetailsModel.cs" />
     <Compile Include="Models\FacebookRegisterModel.cs" />
@@ -380,6 +379,7 @@
     <Content Include="Views\UserProfile\DeactivateAccount.cshtml" />
     <Content Include="Views\UserProfile\ReactivateAccount.cshtml" />
     <Content Include="Views\Shared\DonationReceipt.cshtml" />
+    <Content Include="Views\Admin\CauseTemplateForm.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
