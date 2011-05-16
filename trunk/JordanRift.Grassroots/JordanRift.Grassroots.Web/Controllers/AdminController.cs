@@ -11,7 +11,6 @@ using System.Web.Mvc;
 using JordanRift.Grassroots.Web.Models;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using AutoMapper;
-using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
@@ -22,7 +21,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		{
 			Mapper.CreateMap<Organization, OrganizationDetailsModel>();
 			Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
-			Mapper.CreateMap<CauseTemplateCreateModel, CauseTemplate>();
+			Mapper.CreateMap<CauseTemplateDetailsModel, CauseTemplate>();
 		}
 
 		//
@@ -34,21 +33,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 		}
 
 		#region CauseTemplate (aka Project) stuff
-
-		public ActionResult EditCauseTemplate(int id)
-		{
-		    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-			var causeTemplate = organization.CauseTemplates.FirstOrDefault( c => c.CauseTemplateID == id );
-
-			if ( causeTemplate != null )
-			{
-				var viewModel = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>( causeTemplate );
-
-				return View( viewModel );
-			}
-
-			return HttpNotFound( "The project could not be found." );
-		}
 
 		public ActionResult CauseTemplateList()
 		{
@@ -63,8 +47,38 @@ namespace JordanRift.Grassroots.Web.Controllers
 			return View();
 		}
 
+        [HttpPost]
+        public ActionResult NewCauseTemplate(CauseTemplateDetailsModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["CauseTemplateCreateModel"] = model;
+                return RedirectToAction("CreateCauseTemplate", "Admin");
+            }
+
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+            var causeTemplate = Mapper.Map<CauseTemplateDetailsModel, CauseTemplate>(model);
+            organization.CauseTemplates.Add(causeTemplate);
+            OrganizationRepository.Save();
+
+            return RedirectToAction("CauseTemplateList", "Admin");
+        }
+
+        public ActionResult EditCauseTemplate(int id)
+        {
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var causeTemplate = organization.CauseTemplates.FirstOrDefault(c => c.CauseTemplateID == id);
+
+            if (causeTemplate != null)
+            {
+                var viewModel = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
+                return View(viewModel);
+            }
+
+            return HttpNotFound("The project template could not be found.");
+        }
+
 		[HttpPost]
-		[Authorize]
 		public ActionResult UpdateCauseTemplate( CauseTemplateDetailsModel model )
 		{
 		    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
@@ -72,13 +86,13 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 			if ( causeTemplate == null )
 			{
-				return HttpNotFound( "The project could not be found." );
+				return HttpNotFound( "The project template could not be found." );
 			}
 
 			if ( !ModelState.IsValid )
 			{
 				TempData["CauseTemplateDetailsModel"] = model;
-				return RedirectToAction( "EditCauseTemplate", "Admin" );
+				return RedirectToAction( "EditCauseTemplate", "Admin", new { id = model.CauseTemplateID } );
 			}
 
 			MapCauseTemplate( causeTemplate, model );
@@ -86,25 +100,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 			return RedirectToAction( "CauseTemplateList", "Admin" );
 		}
-
-		[HttpPost]
-		[Authorize]
-		public ActionResult CreateCauseTemplate( CauseTemplateCreateModel model )
-		{
-			if ( ! ModelState.IsValid )
-			{
-				TempData["CauseTemplateCreateModel"] = model;
-				return RedirectToAction( "CreateCauseTemplate", "Admin" );
-			}
-
-		    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
-			var causeTemplate = Mapper.Map<CauseTemplateCreateModel, CauseTemplate>( model );
-			organization.CauseTemplates.Add( causeTemplate );
-			OrganizationRepository.Save();
-
-			return RedirectToAction( "CauseTemplateList", "Admin" );
-		}
-
 
 		private static void MapCauseTemplate( CauseTemplate causeTemplate, CauseTemplateDetailsModel model )
 		{
