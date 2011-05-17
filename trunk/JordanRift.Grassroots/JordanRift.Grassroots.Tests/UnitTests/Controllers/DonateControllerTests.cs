@@ -256,7 +256,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             var mocks = new MockRepository();
             var payment = EntityHelpers.GetValidCCPayment();
+            var campaign = EntityHelpers.GetValidCampaign();
             var donation = Mapper.Map<Payment, CampaignDonor>(payment);
+            donation.Campaign = campaign;
             SetUpController(mocks);
             controller.TempData["Donation"] = donation;
             var result = controller.ThankYou();
