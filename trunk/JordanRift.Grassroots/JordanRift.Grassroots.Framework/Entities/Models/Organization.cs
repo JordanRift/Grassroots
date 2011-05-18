@@ -97,12 +97,16 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         {
             var total = 0m;
 
-            if (Campaigns != null)
+            try
             {
-                total = Campaigns.Sum(campaign => (from c in campaign.CampaignDonors
-                                                   where c.Approved && (c.DonationDate >= FiscalYearStart && c.DonationDate <= DateTime.Now)
-                                                   select c.Amount).Sum());
+                if (Campaigns != null)
+                {
+                    total = Campaigns.Sum(campaign => (from c in campaign.CampaignDonors
+                                                       where c.Approved && (c.DonationDate >= FiscalYearStart && c.DonationDate <= DateTime.Now)
+                                                       select c.Amount).Sum());
+                }
             }
+            catch (ObjectDisposedException) { }
 
             return total;
         }
