@@ -13,11 +13,11 @@ CREATE TABLE `gr_causetemplate` (
   `DefaultTimespanInDays` int(11) NOT NULL DEFAULT '0',
   `Summary` varchar(500) NOT NULL DEFAULT '''''',
   `VideoEmbedHtml` varchar(200) NOT NULL DEFAULT '''''',
-  `DescriptionHtml` varchar(2000) NOT NULL DEFAULT '''''',
+  `DescriptionHtml` varchar(8000) NOT NULL DEFAULT '''''''''',
   `ImagePath` varchar(50) NOT NULL DEFAULT '''''',
   PRIMARY KEY (`CauseTemplateID`),
   KEY `CauseTemplate_Organization_FK` (`OrganizationID`),
   CONSTRAINT `CauseTemplate_Organization_FK` FOREIGN KEY (`OrganizationID`) REFERENCES `gr_organization` (`OrganizationID`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 

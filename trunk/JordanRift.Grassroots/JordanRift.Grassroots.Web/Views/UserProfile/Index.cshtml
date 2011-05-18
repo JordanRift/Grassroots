@@ -28,6 +28,7 @@
                     <td class="heading">Name</td>
                     <td>@Model.FirstName @Model.LastName</td>
                 </tr>
+                <!-- TODO: Consier hiding this information for people other than admins and/or profile owner -->
 		        <tr>
 			        <td class="heading">Email</td>
 			        <td><a href="mailto:@Model.Email" title="@Model.Email">@Model.Email</a></td>
@@ -48,6 +49,7 @@
 			        <td class="heading">Age</td>
 			        <td>@Model.Age</td>
 		        </tr>
+                <!-- End TODO -->
 		        <tr>
 			        <td class="heading">Last Visit</td>
 			        <td>@Model.LastVisit</td>

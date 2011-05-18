@@ -18,6 +18,7 @@ CREATE TABLE `gr_campaigndonor` (
   `DonationDate` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
   `Approved` bit(1) DEFAULT b'0',
   `ReferenceID` varchar(50) DEFAULT NULL,
+  `Notes` varchar(8000) DEFAULT NULL,
   PRIMARY KEY (`CampaignDonorID`),
   KEY `CampaignDonor_Campaign_FK` (`CampaignID`),
   KEY `CampaignDonor_UserProfile_FK` (`UserProfileID`),
