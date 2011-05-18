@@ -45,7 +45,7 @@
         <div class="share">
             <h3>Share this with your friends</h3>
             <span class="url">
-                @Html.TextBox("Url", Url.Action("Index", "Campaign", new { slug = Model.UrlSlug }, Request.Url != null ? Request.Url.Scheme : "https"))
+                @Html.TextBox("Url", Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = Model.UrlSlug })))
             </span>
             
             <ul>

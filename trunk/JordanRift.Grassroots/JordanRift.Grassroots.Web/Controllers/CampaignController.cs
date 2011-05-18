@@ -15,6 +15,7 @@ using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
+using JordanRift.Grassroots.Web.Helpers;
 using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
 using Mvc.Mailer;
@@ -188,7 +189,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        model.Url = Url.Action("Index", "Campaign", new { slug = model.UrlSlug }, Request.Url != null ? Request.Url.Scheme : "https");
+                        model.Url = Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = model.UrlSlug }));
                         campaignMailer.CampaignEmailBlast(model).SendAsync();
                         return Json(new { success = "true" });
                     }

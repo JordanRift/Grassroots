@@ -16,6 +16,7 @@ using Facebook;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
+using JordanRift.Grassroots.Web.Helpers;
 using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
 using Mvc.Mailer;
@@ -245,22 +246,22 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         private string GetLogOffUrl()
         {
-            return Url.Action("Index", "Home", new { }, Request.Url != null ? Request.Url.Scheme : "https");
+            return Url.ToPublicUrl(Url.Action("Index", "Home"));
         }
 
         private string GetOAuthRedirectUrl()
         {
-            return Url.Action("OAuth", "Facebook", new { }, Request.Url != null ? Request.Url.Scheme : "https");
+            return Url.ToPublicUrl(Url.Action("OAuth", "Facebook"));
         }
 
         private string GetAccountConnectUrl()
         {
-            return Url.Action("ConnectAccount", "Facebook", new { }, Request.Url != null ? Request.Url.Scheme : "https");
+            return Url.ToPublicUrl(Url.Action("ConnectAccount", "Facebook"));
         }
 
         private string GetNewAccountUrl()
         {
-            return Url.Action("NewAccount", "Facebook", new { }, Request.Url != null ? Request.Url.Scheme : "https");
+            return Url.ToPublicUrl(Url.Action("NewAccount", "Facebook"));
         }
 
         private static FacebookRegisterModel MapFacebookUser(dynamic me)
