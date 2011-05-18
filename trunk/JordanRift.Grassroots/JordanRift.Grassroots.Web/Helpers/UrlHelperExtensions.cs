@@ -23,13 +23,12 @@ namespace JordanRift.Grassroots.Web.Helpers
         {
             var httpContext = helper.RequestContext.HttpContext;
 
-            // TODO: change port/scheme to 443/https for future versions
             var uri = new UriBuilder
                           {
                               Host = httpContext.Request.Url.Host,
                               Path = "/",
-                              Port = 80,
-                              Scheme = "http"
+                              Port = httpContext.Request.IsSecureConnection ? 443 : 80,
+                              Scheme = httpContext.Request.Url.Scheme
                           };
 
             if (httpContext.Request.IsLocal)
