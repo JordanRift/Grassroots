@@ -1,41 +1,39 @@
-DROP PROCEDURE IF EXISTS grassroots.Elmah_LogError;
-CREATE PROCEDURE grassroots.`Elmah_LogError`(
-	IN `pErrorId`		CHAR(36),
-	IN `pApplication`	NVARCHAR(60),
-	IN `pHost`			NVARCHAR(50),
-	IN `pType`			NVARCHAR(100),
-	IN `pSource`		NVARCHAR(60),
-	IN `pMessage`		NVARCHAR(500),
-	IN `pUser`			NVARCHAR(50),
-	IN `pStatusCode`	INT,
-	IN `pTimeUtc`		DATETIME,
-	IN `pAllXml`		TEXT
+DROP PROCEDURE IF EXISTS grassroots.elmah_LogError;
+CREATE PROCEDURE grassroots.`elmah_LogError`(
+    IN ErrorId CHAR(36), 
+    IN Application varchar(60), 
+    IN Host VARCHAR(30), 
+    IN Type VARCHAR(100), 
+    IN Source VARCHAR(60), 
+    IN Message VARCHAR(500), 
+    IN User VARCHAR(50), 
+    IN AllXml TEXT, 
+    IN StatusCode INT(10), 
+    IN TimeUtc DATETIME
 )
+    MODIFIES SQL DATA
 BEGIN
-	INSERT INTO `Elmah_Error` (
-		`ErrorId`,	
-		`Application`,
-		`Host`,		
-		`Type`,		
-		`Source`,		
-		`Message`,	
-		`User`,		
-		`StatusCode`,	
-		`TimeUtc`,	
-		`Sequence`,
-		`AllXml`		
-	) VALUES
-	(
-		pErrorId,
-		pApplication,
-		pHost,
-		pType,
-		pSource,
-		pMessage,
-		pUser,
-		pStatusCode,
-		pTimeUtc,
-		0,        -- since sequence is not null, we have to pass some dummy value, this will be updated by trigger on insert
-		pAllXml
-	);
+    INSERT INTO `elmah_error` (
+        `ErrorId`, 
+        `Application`, 
+        `Host`, 
+        `Type`, 
+        `Source`, 
+        `Message`, 
+        `User`, 
+        `AllXml`, 
+        `StatusCode`, 
+        `TimeUtc`
+    ) VALUES (
+        ErrorId, 
+        Application, 
+        Host, 
+        Type, 
+        Source, 
+        Message, 
+        User, 
+        AllXml, 
+        StatusCode, 
+        TimeUtc
+    );
 END;

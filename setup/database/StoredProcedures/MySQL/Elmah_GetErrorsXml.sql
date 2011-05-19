@@ -1,16 +1,40 @@
-DROP PROCEDURE IF EXISTS grassroots.Elmah_GetErrorsXml;
-CREATE PROCEDURE grassroots.`Elmah_GetErrorsXml`(
-	IN  `pApplication` NVARCHAR(60),
-	IN  `pPageIndex`	 INT,
-	IN  `pPageSize`	 INT,
-	OUT `pTotalCount` INT
+DROP PROCEDURE IF EXISTS grassroots.elmah_GetErrorsXml;
+CREATE PROCEDURE grassroots.`elmah_GetErrorsXml`(
+  IN App VARCHAR(60),
+  IN PageIndex INT(10),
+  IN PageSize INT(10),
+  OUT TotalCount INT(10)
 )
+    READS SQL DATA
 BEGIN
-	SELECT COUNT(*) INTO `pTotalCount` FROM `Elmah_Error` WHERE `Application`= Application;
-	
-	SET @index = pPageIndex * (pPageSize + 1);
-	SET @count = pPageSize;
-	PREPARE STMT FROM 'SELECT * FROM `elmah_error` WHERE `Application`=Application ORDER BY `TimeUtc` DESC, `Sequence` DESC LIMIT ?,?';
-	EXECUTE STMT USING @index, @count;
+    
+    SELECT  count(*) INTO TotalCount
+    FROM    `elmah_error`
+    WHERE   `Application` = App;
+
+    SET @index = PageIndex * PageSize;
+    SET @count = PageSize;
+    SET @app = App;
+    PREPARE STMT FROM '
+    SELECT
+        `ErrorId`,
+        `Application`,
+        `Host`,
+        `Type`,
+        `Source`,
+        `Message`,
+        `User`,
+        `StatusCode`,
+        CONCAT(`TimeUtc`, '' Z'') AS `TimeUtc`
+    FROM
+        `elmah_error` error
+    WHERE
+        `Application` = ?
+    ORDER BY
+        `TimeUtc` DESC,
+        `Sequence` DESC
+    LIMIT
+        ?, ?';
+    EXECUTE STMT USING @app, @index, @count;
 
 END;
