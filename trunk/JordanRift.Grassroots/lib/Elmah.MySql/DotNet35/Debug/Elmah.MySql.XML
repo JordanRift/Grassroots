@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Elmah.MySql</name>
+    </assembly>
+    <members>
+        <member name="T:Elmah.MySqlErrorLog">
+            <summary>
+            MySql provider for ELMAH
+            </summary>
+        </member>
+        <member name="M:Elmah.MySqlErrorLog.#ctor(System.Collections.IDictionary)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Elmah.MySqlErrorLog"/> class
+            using a dictionary of configured settings.
+            </summary>
+            <param name="config">Configuration Settings.</param>
+        </member>
+        <member name="M:Elmah.MySqlErrorLog.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Elmah.MySqlErrorLog"/> class
+            to use a specific connection string for conencting to the database.
+            </summary>
+        </member>
+        <member name="M:Elmah.MySqlErrorLog.Log(Elmah.Error)">
+            <summary>
+            Logs an error in log for the application.
+            </summary>
+        </member>
+        <member name="M:Elmah.MySqlErrorLog.GetError(System.String)">
+            <summary>
+            Retrieves a single application error from log given its 
+                        identifier, or null if it does not exist.
+            </summary>
+        </member>
+        <member name="M:Elmah.MySqlErrorLog.GetErrors(System.Int32,System.Int32,System.Collections.IList)">
+            <summary>
+            Retrieves a page of application errors from the log in 
+                        descending order of logged time.
+            </summary>
+        </member>
+        <member name="M:Elmah.MySqlErrorLog.GetConnectionString(System.Collections.IDictionary)">
+            <summary>
+            Gets the connection string from the given configuration dictionary.
+            </summary>
+        </member>
+        <member name="P:Elmah.MySqlErrorLog.Name">
+            <summary>
+            Get the name of this error log implemntation.
+            </summary>
+        </member>
+        <member name="P:Elmah.MySqlErrorLog.ConnectionString">
+            <summary>
+            Gets the connection string used by the log to connect to the database.
+            </summary>
+        </member>
+    </members>
+</doc>

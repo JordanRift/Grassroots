@@ -35,7 +35,7 @@ BEGIN
 		pUser,
 		pStatusCode,
 		pTimeUtc,
-		p0,        -- since sequence is not null, we have to pass some dummy value, this will be updated by trigger on insert
+		0,        -- since sequence is not null, we have to pass some dummy value, this will be updated by trigger on insert
 		pAllXml
 	);
 END;
