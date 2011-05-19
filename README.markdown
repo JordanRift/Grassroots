@@ -32,7 +32,6 @@ projects. Without these guys, Grassroots would not be possible...
 * [CodeContracts](http://msdn.microsoft.com/en-us/devlabs/dd491992.aspx) by Microsoft
 * [dotless](https://github.com/dotless/dotless) by Daniel Hoelbling
 * [ELMAH](http://code.google.com/p/elmah/) by Atif Aziz
-* [ELMAH.MySql](https://github.com/prabirshrestha/ELMAH.MySql) by Prabir Shrestha
 * [EntityFramework](http://nuget.org/List/Packages/EntityFramework) by Microsoft
 * [Facebook SDK](http://facebooksdk.codeplex.com/) by Jim Zimmerman, Nathan Totten, Prabir Shrestha
 * [jQuery](http://jquery.com) by John Resig
