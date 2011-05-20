@@ -15,7 +15,7 @@ using JordanRift.Grassroots.Framework.Entities.Validation;
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [MetadataType(typeof(IUserValidation))]
-    [Table("gr_User")]
+    [Table("gr_user")]
     public class User : IUserValidation
     {
         [Key]

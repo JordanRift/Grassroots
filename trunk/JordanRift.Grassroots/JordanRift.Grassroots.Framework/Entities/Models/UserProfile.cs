@@ -17,7 +17,7 @@ using JordanRift.Grassroots.Framework.Services;
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
 	[MetadataType(typeof(IUserProfileValidation))]
-    [Table("gr_UserProfile")]
+    [Table("gr_userprofile")]
     public class UserProfile : IUserProfileValidation, IValidatableObject, ICanCalculate
 	{
         [Key]

@@ -17,7 +17,7 @@ using JordanRift.Grassroots.Framework.Services;
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [MetadataType(typeof(ICampaignValidation))]
-    [Table("gr_Campaign")]
+    [Table("gr_campaign")]
     public class Campaign : ICampaignValidation, IValidatableObject, ICanCalculate
     {
         [Key]

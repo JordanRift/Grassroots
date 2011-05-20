@@ -14,7 +14,7 @@ using JordanRift.Grassroots.Framework.Entities.Validation;
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [MetadataType(typeof(ICauseTemplateValidation))]
-    [Table("gr_CauseTemplate")]
+    [Table("gr_causetemplate")]
     public class CauseTemplate : ICauseTemplateValidation
     {
         [Key]

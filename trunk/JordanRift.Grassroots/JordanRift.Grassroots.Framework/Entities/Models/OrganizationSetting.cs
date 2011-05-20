@@ -13,7 +13,7 @@ using JordanRift.Grassroots.Framework.Entities.Validation;
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [MetadataType(typeof(IOrganizationSettingValidation))]
-    [Table("gr_OrganizationSetting")]
+    [Table("gr_organizationsetting")]
     public class OrganizationSetting : IOrganizationSettingValidation
     {
         [Key]

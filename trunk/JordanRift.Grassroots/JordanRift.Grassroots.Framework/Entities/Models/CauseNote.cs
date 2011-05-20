@@ -14,7 +14,7 @@ using JordanRift.Grassroots.Framework.Entities.Validation;
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
 	[MetadataType(typeof(ICauseNoteValidation))]
-	[Table("gr_CauseNote")]
+	[Table("gr_causenote")]
 	public class CauseNote : ICauseNoteValidation
 	{
 		[Key]

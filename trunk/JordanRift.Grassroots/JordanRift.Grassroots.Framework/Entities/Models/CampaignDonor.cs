@@ -14,7 +14,7 @@ using JordanRift.Grassroots.Framework.Entities.Validation;
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
 	[MetadataType(typeof(ICampaignDonorValidation))]
-    [Table("gr_CampaignDonor")]
+    [Table("gr_campaigndonor")]
     public class CampaignDonor : ICampaignDonorValidation
 	{
         [Key]

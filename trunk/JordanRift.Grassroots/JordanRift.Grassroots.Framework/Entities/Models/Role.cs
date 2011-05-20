@@ -12,7 +12,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
-    [Table("gr_Role")]
+    [Table("gr_role")]
     public class Role
     {
         [Key]

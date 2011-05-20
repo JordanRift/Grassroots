@@ -16,7 +16,7 @@ using JordanRift.Grassroots.Framework.Entities.Validation;
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [MetadataType(typeof(IOrganizationValidation))]
-    [Table("gr_Organization")]
+    [Table("gr_organization")]
     public class Organization : IOrganizationValidation, ICanCalculate
     {
         [Key]
