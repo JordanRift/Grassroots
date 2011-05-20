@@ -1,6 +1,20 @@
-﻿@{
-    ViewBag.Title = "403";
+﻿@model JordanRift.Grassroots.Web.Models.OrganizationDetailsModel
+@{
+    //
+    // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
+    //
+    // THIS WORK IS LICENSED UNDER A CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-
+    // SHAREALIKE 3.0 UNPORTED LICENSE:
+    // http://creativecommons.org/licenses/by-nc-sa/3.0/
+    //
+    
+    ViewBag.Title = "Denied!";
 }
 
-<h2>403</h2>
-
+<hgroup>
+    <h1>Access denied</h1>
+    <h3>You don't have permission to see what's here. Sorry.</h3>
+</hgroup>
+<section id="access-denied">
+    <p>If you feel you arrived here in error, please <a href="mailto:@Model.ContactEmail" title="contact us">contact us</a>.</p>
+</section>

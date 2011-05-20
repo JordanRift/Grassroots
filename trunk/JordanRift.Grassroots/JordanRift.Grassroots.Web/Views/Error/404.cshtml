@@ -1,6 +1,20 @@
-﻿@{
-    ViewBag.Title = "404";
+﻿@model JordanRift.Grassroots.Web.Models.OrganizationDetailsModel
+@{
+    //
+    // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
+    //
+    // THIS WORK IS LICENSED UNDER A CREATIVE COMMONS ATTRIBUTION-NONCOMMERCIAL-
+    // SHAREALIKE 3.0 UNPORTED LICENSE:
+    // http://creativecommons.org/licenses/by-nc-sa/3.0/
+    //
+    
+    ViewBag.Title = "Not found!";
 }
 
-<h2>404</h2>
-
+<hgroup>
+    <h1>Are you lost?</h1>
+    <h3>This is probably not the page you were looking for, huh?</h3>
+</hgroup>
+<section id="not-found">
+    <p>Whatever it was, it's not here. Maybe try again, and if you feel you arrived here in error, please <a href="mailto:@Model.ContactEmail" title="shoot us an email">shoot us an email</a>.</p>
+</section>

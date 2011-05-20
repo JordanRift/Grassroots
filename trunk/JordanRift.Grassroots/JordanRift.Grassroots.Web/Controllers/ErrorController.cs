@@ -7,24 +7,38 @@
 //
 
 using System.Web.Mvc;
+using AutoMapper;
+using JordanRift.Grassroots.Framework.Entities.Models;
+using JordanRift.Grassroots.Web.Models;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
-    public class ErrorController : Controller
+    public class ErrorController : GrassrootsControllerBase
     {
+        public ErrorController()
+        {
+            Mapper.CreateMap<Organization, OrganizationDetailsModel>();
+        }
+
         public ActionResult Index()
         {
-            return View("Error");
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+            return View("Error", model);
         }
 
         public ActionResult NotFound()
         {
-            return View("404");
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+            return View("404", model);
         }
 
         public ActionResult Forbidden()
         {
-            return View("403");
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+            return View("403", model);
         }
     }
 }

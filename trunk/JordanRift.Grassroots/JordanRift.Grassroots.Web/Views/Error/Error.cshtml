@@ -1,4 +1,5 @@
-﻿@{
+﻿@model JordanRift.Grassroots.Web.Models.OrganizationDetailsModel
+@{
     //
     // Copyright © 2011 Jordan Rift, LLC - All Rights Reserved
     //
@@ -6,18 +7,14 @@
     // SHAREALIKE 3.0 UNPORTED LICENSE:
     // http://creativecommons.org/licenses/by-nc-sa/3.0/
     //
-    
-    Layout = null;
+
+    ViewBag.Title = "Danger!";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Error</title>
-</head>
-<body>
-    <h2>
-        Sorry, an error occurred while processing your request.
-    </h2>
-</body>
-</html>
+<hgroup>
+    <h1>Uh oh!</h1>
+    <h3>Looks like something may have goofed up on our end</h3>
+</hgroup>
+<section id="server-error">
+    <p>We've logged the error in our database. Feel free to <a href="mailto:@Model.ContactEmail" title="drop us a line">drop us a line</a> if you need assistance.</p>
+</section>
