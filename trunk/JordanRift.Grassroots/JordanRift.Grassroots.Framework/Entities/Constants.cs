@@ -62,12 +62,6 @@ namespace JordanRift.Grassroots.Framework.Entities
 
     public static class OrgSettingKeys
     {
-        public const string IS_FIXED_GOAL_AMOUNT = "MyC.IsFixedGoalAmount";
-        public const string GOAL_AMOUNT = "MyC.GoalAmount";
-        public const string ORGANIZATION_DOMAIN = "MyC.OrganizationDomain";
-        public const string ORGANIZATION_CAMPAIGN_LENGTH = "MyC.OrganizationCampaignLength";
-        public const string ORGANIZATION_DONATION_EMAIL_BODY = "MyC.OrganizationDonationEmailBody";
-        public const string ORGANIZATION_DONATION_EMAIL_SUBJECT = "MyC.OrganizationDonationEmailSubject";
-        public const string ORGANIZATION_DONATION_EMAIL_ADDRESS = "MyC.OrganizationDonationToEmailAddress";
+        public const string ANALYTICS_TRACKING_CODE = "AnalyticsTrackingCode";
     }
 }

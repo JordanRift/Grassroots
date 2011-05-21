@@ -8,6 +8,7 @@
 
 using System.Web.Mvc;
 using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
 
@@ -26,6 +27,15 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
         public string OrganizationTagline
         {
             get { return organization.Tagline; }
+        }
+
+        public string AnalyticsTrackingCode
+        {
+            get
+            {
+                var setting = organization.GetSetting(OrgSettingKeys.ANALYTICS_TRACKING_CODE);
+                return setting != null ? setting.Value : null;
+            }
         }
 
         protected GrassrootsWebViewPage()
