@@ -20,6 +20,8 @@ Grassroots is built upon the following technologies:
 * Entity Framework 4.1 (Code First)
 * MS SQL Server 2008 / MySQL 5.1
 * jQuery 1.5.2
+* HTML 5
+* CSS 3
 
 ## Special thanks
 
@@ -35,6 +37,7 @@ projects. Without these guys, Grassroots would not be possible...
 * [EntityFramework](http://nuget.org/List/Packages/EntityFramework) by Microsoft
 * [Facebook SDK](http://facebooksdk.codeplex.com/) by Jim Zimmerman, Nathan Totten, Prabir Shrestha
 * [jQuery](http://jquery.com) by John Resig
+* [jQueryUI](http://jqueryui.com) by the jQuery UI Team
 * [jQuery Validation](http://bassistance.de/jquery-plugins/jquery-plugin-validation/) by J&ouml;rn Zaefferer
 * [Modernizr](http://www.modernizr.com/) by Faruk Ates, Paul Irish, Alex Sexton
 * [MvcContrib.Mvc3.TestHelper](http://mvccontrib.codeplex.com/) by Outercurve Foundation
@@ -44,6 +47,7 @@ projects. Without these guys, Grassroots would not be possible...
 * [Ninject](http://www.ninject.org/) by Nate Kohari & co
 * [RhinoMocks](http://www.ayende.com/projects/rhino-mocks.aspx) by Ayende @ Rahien
 * [T4Scaffolding](http://nuget.org/List/Packages/T4Scaffolding) by David Fowler, Scott Hanselman, Steve Sanderson
+* [Wijmo](http://www.wijmo.com) by ComponentOne
 
 Note: The above package authors were just pulled from [NuGet](http://nuget.org). If any of these are inaccurate, 
 please feel free to contact me: jason (dot) offutt (at) gmail (dot) com.
