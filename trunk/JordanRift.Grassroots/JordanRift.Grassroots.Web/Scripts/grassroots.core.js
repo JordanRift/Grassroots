@@ -35,6 +35,16 @@ var Grassroots = (function() {
             $(":input[type='radio']").wijradio();
             $(":input[type='checkbox']").wijcheckbox();
         },
+        gridui: function (cols) {
+            $(".grid").wijgrid({
+                allowSorting: true,
+                allowColSizing: true,
+                culture: "en",
+                allowPaging: true,
+                ensureColumnsPxWidth: true,
+                columns: cols,
+            });
+        },
         initPayment: function () {
             $(".bank-info").hide();
             $("#Amount").val('');

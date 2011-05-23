@@ -49,25 +49,19 @@ namespace JordanRift.Grassroots.Web.Controllers
 			return View( model );
 		}
 
-        public JsonResult LoadCauseTemplateList(int page = 1, int rows = 10)
-        {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            var theTotal = organization.CauseTemplates.Count;
-            var pageNumber = page;
-            var templates = organization.CauseTemplates.Skip((page - 1) * rows).Take(rows);
+        //public JsonResult LoadCauseTemplateList(int page = 1, int rows = 10)
+        //{
+        //    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+        //    var theTotal = organization.CauseTemplates.Count;
+        //    //var pageNumber = page;
+        //    var templates = organization.CauseTemplates.Skip((page - 1) * rows).Take(rows);
 
-            var array = templates.Select(t => new {
-                id = t.CauseTemplateID,
-                cell = new[] { t.CauseTemplateID.ToString(), t.Name, t.ActionVerb, t.GoalName, t.Summary, t.Active.ToString() }
-            });
-
-            return Json(new {
-                total = theTotal,
-                page = pageNumber,
-                records = theTotal,
-                rows = array
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(new {
+        //        rows = templates,
+        //        totalrows = theTotal,
+        //        totals = templates
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
 		public ActionResult CreateCauseTemplate()
 		{

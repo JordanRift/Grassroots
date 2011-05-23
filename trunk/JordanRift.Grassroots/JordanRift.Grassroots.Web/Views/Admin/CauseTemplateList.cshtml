@@ -21,46 +21,43 @@
 
 @section DocumentHead {
     @Html.Partial("UIGrid")
+    <script type="text/javascript">
+        $(function () {
+            Grassroots.gridui([
+                { headerText: "Active", width: 50, allowSizing: false },
+                { headerText: "Name", width: 150 },
+                { headerText: "Goal Name", width: 125 },
+                { headerText: "Action Verb", width: 125 },
+                { headerText: "Summary", width: 300 }
+            ]);
+        });
+    </script>
 }
 
 <hgroup>
     <h1>Project Templates</h1>
 </hgroup>
-
 <!-- layout to be replaced later -->
-<table>
+<table class="grid">
     <thead>
         <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Action
-            </th>
-            <th>
-                Goal Name
-            </th>
-            <th>
-            </th>
+            <th>Active</th>
+            <th>Name</th>
+            <th>Action</th>
+            <th>Goal Name</th>
+            <th>Summary</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ActionVerb)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GoalName)
-            </td>
-            <td>
-				@Html.ActionLink("Edit", "EditCauseTemplate", new { id=item.CauseTemplateID })
-            </td>
+            <td>@Html.CheckBoxFor(i => item.Active, new { disabled = true })</td>
+            <td>@Html.ActionLink(item.Name, "EditCauseTemplate", new { controller = "Admin", id = item.CauseTemplateID }, new { title = item.Name })</td>
+            <td>@item.ActionVerb</td>
+            <td>@item.GoalName</td>
+            <td>@item.Summary</td>
         </tr>
 }
     </tbody>
 </table>
-@Html.ActionLink("Create New", "CreateCauseTemplate" )
+<p>@Html.ActionLink("Create New", "CreateCauseTemplate")</p>

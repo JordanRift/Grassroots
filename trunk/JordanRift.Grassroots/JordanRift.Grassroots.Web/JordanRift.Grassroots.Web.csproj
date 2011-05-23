@@ -173,7 +173,36 @@
     <Content Include="Content\images\fb-register.jpg" />
     <Content Include="Content\images\icon_email.gif" />
     <Content Include="Content\images\tweetn.png" />
-    <Content Include="Content\jquery.wijmo-open.1.1.5.css" />
+    <Content Include="Content\jquery.wijmo-complete.1.2.0.css" />
+    <Content Include="Content\jquery.wijmo-open.1.2.0.css" />
+    <Content Include="Content\themes\aristo\images\scrollbar-horizontal.png" />
+    <Content Include="Content\themes\aristo\images\scrollbar-vertical.png" />
+    <Content Include="Content\themes\aristo\images\scrollbutton-vertical.png" />
+    <Content Include="Content\themes\aristo\images\scroller-down-arrow.png" />
+    <Content Include="Content\themes\aristo\images\scroller-down-arrow_hover.png" />
+    <Content Include="Content\themes\aristo\images\scroller-left-arrow.png" />
+    <Content Include="Content\themes\aristo\images\scroller-left-arrow_hover.png" />
+    <Content Include="Content\themes\aristo\images\scroller-right-arrow.png" />
+    <Content Include="Content\themes\aristo\images\scroller-right-arrow_hover.png" />
+    <Content Include="Content\themes\aristo\images\scroller-up-arrow.png" />
+    <Content Include="Content\themes\aristo\images\scroller-up-arrow_hover.png" />
+    <Content Include="Content\themes\aristo\images\ui-bg_flat_0_2d5972_40x100.png" />
+    <Content Include="Content\themes\aristo\images\ui-bg_flat_0_4f4f4f_40x100.png" />
+    <Content Include="Content\themes\aristo\images\ui-bg_highlight-hard_80_c4c4c4_1x100.png" />
+    <Content Include="Content\themes\aristo\images\ui-bg_highlight-soft_100_83b0ca_1x100.png" />
+    <Content Include="Content\themes\aristo\images\ui-bg_highlight-soft_100_c0c0c0_1x100.png" />
+    <Content Include="Content\themes\aristo\images\ui-bg_highlight-soft_100_c4c4c4_1x100.png" />
+    <Content Include="Content\themes\aristo\images\ui-bg_highlight-soft_100_ccccd1_1x100.png" />
+    <Content Include="Content\themes\aristo\images\ui-bg_inset-hard_65_85b2cb_1x100.png" />
+    <Content Include="Content\themes\aristo\images\ui-bg_inset-soft_95_fef1ec_1x100.png" />
+    <Content Include="Content\themes\aristo\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\aristo\images\ui-icons_38667f_256x240.png" />
+    <Content Include="Content\themes\aristo\images\ui-icons_616161_256x240.png" />
+    <Content Include="Content\themes\aristo\images\ui-icons_898989_256x240.png" />
+    <Content Include="Content\themes\aristo\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\aristo\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\aristo\images\vertical-menu-item.png" />
+    <Content Include="Content\themes\aristo\jquery-wijmo.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -213,7 +242,10 @@
     <Content Include="Scripts\jquery-1.5.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.13.js" />
     <Content Include="Scripts\jquery-ui-1.8.13.min.js" />
-    <Content Include="Scripts\jquery.wijmo-open.1.1.5.min.js" />
+    <Content Include="Scripts\jquery.bgiframe-2.1.3-pre.js" />
+    <Content Include="Scripts\jquery.glob.min.js" />
+    <Content Include="Scripts\jquery.mousewheel.min.js" />
+    <Content Include="Scripts\jquery.wijmo-complete.1.2.0.min.js" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\themes\grassroots-theme\images\ui-bg_diagonals-thick_30_495a5a_40x40.png" />
     <Content Include="Content\themes\grassroots-theme\images\ui-bg_flat_0_354242_40x100.png" />
@@ -242,8 +274,11 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery.wijmo-open.1.2.0.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\raphael-min.js" />
+    <Content Include="Scripts\raphael.js" />
     <Content Include="Views\DonateMailer\CampaignDonation.cshtml" />
     <Content Include="Views\DonateMailer\UserDonation.cshtml" />
     <Content Include="Views\Shared\_EmailLayout.cshtml" />
@@ -344,9 +379,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Donate\ThankYou.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\CampaignDonorGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\Index.cshtml" />
