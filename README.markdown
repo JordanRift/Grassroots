@@ -9,7 +9,7 @@ This project will focus on two aspects to accomplish a heightened level of invol
 
 ## Licenses
 
-Grassroots is proudly licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported](http://creativecommons.org/licenses/by-nc-sa/3.0/) license.
+Grassroots is proudly licensed as free open source software under [GPLv3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).
 
 ## Technology
 
