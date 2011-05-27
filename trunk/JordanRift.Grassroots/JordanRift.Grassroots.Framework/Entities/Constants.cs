@@ -52,6 +52,15 @@ namespace JordanRift.Grassroots.Framework.Entities
         InReview = 4
     }
 
+    public enum CampaignType
+    {
+        Unknown = 0,
+        Birthday = 1,
+        Holiday = 2,
+        SportingEvent = 3,
+        Other = 4
+    }
+
     public static class EntityConstants
     {
         public const string DEFAULT_CAMPAIGN_IMAGE_PATH = "http://lorempixum.com/450/278/people/";

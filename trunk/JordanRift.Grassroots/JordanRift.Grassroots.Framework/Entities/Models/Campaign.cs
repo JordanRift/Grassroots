@@ -44,6 +44,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public DateTime EndDate { get; set; }
         public decimal GoalAmount { get; set; }
         public string UrlSlug { get; set; }
+        public int? CampaignType { get; set; }
 
         public virtual ICollection<CampaignDonor> CampaignDonors { get; set; }
 
@@ -57,6 +58,12 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
             {
                 return (DateTime.Now >= StartDate) && (DateTime.Now <= EndDate);
             }
+        }
+
+        public Entities.CampaignType Type
+        {
+            get { return this.CampaignType.HasValue ? (Entities.CampaignType) this.CampaignType.Value : Entities.CampaignType.Unknown; }
+            set { this.CampaignType = (int) value; }
         }
 
         [NotMapped]
