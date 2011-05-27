@@ -170,7 +170,18 @@ namespace JordanRift.Grassroots.Web.Controllers
                 userProfile.CampaignDonors.Add(donation);
             }
 
+            UpdateUserProfile(userProfile, donation);
             return donation;
+        }
+
+        private static void UpdateUserProfile(UserProfile userProfile, CampaignDonor donation)
+        {
+            userProfile.AddressLine1 = donation.AddressLine1;
+            userProfile.AddressLine2 = donation.AddressLine2;
+            userProfile.City = donation.City;
+            userProfile.State = donation.State;
+            userProfile.PrimaryPhone = donation.PrimaryPhone;
+            userProfile.ZipCode = donation.ZipCode;
         }
 
         private IPaymentProvider GetPaymentProvider()

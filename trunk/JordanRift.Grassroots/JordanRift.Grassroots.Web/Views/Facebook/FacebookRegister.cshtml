@@ -68,30 +68,6 @@
                     @Html.EditorFor(m => m.Gender)
                     @Html.ValidationMessageFor(m => m.Gender, null, new { @class = "ui-state-error ui-corner-all" })
                 </dd>
-                <dt>@Html.LabelFor(m => m.PrimaryPhone)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.PrimaryPhone)
-                    @Html.ValidationMessageFor(m => m.PrimaryPhone, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.AddressLine1)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.AddressLine1)
-                    @Html.ValidationMessageFor(m => m.AddressLine1, null, new { @class = "ui-state-error ui-corner-all" })
-                    <p>
-                        @Html.TextBoxFor(m => m.AddressLine2)
-                        @Html.ValidationMessageFor(m => m.AddressLine2, null, new { @class = "ui-state-error ui-corner-all" })
-                    </p>
-                </dd>
-                <dt>@Html.LabelFor(m => m.City)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.City)
-                    @Html.ValidationMessageFor(m => m.City, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.State)</dt>
-                <dd>
-                    @Html.EditorFor(m => m.State)
-                    @Html.ValidationMessageFor(m => m.State, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
                 <dt>@Html.LabelFor(m => m.ZipCode)</dt>
                 <dd>
                     @Html.TextBoxFor(m => m.ZipCode)

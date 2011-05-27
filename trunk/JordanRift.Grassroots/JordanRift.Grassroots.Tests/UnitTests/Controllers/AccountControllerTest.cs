@@ -269,11 +269,6 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                                           LastName = "Powers",
                                           Birthdate = DateTime.Parse("1/1/1970"),
                                           Gender = "M",
-                                          PrimaryPhone = "(800) 555-1212",
-                                          AddressLine1 = "555 S Main St",
-                                          AddressLine2 = "",
-                                          City = "Mesa",
-                                          State = "AZ",
                                           ZipCode = "85213",
                                           Consent = true
                                       };
@@ -300,11 +295,6 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                                           LastName = "Powers",
                                           Birthdate = DateTime.Parse("1/1/1970"),
                                           Gender = "M",
-                                          PrimaryPhone = "(800) 555-1212",
-                                          AddressLine1 = "555 S Main St",
-                                          AddressLine2 = "",
-                                          City = "Mesa",
-                                          State = "AZ",
                                           ZipCode = "85213",
                                           Consent = true
                                       };
@@ -331,11 +321,6 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                                           LastName = "Powers",
                                           Birthdate = DateTime.Parse("1/1/1970"),
                                           Gender = "M",
-                                          PrimaryPhone = "(800) 555-1212",
-                                          AddressLine1 = "555 S Main St",
-                                          AddressLine2 = "",
-                                          City = "Mesa",
-                                          State = "AZ",
                                           ZipCode = "85213",
                                           Consent = true
                                       };

@@ -319,7 +319,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\CampaignList.cshtml" />
@@ -423,8 +423,8 @@
     <Content Include="Views\Shared\MainNavigation.cshtml" />
     <Content Include="Views\Shared\UIForm.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
-    <Content Include="Views\Error\404.cshtml" />
-    <Content Include="Views\Error\403.cshtml" />
+    <Content Include="Views\Shared\404.cshtml" />
+    <Content Include="Views\Shared\403.cshtml" />
     <Content Include="Views\AccountMailer\Welcome.cshtml" />
     <Content Include="Views\AccountMailer\PasswordReset.cshtml" />
     <Content Include="Views\AccountMailer\PasswordChange.cshtml" />

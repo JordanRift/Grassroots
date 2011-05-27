@@ -44,21 +44,17 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
             ErrorMessage = "Please enter a valid email address.")]
         string Email { get; set; }
 
-        [Required]
         [DisplayName("Primary Phone")]
         [RegularExpression(@"^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$",
             ErrorMessage = "Please enter a valid phone number.")]
         string PrimaryPhone { get; set; }
 
-        [Required]
         [DisplayName("Street Address")]
         string AddressLine1 { get; set; }
 
-        [Required]
         [DisplayName("City")]
         string City { get; set; }
 
-        [Required]
         [UIHint("State")]
         [DisplayName("State")]
         string State { get; set; }
