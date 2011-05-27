@@ -1,5 +1,3 @@
-﻿USE grassroots;
-
 CREATE TABLE `gr_causetemplate` (
   `CauseTemplateID` int(11) NOT NULL AUTO_INCREMENT,
   `OrganizationID` int(11) NOT NULL,
@@ -15,9 +13,10 @@ CREATE TABLE `gr_causetemplate` (
   `VideoEmbedHtml` varchar(200) NOT NULL DEFAULT '''''',
   `DescriptionHtml` varchar(8000) NOT NULL DEFAULT '''''''''',
   `ImagePath` varchar(50) NOT NULL DEFAULT '''''',
+  `BeforeImagePath` varchar(100) DEFAULT NULL,
+  `AfterImagePath` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`CauseTemplateID`),
   KEY `CauseTemplate_Organization_FK` (`OrganizationID`),
   CONSTRAINT `CauseTemplate_Organization_FK` FOREIGN KEY (`OrganizationID`) REFERENCES `gr_organization` (`OrganizationID`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
