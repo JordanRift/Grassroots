@@ -66,6 +66,7 @@ namespace JordanRift.Grassroots.Web.Models
         [DataType(DataType.Text)]
         public string ZipCode { get; set; }
 
+        [Display(Name = "I am over the age of 13 or have parental consent to join.")]
         public bool Consent { get; set; }
 
         public string ImagePath { get; set; }
