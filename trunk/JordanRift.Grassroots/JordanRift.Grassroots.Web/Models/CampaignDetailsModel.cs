@@ -42,9 +42,10 @@ namespace JordanRift.Grassroots.Web.Models
         [Required]
         public decimal GoalAmount { get; set; }
         
-        [Required]
-        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Please enter only alpha-numeric characters.")]
-        [Remote("CheckUrlSlug", "Validation", AdditionalFields = "CampaignID", ErrorMessage = "That friendly URL is already in use. Please try another one.")]
+        //[Required]
+        //[RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Please enter only alpha-numeric characters.")]
+        //[Remote("CheckUrlSlug", "Validation", AdditionalFields = "CampaignID", ErrorMessage = "That friendly URL is already in use. Please try another one.")]
+        [Editable(false)]
         public string UrlSlug { get; set; }
         
         public string ImagePath { get; set; }

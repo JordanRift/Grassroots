@@ -84,11 +84,9 @@
             <div class="share">
                 <h3>Share this with your friends</h3>
                 
-                <div class="url">
-                    <span>http://@Request.Url.Host/CampaignFor/</span>
-                    @Html.TextBoxFor(m => m.UrlSlug, new { @class = "short" })
-                    @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
-                </div>
+                <span class="url">
+                    @Html.TextBox("Url", Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = Model.UrlSlug })), new { disabled = "true" })
+                </span>
 
                 <ul>
                     <li>@Html.Partial("TweetButton")</li>
