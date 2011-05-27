@@ -29,6 +29,7 @@ namespace JordanRift.Grassroots.Framework.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<OrganizationSetting> OrganizationSettings { get; set; }
+        public DbSet<Region> Regions { get; set; }
         public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -42,6 +43,7 @@ namespace JordanRift.Grassroots.Framework.Data
             modelBuilder.Configurations.Add(new CauseTemplateConfiguration());
             modelBuilder.Configurations.Add(new OrganizationConfiguration());
             modelBuilder.Configurations.Add(new OrganizationSettingConfiguration());
+            modelBuilder.Configurations.Add(new RegionConfiguration());
             modelBuilder.Configurations.Add(new RoleConfiguration());
         }
     }

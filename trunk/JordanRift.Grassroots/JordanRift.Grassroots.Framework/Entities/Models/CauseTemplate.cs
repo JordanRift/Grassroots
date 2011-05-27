@@ -45,6 +45,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
         public virtual ICollection<Campaign> Campaigns { get; set; }
         public virtual ICollection<Cause> Causes { get; set; }
+        public virtual ICollection<Region> Regions { get; set; }
 
         /// <summary>
         /// Used to create a new instance of a Cause object based on the CauseTemplate.
