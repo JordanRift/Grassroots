@@ -36,6 +36,9 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 		public string DescriptionHtml { get; set; }
 		public string ImagePath { get; set; }
         public int? HoursVolunteered { get; set; }
+	    public string BeforeImagePath { get; set; }
+        public string AfterImagePath { get; set; }
+        public string ReferenceNumber { get; set; }
 
 		public virtual ICollection<Campaign> Campaigns { get; set; }
 		public virtual ICollection<CauseNote> CauseNotes { get; set; }

@@ -40,6 +40,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public string VideoEmbedHtml { get; set; }
         public string DescriptionHtml { get; set; }
         public string ImagePath { get; set; }
+        public string BeforeImagePath { get; set; }
+        public string AfterImagePath { get; set; }
 
         public virtual ICollection<Campaign> Campaigns { get; set; }
         public virtual ICollection<Cause> Causes { get; set; }
