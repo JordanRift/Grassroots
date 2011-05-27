@@ -39,8 +39,9 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
         [Range(1, 31)]
         int FiscalYearStartDay { get; set; }
 
+        [AllowHtml]
         [MaxLength]
-        string Summary { get; set; }
+        string SummaryHtml { get; set; }
 
         [AllowHtml]
         [MaxLength]

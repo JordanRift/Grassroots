@@ -42,7 +42,9 @@ namespace JordanRift.Grassroots.Web.Models
         [Range(1, 31)]
         public int FiscalYearStartDay { get; set; }
 
-        public string Summary { get; set; }
+        [AllowHtml]
+        [Display(Name = "Summary (HTML)")]
+        public string SummaryHtml { get; set; }
 
         [AllowHtml]
         [Display(Name = "Description (HTML)")]

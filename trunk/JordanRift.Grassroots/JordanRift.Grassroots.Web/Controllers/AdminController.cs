@@ -190,7 +190,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		    organization.YtdGoal = model.YtdGoal;
 		    organization.FiscalYearStartMonth = model.FiscalYearStartMonth;
 		    organization.FiscalYearStartDay = model.FiscalYearStartDay;
-		    organization.Summary = model.Summary;
+		    organization.SummaryHtml = model.SummaryHtml;
 		    organization.DescriptionHtml = model.DescriptionHtml;
 		    organization.PaymentGatewayApiUrl = model.PaymentGatewayApiUrl ?? "";
 			organization.PaymentGatewayApiKey = model.PaymentGatewayApiKey ?? "";

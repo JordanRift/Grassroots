@@ -78,7 +78,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
                           {
                               Name = "My Organization",
                               Tagline = "We are so cool",
-                              Summary = "Summary",
+                              SummaryHtml = "SummaryHtml",
                               DescriptionHtml = "<h1>Description</h1>",
                               ContactPhone = "(480) 321-1234",
                               ContactEmail = "joe@yahoo.com",
