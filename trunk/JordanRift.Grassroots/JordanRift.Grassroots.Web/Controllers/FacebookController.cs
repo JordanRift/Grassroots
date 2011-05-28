@@ -233,6 +233,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                         organization.UserProfiles = new List<UserProfile>();
                     }
 
+                    userProfile.Active = true;
                     organization.UserProfiles.Add(userProfile);
                     OrganizationRepository.Save();
                     FormsAuthentication.SetAuthCookie(userProfile.Email, false);

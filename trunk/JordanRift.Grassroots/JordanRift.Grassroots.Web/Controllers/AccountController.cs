@@ -132,6 +132,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                     var gravatarService = new GravatarService();
                     userProfile.ImagePath = gravatarService.GetGravatarPictureUrl(userProfile.Email);
+                    userProfile.Active = true;
                     organization.UserProfiles.Add(userProfile);
                     OrganizationRepository.Save();
                     status = MembershipService.CreateUser(model.Email, model.Password, model.Email);

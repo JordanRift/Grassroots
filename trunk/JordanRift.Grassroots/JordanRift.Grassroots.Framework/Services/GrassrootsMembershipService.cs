@@ -143,7 +143,7 @@ namespace JordanRift.Grassroots.Framework.Services
                                {
                                    Username = username,
                                    Password = HashPassword(password, null),
-                                   IsActive = false,
+                                   IsActive = true,
                                    IsAuthorized = false,
                                    RegisterDate = DateTime.Now,
                                    LastLoggedIn = DateTime.Now
