@@ -24,11 +24,12 @@ namespace JordanRift.Grassroots.Framework.Data
         public DbSet<CampaignDonor> CampaignDonors { get; set; }
         public DbSet<CauseTemplate> CauseTemplates { get; set; }
         public DbSet<Cause> Causes { get; set; }
-		public DbSet<CauseNote> CauseNotes { get; set; }
+        public DbSet<CauseNote> CauseNotes { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<OrganizationSetting> OrganizationSettings { get; set; }
+        public DbSet<Recipient> Recipients { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<Role> Roles { get; set; }
 
@@ -39,10 +40,11 @@ namespace JordanRift.Grassroots.Framework.Data
             modelBuilder.Configurations.Add(new CampaignConfiguration());
             modelBuilder.Configurations.Add(new CampaignDonorConfiguration());
             modelBuilder.Configurations.Add(new CauseConfiguration());
-			modelBuilder.Configurations.Add( new CauseNoteConfiguration() );
+            modelBuilder.Configurations.Add(new CauseNoteConfiguration());
             modelBuilder.Configurations.Add(new CauseTemplateConfiguration());
             modelBuilder.Configurations.Add(new OrganizationConfiguration());
             modelBuilder.Configurations.Add(new OrganizationSettingConfiguration());
+            modelBuilder.Configurations.Add(new RecipientConfiguration());
             modelBuilder.Configurations.Add(new RegionConfiguration());
             modelBuilder.Configurations.Add(new RoleConfiguration());
         }

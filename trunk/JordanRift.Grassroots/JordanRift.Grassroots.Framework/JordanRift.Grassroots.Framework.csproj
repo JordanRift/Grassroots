@@ -103,6 +103,7 @@
     <Compile Include="Entities\ICanCalculate.cs" />
     <Compile Include="Entities\IPaymentProviderFactory.cs" />
     <Compile Include="Entities\Models\CauseNote.cs" />
+    <Compile Include="Entities\Models\Recipient.cs" />
     <Compile Include="Entities\Models\Region.cs" />
     <Compile Include="Entities\Tweet.cs" />
     <Compile Include="Entities\Validation\ICauseNoteValidation.cs" />

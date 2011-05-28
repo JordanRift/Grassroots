@@ -44,6 +44,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
 		public virtual ICollection<Campaign> Campaigns { get; set; }
 		public virtual ICollection<CauseNote> CauseNotes { get; set; }
+        public virtual ICollection<Recipient> Recipients { get; set; }
 
 		/// <summary>
 		/// Used to create a new instance of a CauseNote object for this cause.
