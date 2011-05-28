@@ -167,10 +167,10 @@ namespace JordanRift.Grassroots.Web.Controllers
                     userProfile.CampaignDonors = new List<CampaignDonor>();
                 }
 
+                UpdateUserProfile(userProfile, donation);
                 userProfile.CampaignDonors.Add(donation);
             }
 
-            UpdateUserProfile(userProfile, donation);
             return donation;
         }
 

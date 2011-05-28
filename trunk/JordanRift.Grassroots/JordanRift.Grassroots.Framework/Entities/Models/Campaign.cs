@@ -60,7 +60,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
             }
         }
 
-        public Entities.CampaignType Type
+        [NotMapped]
+        public Entities.CampaignType TheCampaignType
         {
             get { return this.CampaignType.HasValue ? (Entities.CampaignType) this.CampaignType.Value : Entities.CampaignType.Unknown; }
             set { this.CampaignType = (int) value; }

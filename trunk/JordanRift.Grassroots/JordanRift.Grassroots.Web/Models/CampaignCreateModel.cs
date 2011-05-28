@@ -33,6 +33,7 @@ namespace JordanRift.Grassroots.Web.Models
         //[Required]
         //[UIHint("CauseTemplate")]
         public int CauseTemplateID { get; set; }
+        public int CauseType { get; set; }
         //public bool ShouldRenderDropdown { get; set; }
         public bool AmountIsConfigurable { get; set; }
         public decimal DefaultAmount { get; set; }
