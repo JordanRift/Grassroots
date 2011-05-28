@@ -24,6 +24,9 @@
     <hgroup>
         <h1>@Model.FirstName @Model.LastName's Profile</h1>
     </hgroup>
+    @if (campaigns == null || campaigns.Count == 0) {
+    <strong>We noticed you have't started a campaign yet. @Html.ActionLink("Click here", "Create", new { Controller = "Campaign", Area = "" }, new { Title = "Click here" }) to get started!</strong>
+    }
     <section class="user-info">
         <img src="@Model.ImagePath" alt="@Model.FirstName @Model.LastName"/>
 	    <table>
@@ -69,10 +72,9 @@
 		    <ul>
                 <li><span>@campaignCount</span> Campaigns</li>
 			    <li><span>@Model.TotalRaised.ToString("C")</span> Raised</li>
-			    @if (Model.TotalHoursServed > 0m)
-       {
+			    @if (Model.TotalHoursServed > 0m) {
 				<li><span>@Model.TotalHoursServed</span> Hours Served</li>
-       }
+                }
             </ul>
             <h3>@Model.FirstName's Contribution to Others</h3>
             <ul>
@@ -86,21 +88,17 @@
             <h3>I want to...</h3>
             <ul>
                 <li>@Html.ActionLink("Edit Details", "Edit", new { Area = "", id = Model.UserProfileID }, new { Title = "Edit Details" })</li>
-			    @if (Model.FacebookID == null || Model.FacebookID == "")
-       {
+			    @if (Model.FacebookID == null || Model.FacebookID == "") {
 			    <li>@Html.ActionLink("Link to Facebook", "Connect", new { controller = "Facebook", area = "" }, new { title = "Link to Facebook" })</li>
-       }
+                }
                 <li>@Html.ActionLink("Change Password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change Password" })</li>
-                @if (Model.Active)
-                { 
+                @if (Model.Active)  { 
                 <li>@Html.ActionLink("Disable Account", "DeactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Disable Account" })</li>
                 }
-                else
-                {
+                else {
                 <li>@Html.ActionLink("Activate Account", "ReactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Activate Account" })</li>
                 }
-                @if (User.IsInRole("Administrator"))
-                {
+                @if (User.IsInRole("Administrator")) {
                 <li>@Html.ActionLink("Admin Dashboard", "Index", new { Controller = "Admin", Area = "" }, new { Title = "Admin Dashboard" })</li>
                 }
             </ul>
@@ -108,19 +106,14 @@
 
         <div class="break"></div>
     </section>
-
+        
+    @if (campaigns != null && campaigns.Count > 0) {
     <section class="campaigns">
-        @if (campaigns == null || campaigns.Count == 0)
-        {
-        <h3>We noticed you have't started a campaign yet. @Html.ActionLink("Click here", "Create", new { Controller = "Campaign", Area = "" }, new { Title = "Click here" }) to get started!</h3>
-        }
-        else
-        {
         <h3>@Model.FirstName's Recent Campaigns</h3>
         @Html.Partial("CampaignList", campaigns);
-		}
     </section>
-
+	}
+    
     <section class="notes">
         <!-- TODO: Notes attached to the user will go here... -->
     </section>
