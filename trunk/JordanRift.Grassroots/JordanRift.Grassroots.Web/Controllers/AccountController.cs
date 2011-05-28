@@ -114,6 +114,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             {
                 MembershipCreateStatus status;
                 UserProfile userProfile;
+                Organization organization;
 
                 using (new UnitOfWorkScope())
                 using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -123,7 +124,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     // (e.g. - SQL Server, MySQL, SQL Azure).
 
                     userProfile = Mapper.Map<RegisterModel, UserProfile>(model);
-                    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+                    organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 
                     if (organization.UserProfiles == null)
                     {
@@ -141,7 +142,13 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 if (status == MembershipCreateStatus.Success)
                 {
-                    accountMailer.Welcome(model).SendAsync();
+                    accountMailer.Welcome(new WelcomeModel
+                                              {
+                                                  FirstName = model.FirstName,
+                                                  Email = model.Email,
+                                                  OrganizationName = organization.Name,
+                                                  ContactEmail = organization.ContactEmail
+                                              }).SendAsync();
                     FormsService.SignIn(model.Email, false);
                     return RedirectToAction("Index", "UserProfile", new { id = userProfile.UserProfileID });
                 }

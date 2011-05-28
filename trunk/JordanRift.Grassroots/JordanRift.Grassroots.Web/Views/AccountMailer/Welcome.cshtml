@@ -1,4 +1,4 @@
-@model JordanRift.Grassroots.Web.Models.RegisterModel
+@model JordanRift.Grassroots.Web.Models.WelcomeModel
 @{
     //
     // Grassroots is free software: you can redistribute it and/or modify
@@ -17,6 +17,11 @@
     
     Layout = "~/Views/Shared/_EmailLayout.cshtml";
 }
-<h1>Welcome!</h1>
+<h1>Hello @Model.FirstName!</h1>
 
-<p>Howdy @Model.FirstName<text>!</text> Glad to have you aboard!</p>
+<p>We are excited and honored you have joined us. Let us know how we can help you any time</p>
+
+<p>The @Model.OrganizationName Team</p>
+
+<p>Need help? Have a suggestion?</p>
+<p>Contact us at @Model.ContactEmail</p>

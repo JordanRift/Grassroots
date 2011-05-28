@@ -152,18 +152,44 @@
     <Compile Include="Mailers\IDonateMailer.cs" />
     <Compile Include="Mailers\IUserProfileMailer.cs" />
     <Compile Include="Mailers\UserProfileMailer.cs" />
-    <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\CampaignCreateModel.cs" />
-    <Compile Include="Models\CampaignEmailBlastModel.cs" />
-    <Compile Include="Models\CampaignDetailsModel.cs" />
-    <Compile Include="Models\CampaignNotificationModel.cs" />
-    <Compile Include="Models\CauseTemplateDetailsModel.cs" />
-    <Compile Include="Models\DonationDetailsModel.cs" />
-    <Compile Include="Models\OrganizationDetailsModel.cs" />
-    <Compile Include="Models\FacebookRegisterModel.cs" />
-    <Compile Include="Models\ModelBinders\PaymentModelBinder.cs" />
-    <Compile Include="Models\ProgressBarModel.cs" />
-    <Compile Include="Models\UserProfileDetailsModel.cs" />
+    <Compile Include="Models\AccountModels.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\AuthorizeModel.cs" />
+    <Compile Include="Models\CampaignCreateModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CampaignDetailsModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CampaignEmailBlastModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CampaignNotificationModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CauseTemplateDetailsModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DonationDetailsModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\FacebookRegisterModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ModelBinders\PaymentModelBinder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\OrganizationDetailsModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ProgressBarModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UserProfileDetailsModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\WelcomeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -449,6 +475,7 @@
     <Content Include="Views\Shared\DonationReceipt.cshtml" />
     <Content Include="Views\Admin\CauseTemplateForm.cshtml" />
     <Content Include="Views\Shared\UIGrid.cshtml" />
+    <Content Include="Views\AccountMailer\Authorize.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -237,8 +237,14 @@ namespace JordanRift.Grassroots.Web.Controllers
                     organization.UserProfiles.Add(userProfile);
                     OrganizationRepository.Save();
                     FormsAuthentication.SetAuthCookie(userProfile.Email, false);
-                    var mailerModel = Mapper.Map<FacebookRegisterModel, RegisterModel>(model);
-                    accountMailer.Welcome(mailerModel).SendAsync();
+                    //var mailerModel = Mapper.Map<FacebookRegisterModel, RegisterModel>(model);
+                    accountMailer.Welcome(new WelcomeModel
+                                              {
+                                                  FirstName = model.FirstName,
+                                                  Email = model.Email,
+                                                  OrganizationName = organization.Name,
+                                                  ContactEmail = organization.ContactEmail
+                                              }).SendAsync();
                 }
 
                 if (Url.IsLocalUrl(returnUrl))

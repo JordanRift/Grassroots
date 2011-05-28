@@ -13,7 +13,6 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Web.Mvc;
 using JordanRift.Grassroots.Web.Models;
 using Mvc.Mailer;
@@ -29,9 +28,9 @@ namespace JordanRift.Grassroots.Web.Mailers
 		}
 
 		
-		public MailMessage Welcome(RegisterModel model)
+		public MailMessage Welcome(WelcomeModel model)
 		{
-		    var mailMessage = new MailMessage { Subject = "Ahoy there! Welcome aboard!" };
+		    var mailMessage = new MailMessage { Subject = string.Format("Welcome to {0}! We're glad to have you.", model.OrganizationName) };
 			mailMessage.To.Add(model.Email);
             ViewData = new ViewDataDictionary(model);
 			PopulateBody(mailMessage, viewName: "Welcome");
