@@ -1,4 +1,4 @@
-//
+﻿//
 // Grassroots is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -13,16 +13,15 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System.Net.Mail;
-using JordanRift.Grassroots.Web.Models;
-
-namespace JordanRift.Grassroots.Web.Mailers
-{ 
-    public interface IAccountMailer
+namespace JordanRift.Grassroots.Web.Models
+{
+    public class AuthorizeModel
     {
-		MailMessage Welcome(RegisterModel model);
-        MailMessage PasswordReset(RegisterModel model);
-        MailMessage PasswordChange(RegisterModel model);
-        MailMessage Authorize(AuthorizeModel model);
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Url { get; set; }
+        public string SenderName { get; set; }
+        public string SenderEmail { get; set; }
     }
 }

@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Web.Mvc;
 using JordanRift.Grassroots.Web.Models;
 using Mvc.Mailer;
@@ -30,7 +31,7 @@ namespace JordanRift.Grassroots.Web.Mailers
 		
 		public MailMessage Welcome(RegisterModel model)
 		{
-			var mailMessage = new MailMessage{Subject = "Ahoy there! Welcome aboard!"};
+		    var mailMessage = new MailMessage { Subject = "Ahoy there! Welcome aboard!" };
 			mailMessage.To.Add(model.Email);
             ViewData = new ViewDataDictionary(model);
 			PopulateBody(mailMessage, viewName: "Welcome");
@@ -40,7 +41,7 @@ namespace JordanRift.Grassroots.Web.Mailers
 		
 		public MailMessage PasswordReset(RegisterModel model)
 		{
-			var mailMessage = new MailMessage{Subject = "Password Reset Notofication"};
+		    var mailMessage = new MailMessage { Subject = "Password Reset Notofication" };
 			mailMessage.To.Add(model.Email);
             ViewData = new ViewDataDictionary(model);
 			PopulateBody(mailMessage, viewName: "PasswordReset");
@@ -50,11 +51,20 @@ namespace JordanRift.Grassroots.Web.Mailers
 		
 		public MailMessage PasswordChange(RegisterModel model)
 		{
-			var mailMessage = new MailMessage{Subject = "Password Change Notofication"};
+		    var mailMessage = new MailMessage { Subject = "Password Change Notofication" };
 			mailMessage.To.Add(model.Email);
             ViewData = new ViewDataDictionary(model);
 			PopulateBody(mailMessage, viewName: "PasswordChange");
 			return mailMessage;
-		}		
+		}
+
+        public MailMessage Authorize(AuthorizeModel model)
+        {
+            var mailMessage = new MailMessage { Subject = "Email verification needed" };
+            mailMessage.To.Add(model.Email);
+            ViewData = new ViewDataDictionary(model);
+            PopulateBody(mailMessage, viewName: "Authorize");
+            return mailMessage;
+        }
 	}
 }
