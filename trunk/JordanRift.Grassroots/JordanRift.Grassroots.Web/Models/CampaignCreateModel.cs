@@ -21,15 +21,8 @@ namespace JordanRift.Grassroots.Web.Models
     public class CampaignCreateModel
     {
         [Required]
+        [Display(Name = "Campaign Name")]
         public string Title { get; set; }
-
-        [Required]
-        [Display(Name = "In your own words...")]
-        [DataType(DataType.MultilineText)]
-        public string Description { get; set; }
-        
-        [Display(Name = "Image")]
-        public string ImagePath { get; set; }
         
         [Required]
         [Display(Name = "Friendly URL")]
@@ -37,9 +30,15 @@ namespace JordanRift.Grassroots.Web.Models
         [Remote("CheckUrlSlug", "Validation", ErrorMessage = "That friendly URL is already in use. Please try another one.")]
         public string UrlSlug { get; set; }
 
-        [Required]
-        [UIHint("CauseTemplate")]
+        //[Required]
+        //[UIHint("CauseTemplate")]
         public int CauseTemplateID { get; set; }
-        public bool ShouldRenderDropdown { get; set; }
+        //public bool ShouldRenderDropdown { get; set; }
+        public bool AmountIsConfigurable { get; set; }
+        public decimal DefaultAmount { get; set; }
+        public string GoalName { get; set; }
+        
+        [DataType(DataType.Currency)]
+        public decimal Amount { get; set; }
     }
 }

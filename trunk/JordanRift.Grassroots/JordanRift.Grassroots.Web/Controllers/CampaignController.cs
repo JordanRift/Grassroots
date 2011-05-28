@@ -62,22 +62,34 @@ namespace JordanRift.Grassroots.Web.Controllers
             var viewModel = MapDetailsModel(campaign);
             return View("Details", viewModel);
         }
+        
+        [Authorize]
+        public ActionResult GetStarted()
+        {
+            return View();
+        }
 
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(int campaignType = -1, int causeTemplateID = -1)
         {
             var viewModel = TempData["CampaignDetailsModel"] as CampaignCreateModel ?? new CampaignCreateModel();
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            var templates = organization.CauseTemplates.Where(ct => ct.Active);
 
-            if (templates.Count() > 1)
+            if (causeTemplateID != -1)
             {
-                viewModel.ShouldRenderDropdown = true;
-            }
-            else
-            {
-                viewModel.ShouldRenderDropdown = false;
-                viewModel.CauseTemplateID = templates.First().CauseTemplateID;
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+                var causeTemplate = organization.CauseTemplates.FirstOrDefault(ct => ct.CauseTemplateID == causeTemplateID);
+
+                if (causeTemplate != null)
+                {
+                    viewModel.AmountIsConfigurable = causeTemplate.AmountIsConfigurable;
+                    viewModel.DefaultAmount = causeTemplate.DefaultAmount;
+                    viewModel.GoalName = causeTemplate.GoalName;
+                    viewModel.CauseTemplateID = causeTemplate.CauseTemplateID;
+                }
+                else
+                {
+                    return RedirectToAction("GetStarted");
+                }
             }
 
             return View("Create", viewModel);

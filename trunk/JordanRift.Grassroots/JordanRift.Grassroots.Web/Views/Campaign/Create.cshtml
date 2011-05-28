@@ -23,45 +23,35 @@
 }
 
 <hgroup>
-    <h1>Create your campaign</h1>
+    <h1>Last step and WE ARE A GO!</h1>
     <h3>@OrganizationTagline</h3>
 </hgroup>
 <div id="campaign-create-form">
     @using (Html.BeginForm("CreateCampaign", "Campaign", new { Area = "" })) {
         @Html.ValidationSummary(false, "Unable to create campaign. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
-        if (Model.ShouldRenderDropdown) { 
-        <fieldset class="panel">
-            <legend>Choose a cause...</legend>
-            @Html.EditorFor(m => m.CauseTemplateID)
-            @Html.ValidationMessageFor(m => m.CauseTemplateID, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
-        </fieldset>
-        }
-        else {
+        
         @Html.HiddenFor(m => m.CauseTemplateID)
-        }
-        <fieldset class="panel">
-            <legend>About your campaign...</legend>
+        <fieldset>
+            <legend>Last step</legend>
             <dl>
                 <dt>@Html.LabelFor(m => m.Title)</dt>
                 <dd>
                     @Html.TextBoxFor(m => m.Title)
                     @Html.ValidationMessageFor(m => m.Title, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </dd>
-                <dt>@Html.LabelFor(m => m.Description)</dt>
+                <dt>@Html.LabelFor(m => m.UrlSlug)</dt>
                 <dd>
-                    @Html.TextAreaFor(m => m.Description)
-                    @Html.ValidationMessageFor(m => m.Description, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+                    @Html.TextBoxFor(m => m.UrlSlug)
+                    @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </dd>
+                @if (Model.AmountIsConfigurable) { 
+                <dt>The cost of a @Model.GoalName is around @Model.DefaultAmount.ToString("C"). Now set your goal and LETS GO!</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.Amount)
+                    @Html.ValidationMessageFor(m => m.Amount, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+                </dd>
+                }
             </dl>
-        </fieldset>
-        <fieldset class="panel">
-            <legend>Upload a picture...</legend>
-            <input type="file" id="campaignImage" name="campaignImage" size="23" />
-        </fieldset>
-        <fieldset class="panel">
-            <legend>Friendly URL</legend>
-            @Html.TextBoxFor(m => m.UrlSlug)
-            @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
         </fieldset>
         <div>
             @Html.UiSubmit("Create")
