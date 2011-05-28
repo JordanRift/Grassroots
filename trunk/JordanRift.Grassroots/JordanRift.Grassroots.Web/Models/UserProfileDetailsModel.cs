@@ -105,5 +105,7 @@ namespace JordanRift.Grassroots.Web.Models
 
         [Editable(false)]
         public string Role { get; set; }
+
+        public bool CurrentUserIsOwner { get; set; }
 	}
 }

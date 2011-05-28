@@ -193,12 +193,12 @@ namespace JordanRift.Grassroots.Web.Controllers
 			userProfile.ZipCode = viewModel.ZipCode;
 		}
 
-        private static UserProfileDetailsModel MapUserProfileDetails(UserProfile userProfile)
+        private UserProfileDetailsModel MapUserProfileDetails(UserProfile userProfile)
         {
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             viewModel.Campaigns = userProfile.Campaigns
-                    .Select(Mapper.Map<Campaign, CampaignDetailsModel>)
-                    .OrderByDescending(c => c.EndDate).ToList();
+                     .Select(Mapper.Map<Campaign, CampaignDetailsModel>)
+                     .OrderByDescending(c => c.EndDate).ToList();
             viewModel.TotalRaised = userProfile.CalculateTotalDonations();
             viewModel.TotalHoursServed = userProfile.CalculateTotalHoursServed();
             viewModel.TotalDonationsMade = userProfile.CalculateTotalNumberOfDonationsMade();
@@ -206,6 +206,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             viewModel.TotalNumberCampaignsDonatedTo = userProfile.CalculateTotalNumberOfCampaignsDonatedTo();
             viewModel.LastVisit = userProfile.Users.Any() ? userProfile.Users.First().LastLoggedIn : DateTime.Now;
             viewModel.Role = userProfile.Role != null ? userProfile.Role.Description : "Registered User";
+            viewModel.CurrentUserIsOwner = ((User != null) && (userProfile.Email.ToLower() == User.Identity.Name.ToLower()));
             return viewModel;
         }
 	}
