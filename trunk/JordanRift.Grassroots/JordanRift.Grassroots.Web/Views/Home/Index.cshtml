@@ -23,6 +23,7 @@
         <aside class="donate">
             @Html.ActionLink("Donate Now", "Index", new { controller = "Donate" }, new { title = "Donate", @class = "ui-button ui-corner-all" })
         </aside>
+        @Html.Action("Stats", new { controller = "Home" })
     </div>
     <div class="info">
         <div class="video">

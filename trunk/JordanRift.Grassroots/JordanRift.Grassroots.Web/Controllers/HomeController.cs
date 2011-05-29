@@ -75,6 +75,22 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View("ProgressBar", model);
         }
 
+        [ChildActionOnly]
+        [OutputCache(Duration = 150, VaryByParam = "none")]
+        public ActionResult Stats()
+        {
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var model = new OrganizationStatsModel()
+                            {
+                                ProjectsCompleted = organization.Causes != null ? organization.Causes.Count : 0,
+                                DollarsRaised = organization.CalculateTotalDonations(),
+                                Donations = organization.GetDonationCount(),
+                                HoursServed = organization.Causes.Sum(c => c.HoursVolunteered.GetValueOrDefault())
+                            };
+
+            return View(model);
+        }
+
         /// <summary>
         /// Cache for 10 min, to try to minimize impact of request throttling by Twitter's public REST API.
         /// </summary>

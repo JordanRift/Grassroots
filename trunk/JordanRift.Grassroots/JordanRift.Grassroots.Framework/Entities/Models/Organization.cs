@@ -117,6 +117,27 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
             return total;
         }
+
+        public int GetDonationCount()
+        {
+            var total = 0;
+
+            try
+            {
+                if (Campaigns != null)
+                {
+                    total = (from c in Campaigns
+                             where c.CampaignDonors != null
+                                 from d in c.CampaignDonors
+                                 where d.Approved && (d.DonationDate >= FiscalYearStart && d.DonationDate <= DateTime.Now)
+                                 select d)
+                            .Count();
+                }
+            }
+            catch (ObjectDisposedException) { }
+
+            return total;
+        }
     }
 
     public class OrganizationConfiguration : EntityTypeConfiguration<Organization>
