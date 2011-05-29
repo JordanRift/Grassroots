@@ -70,14 +70,14 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Create(int campaignType = -1, int causeTemplateID = -1)
+        public ActionResult Create(GetStartedModel model)
         {
             var viewModel = TempData["CampaignDetailsModel"] as CampaignCreateModel ?? new CampaignCreateModel();
 
-            if (causeTemplateID != -1)
+            if (model.CauseTemplateID != -1)
             {
                 var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-                var causeTemplate = organization.CauseTemplates.FirstOrDefault(ct => ct.CauseTemplateID == causeTemplateID);
+                var causeTemplate = organization.CauseTemplates.FirstOrDefault(ct => ct.CauseTemplateID == model.CauseTemplateID);
 
                 if (causeTemplate != null)
                 {
@@ -92,6 +92,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 }
             }
 
+            viewModel.CauseType = model.CampaignType;
             return View("Create", viewModel);
         }
 
