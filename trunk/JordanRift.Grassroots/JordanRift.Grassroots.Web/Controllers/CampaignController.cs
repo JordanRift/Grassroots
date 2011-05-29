@@ -66,7 +66,23 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize]
         public ActionResult GetStarted()
         {
-            return View();
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var viewModel = new GetStartedModel
+                                {
+                                    CauseTemplates = organization.CauseTemplates
+                                        .Where(t => t.Active)
+                                        .Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>),
+                                    CampaignType = (int) CampaignType.Unknown
+                                };
+
+            var defaultCauseTemplate = viewModel.CauseTemplates.FirstOrDefault();
+
+            if (defaultCauseTemplate != null)
+            {
+                viewModel.CauseTemplateID = defaultCauseTemplate.CauseTemplateID;
+            }
+            
+            return View(viewModel);
         }
 
         [Authorize]

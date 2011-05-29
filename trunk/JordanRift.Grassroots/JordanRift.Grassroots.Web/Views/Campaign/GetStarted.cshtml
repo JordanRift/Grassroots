@@ -18,6 +18,14 @@
     ViewBag.Title = "Get Started";
 }
 
+@section DocumentHead {
+    <script type="text/javascript">
+        $(function () {
+            Grassroots.getStarted();
+        });
+    </script>
+}
+
 <hgroup>
     <h1>Get Started</h1>
     <h3>Tell us about the campaign you are starting...</h3>
@@ -26,7 +34,23 @@
     @using (Html.BeginForm("Create", "Campaign")) {
         @Html.HiddenFor(m => m.CauseTemplateID)
         @Html.HiddenFor(m => m.CampaignType)
-
-        <!-- TODO: Prompt user to select cause template by clicking on an image, and select campaign type by clicking on an image -->
+        
+        if (Model.CauseTemplates.Count() > 1) {
+        <section class="projects">
+            <ul>
+                @foreach(var template in Model.CauseTemplates) {
+                <li>
+                    <a href="#" data-cause-template-id="@template.CauseTemplateID" title="@template.Name" class="cause-template">
+                        <span>@template.Name</span>
+                        <img src="@template.ImagePath" alt="@template.Name" />
+                    </a>
+                </li>
+                }
+            </ul>
+        </section>
+        }
+        <section class="">
+        
+        </section>
     }
 </div>

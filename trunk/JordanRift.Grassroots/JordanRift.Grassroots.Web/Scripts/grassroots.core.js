@@ -130,6 +130,12 @@ var Grassroots = (function() {
         tweet: function (str) {
             mywindow = window.open('http://twitter.com/share?url=' + str, "Tweet_widow", "channelmode=no,directories=no,location=no,menubar=no,scrollbars=no,toolbar=no,status=no,width=500,height=375,left=300,top=200");
             mywindow.focus();
+        },
+        getStarted: function() {
+            $(".cause-template").click(function() {
+                $("#CauseTemplateID").val($(this).attr("data-cause-template-id"));
+                return false;
+            });
         }
     };
 })();

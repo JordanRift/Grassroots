@@ -13,11 +13,15 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.Collections.Generic;
+
 namespace JordanRift.Grassroots.Web.Models
 {
     public class GetStartedModel
     {
         public int CauseTemplateID { get; set; }
         public int CampaignType { get; set; }
+
+        public IEnumerable<CauseTemplateDetailsModel> CauseTemplates { get; set; }
     }
 }
