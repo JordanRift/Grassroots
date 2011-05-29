@@ -23,7 +23,7 @@
     <h3>Tell us about the campaign you are starting...</h3>
 </hgroup>
 <div id="get-started">
-    @using (Html.BeginForm("Create", "Campaign") {
+    @using (Html.BeginForm("Create", "Campaign")) {
         @Html.HiddenFor(m => m.CauseTemplateID)
         @Html.HiddenFor(m => m.CampaignType)
 

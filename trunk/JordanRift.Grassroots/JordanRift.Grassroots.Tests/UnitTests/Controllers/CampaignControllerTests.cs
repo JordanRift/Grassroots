@@ -84,7 +84,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Create_Should_Return_Create_View()
         {
-            var result = controller.Create();
+            var result = controller.Create(new GetStartedModel{ CampaignType = 1, CauseTemplateID = 1 });
             Assert.IsInstanceOf(typeof(ViewResult), result);
             var viewName = ((ViewResult) result).ViewName;
             Assert.AreEqual("Create", viewName);
@@ -307,8 +307,10 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             var organizationRepository = new FakeOrganizationRepository();
             organizationRepository.SetUpRepository();
-            var organization = organizationRepository.GetDefaultOrganization();
-            organization.CauseTemplates = new List<CauseTemplate> { EntityHelpers.GetValidCauseTemplate() };
+            var organization = organizationRepository.GetDefaultOrganization(readOnly: false);
+            var causeTemplate = EntityHelpers.GetValidCauseTemplate();
+            causeTemplate.CauseTemplateID = 1;
+            organization.CauseTemplates = new List<CauseTemplate> { causeTemplate };
             campaignRepository = new FakeCampaignRepository();
             ((FakeCampaignRepository)campaignRepository).SetUpRepository();
             userProfileRepository = new FakeUserProfileRepository();
@@ -318,8 +320,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             MailerBase.IsTestModeEnabled = true;
             var upc = new CampaignController(campaignRepository, userProfileRepository, mailer)
                           {
-                              OrganizationRepository = organizationRepository//,
-                              //Organization = organization
+                              OrganizationRepository = organizationRepository
                           };
 
             upc.ControllerContext = new ControllerContext

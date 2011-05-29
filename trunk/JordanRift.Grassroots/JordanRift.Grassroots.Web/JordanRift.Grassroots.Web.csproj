@@ -177,6 +177,7 @@
     <Compile Include="Models\FacebookRegisterModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\GetStartedModel.cs" />
     <Compile Include="Models\ModelBinders\PaymentModelBinder.cs">
       <SubType>Code</SubType>
     </Compile>
