@@ -31,7 +31,7 @@
         @Html.ValidationSummary(false, "Unable to create campaign. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
         
         @Html.HiddenFor(m => m.CauseTemplateID)
-        @Html.HiddenFor(m => m.CauseType)
+        @Html.HiddenFor(m => m.CampaignType)
         <fieldset>
             <legend>Last step</legend>
             <dl>

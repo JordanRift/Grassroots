@@ -86,6 +86,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public ActionResult Create(GetStartedModel model)
         {
             var viewModel = TempData["CampaignDetailsModel"] as CampaignCreateModel ?? new CampaignCreateModel();
@@ -108,7 +109,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 }
             }
 
-            viewModel.CauseType = model.CampaignType;
+            viewModel.CampaignType = model.CampaignType;
             return View("Create", viewModel);
         }
 
