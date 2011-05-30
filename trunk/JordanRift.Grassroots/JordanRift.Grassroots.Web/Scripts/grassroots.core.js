@@ -136,6 +136,11 @@ var Grassroots = (function() {
                 $("#CauseTemplateID").val($(this).attr("data-cause-template-id"));
                 return false;
             });
+
+            $(".campaign-type").click(function() {
+                $("#CampaignType").val($(this).attr("data-campaign-type"));
+                return false;
+            });
         }
     };
 })();

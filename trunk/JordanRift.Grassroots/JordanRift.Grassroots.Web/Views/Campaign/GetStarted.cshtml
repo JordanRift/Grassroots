@@ -49,8 +49,37 @@
             </ul>
         </section>
         }
-        <section class="">
-        
+        <section class="campaign-types">
+            <ul>
+                <li class="birthday">
+                    <a href="#" data-campaign-type="1" title="Birthday" class="campaign-type">
+                        <strong>Birthday</strong>
+                        <span>Give up the gifts and ask for your age in dollars.</span>
+                    </a>
+                </li>
+                <li class="sports">
+                    <a href="#" data-campaign-type="2" title="Sporting Event" class="campaign-type">
+                        <strong>Sporting Event</strong>
+                        <span>Run, walk, swim, jump, sail. All to raise awareness and funds to change lives all around the world.</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-campaign-type="3" title="Groups" class="campaign-type">
+                        <strong>Groups</strong>
+                        <span>Schools, teams or local businesses could band together and make a difference.</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-campaign-type="4" title="Other" class="campaign-type">
+                        <strong>Other</strong>
+                        <span>Be creative: Grow a beard or adopt a dog. The sky's the limit.</span>
+                    </a>
+                </li>
+            </ul>
         </section>
+        <div>
+            @Html.UiSubmit("Let's go!")
+            @Html.UiCancel()
+        </div>
     }
 </div>

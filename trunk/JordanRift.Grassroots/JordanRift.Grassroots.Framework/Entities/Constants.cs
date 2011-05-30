@@ -56,8 +56,8 @@ namespace JordanRift.Grassroots.Framework.Entities
     {
         Unknown = 0,
         Birthday = 1,
-        Holiday = 2,
-        SportingEvent = 3,
+        SportingEvent = 2,
+        Groups = 3,
         Other = 4
     }
 
