@@ -19,6 +19,7 @@
 }
 
 @section DocumentHead {
+    @Html.Partial("UIForm")
     <script type="text/javascript">
         $(function () {
             Grassroots.getStarted();
@@ -63,13 +64,13 @@
                         <span>Run, walk, swim, jump, sail. All to raise awareness and funds to change lives all around the world.</span>
                     </a>
                 </li>
-                <li>
+                <li class="groups">
                     <a href="#" data-campaign-type="3" title="Groups" class="campaign-type">
                         <strong>Groups</strong>
                         <span>Schools, teams or local businesses could band together and make a difference.</span>
                     </a>
                 </li>
-                <li>
+                <li class="other">
                     <a href="#" data-campaign-type="4" title="Other" class="campaign-type">
                         <strong>Other</strong>
                         <span>Be creative: Grow a beard or adopt a dog. The sky's the limit.</span>

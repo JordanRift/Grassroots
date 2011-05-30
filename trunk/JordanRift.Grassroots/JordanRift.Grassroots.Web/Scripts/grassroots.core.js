@@ -133,11 +133,15 @@ var Grassroots = (function() {
         },
         getStarted: function() {
             $(".cause-template").click(function() {
+                $(".projects li").removeClass("selected");
+                $(this).parent("li").addClass("selected");
                 $("#CauseTemplateID").val($(this).attr("data-cause-template-id"));
                 return false;
             });
 
             $(".campaign-type").click(function() {
+                $(".campaign-types li").removeClass("selected");
+                $(this).parent("li").addClass("selected");
                 $("#CampaignType").val($(this).attr("data-campaign-type"));
                 return false;
             });
