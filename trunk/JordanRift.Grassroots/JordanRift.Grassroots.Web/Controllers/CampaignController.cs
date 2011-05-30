@@ -135,6 +135,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     campaign.StartDate = DateTime.Now;
                     campaign.EndDate = DateTime.Now.AddDays(causeTemplate.DefaultTimespanInDays);
                     campaign.GoalAmount = causeTemplate.DefaultAmount;
+                    campaign.Description = "You should type your campaign description in here...";
 
                     // TODO: Save image to disk and set path in campaign object (~/Content/UserContent/campaign/{campaignID}.jpg)
                     if (string.IsNullOrEmpty(campaign.ImagePath))

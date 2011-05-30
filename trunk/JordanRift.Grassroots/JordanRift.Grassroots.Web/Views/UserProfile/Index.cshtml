@@ -24,8 +24,8 @@
     <hgroup>
         <h1>@Model.FirstName @Model.LastName's Profile</h1>
     </hgroup>
-    @if (campaigns == null || campaigns.Count == 0) {
-    <strong>We noticed you have't started a campaign yet. @Html.ActionLink("Click here", "Create", new { Controller = "Campaign", Area = "" }, new { Title = "Click here" }) to get started!</strong>
+    @if ((campaigns == null || campaigns.Count == 0) && Model.CurrentUserIsOwner) {
+    <strong>We noticed you have't started a campaign yet. @Html.ActionLink("Click here", "GetStarted", new { Controller = "Campaign", Area = "" }, new { Title = "Click here" }) to get started!</strong>
     }
     <section class="user-info">
         <img src="@Model.ImagePath" alt="@Model.FirstName @Model.LastName"/>
