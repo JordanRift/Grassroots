@@ -21,7 +21,7 @@ using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Tests.Helpers;
 using NUnit.Framework;
 
-namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
+namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
 {
     [TestFixture]
     public class OrganizationRepositoryTests

@@ -24,7 +24,7 @@ using NUnit.Framework;
 using JordanRift.Grassroots.Framework.Services;
 using System;
 
-namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
+namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
 {
     [TestFixture]
     public class CauseRepositoryTests

@@ -23,7 +23,7 @@ using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Tests.Helpers;
 using NUnit.Framework;
 
-namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
+namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
 {
     [TestFixture]
     public class CampaignRepositoryTests

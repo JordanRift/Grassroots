@@ -17,7 +17,7 @@ using System.Linq;
 using JordanRift.Grassroots.Framework.Services;
 using NUnit.Framework;
 
-namespace JordanRift.Grassroots.Tests.IntegrationTests.Services
+namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Services
 {
     [TestFixture]
     class TwitterServiceTests

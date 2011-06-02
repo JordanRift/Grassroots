@@ -113,15 +113,6 @@
     <Compile Include="Fakes\NullCache.cs" />
     <Compile Include="Helpers\EntityHelpers.cs" />
     <Compile Include="Helpers\TestHelpers.cs" />
-    <Compile Include="IntegrationTests\Models\AimPaymentTests.cs" />
-    <Compile Include="IntegrationTests\Models\CampaignRepositoryTests.cs" />
-    <Compile Include="IntegrationTests\Models\CauseRepositoryTests.cs" />
-    <Compile Include="IntegrationTests\Models\CauseTemplateRepositoryTests.cs" />
-    <Compile Include="IntegrationTests\Models\OrganizationRepositoryTests.cs" />
-    <Compile Include="IntegrationTests\Models\RoleRepositoryTests.cs" />
-    <Compile Include="IntegrationTests\Models\UserProfileRepositoryTests.cs" />
-    <Compile Include="IntegrationTests\Models\UserRepositoryTests.cs" />
-    <Compile Include="IntegrationTests\Services\TwitterServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

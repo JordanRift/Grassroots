@@ -79,7 +79,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                     if (userProfile == null)
                     {
-                        TempData["UserFeedback"] = "We can't find you in our system. Please register to create your account.";
+                        TempData["UserFeedback"] = "We can't find you in our system. Please sign in or register to create your account.";
                         return RedirectToAction("Register", "Account");
                     }
 

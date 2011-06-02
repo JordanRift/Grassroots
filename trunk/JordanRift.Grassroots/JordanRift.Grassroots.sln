@@ -7,7 +7,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordanRift.Grassroots.Frame
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordanRift.Grassroots.Tests", "JordanRift.Grassroots.Tests\JordanRift.Grassroots.Tests.csproj", "{06C26408-B63A-47DA-ADDA-7088812DECDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JordanRift.Grassroots.IntegrationTests", "JordanRift.Grassroots.IntegrationTests\JordanRift.Grassroots.IntegrationTests.csproj", "{C0B134BE-31FD-4E8B-89A7-1E55D17BD327}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D74E3730-2FB9-4563-B998-D15FA06E3BCC}"
+	ProjectSection(SolutionItems) = preProject
+		JordanRift.Grassroots.vsmdi = JordanRift.Grassroots.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = JordanRift.Grassroots.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -25,6 +37,10 @@ Global
 		{06C26408-B63A-47DA-ADDA-7088812DECDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06C26408-B63A-47DA-ADDA-7088812DECDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06C26408-B63A-47DA-ADDA-7088812DECDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0B134BE-31FD-4E8B-89A7-1E55D17BD327}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0B134BE-31FD-4E8B-89A7-1E55D17BD327}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0B134BE-31FD-4E8B-89A7-1E55D17BD327}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0B134BE-31FD-4E8B-89A7-1E55D17BD327}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -18,7 +18,7 @@ using JordanRift.Grassroots.Tests.Helpers;
 using NUnit.Framework;
 using JordanRift.Grassroots.Framework.Entities;
 
-namespace JordanRift.Grassroots.Tests.IntegrationTests.Models
+namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
 {
     [TestFixture]
     public class AimPaymentTests
