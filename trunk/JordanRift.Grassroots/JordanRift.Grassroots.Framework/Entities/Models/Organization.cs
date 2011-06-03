@@ -93,7 +93,14 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
         public OrganizationSetting GetSetting(string key)
         {
-            return OrganizationSettings.FirstOrDefault(s => s.Name == key);
+            try
+            {
+                return OrganizationSettings.FirstOrDefault(s => s.Name == key);
+            }
+            catch (ObjectDisposedException)
+            {
+                return null;
+            }
         }
 
         /// <summary>
