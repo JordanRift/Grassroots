@@ -47,35 +47,6 @@
             <li class="last"><span>@daysRemaining.Days</span> Days Remaining</li>
         </ul>
     </section>
-    <section class="share-campaign">
-        <img src="@Model.ImagePath" alt="@Model.Title" class="campaign-img" />
-        <div class="share">
-            <h3>Share this with your friends</h3>
-            <span class="url">
-                @Html.TextBox("Url", Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = Model.UrlSlug })))
-            </span>
-            
-            <ul>
-                <li>@Html.Partial("TweetButton")</li>
-            @if (Model.CurrentUserIsOwner) {
-                <li><a href="#" id="email-blast" title="Email your friends"><img src="@Url.Content("~/Content/images/icon_email.gif")" alt="Email your friends" height="30" width="30" /></a></li>
-            }
-            </ul>
-            
-            <div class="fb">@Html.Partial("FacebookLikeButtonWithPictures")</div>
-        </div>
-        <div class="break"></div>
-    </section>
-    <section class="summary">
-        <div class="body">
-            <h2>In @Model.FirstName's Words...</h2>
-            <p>@Model.Description</p>
-        </div>
-        <div class="video">
-            @Html.Raw(Model.VideoEmbedHtml)
-        </div>
-        <div class="break"></div>
-    </section>
     
 	@if ( Model.IsActive )
 	{
