@@ -26,20 +26,29 @@
 @section DocumentHead {
     @Html.Partial("UIForm")
 }
-
+	<aside class="photo" style="float: right;"> <!-- Yo Jason!!  I've put these inline styles in here just so you know my intention with this layout -->
+		<img src="@Model.UserImagePath" style="float:right; margin-bottom: 10px;" title="I'm the person who started this campaign!" alt="@Model.FirstName @Model.LastName"/>
+		<br />
+		<span class="url">
+			@Html.TextBox("Url", Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = Model.UrlSlug })))
+        </span>
+	</aside>
     <hgroup class="campaign">
         <h1>@Model.Title</h1>
     </hgroup>
-    @if (Model.CurrentUserIsOwner) { 
+	@if (Model.CurrentUserIsOwner) { 
     <aside class="edit">
         @Html.ActionLink("Edit this campaign", "Edit", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
     </aside>
     }
     <section class="dashboard">
         @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
-        <aside class="donate">
-            @Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
-        </aside>
+		@if ( Model.IsActive )
+		{
+			<aside class="donate">
+            @Html.ActionLink( "Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" } )
+			</aside>
+		}
         <ul class="stats break">
             <li class="first"><span>@Model.GoalAmount.ToString("C")</span> Campaign Goal</li>
             <li><span>@total.ToString("C")</span> Raised to Date</li>

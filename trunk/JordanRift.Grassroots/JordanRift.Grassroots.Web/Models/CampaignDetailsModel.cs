@@ -72,7 +72,7 @@ namespace JordanRift.Grassroots.Web.Models
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+		public string UserImagePath { get; set; }
 
         //
         // Cause/CauseTemplate Details

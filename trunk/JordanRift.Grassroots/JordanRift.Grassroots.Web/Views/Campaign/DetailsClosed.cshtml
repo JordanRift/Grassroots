@@ -17,14 +17,14 @@
 	//
 }
 	<section class="summary share-campaign">
-		<img src="@Model.ImagePath" alt="@Model.Title" class="campaign-img" />
-		<div style="float: left">
+		<img src="@Model.ImagePath" alt="@Model.Title" class="campaign-img" /> <!-- Yo Jason, this is too large, how about 250x250ish -->
+		<aside class="foobar" style="float: right">  <!-- Yo Jason!!  I've put float: right; in here just so you know my intention with this layout -->
 			[I still want to give?]<br />
 			@if ( !Model.CurrentUserIsOwner )
 			{
 				@Html.ActionLink( "I want my own campaign", "GetStarted", new { Controller = "Campaign", Area = "" }, new { Title = "Click here go start your own campaign", @class = "ui-button ui-corner-all" } )
 			}
-		</div>
+		</aside>
 		<div class="campaign-closed">
 			@Html.Raw( Model.InstructionsClosedHtml )
 		</div>
