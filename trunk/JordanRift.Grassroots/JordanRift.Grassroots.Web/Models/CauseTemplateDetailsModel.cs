@@ -74,6 +74,18 @@ namespace JordanRift.Grassroots.Web.Models
 		public string DescriptionHtml { get; set; }
 
 		[Required]
+		[AllowHtml]
+		[DataType( DataType.MultilineText )]
+		[DisplayName( "Instructions Open (HTML)" )]
+		public string InstructionsOpenHtml { get; set; }
+
+		[Required]
+		[AllowHtml]
+		[DataType( DataType.MultilineText )]
+		[DisplayName( "Instructions Closed (HTML)" )]
+		public string InstructionsClosedHtml { get; set; }
+
+		[Required]
 		public string ImagePath { get; set; }
 	}
 }

@@ -42,6 +42,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public string ImagePath { get; set; }
         public string BeforeImagePath { get; set; }
         public string AfterImagePath { get; set; }
+		public string InstructionsOpenHtml { get; set; }
+		public string InstructionsClosedHtml { get; set; }
 
         public virtual ICollection<Campaign> Campaigns { get; set; }
         public virtual ICollection<Cause> Causes { get; set; }

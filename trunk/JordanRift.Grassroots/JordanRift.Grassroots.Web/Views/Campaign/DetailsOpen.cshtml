@@ -1,0 +1,45 @@
+﻿@model JordanRift.Grassroots.Web.Models.CampaignDetailsModel
+@using JordanRift.Grassroots.Web.Models
+@{
+	//
+	// Grassroots is free software: you can redistribute it and/or modify
+	// it under the terms of the GNU General Public License as published by
+	// the Free Software Foundation, either version 3 of the License, or
+	// (at your option) any later version.
+	// 
+	// Grassroots is distributed in the hope that it will be useful,
+	// but WITHOUT ANY WARRANTY; without even the implied warranty of
+	// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	// GNU General Public License for more details.
+	// 
+	// You should have received a copy of the GNU General Public License
+	// along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+	//
+}
+
+	<section class="summary">
+		<div class="video">
+			@Html.Raw(Model.VideoEmbedHtml)
+		</div>
+		<div class="body">
+			<h2>In @Model.FirstName's Words...</h2>
+			<p>@Model.Description</p>
+			<aside class="donate">
+				@Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
+			</aside>
+			<p>@Model.InstructionsOpenHtml</p>
+		</div>
+		<div class="share">
+			[I want my own page button placeholder]
+			
+			<ul>
+				<li>@Html.Partial("TweetButton")</li>
+			@if (Model.CurrentUserIsOwner) {
+				<li><a href="#" id="email-blast" title="Email your friends"><img src="@Url.Content("~/Content/images/icon_email.gif")" alt="Email your friends" height="30" width="30" /></a></li>
+			}
+			</ul>
+			
+			<div class="fb">@Html.Partial("FacebookLikeButtonWithPictures")</div>
+		</div>
+		<div class="break"></div>
+	</section>

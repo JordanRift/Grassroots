@@ -304,6 +304,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             model.LastName = userProfile.LastName;
             model.AmountIsConfigurable = causeTemplate.AmountIsConfigurable;
             model.TimespanIsConfigurable = causeTemplate.TimespanIsConfigurable;
+			model.IsActive = campaign.IsActive;
             model.VideoEmbedHtml = causeTemplate.VideoEmbedHtml;
             model.Donations = campaign.CampaignDonors
                 .Where(d => d.Approved)

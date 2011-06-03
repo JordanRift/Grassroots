@@ -76,10 +76,21 @@
         </div>
         <div class="break"></div>
     </section>
-    @Html.Partial("DonationGrid", Model.Donations)
+    
+	@if ( Model.IsActive )
+	{
+		@Html.Partial( "DetailsOpen", Model )
+	}
+	else
+	{ 
+ 		@Html.Partial( "DetailsClosed", Model )
+	}
+ 
+	@Html.Partial( "DonationGrid", Model.Donations )
 
     @section DocumentBottom {
-        @if (Model.CurrentUserIsOwner) { 
-        @Html.Partial("EmailForm", emailBlastModel)
+        @if ( Model.CurrentUserIsOwner )
+		{ 
+        @Html.Partial( "EmailForm", emailBlastModel )
         }
     }
