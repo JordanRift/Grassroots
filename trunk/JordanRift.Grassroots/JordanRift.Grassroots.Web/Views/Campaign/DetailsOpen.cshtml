@@ -30,8 +30,10 @@
 			<p>@Html.Raw( Model.InstructionsOpenHtml )</p>
 		</div>
 		<div class="share">
-			[I want my own page button placeholder]
-			
+			@if ( !Model.CurrentUserIsOwner )
+			{
+				@Html.ActionLink( "I want my own campaign", "GetStarted", new { Controller = "Campaign", Area = "" }, new { Title = "Click here go start your own campaign", @class = "ui-button ui-corner-all" } )
+			}
 			<ul>
 				<li>@Html.Partial("TweetButton")</li>
 			@if (Model.CurrentUserIsOwner) {
