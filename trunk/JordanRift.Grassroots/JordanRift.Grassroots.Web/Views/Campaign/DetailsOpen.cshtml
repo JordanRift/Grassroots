@@ -27,7 +27,7 @@
 			<aside class="donate">
 				@Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
 			</aside>
-			<p>@Model.InstructionsOpenHtml</p>
+			<p>@Html.Raw( Model.InstructionsOpenHtml )</p>
 		</div>
 		<div class="share">
 			[I want my own page button placeholder]
