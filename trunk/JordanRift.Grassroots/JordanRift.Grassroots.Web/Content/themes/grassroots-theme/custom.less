@@ -273,7 +273,8 @@ header {
 			margin-right: 0px;
 		}
 
-			.stats > li {
+			.stats > li,
+			#main .get-started .projects li {
 				background: #e5e5e5;
 				.round-corners;
 				.medium-gray;
@@ -373,6 +374,42 @@ header {
 			.dark-green;
 			font-size: 18px;
 		}
+
+		#main .get-started .projects > p,
+		#main .get-started .campaign-types > p {
+			font-size: 18px;
+			font-weight: bold;
+			.medium-gray;
+		}
+
+			#main .get-started .projects .selected,
+			#main .get-started .campaign-types .selected {
+				.button-active;
+				background-position: left bottom;
+			}
+
+			#main .get-started .projects a {
+				.dark-green;
+			}
+
+			#main .get-started .projects a:hover,
+			#main .get-started .campaign-types a:hover {
+				text-decoration: none;
+			}
+
+			.get-started .campaign-types li {
+				.dark-green;
+				.round-corners;
+				background: #e5e5e5;
+				border: 1px solid #cccccc;
+				font-size: 14px;
+			}
+
+				.get-started .campaign-types li strong {
+					font-size: 24px;
+					.dark-green;
+				}
+
 
 footer {
 	width: 920px;

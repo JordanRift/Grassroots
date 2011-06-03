@@ -21,6 +21,11 @@
 	margin: 0px 10px;
 }
 
+.no-float {
+	float: none;
+	clear: both;
+}
+
 /// Styles ///
 
 section, aside, article, hgroup, nav, header, footer {
@@ -78,12 +83,6 @@ p {
 				width: 450px;
 			}
 
-			/*#main > .info > .social {
-				width: 130px;
-				padding-left: 20px;
-				text-align: center;
-			}*/
-
 			#main > .info > .org-summary {
 				float: right;
 				width: 400px;
@@ -117,12 +116,14 @@ p {
 		}
 
 
-		#main .dashboard .stats {
+		#main .dashboard .stats,
+		#main .get-started .projects {
 			display: block;
 			height: 100px;
 		}
 
-			.stats > li {
+			.stats > li,
+			.get-started .projects li {
 				display: block;
 				float: left;
 				width: 196px;
@@ -132,11 +133,13 @@ p {
 				padding-top: 20px;
 			}
 
-			.stats > .first {
+			.stats > .first,
+			.get-started .projects li:first-child {
 				margin-left: 0px;
 			}
 
-			.stats > .last {
+			.stats > .last,
+			.get-started .projects li:last-child {
 				margin-right: 0px;
 			}
 
@@ -150,6 +153,58 @@ p {
 		#main .donations {
 			padding: 30px;
 		}
+
+		#main .get-started {
+		}
+
+			.get-started .projects > ul {
+				height: 140px;
+			}
+
+				.get-started .projects li {
+					padding-top: 0px;
+					height: 140px;
+				}
+
+				.get-started .projects li > a {
+					display: block;
+					height: 100px;
+					width: 156px;
+					padding: 15px 20px 20px;
+				}
+
+					.get-started .projects a > img {
+						margin-top: 5px;
+					}
+
+			.get-started .campaign-types {
+				.no-float;
+				padding-top: 40px;
+			}
+
+				.get-started .campaign-types li {
+					width: 429px;
+					height: 200px;
+					display: block;
+					float: left;
+					margin: 20px 0px;
+				}
+
+				.get-started .campaign-types .even {
+					margin-left: 40px;
+				}
+
+					.get-started .campaign-types li > a {
+						display: block;
+						padding: 20px;
+						height: 160px;
+						width: 389px;
+						text-align: center;
+					}
+
+						.get-started .campaign-types strong {
+							display: block;
+						}
 
 		#main .share-campaign {
 			margin: 20px 0px 0px;

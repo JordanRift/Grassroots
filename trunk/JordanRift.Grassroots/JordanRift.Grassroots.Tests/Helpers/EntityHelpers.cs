@@ -65,7 +65,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
 		                   FirstName = "Joe",
 		                   LastName = "Sandwitches",
 		                   Comments = "Thanks for letting me help!",
-		                   Amount = (decimal) 10.00,
+		                   Amount = 10.00m,
 		                   Email = "joe@yahoo.com",
 		               };
 		}
