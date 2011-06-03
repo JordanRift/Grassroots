@@ -20,9 +20,12 @@
 		<img src="@Model.ImagePath" alt="@Model.Title" class="campaign-img" />
 		<div style="float: left">
 			[I still want to give?]<br />
-			[I want my own page button placeholder]
+			@if ( !Model.CurrentUserIsOwner )
+			{
+				@Html.ActionLink( "I want my own campaign", "GetStarted", new { Controller = "Campaign", Area = "" }, new { Title = "Click here go start your own campaign", @class = "ui-button ui-corner-all" } )
+			}
 		</div>
 		<div class="campaign-closed">
-			@Model.InstructionsClosedHtml
+			@Html.Raw( Model.InstructionsClosedHtml )
 		</div>
 	</section>

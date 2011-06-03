@@ -18,7 +18,7 @@
     
 	ViewBag.Title = "Editing " + Model.Title;
 
-    var daysRemaining = Model.EndDate - Model.StartDate;
+    var daysRemaining = ( DateTime.Now < Model.EndDate ) ? (Model.EndDate - DateTime.Now).Days : 0;
     var total = Model.Donations.Sum(d => d.Amount);
     var emailBlastModel = ViewBag.EmailBlastModel as CampaignEmailBlastModel;
 }
@@ -69,7 +69,7 @@
                 }
                 else {
                 <li class="last">
-                    <span>@daysRemaining.Days</span> Days Left
+                    <span>@daysRemaining</span> Days Left
                     @Html.HiddenFor(m => m.StartDate)
                     @Html.HiddenFor(m => m.EndDate)
                 </li>
