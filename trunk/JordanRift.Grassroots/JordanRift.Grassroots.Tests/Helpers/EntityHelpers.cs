@@ -26,19 +26,20 @@ namespace JordanRift.Grassroots.Tests.Helpers
 		{
 		    return new CauseTemplate
 		               {
-		                   //Organization = GetValidOrganization(),
 		                   Name = "House Cause",
 		                   ActionVerb = "build",
 		                   GoalName = "house",
 		                   Active = true,
 		                   AmountIsConfigurable = false,
-		                   DefaultAmount = (decimal) 4000.00,
+		                   DefaultAmount = 4000.00m,
 		                   TimespanIsConfigurable = false,
 		                   DefaultTimespanInDays = 90,
 		                   Summary = "We are going to build houses...",
 		                   VideoEmbedHtml = "",
 		                   DescriptionHtml = "<h1>Houses</h1>Everyone wants a house, right? ...",
-		                   ImagePath = "content/images/causetemplate/template.jpg"
+		                   ImagePath = "content/images/causetemplate/template.jpg",
+                           InstructionsOpenHtml = "<p>This campaign is open</p>",
+                           InstructionsClosedHtml = "<p>This campaign is closed</p>"
 		               };
 		}
 
@@ -46,13 +47,11 @@ namespace JordanRift.Grassroots.Tests.Helpers
         {
             return new Campaign
                        {
-                           //UserProfile = GetValidUserProfile(),
-                           GoalAmount = (decimal) 4000.00,
+                           GoalAmount = 4000.00m,
                            StartDate = DateTime.Now,
                            EndDate = DateTime.Now.AddDays(90),
                            Title = "My Campaign",
                            Description = "This is my super awesome campaign",
-                           //Organization = GetValidOrganization(),
                            UrlSlug = "mycampaign",
                            ImagePath = "content/images/campaigns/mycampaign.jpg"
                        };
@@ -68,7 +67,6 @@ namespace JordanRift.Grassroots.Tests.Helpers
 		                   Comments = "Thanks for letting me help!",
 		                   Amount = (decimal) 10.00,
 		                   Email = "joe@yahoo.com",
-		                   //Campaign = GetValidCampaign()
 		               };
 		}
 
