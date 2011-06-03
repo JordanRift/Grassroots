@@ -85,7 +85,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                                 ProjectsCompleted = organization.Causes != null ? organization.Causes.Count : 0,
                                 DollarsRaised = organization.CalculateTotalDonations(),
                                 Donations = organization.GetDonationCount(),
-                                HoursServed = organization.Causes.Sum(c => c.HoursVolunteered.GetValueOrDefault())
+                                HoursServed = organization.Causes != null ? organization.Causes.Sum(c => c.HoursVolunteered.GetValueOrDefault()) : 0,
                             };
 
             return View(model);
