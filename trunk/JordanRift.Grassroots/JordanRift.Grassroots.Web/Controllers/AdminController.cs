@@ -136,6 +136,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 			causeTemplate.Summary = model.Summary;
 			causeTemplate.TimespanIsConfigurable = model.TimespanIsConfigurable;
 			causeTemplate.VideoEmbedHtml = model.VideoEmbedHtml;
+			causeTemplate.InstructionsOpenHtml = model.InstructionsOpenHtml;
+			causeTemplate.InstructionsClosedHtml = model.InstructionsClosedHtml;
 		}
 
 		#endregion
