@@ -269,10 +269,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         private static void MapCampaign(Campaign campaign, CampaignDetailsModel viewModel)
         {
-            campaign.UrlSlug = viewModel.UrlSlug;
             campaign.Title = viewModel.Title;
             campaign.Description = viewModel.Description;
-            //campaign.ImagePath = viewModel.ImagePath;
             var template = campaign.CauseTemplate;
 
             if (template.AmountIsConfigurable)

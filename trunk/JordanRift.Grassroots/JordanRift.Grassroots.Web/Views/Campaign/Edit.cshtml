@@ -15,10 +15,10 @@
     // You should have received a copy of the GNU General Public License
     // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
     //
-    
-	ViewBag.Title = "Editing " + Model.Title;
 
-    var daysRemaining = ( DateTime.Now < Model.EndDate ) ? (Model.EndDate - DateTime.Now).Days : 0;
+    ViewBag.Title = "Editing " + Model.Title;
+
+    var daysRemaining = (DateTime.Now < Model.EndDate) ? (Model.EndDate - DateTime.Now).Days : 0;
     var total = Model.Donations.Sum(d => d.Amount);
     var emailBlastModel = ViewBag.EmailBlastModel as CampaignEmailBlastModel;
 }
@@ -27,92 +27,83 @@
     @Html.Partial("UIForm")
 }
 
-<hgroup class="campaign">
-    <h1>@Model.Title</h1>
-</hgroup>
-<div id="campaign-edit-form">
-    @using (Html.BeginForm("Update", "Campaign", new { area = "", id = Model.CampaignID })) {
-        @Html.ValidationSummary(false, "Unable to save your campaign. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
-        @Html.HiddenFor(m => m.CampaignID)
-        <div class="title">
-            @Html.LabelFor(m => m.Title)
-            @Html.TextBoxFor(m => m.Title)
-            @Html.ValidationMessageFor(m => m.Title, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
-            <span class="right">
+    <div id="campaign-edit-form">
+        @using (Html.BeginForm("Update", "Campaign", new { area = "", id = Model.CampaignID }))
+        {
+            <section class="campaign-header">
+		        <img src="@Model.UserImagePath" title="@Model.FirstName @Model.LastName" alt="@Model.FirstName @Model.LastName"/>
+                <span class="edit">
+                    @Html.UiSubmit("Submit Changes")
+                    @Html.ActionLink("Cancel", "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Cancel", @class = "cancel" })
+                </span>
+		        <div class="url">
+			        @Html.TextBox("Url", Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = Model.UrlSlug })))
+                </div>
+	        </section>
+            <hgroup class="campaign">
+                <h1>@Model.Title</h1>
+            </hgroup>
+            @Html.ValidationSummary(false, "Unable to save your campaign. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
+            @Html.HiddenFor(m => m.CampaignID)
+            <div class="title">
+                @Html.LabelFor(m => m.Title)
+                @Html.TextBoxFor(m => m.Title)
+                @Html.ValidationMessageFor(m => m.Title, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+            </div>
+            <div class="dashboard campaign-dashboard">
+                @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
+                <ul class="stats break">
+                    @if (Model.AmountIsConfigurable) {
+                    <li class="first">
+                        @Html.TextBoxFor(m => m.GoalAmount)
+                        @Html.ValidationMessageFor(m => m.GoalAmount, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+                    </li>
+                    }
+                    else { 
+                    <li class="first"><span>@Model.GoalAmount.ToString("C")</span> Campaign Goal</li>
+                    }
+                    <li><span>@total.ToString("C")</span> Raised</li>
+                    <li><span>@Model.Donations.Count</span> Donations</li>
+                    @if (Model.TimespanIsConfigurable) { 
+                    <li class="last">
+                        @Html.EditorFor(m => m.EndDate)
+                        @Html.ValidationMessageFor(m => m.EndDate, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+                        @Html.HiddenFor(m => m.StartDate)
+                    </li>
+                    }
+                    else {
+                    <li class="last">
+                        <span>@daysRemaining</span> Days Left
+                        @Html.HiddenFor(m => m.StartDate)
+                        @Html.HiddenFor(m => m.EndDate)
+                    </li>
+                    }
+                </ul>
+            </div>
+            <section class="summary">
+                <div class="video">
+                    @Html.Raw(Model.VideoEmbedHtml)
+                </div>
+                <div class="body">
+                    <h2>In @Model.FirstName's Words...</h2>
+                    <div>
+                        @Html.TextAreaFor(m => m.Description)
+                        @Html.ValidationMessageFor(m => m.Description, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+                    </div>
+                </div>
+                <div class="share">
+                    <h3>Share this with your friends</h3>
+                    <ul>
+                        <li>@Html.Partial("TweetButton")</li>
+                        <li><div class="fb">@Html.Partial("FacebookLikeButtonWithPictures")</div></li>
+                    </ul>
+                </div>
+                <div class="break"></div>
+            </section>
+            @Html.Partial("DonationGrid", Model.Donations)
+            <div>
                 @Html.UiSubmit("Submit Changes")
                 @Html.ActionLink("Cancel", "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Cancel", @class = "cancel" })
-            </span>
-        </div>
-        <div class="dashboard">
-            @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
-            <aside class="donate">
-                @Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
-            </aside>
-            <ul class="stats break">
-                @if (Model.AmountIsConfigurable) {
-                <li class="first">
-                    @Html.TextBoxFor(m => m.GoalAmount)
-                    @Html.ValidationMessageFor(m => m.GoalAmount, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
-                </li>
-                }
-                else { 
-                <li class="first"><span>@Model.GoalAmount.ToString("C")</span> Campaign Goal</li>
-                }
-                <li><span>@total.ToString("C")</span> Raised</li>
-                <li><span>@Model.Donations.Count</span> Donations</li>
-                @if (Model.TimespanIsConfigurable) { 
-                <li class="last">
-                    @Html.EditorFor(m => m.EndDate)
-                    @Html.ValidationMessageFor(m => m.EndDate, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
-                    @Html.HiddenFor(m => m.StartDate)
-                </li>
-                }
-                else {
-                <li class="last">
-                    <span>@daysRemaining</span> Days Left
-                    @Html.HiddenFor(m => m.StartDate)
-                    @Html.HiddenFor(m => m.EndDate)
-                </li>
-                }
-            </ul>
-        </div>
-        <section class="share-campaign">
-            <div class="campaign-img">
-                <img src="@Model.ImagePath" alt="@Model.Title" />
-                <input type="file" name="imagePath" id="imagePath" />
             </div>
-            <div class="share">
-                <h3>Share this with your friends</h3>
-                
-                <span class="url">
-                    @Html.TextBox("Url", Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = Model.UrlSlug })), new { disabled = "true" })
-                </span>
-
-                <ul>
-                    <li>@Html.Partial("TweetButton")</li>
-                </ul>
-
-                <div class="fb">@Html.Partial("FacebookLikeButtonWithPictures")</div>
-            </div>
-            <div class="break"></div>
-        </section>
-        <section class="summary">
-            <div class="body">
-                <h2>In @Model.FirstName's Words...</h2>
-                <div>
-                    @Html.TextAreaFor(m => m.Description)
-                    @Html.ValidationMessageFor(m => m.Description, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
-                </div>
-            </div>
-            <div class="video">
-                @Html.Raw(Model.VideoEmbedHtml)
-            </div>
-            <div class="break"></div>
-        </section>
-        @Html.Partial("DonationGrid", Model.Donations)
-        <div>
-            @Html.UiSubmit("Submit Changes")
-            @Html.ActionLink("Cancel", "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Cancel", @class = "cancel" })
-        </div>
-    }
-</div>
+        }
+    </div>

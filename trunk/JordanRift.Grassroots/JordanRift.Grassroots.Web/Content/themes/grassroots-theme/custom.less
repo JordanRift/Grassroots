@@ -161,7 +161,8 @@ header {
 	.header-style;
 }
 
-#main > hgroup {
+#main > hgroup,
+#main form hgroup {
 	margin-top: 20px;
 	height: 130px;
 	background: url("images/heading-corner.png") no-repeat left top;
@@ -170,11 +171,14 @@ header {
 	padding-left: 10px;
 }
 
-#main > hgroup.campaign {
+#main hgroup.campaign {
 	height: 90px;
+	float: none;
+	clear: both;
 }
 
-	#main > hgroup > h1 {
+	#main > hgroup > h1,
+	#main form hgroup > h1 {
 		background: url("images/heading-bg.png") no-repeat right top;
 		height: 72px;
 		display: inline-block;
@@ -230,6 +234,11 @@ header {
 		width: 668px;
 		float: left;
 		margin: 30px 0px;
+	}
+
+	#main .campaign-dashboard > #progress {
+		width: 100%;
+		float: none;
 	}
 
 		#progressbar {
@@ -497,10 +506,16 @@ a.ui-button:hover {
 }
 
 .ui-state-focus {
-	-moz-box-shadow: 0px 0px 1px 2px #cccccc;
-	-webkit-box-shadow: 0px 0px 1px 2px #cccccc;
-	box-shadow: 0px 0px 1px 2px #cccccc;
+	-moz-box-shadow: 0px 0px 1px 5px #cccccc;
+	-webkit-box-shadow: 0px 0px 1px 5px #cccccc;
+	box-shadow: 0px 0px 1px 5px #cccccc;
 }
+
+//.ui-dialog {
+//	-moz-box-shadow: 0px 0px 1px 2px #181818;
+//	-webkit-box-shadow: 0px 0px 1px 2px #181818;
+//	box-shadow: 0px 0px 1px 2px #181818;
+//}
 
 .wijmo-dropdown-label {
 	.dark-green;

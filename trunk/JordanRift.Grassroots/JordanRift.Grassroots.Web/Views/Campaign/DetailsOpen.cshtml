@@ -30,18 +30,16 @@
 			<p>@Html.Raw( Model.InstructionsOpenHtml )</p>
 		</div>
 		<div class="share">
-			@if ( !Model.CurrentUserIsOwner )
-			{
+			@if ( !Model.CurrentUserIsOwner ) {
 				@Html.ActionLink( "I want my own campaign", "GetStarted", new { Controller = "Campaign", Area = "" }, new { Title = "Click here go start your own campaign", @class = "ui-button ui-corner-all" } )
 			}
 			<ul>
 				<li>@Html.Partial("TweetButton")</li>
+                <li><div class="fb">@Html.Partial("FacebookLikeButtonWithPictures")</div></li>
 			@if (Model.CurrentUserIsOwner) {
 				<li><a href="#" id="email-blast" title="Email your friends"><img src="@Url.Content("~/Content/images/icon_email.gif")" alt="Email your friends" height="30" width="30" /></a></li>
 			}
 			</ul>
-			
-			<div class="fb">@Html.Partial("FacebookLikeButtonWithPictures")</div>
 		</div>
 		<div class="break"></div>
 	</section>

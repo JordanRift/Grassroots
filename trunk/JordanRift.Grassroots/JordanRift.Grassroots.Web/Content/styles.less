@@ -70,6 +70,10 @@ p {
 			min-height: 115px;
 		}
 
+		#main form > .title {
+			padding: 0px;
+		}
+
 		#main > .info {
 			margin-top: 30px;
 			min-height: 283px;
@@ -206,6 +210,32 @@ p {
 							display: block;
 						}
 
+		.campaign-header {
+			height: 50px;
+		}
+
+			.campaign-header > .url {
+				display: block;
+				padding: 15px 0px;
+				float: right;
+				height: 20px;
+			}
+
+				.campaign-header > img {
+					border: 1px;
+					float: left;
+				}
+
+				.url > .wijmo-wijtextbox {
+					width: 350px !important;
+				}
+
+				.campaign-header > .edit {
+					float: left;
+					padding: 15px 0px 15px 20px;
+					height: 20px;
+				}
+
 		#main .share-campaign {
 			margin: 20px 0px 0px;
 			min-height: 278px;
@@ -229,19 +259,6 @@ p {
 				padding-left: 30px;
 				text-align: center;
 			}
-
-				.share > .url {
-					display: block;
-					padding: 20px 0px;
-				}
-
-					.url > .wijmo-wijtextbox {
-						width: 350px !important;
-					}
-
-					.url > .short {
-						width: 100px !important;
-					}
 
 				.share > ul {
 					display: block;
@@ -268,14 +285,15 @@ p {
 				width: 450px;
 			}
 
-			.summary > .body {
-				padding-right: 30px;
+			.summary > .body,
+			.summary > .share {
+				padding-left: 30px;
 				width: 350px;
 			}
 
 			.summary .wijmo-wijtextbox {
 				width: 330px !important;
-				height: 200px;
+				height: 125px;
 			}
 
 		#main .summary,
