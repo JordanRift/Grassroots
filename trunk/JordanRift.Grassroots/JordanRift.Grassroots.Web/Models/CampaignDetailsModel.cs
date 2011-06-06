@@ -78,6 +78,8 @@ namespace JordanRift.Grassroots.Web.Models
         // Cause/CauseTemplate Details
         //
 
+        public string CauseTemplateName { get; set; }
+        public string CauseTempalteImagePath { get; set; }
         public bool AmountIsConfigurable { get; set; }
         public bool TimespanIsConfigurable { get; set; }
         public string VideoEmbedHtml { get; set; }

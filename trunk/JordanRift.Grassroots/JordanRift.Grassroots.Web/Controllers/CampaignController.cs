@@ -305,6 +305,8 @@ namespace JordanRift.Grassroots.Web.Controllers
             model.AmountIsConfigurable = causeTemplate.AmountIsConfigurable;
             model.TimespanIsConfigurable = causeTemplate.TimespanIsConfigurable;
 			model.IsActive = campaign.IsActive;
+            model.CauseTemplateName = causeTemplate.Name;
+            model.CauseTempalteImagePath = causeTemplate.ImagePath;
             model.VideoEmbedHtml = causeTemplate.VideoEmbedHtml;
 			model.InstructionsOpenHtml = causeTemplate.InstructionsOpenHtml;
 			model.InstructionsClosedHtml = causeTemplate.InstructionsClosedHtml;

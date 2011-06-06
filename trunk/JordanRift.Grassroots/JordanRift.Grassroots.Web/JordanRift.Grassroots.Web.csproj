@@ -130,6 +130,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CampaignController.cs" />
+    <Compile Include="Controllers\CauseTemplateController.cs" />
     <Compile Include="Controllers\DonateController.cs" />
     <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Controllers\GrassrootsControllerBase.cs" />
@@ -490,6 +491,8 @@
     <Content Include="Views\Home\Stats.cshtml" />
     <Content Include="Views\Campaign\DetailsOpen.cshtml" />
     <Content Include="Views\Campaign\DetailsClosed.cshtml" />
+    <Content Include="Views\CauseTemplate\Index.cshtml" />
+    <Content Include="Views\CauseTemplate\Details.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
