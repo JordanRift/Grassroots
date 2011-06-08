@@ -7,6 +7,9 @@ This project will focus on two aspects to accomplish a heightened level of invol
 * Giving campaigns via social networks
 * Serving the local community
 
+If you'd like the long version, [check out Jason's blog](http://jsondata.tumblr.com/post/6322750036/grassroots-an-open-source-project).
+
+
 ## Licenses
 
 Grassroots is proudly licensed as free open source software under [GPLv3](http://www.gnu.org/licenses/gpl-3.0-standalone.html).
