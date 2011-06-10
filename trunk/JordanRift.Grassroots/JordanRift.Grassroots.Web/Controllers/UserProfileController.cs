@@ -28,12 +28,14 @@ namespace JordanRift.Grassroots.Web.Controllers
 {
 	public class UserProfileController : GrassrootsControllerBase
 	{
-		private readonly IUserProfileRepository repository;
+		private readonly IUserProfileRepository userProfileRepository;
 		private readonly IUserProfileMailer mailer;
+	    private readonly ICauseRepository causeRepository;
 
-		public UserProfileController(IUserProfileRepository repository, IUserProfileMailer mailer)
+        public UserProfileController(IUserProfileRepository userProfileRepository, ICauseRepository causeRepository, IUserProfileMailer mailer)
 		{
-			this.repository = repository;
+			this.userProfileRepository = userProfileRepository;
+            this.causeRepository = causeRepository;
 			this.mailer = mailer;
 			Mapper.CreateMap<UserProfile, UserProfileDetailsModel>();
 			Mapper.CreateMap<Campaign, CampaignDetailsModel>();
@@ -43,8 +45,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 		public ActionResult Index(int id = -1)
 		{
 		    var userProfile = id != -1 
-                ? repository.GetUserProfileByID(id) 
-                : repository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+                ? userProfileRepository.GetUserProfileByID(id) 
+                : userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 			
 			if (userProfile != null)
 			{
@@ -58,7 +60,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[Authorize]
 		public ActionResult Edit()
 		{
-			var userProfile = repository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+			var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
 			if (userProfile != null)
 			{
@@ -85,7 +87,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		{
 			using (new UnitOfWorkScope())
 			{
-				var userProfile = repository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+				var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
 				if (userProfile == null)
 				{
@@ -95,7 +97,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 				if (ModelState.IsValid)
 				{
 					Map(userProfile, model);
-					repository.Save();
+					userProfileRepository.Save();
 					return RedirectToAction("Index");
 				}
 
@@ -107,7 +109,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize]
         public ActionResult DeactivateAccount()
         {
-            var userProfile = repository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+            var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
             if (userProfile == null)
             {
@@ -121,7 +123,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[HttpPost]
 		public ActionResult Deactivate()
 		{
-			var userProfile = repository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+			var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
 			if (userProfile == null)
 			{
@@ -135,7 +137,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 				user.IsActive = false;
 			}
 
-			repository.Save();
+			userProfileRepository.Save();
 			var mailerModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
 			mailer.TaxInfo(mailerModel).SendAsync();
 			return RedirectToAction("LogOff", "Account");
@@ -144,7 +146,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize]
         public ActionResult ReactivateAccount()
         {
-            var userProfile = repository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+            var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
             if (userProfile == null)
             {
@@ -158,7 +160,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[HttpPost]
 		public ActionResult Reactivate()
 		{
-			var userProfile = repository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+			var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
 			if (userProfile == null)
 			{
@@ -172,7 +174,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 				user.IsActive = true;
 			}
 
-			repository.Save();
+			userProfileRepository.Save();
 			var mailerModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
 			mailer.WelcomeBack(mailerModel).SendAsync();
 			TempData["UserFeedback"] = "Welcome back! We're glad you're with us again!";
@@ -199,11 +201,9 @@ namespace JordanRift.Grassroots.Web.Controllers
             viewModel.Campaigns = userProfile.Campaigns
                      .Select(Mapper.Map<Campaign, CampaignDetailsModel>)
                      .OrderByDescending(c => c.EndDate).ToList();
-            viewModel.TotalRaised = userProfile.CalculateTotalDonations();
-            viewModel.TotalHoursServed = userProfile.CalculateTotalHoursServed();
-            viewModel.TotalDonationsMade = userProfile.CalculateTotalNumberOfDonationsMade();
-            viewModel.TotalDonationsGiven = userProfile.CalculateTotalDonationsGiven();
-            viewModel.TotalNumberCampaignsDonatedTo = userProfile.CalculateTotalNumberOfCampaignsDonatedTo();
+            viewModel.DollarsRaised = userProfile.CalculateTotalDonations();
+            viewModel.DollarsGiven = userProfile.CalculateTotalDonationsGiven();
+            //viewModel.ProjectsCompletedLabel = UIHelpers.GetCausesLabelText(causes)
             viewModel.LastVisit = userProfile.Users.Any() ? userProfile.Users.First().LastLoggedIn : DateTime.Now;
             viewModel.Role = userProfile.Role != null ? userProfile.Role.Description : "Registered User";
             viewModel.CurrentUserIsOwner = ((User != null) && (userProfile.Email.ToLower() == User.Identity.Name.ToLower()));

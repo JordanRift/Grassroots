@@ -14,10 +14,13 @@
 //
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Entities;
+using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Helpers
 {
@@ -234,6 +237,36 @@ namespace JordanRift.Grassroots.Framework.Helpers
 			// code to cast your collection to something and add it to the list
 			return myList;
 		}
+
+        /// <summary>
+        /// Returns a string describing the nature of the collectin of causes passed in.
+        /// </summary>
+        /// <param name="causes">Collection of causes</param>
+        /// <returns>string describing the type of causes</returns>
+        public static string GetCausesLabelText(IEnumerable<Cause> causes)
+        {
+            string labelText = "Projects Completed";
+
+            if (causes == null)
+            {
+                return null;
+            }
+
+            var causeTemplatesCount = (from c in causes
+                                       select c.CauseTemplateID).Distinct().Count();
+
+            if (causes.Any() && causeTemplatesCount == 1)
+            {
+                var causeTemplate = causes.First().CauseTemplate;
+
+                if (causeTemplate != null)
+                {
+                    labelText = string.Format("{0} {1}", causeTemplate.GoalName, causeTemplate.ActionVerb);
+                }
+            }
+
+            return labelText;
+        }
 
 		#endregion
 	}
