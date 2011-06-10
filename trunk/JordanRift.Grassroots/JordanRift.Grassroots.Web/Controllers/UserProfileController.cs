@@ -203,6 +203,34 @@ namespace JordanRift.Grassroots.Web.Controllers
 			return HttpNotFound( "The person you are looking for could not be found." );
 		}
 
+        public ActionResult Raised(int id = -1)
+        {
+            var userProfile = id != -1
+                ? userProfileRepository.GetUserProfileByID(id)
+                : userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+
+            if (userProfile != null)
+            {
+                return View();
+            }
+
+            return HttpNotFound("The person you are looking for could not be found.");
+        }
+
+        public ActionResult Given(int id = -1)
+        {
+            var userProfile = id != -1
+                ? userProfileRepository.GetUserProfileByID(id)
+                : userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+
+            if (userProfile != null)
+            {
+                return View();
+            }
+
+            return HttpNotFound("The person you are looking for could not be found.");
+        }
+
 		#region Mapping Stuff
 
 		private static void Map(UserProfile userProfile, UserProfileDetailsModel viewModel)
