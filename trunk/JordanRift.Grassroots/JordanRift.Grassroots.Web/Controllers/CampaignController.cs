@@ -312,7 +312,6 @@ namespace JordanRift.Grassroots.Web.Controllers
             model.VideoEmbedHtml = causeTemplate.VideoEmbedHtml;
 			model.InstructionsOpenHtml = causeTemplate.InstructionsOpenHtml;
 			model.InstructionsClosedHtml = causeTemplate.InstructionsClosedHtml;
-            model.CauseTemplateStatisticsHtml = causeTemplate.StatisticsHtml;
             model.Donations = campaign.CampaignDonors
                 .Where(d => d.Approved)
                 .Select(Mapper.Map<CampaignDonor, DonationDetailsModel>).ToList();

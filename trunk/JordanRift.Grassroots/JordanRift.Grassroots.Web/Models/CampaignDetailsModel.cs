@@ -84,7 +84,6 @@ namespace JordanRift.Grassroots.Web.Models
 		public bool IsActive { get; set; }
 		public string InstructionsOpenHtml { get; set; }
 		public string InstructionsClosedHtml { get; set; }
-        public string CauseTemplateStatisticsHtml { get; set; }
 
         //
         // Security

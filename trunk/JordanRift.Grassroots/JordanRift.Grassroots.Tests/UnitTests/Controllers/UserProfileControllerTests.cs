@@ -296,9 +296,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             ((FakeUserProfileRepository)repository).SetUpRepository();
             var mocks = new MockRepository();
             var mailer = mocks.DynamicMock<IUserProfileMailer>();
-            var causeRepository = mocks.DynamicMock<ICauseRepository>();
             MailerBase.IsTestModeEnabled = true;
-            var upc = new UserProfileController(repository, causeRepository, mailer);
+            var upc = new UserProfileController(repository, mailer);
             upc.ControllerContext = new ControllerContext
                                         {
                                             Controller = upc,
