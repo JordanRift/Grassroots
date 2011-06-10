@@ -133,6 +133,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 			causeTemplate.DescriptionHtml = model.DescriptionHtml;
 			causeTemplate.GoalName = model.GoalName;
 			causeTemplate.ImagePath = model.ImagePath;
+		    causeTemplate.BeforeImagePath = model.BeforeImagePath;
+		    causeTemplate.AfterImagePath = model.AfterImagePath;
 			causeTemplate.Summary = model.Summary;
 			causeTemplate.TimespanIsConfigurable = model.TimespanIsConfigurable;
 			causeTemplate.VideoEmbedHtml = model.VideoEmbedHtml;

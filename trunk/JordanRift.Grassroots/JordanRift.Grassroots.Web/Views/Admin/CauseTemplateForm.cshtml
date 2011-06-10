@@ -64,6 +64,16 @@
                     @Html.TextBoxFor(m => m.ImagePath)
 					@Html.ValidationMessageFor(m => m.ImagePath, null, new { @class = "ui-state-error ui-corner-all" })
 				</dd>
+                <dt>@Html.LabelFor(m => m.BeforeImagePath)</dt>
+				<dd>
+                    @Html.TextBoxFor( m => m.BeforeImagePath )
+					@Html.ValidationMessageFor( m => m.BeforeImagePath, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
+				<dt>@Html.LabelFor(m => m.AfterImagePath)</dt>
+				<dd>
+                    @Html.TextBoxFor(m => m.AfterImagePath)
+					@Html.ValidationMessageFor( m => m.AfterImagePath, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
 				<dt>@Html.LabelFor(m => m.VideoEmbedHtml)</dt>
 				<dd>
                     @Html.TextAreaFor(m => m.VideoEmbedHtml)
