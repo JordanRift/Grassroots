@@ -171,13 +171,13 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
             organizationRepository.Add(organization);
             organizationRepository.Save();
 
-			userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile = EntityHelpers.GetValidUserProfile();
 			userProfile.Users = new List<User>();
 			userProfile.UserProfileService = new UserProfileService( new UserProfileRepository() );
 			organization.UserProfiles.Add( userProfile );
 			organizationRepository.Save();
 
-			user = EntityHelpers.GetValidUser();
+            user = EntityHelpers.GetValidUser();
 			userProfile.Users.Add( user );
 			organizationRepository.Save();
 

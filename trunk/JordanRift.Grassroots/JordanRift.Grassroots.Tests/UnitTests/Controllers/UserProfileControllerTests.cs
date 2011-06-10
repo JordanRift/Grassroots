@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
@@ -36,23 +37,30 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
     {
         private UserProfileController controller;
         private IUserProfileRepository repository;
+        private MockRepository mocks;
+        private UserProfile userProfile;
 
         [SetUp]
         public void SetUp()
         {
-            controller = GetUserProfileController();
+            userProfile = EntityHelpers.GetValidUserProfile();
+            repository = new FakeUserProfileRepository();
+            ((FakeUserProfileRepository)repository).SetUpRepository();
+            repository.Add(userProfile);
+            mocks = new MockRepository();
+            controller = GetUserProfileController(userProfile.UserProfileID);
             Mapper.CreateMap<UserProfile, UserProfileDetailsModel>();
         }
 
         [Test]
         public void Index_Should_Return_View_If_UserProfile_Found()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
             userProfile.Campaigns = new List<Campaign>();
-            repository.Add(userProfile);
+            mocks.ReplayAll();
             var result = controller.Index();
             Assert.IsInstanceOf(typeof(ViewResult), result);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -80,9 +88,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Update_Should_Redirect_To_Index_If_Successful()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             var result = controller.Update(viewModel);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
@@ -92,9 +98,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Update_Should_Redirect_To_Edit_If_Model_Is_Not_Valid()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             controller.ModelState.AddModelError("", "Dummy error message.");
             var result = controller.Update(viewModel);
@@ -113,9 +117,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Map_Should_Update_FirstName()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             viewModel.FirstName = "NewFirstName";
             controller.Update(viewModel);
@@ -125,9 +127,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Map_Should_Update_LastName()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             viewModel.LastName = "NewLasttName";
             controller.Update(viewModel);
@@ -137,9 +137,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Map_Should_Update_Birthdate()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             viewModel.Birthdate = new DateTime(1981, 12, 1);
             controller.Update(viewModel);
@@ -149,9 +147,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Map_Should_Update_PrimaryPhone()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             viewModel.PrimaryPhone = "602-555-7777";
             controller.Update(viewModel);
@@ -161,9 +157,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Map_Should_Update_Gender()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             viewModel.Gender = "female";
             controller.Update(viewModel);
@@ -173,9 +167,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Map_Should_Update_AddressLine1()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             viewModel.AddressLine1 = "New Street Address";
             controller.Update(viewModel);
@@ -185,9 +177,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Map_Should_Update_AddressLine2()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             viewModel.AddressLine2 = "New Address Line 2";
             controller.Update(viewModel);
@@ -197,9 +187,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Map_Should_Update_City()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             viewModel.City = "New City";
             controller.Update(viewModel);
@@ -209,7 +197,6 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Map_Should_Update_State()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
             repository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
@@ -221,9 +208,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Map_Should_Update_Zip()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             viewModel.ZipCode = "85310";
             controller.Update(viewModel);
@@ -233,9 +218,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Deactivate_Should_Redirect_To_LogOff_If_Successful()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var result = controller.Deactivate();
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             var action = ((RedirectToRouteResult) result).RouteValues["Action"];
@@ -245,9 +228,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Deactivate_Should_Set_Active_To_False_If_Successful()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             Assert.IsTrue(userProfile.Active);
             controller.Deactivate();
             Assert.IsFalse(userProfile.Active);
@@ -263,9 +244,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Reactivate_Should_Redirect_To_Index_If_Successful()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
             var result = controller.Reactivate();
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             var action = ((RedirectToRouteResult) result).RouteValues["Action"];
@@ -275,10 +254,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Reactivate_Should_Set_Active_To_True_If_Successful()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
             userProfile.Active = false;
-            repository.Add(userProfile);
             controller.Reactivate();
             Assert.IsTrue(userProfile.Active);
         }
@@ -290,14 +267,13 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.IsInstanceOf(typeof (HttpNotFoundResult), result);
         }
 
-        private UserProfileController GetUserProfileController()
+        private UserProfileController GetUserProfileController(int userProfileID = -1)
         {
-            repository = new FakeUserProfileRepository();
-            ((FakeUserProfileRepository)repository).SetUpRepository();
-            var mocks = new MockRepository();
+            var causeRepository = mocks.StrictMock<ICauseRepository>();
+            Expect.Call(causeRepository.FindCausesByUserProfileID(userProfileID)).Return(new List<Cause>().AsQueryable());
             var mailer = mocks.DynamicMock<IUserProfileMailer>();
             MailerBase.IsTestModeEnabled = true;
-            var upc = new UserProfileController(repository, mailer);
+            var upc = new UserProfileController(repository, causeRepository, mailer);
             upc.ControllerContext = new ControllerContext
                                         {
                                             Controller = upc,

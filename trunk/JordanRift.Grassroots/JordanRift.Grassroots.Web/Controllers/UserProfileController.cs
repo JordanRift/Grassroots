@@ -228,7 +228,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             viewModel.DollarsRaised = userProfile.CalculateTotalDonations();
             viewModel.DollarsGiven = userProfile.CalculateTotalDonationsGiven();
             viewModel.ProjectsCompleted = causes.Count();
-            viewModel.ProjectsCompletedLabel = EntityHelpers.GetCausesLabelText(causes);
+            viewModel.ProjectsCompletedLabel = ModelHelpers.GetCausesLabelText(causes);
             viewModel.LastVisit = userProfile.Users.Any() ? userProfile.Users.First().LastLoggedIn : DateTime.Now;
             viewModel.Role = userProfile.Role != null ? userProfile.Role.Description : "Registered User";
             viewModel.CurrentUserIsOwner = ((User != null) && (userProfile.Email.ToLower() == User.Identity.Name.ToLower()));
