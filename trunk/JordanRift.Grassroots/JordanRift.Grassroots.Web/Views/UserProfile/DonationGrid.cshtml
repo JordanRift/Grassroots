@@ -1,0 +1,51 @@
+﻿@model IEnumerable<JordanRift.Grassroots.Web.Models.DonationDetailsModel>
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
+    Layout = null;
+}
+
+@if (Model != null && Model.Count() > 0) {
+<section class="donations">
+    <table class="donor-grid">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Campaign</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model) { 
+            <tr>
+                @if (i.UserProfileID.HasValue) {
+                <td><a href="@Url.Action("Index", new { controller = "UserProfile", area = "", id = i.UserProfileID})", title="@i.FirstName @i.LastName">@i.FirstName @i.LastName</a></td>
+                }
+                else {
+                <td>@i.FirstName @i.LastName</td>
+                }
+                <td>@i.Amount.ToString("C")</td>
+                <td>@i.DonationDate.ToShortDateString()</td>
+                <td>@Html.ActionLink(i.Title, "Index", new { controller = "Campaign", area = "", slug = i.UrlSlug }, new { title = i.Title })</td>
+                <td>@i.Comments</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</section>
+}

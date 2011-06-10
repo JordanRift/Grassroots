@@ -193,6 +193,8 @@
     <Compile Include="Models\UserProfileDetailsModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\UserProfileProjectsModel.cs" />
+    <Compile Include="Models\UserProfileRaisedModel.cs" />
     <Compile Include="Models\WelcomeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -499,6 +501,7 @@
     <Content Include="Views\UserProfile\Projects.cshtml" />
     <Content Include="Views\UserProfile\Raised.cshtml" />
     <Content Include="Views\UserProfile\Given.cshtml" />
+    <Content Include="Views\UserProfile\DonationGrid.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

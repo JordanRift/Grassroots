@@ -13,34 +13,14 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
+using System.Collections.Generic;
 
 namespace JordanRift.Grassroots.Web.Models
 {
-    public class DonationDetailsModel
+    public class UserProfileProjectsModel
     {
-        //
-        // Campaign fields
-        //
-
-        public string Title { get; set; }
-        public string UrlSlug { get; set; }
-        
-        //
-        // User Profile fields
-        //
-
-        public string Email { get; set; }
-        public int? UserProfileID { get; set; }
-        
-        //
-        // CampaignDonor fields
-        //
-
-        public decimal Amount { get; set; }
+        public int UserProfileID { get; set; }
         public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime DonationDate { get; set; }
-        public string Comments { get; set; }
+        public IEnumerable<CauseDetailsModel> Causes { get; set; }
     }
 }

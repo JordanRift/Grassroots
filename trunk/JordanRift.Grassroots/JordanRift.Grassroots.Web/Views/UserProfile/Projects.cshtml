@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JordanRift.Grassroots.Web.Models.CauseDetailsModel>
+﻿@model JordanRift.Grassroots.Web.Models.UserProfileProjectsModel
 @{
     //
     // Grassroots is free software: you can redistribute it and/or modify
@@ -18,41 +18,49 @@
     ViewBag.Title = "Index";
 }
 
-    <h2>Projects</h2>
+    <hgroup>
+        <h1>Projects @Model.FirstName have helped fund</h1>
+        <h3>@Model.Causes.Count() Projects</h3>
+    </hgroup>
 
-@if ( Model.Count() > 0 ) {
+    @{ var linkText = "Back to " + Model.FirstName + "'s Profile"; }
+    @Html.ActionLink(linkText, "Index", new { controller = "UserProfile", area = "", id = Model.UserProfileID })
+<section class="donations">
+@if ( Model.Causes.Count() > 0 ) {
     <table>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Build Date
-            </th>
-            <th>
-                Area
-            </th>
-        </tr>
-
-	@foreach ( var item in Model ) { 
-		<tr>
-			<td>
-				@Html.ActionLink( item.Name, "Index", new { controller = "Cause" }, new { title = item.Name } )
-			</td>
-			<td>
-				@String.Format( "{0:MM/dd/yy}", item.DateCompleted ) 
-			</td>
-			<td>
-			@if ( item.Region != null ) {
-				@item.Region.Name;
-			}
-			</td>
-		</tr>
-	}
-	
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Build Date
+                </th>
+                <th>
+                    Area
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+	    @foreach ( var item in Model.Causes ) { 
+		    <tr>
+			    <td>
+				    @Html.ActionLink( item.Name, "Index", new { controller = "Cause" }, new { title = item.Name } )
+			    </td>
+			    <td>
+				    @String.Format( "{0:MM/dd/yy}", item.DateCompleted ) 
+			    </td>
+			    <td>
+			    @if ( item.Region != null ) {
+				    @item.Region.Name;
+			    }
+			    </td>
+		    </tr>
+	    }
+	    </tbody>
     </table>
 }
-else
-{ 
-	<i>this person has no projects yet</i>
+else { 
+	<h3 class="projects">This person hasn't been a part of any completed projects yet.</h3>
 }
+</section>

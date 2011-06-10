@@ -14,6 +14,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -41,6 +42,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			Mapper.CreateMap<UserProfile, UserProfileDetailsModel>();
 			Mapper.CreateMap<Campaign, CampaignDetailsModel>();
 			Mapper.CreateMap<Cause, CauseDetailsModel>();
+            Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
 		}
 
 		[Authorize]
@@ -197,7 +199,14 @@ namespace JordanRift.Grassroots.Web.Controllers
 			if ( userProfile != null )
 			{
 				var causes = causeRepository.FindCausesByUserProfileID( userProfile.UserProfileID );
-				var model = causes.Select( Mapper.Map<Cause, CauseDetailsModel> ).ToList();
+				//var model = causes.Select( Mapper.Map<Cause, CauseDetailsModel> ).ToList();
+			    var model = new UserProfileProjectsModel
+			                    {
+                                    UserProfileID = userProfile.UserProfileID,
+                                    FirstName = userProfile.FirstName,
+                                    Causes = causes.Select(Mapper.Map<Cause, CauseDetailsModel>)
+			                    };
+
 				return View("Projects", model);
 			}
 
@@ -212,7 +221,19 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (userProfile != null)
             {
-                return View();
+                var donations = from c in userProfile.Campaigns
+                                from d in c.CampaignDonors
+                                select d;
+
+                var model = new UserProfileRaisedModel
+                                {
+                                    UserProfileID = userProfile.UserProfileID,
+                                    FirstName = userProfile.FirstName,
+                                    DollarsRaised = userProfile.CalculateTotalDonations(),
+                                    Donations = MapDonations(donations)
+                                };
+
+                return View(model);
             }
 
             return HttpNotFound("The person you are looking for could not be found.");
@@ -226,7 +247,15 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (userProfile != null)
             {
-                return View();
+                var model = new UserProfileRaisedModel
+                                {
+                                    UserProfileID = userProfile.UserProfileID,
+                                    FirstName = userProfile.FirstName,
+                                    DollarsRaised = userProfile.CalculateTotalDonations(),
+                                    Donations = MapDonations(userProfile.CampaignDonors)
+                                };
+
+                return View(model);
             }
 
             return HttpNotFound("The person you are looking for could not be found.");
@@ -265,6 +294,28 @@ namespace JordanRift.Grassroots.Web.Controllers
             viewModel.CurrentUserIsOwner = ((User != null) && (userProfile.Email.ToLower() == User.Identity.Name.ToLower()));
             return viewModel;
 		}
+
+        private IEnumerable<DonationDetailsModel> MapDonations(IEnumerable<CampaignDonor> donations)
+        {
+            var models = new List<DonationDetailsModel>();
+
+            foreach (var donation in donations)
+            {
+                models.Add(new DonationDetailsModel
+                               {
+                                   Amount = donation.Amount,
+                                   Comments = donation.Comments,
+                                   DonationDate = donation.DonationDate,
+                                   FirstName = donation.FirstName,
+                                   LastName = donation.LastName,
+                                   Title = donation.Campaign.Title,
+                                   UrlSlug = donation.Campaign.UrlSlug,
+                                   UserProfileID = donation.UserProfile != null ? donation.UserProfileID : null
+                               });
+            }
+
+            return models;
+        }
 
 		#endregion
 	}
