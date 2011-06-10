@@ -195,8 +195,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 			if ( userProfile != null )
 			{
 				var causes = causeRepository.FindCausesByUserProfileID( userProfile.UserProfileID );
-				var viewModel = MapUserProfileDetails( userProfile );
-				return View( viewModel );
+				ViewData.Model = causes;
+				return View("UserCauses");
 			}
 
 			return HttpNotFound( "The person you are looking for could not be found." );
