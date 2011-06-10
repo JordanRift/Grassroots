@@ -34,6 +34,21 @@ namespace JordanRift.Grassroots.Framework.Data
 				   select cause;
 		}
 
+		/// <summary>
+		/// Get all causes where the given user is either a donor or the campaigner.
+		/// </summary>
+		/// <param name="userProfileID">The userProfileID of either a donor or campaigner</param>
+		/// <returns>a collection of Causes</returns>
+		public IQueryable<Cause> FindCausesByUserProfileID( int userProfileID )
+		{
+			return from cause in ObjectContext.Causes
+				   where cause.Campaigns.Any(
+					camp => ( camp.CampaignDonors.Any( donor => donor.UserProfileID == userProfileID ) )
+					||  camp.UserProfileID == userProfileID )
+				   orderby cause.Name
+				   select cause;
+		}
+
 		public IQueryable<Cause> FindCausesByCauseTemplateID(int causeTemplateID)
 		{
 			return from cause in ObjectContext.Causes

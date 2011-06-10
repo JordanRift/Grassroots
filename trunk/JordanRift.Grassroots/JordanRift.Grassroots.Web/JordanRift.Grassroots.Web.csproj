@@ -169,6 +169,7 @@
     <Compile Include="Models\CampaignNotificationModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\CauseDetailsModel.cs" />
     <Compile Include="Models\CauseTemplateDetailsModel.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -337,6 +338,7 @@
   <ItemGroup>
     <Folder Include="Content\UserContent\campaign\" />
     <Folder Include="Content\UserContent\profile\" />
+    <Folder Include="Views\Cause\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
