@@ -15,7 +15,7 @@
     //
 }
 @if (Request.IsAuthenticated) {
-        <text>Howdy</text> <strong>@Html.ActionLink(User.Identity.Name, "Index", new { controller = "UserProfile" }, new { title = "User Profile" })</strong><text>! | </text>
+        <text>Howdy</text> <strong>@Html.ActionLink(User.Identity.Name, "Index", new { controller = "UserProfile", id = "" }, new { title = "User Profile" })</strong><text>! | </text>
         @Html.ActionLink("Log Off", "LogOff", "Account")
 }
 else

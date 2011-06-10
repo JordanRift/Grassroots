@@ -77,11 +77,10 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 	    {
 	        get { return GetProfileImagePath(); }
 	    }
-
-
+        
         public string GetProfileImagePath(ProfileImageSize size = ProfileImageSize.Thumbnail)
         {
-            if (string.IsNullOrEmpty(FacebookID))
+            if (!string.IsNullOrEmpty(FacebookID))
             {
                 var facebookUrl = string.Format("https://graph.facebook.com/{0}/picture", FacebookID);
 

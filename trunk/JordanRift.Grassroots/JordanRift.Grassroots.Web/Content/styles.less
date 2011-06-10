@@ -137,6 +137,13 @@ p {
 				padding-top: 20px;
 			}
 
+			.stats > .user-image {
+				height: auto;
+				max-height: 100px;
+				overflow: hidden;
+				padding-top: 0px;
+			}
+
 			.stats > .first,
 			.get-started .projects li:first-child {
 				margin-left: 0px;
@@ -147,7 +154,7 @@ p {
 				margin-right: 0px;
 			}
 
-				.stats > li > span {
+				.stats > li span {
 					font-size: 32px;
 					display: block;
 				}
@@ -383,76 +390,57 @@ p {
 				padding-top: 10px;
 			}
 
-	#main .user-info {
+	#main .user-profile {
 	}
-
-		#main .user-info > table,
-		#main .user-info > aside,
-		#main .user-info > img,
-		#main .user-info > .user-dashboard {
-			float: left;
-			display: block;
+		
+		.user-profile > .public-info {
 		}
 
-		.user-info > img,
-		#main .user-info > table {
-			margin: 0px 50px 0px 0px;
-		}
-
-		.user-info > img {
-			margin-top: 10px;
-		}
-
-			#main .user-info > table .heading {
-				width: 100px;
+			.public-info > .campaigns {
+				padding-top: 30px;
+				float: left;
 			}
 
-			#main .user-info > table td {
-				width: 200px;
-			}
-
-		#main .user-info > .user-dashboard {
-			padding-top: 20px;
-		}
-
-			#main .user-info > .user-dashboard li {
-				display: inline-block;
-				*display: inline;
-				width: 130px;
-				padding: 10px 7px;
-			}
-
-			#main .user-info > .user-dashboard li:first-child {
-				padding-left: 0px;
-			}
-
-				.user-info > .user-dashboard li a {
-					width: 130px;
-					padding: 0.4em 0em;
+				.public-info > .campaigns > h4 {
+					padding-bottom: 20px;
 				}
 
-		#main .user-info > aside {
-			float: right;
-			width: 300px;
-		}
-
-			.user-info > aside > ul {
-				display: block;
-				width: 240px;
-				text-align: left;
-				margin: 10px 0px 20px;
-				padding: 20px;
-			}
-
-				.user-info > aside > ul > li {
-					padding: 5px 0px;
-					text-align: center;
+				#main .public-info .campaign-list {
+					width: 530px;
 				}
 
-		#main .campaigns ul {
-			margin: 10px 0px 20px;
-			display: block;
-		}
+					#main .campaign-list .title {
+						width: 400px;
+					}
+
+					#main .campaign-list td {
+						width: 130px;
+					}
+
+			.user-profile .private-info {
+				padding-top: 30px;
+				width: 300px;
+				float: right;
+			}
+
+				#main .user-profile .private-info table {
+					margin-top: 0px;
+				}
+
+				.user-profile .private-info h3 {
+					display: block;
+					padding: 20px 0px 0px 10px;
+				}
+
+				.user-profile .private-info ul {
+					display: block;
+					padding: 10px;
+				}
+
+					.user-profile .private-info ul > li {
+						font-weight: bold;
+						padding: 3px 0px;
+					}
 
 	#main .admin-dashboard {
 		margin: 20px auto 0px;

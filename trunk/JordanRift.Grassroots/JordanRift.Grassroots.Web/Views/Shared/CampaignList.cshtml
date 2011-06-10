@@ -16,9 +16,22 @@
     //
 }
 @if (Model != null && Model.Count() > 0) {
-<ul class="campaign-list">
-    @foreach (var campaign in Model) {
-    <li>@Html.ActionLink(campaign.Title, "Index", new { controller = "Campaign", slug = campaign.UrlSlug }, new { title = campaign.Title })</li>
-    }
-</ul>
-    }
+<table class="campaign-list">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Currently Active?</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var campaign in Model) {
+            var cssClass = campaign.IsActive ? "active" : "closed";
+            var activeText = campaign.IsActive ? "Active" : "Closed";
+        <tr class="@cssClass">
+            <td class="title">@Html.ActionLink(campaign.Title, "Index", new { controller = "Campaign", slug = campaign.UrlSlug }, new { title = campaign.Title })</td>
+            <td>@Html.ActionLink(activeText, "Index", new { controller = "Campaign", slug = campaign.UrlSlug }, new { title = activeText })</td>
+        </tr>
+        }
+    </tbody>
+</table>
+}

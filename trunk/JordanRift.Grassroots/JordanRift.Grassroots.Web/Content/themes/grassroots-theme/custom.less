@@ -298,12 +298,24 @@ header {
 			#main .get-started .projects li {
 				background: #e5e5e5;
 				.round-corners;
-				.medium-gray;
 				width: 194px;
 				border: 1px solid #cccccc;
 			}
 
-				.stats > li > span {
+			.stats > .user-image {
+				background: none;
+				border: none;
+			}
+
+			.stats > li,
+			#main .stats > li > a,
+			#main .stats > li > a:hover,
+			#main .get-started .projects li {
+				.medium-gray;
+				text-decoration: none;
+			}
+
+				.stats > li span, {
 					.dark-green;
 				}
 
@@ -315,12 +327,21 @@ header {
 			.medium-gray;
 		}
 
+		#main .user-profile .private-info > h3 {
+			.dark-green;
+		}
+
 	#main table tbody tr {
 		border-top: 1px dotted #cccccc;
 	}
 
 	#main table tbody tr:first-child {
 		border-top: none;
+	}
+
+	#main .campaign-list .closed a,
+	#main .campaign-list .closed a:hover {
+		.medium-gray;
 	}
 
 #main .summary,
