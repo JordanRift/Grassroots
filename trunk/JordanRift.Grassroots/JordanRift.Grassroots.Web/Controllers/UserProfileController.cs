@@ -39,6 +39,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			this.mailer = mailer;
 			Mapper.CreateMap<UserProfile, UserProfileDetailsModel>();
 			Mapper.CreateMap<Campaign, CampaignDetailsModel>();
+			Mapper.CreateMap<Cause, CauseDetailsModel>();
 		}
 
 		[Authorize]
@@ -184,9 +185,9 @@ namespace JordanRift.Grassroots.Web.Controllers
 		/// <summary>
 		/// Action to list the users causes.
 		/// </summary>
-		/// <param name="id"></param>
+		/// <param name="id">a user profile ID</param>
 		/// <returns></returns>
-		public ActionResult Causes( int id = -1 )
+		public ActionResult Projects( int id = -1 )
 		{
 			var userProfile = id != -1 
                 ? userProfileRepository.GetUserProfileByID( id ) 
@@ -195,8 +196,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 			if ( userProfile != null )
 			{
 				var causes = causeRepository.FindCausesByUserProfileID( userProfile.UserProfileID );
-				ViewData.Model = causes;
-				return View("UserCauses");
+				var model = causes.Select( Mapper.Map<Cause, CauseDetailsModel> ).ToList();
+				return View("Projects", model);
 			}
 
 			return HttpNotFound( "The person you are looking for could not be found." );
