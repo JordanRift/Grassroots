@@ -27,13 +27,19 @@ namespace JordanRift.Grassroots
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "CampaignFor",
-                "CampaignFor/{slug}",
+                "Campaigns",
+                "Campaigns/{slug}",
                 new { controller = "Campaign", action = "Index", slug = UrlParameter.Optional }
             );
 
             RegisterDonateRoutes(routes);
             RegisterHomeRoutes(routes);
+
+            routes.MapRoute(
+                "UserProfileIndex", 
+                "UserProfile/{id}", 
+                new { controller = "UserProfile", action = "Index", id = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 "CampaignModify",

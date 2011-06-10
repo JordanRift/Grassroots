@@ -48,6 +48,7 @@
                     </a>
                 </li>
             </ul>
+            <div class="break"></div>
             <div class="campaigns">
                 <h4>Want to get involved? @Html.ActionLink("Click here", "GetStarted", new { controller = "Campaign", area = "" }, new { title = "Click here" }) to get started.</h4>
                 @if (Model.Campaigns.Count > 0) { 
@@ -55,63 +56,64 @@
                 @Html.Partial("CampaignList", Model.Campaigns);
                 }
             </div>
-        </section>
 
-        @if (Model.CurrentUserIsOwner) { 
-        <aside class="private-info">
-            <table class="profile-info">
-		        <tbody>
-                    <tr>
-                        <td colspan="2"><h3>@Model.Role</h3></td>
-                    </tr>
-                    <tr>
-                        <td class="heading">Name</td>
-                        <td>@Model.FirstName @Model.LastName</td>
-                    </tr>
-		            <tr>
-			            <td class="heading">Email</td>
-			            <td><a href="mailto:@Model.Email" title="@Model.Email">@Model.Email</a></td>
-		            </tr>
-		            <tr>
-			            <td class="heading">Phone</td>
-			            <td>@Model.PrimaryPhone</td>
-		            </tr>
-		            <tr>
-			            <td class="heading">Address</td>
-			            <td>@Model.AddressLine1<br />
-				            @if ( @Model.AddressLine2 != null && @Model.AddressLine2 != string.Empty ) {
-	   				            @Model.AddressLine2<br />
-				            }
-				            @Model.City, @Model.State @Model.ZipCode</td>
-		            </tr>
-		            <tr>
-			            <td class="heading">Age</td>
-			            <td>@Model.Age</td>
-		            </tr>
-                    <tr>
-			            <td class="heading">Last Visit</td>
-			            <td>@Model.LastVisit</td>
-		            </tr>
-		        </tbody>
-	        </table>
-            <ul class="tasks">
-                <li>@Html.ActionLink("Edit Details", "Edit", new { Area = "", id = Model.UserProfileID }, new { Title = "Edit Details" })</li>
-			    @if (Model.FacebookID == null || Model.FacebookID == "") {
-			    <li>@Html.ActionLink("Link to Facebook", "Connect", new { controller = "Facebook", area = "" }, new { title = "Link to Facebook" })</li>
-                }
-                <li>@Html.ActionLink("Change Password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change Password" })</li>
-                @if (Model.Active)  { 
-                <li>@Html.ActionLink("Disable Account", "DeactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Disable Account" })</li>
-                }
-                else {
-                <li>@Html.ActionLink("Activate Account", "ReactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Activate Account" })</li>
-                }
-                @if (User.IsInRole("Administrator")) {
-                <li>@Html.ActionLink("Admin Dashboard", "Index", new { Controller = "Admin", Area = "" }, new { Title = "Admin Dashboard" })</li>
-                }
-            </ul>
-        </aside>
-        }
+            @if (Model.CurrentUserIsOwner) { 
+            <aside class="private-info">
+                <table class="profile-info">
+		            <tbody>
+                        <tr>
+                            <td colspan="2"><h3>@Model.Role</h3></td>
+                        </tr>
+                        <tr>
+                            <td class="heading">Name</td>
+                            <td>@Model.FirstName @Model.LastName</td>
+                        </tr>
+		                <tr>
+			                <td class="heading">Email</td>
+			                <td><a href="mailto:@Model.Email" title="@Model.Email">@Model.Email</a></td>
+		                </tr>
+		                <tr>
+			                <td class="heading">Phone</td>
+			                <td>@Model.PrimaryPhone</td>
+		                </tr>
+		                <tr>
+			                <td class="heading">Address</td>
+			                <td>@Model.AddressLine1<br />
+				                @if ( @Model.AddressLine2 != null && @Model.AddressLine2 != string.Empty ) {
+	   				                @Model.AddressLine2<br />
+				                }
+				                @Model.City, @Model.State @Model.ZipCode</td>
+		                </tr>
+		                <tr>
+			                <td class="heading">Age</td>
+			                <td>@Model.Age</td>
+		                </tr>
+                        <tr>
+			                <td class="heading">Last Visit</td>
+			                <td>@Model.LastVisit</td>
+		                </tr>
+		            </tbody>
+	            </table>
+                <h3>Account Settings</h3>
+                <ul class="tasks">
+                    <li>@Html.ActionLink("Edit Details", "Edit", new { Area = "", id = Model.UserProfileID }, new { Title = "Edit Details" })</li>
+			        @if (Model.FacebookID == null || Model.FacebookID == "") {
+			        <li>@Html.ActionLink("Link to Facebook", "Connect", new { controller = "Facebook", area = "" }, new { title = "Link to Facebook" })</li>
+                    }
+                    <li>@Html.ActionLink("Change Password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change Password" })</li>
+                    @if (Model.Active)  { 
+                    <li>@Html.ActionLink("Disable Account", "DeactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Disable Account" })</li>
+                    }
+                    else {
+                    <li>@Html.ActionLink("Activate Account", "ReactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Activate Account" })</li>
+                    }
+                    @if (User.IsInRole("Administrator")) {
+                    <li>@Html.ActionLink("Admin Dashboard", "Index", new { Controller = "Admin", Area = "" }, new { Title = "Admin Dashboard" })</li>
+                    }
+                </ul>
+            </aside>
+            }
+        </section>
         <div class="break"></div>
     </div>
 

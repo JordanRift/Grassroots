@@ -120,7 +120,6 @@ namespace JordanRift.Grassroots.Tests.Helpers
 		                              ZipCode = "85213",
 		                              Consent = true,
                                       Active = true,
-                                      //ImagePath = "content/images/users/1.jpg",
                                       Users = new List<User>()
 		                          };
 
