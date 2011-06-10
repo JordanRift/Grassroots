@@ -18,6 +18,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
 using JordanRift.Grassroots.Web.Mailers;
@@ -254,6 +255,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             viewModel.Campaigns = userProfile.Campaigns
                      .Select(Mapper.Map<Campaign, CampaignDetailsModel>)
                      .OrderByDescending(c => c.EndDate).ToList();
+            viewModel.ImagePath = userProfile.GetProfileImagePath(ProfileImageSize.Full);
             viewModel.DollarsRaised = userProfile.CalculateTotalDonations();
             viewModel.DollarsGiven = userProfile.CalculateTotalDonationsGiven();
             viewModel.ProjectsCompleted = causes.Count();

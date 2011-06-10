@@ -17,12 +17,12 @@ CREATE TABLE `gr_userprofile` (
   `Consent` bit(1) DEFAULT b'0',
   `Active` bit(1) DEFAULT b'0',
   `IsActivated` bit(1) DEFAULT b'0',
-  `ImagePath` varchar(100) NOT NULL DEFAULT '''''',
+  `ImagePath` varchar(100) DEFAULT '''''''''',
   PRIMARY KEY (`UserProfileID`),
   KEY `email_index` (`Email`),
+  KEY `IX_FacebookID` (`FacebookID`),
   KEY `UserProfile_Organization_FK` (`OrganizationID`),
   KEY `UserProfile_Role_FK` (`RoleID`),
-  KEY `IX_FacebookID` (`FacebookID`),
   CONSTRAINT `UserProfile_Organization_FK` FOREIGN KEY (`OrganizationID`) REFERENCES `gr_organization` (`OrganizationID`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `UserProfile_Role_FK` FOREIGN KEY (`RoleID`) REFERENCES `gr_role` (`RoleID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;

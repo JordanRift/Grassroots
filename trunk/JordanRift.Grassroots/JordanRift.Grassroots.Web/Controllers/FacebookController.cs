@@ -147,7 +147,6 @@ namespace JordanRift.Grassroots.Web.Controllers
                     if (userProfile != null && string.IsNullOrEmpty(userProfile.FacebookID))
                     {
                         userProfile.FacebookID = me.id;
-                        userProfile.ImagePath = GetFacebookImagePath(me, userProfile.ImagePath);
                         userProfileRepository.Save();
                         success = true;
 
@@ -287,8 +286,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                                     FacebookID = me.id,
                                     Gender = me.gender,
                                     Email = me.email,
-                                    Birthdate = DateTime.Parse(me.birthday),
-                                    ImagePath = GetFacebookImagePath(me)
+                                    Birthdate = DateTime.Parse(me.birthday)
                                 };
 
 			// If the user's FB location is not set, we can't do anything.
@@ -302,23 +300,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 				viewModel.State = pair.Value;
 			}
             return viewModel;
-        }
-
-        private static string GetFacebookImagePath(dynamic me, string existingImagePath = "content/images/avatar.jpg")
-        {
-            var path = existingImagePath;
-
-            if (me.link != null)
-            {
-                var link = me.link.ToString();
-                var linkPart = link.IndexOf("?id=") > -1 // If no friendly url available for user...
-                    ? link.Substring(link.LastIndexOf('=') + 1) // use query string 
-                    : link.Substring(link.LastIndexOf('/') + 1);
-                
-                path = string.Format("https://graph.facebook.com/{0}/picture?type=square", linkPart);
-            }
-
-            return path;
         }
     }
 }

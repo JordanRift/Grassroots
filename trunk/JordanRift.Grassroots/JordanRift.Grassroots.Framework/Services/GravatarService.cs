@@ -21,7 +21,6 @@ namespace JordanRift.Grassroots.Framework.Services
     public class GravatarService : IGravatarService
     {
         private const string URL_FORMAT_STRING = "http://www.gravatar.com/avatar/{0}?d={1}&s={2}&r={3}";
-        private const int AVATAR_SIZE = 48;
         private enum IconSet { identicon, monsterid, wavatar }
         private enum Rating { g, pg, r, x }
         
@@ -40,10 +39,10 @@ namespace JordanRift.Grassroots.Framework.Services
             return result;
         }
 
-        public string GetGravatarPictureUrl(string email)
+        public string GetGravatarPictureUrl(string email, int size)
         {
             var hash = HashEmail(email);
-            return string.Format(URL_FORMAT_STRING, hash, IconSet.identicon, AVATAR_SIZE, Rating.g);
+            return string.Format(URL_FORMAT_STRING, hash, IconSet.identicon, size, Rating.g);
         }
     }
 }

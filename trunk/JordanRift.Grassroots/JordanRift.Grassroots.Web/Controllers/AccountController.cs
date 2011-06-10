@@ -23,7 +23,6 @@ using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
-using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
 using Mvc.Mailer;
@@ -131,8 +130,6 @@ namespace JordanRift.Grassroots.Web.Controllers
                         organization.UserProfiles = new List<UserProfile>();
                     }
 
-                    var gravatarService = new GravatarService();
-                    userProfile.ImagePath = gravatarService.GetGravatarPictureUrl(userProfile.Email);
                     userProfile.Active = true;
                     organization.UserProfiles.Add(userProfile);
                     OrganizationRepository.Save();
