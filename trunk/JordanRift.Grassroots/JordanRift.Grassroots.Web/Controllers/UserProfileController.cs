@@ -32,10 +32,10 @@ namespace JordanRift.Grassroots.Web.Controllers
 		private readonly ICauseRepository causeRepository;
 		private readonly IUserProfileMailer mailer;
 
-		public UserProfileController( IUserProfileRepository userProfileRepository, ICauseRepository causeRepository, IUserProfileMailer mailer )
+        public UserProfileController(IUserProfileRepository userProfileRepository, ICauseRepository causeRepository, IUserProfileMailer mailer)
 		{
 			this.userProfileRepository = userProfileRepository;
-			this.causeRepository = causeRepository;
+            this.causeRepository = causeRepository;
 			this.mailer = mailer;
 			Mapper.CreateMap<UserProfile, UserProfileDetailsModel>();
 			Mapper.CreateMap<Campaign, CampaignDetailsModel>();
@@ -224,11 +224,9 @@ namespace JordanRift.Grassroots.Web.Controllers
             viewModel.Campaigns = userProfile.Campaigns
                      .Select(Mapper.Map<Campaign, CampaignDetailsModel>)
                      .OrderByDescending(c => c.EndDate).ToList();
-            viewModel.TotalRaised = userProfile.CalculateTotalDonations();
-            viewModel.TotalHoursServed = userProfile.CalculateTotalHoursServed();
-            viewModel.TotalDonationsMade = userProfile.CalculateTotalNumberOfDonationsMade();
-            viewModel.TotalDonationsGiven = userProfile.CalculateTotalDonationsGiven();
-            viewModel.TotalNumberCampaignsDonatedTo = userProfile.CalculateTotalNumberOfCampaignsDonatedTo();
+            viewModel.DollarsRaised = userProfile.CalculateTotalDonations();
+            viewModel.DollarsGiven = userProfile.CalculateTotalDonationsGiven();
+            //viewModel.ProjectsCompletedLabel = EntityHelpers.GetCausesLabelText(causes)
             viewModel.LastVisit = userProfile.Users.Any() ? userProfile.Users.First().LastLoggedIn : DateTime.Now;
             viewModel.Role = userProfile.Role != null ? userProfile.Role.Description : "Registered User";
             viewModel.CurrentUserIsOwner = ((User != null) && (userProfile.Email.ToLower() == User.Identity.Name.ToLower()));
