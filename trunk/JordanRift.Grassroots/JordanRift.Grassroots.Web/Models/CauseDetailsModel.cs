@@ -31,5 +31,9 @@ namespace JordanRift.Grassroots.Web.Models
 
 		[Required]
 		public string Name { get; set; }
+
+		public JordanRift.Grassroots.Framework.Entities.Models.Region Region { get; set; }
+
+		public DateTime DateCompleted { get; set; }
 	}
 }
