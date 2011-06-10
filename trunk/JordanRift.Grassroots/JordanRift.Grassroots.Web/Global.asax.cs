@@ -131,6 +131,12 @@ namespace JordanRift.Grassroots
                 "Projects",
                 new { controller = "Home", action = "Projects" }
             );
+
+            routes.MapRoute(
+                "Terms",
+                "Terms",
+                new { controller = "Home", action = "Terms" }
+            );
         }
     }
 }

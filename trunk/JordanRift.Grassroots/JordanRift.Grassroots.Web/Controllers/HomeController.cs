@@ -58,6 +58,11 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(model);
         }
 
+        public ActionResult Terms()
+        {
+            return View();
+        }
+
         [ChildActionOnly]
         [OutputCache(Duration = 60, VaryByParam = "none")]
         public ActionResult ProgressBar()
