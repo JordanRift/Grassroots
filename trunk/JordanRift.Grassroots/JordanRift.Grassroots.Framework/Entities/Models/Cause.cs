@@ -12,6 +12,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.ModelConfiguration;
@@ -29,6 +30,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 		public virtual Organization Organization { get; set; }
 		public int CauseTemplateID { get; set; }
 		public virtual CauseTemplate CauseTemplate { get; set; }
+        public int? RegionID { get; set; }
+	    public virtual Region Region { get; set; }
 		public string Name { get; set; }
 		public bool Active { get; set; }
 		public string Summary { get; set; }
@@ -41,6 +44,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public string ReferenceNumber { get; set; }
+        public bool IsCompleted { get; set; }
+        public DateTime? DateCompleted { get; set; }
 
 		public virtual ICollection<Campaign> Campaigns { get; set; }
 		public virtual ICollection<CauseNote> CauseNotes { get; set; }
@@ -67,6 +72,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 		{
 			this.HasRequired(c => c.Organization).WithMany(o => o.Causes).HasForeignKey(c => c.OrganizationID);
 			this.HasRequired(c => c.CauseTemplate).WithMany(t => t.Causes).HasForeignKey(c => c.CauseTemplateID);
+		    this.HasOptional(c => c.Region).WithMany(r => r.Causes).HasForeignKey(c => c.RegionID);
 		}
 	}
 }

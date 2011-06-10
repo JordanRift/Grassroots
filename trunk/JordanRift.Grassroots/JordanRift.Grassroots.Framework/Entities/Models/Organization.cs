@@ -145,6 +145,13 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
             return total;
         }
+
+        public IEnumerable<Cause> GetCompletedCauses()
+        {
+            return from c in Causes
+                   where c.IsCompleted //&& c.Active
+                   select c;
+        }
     }
 
     public class OrganizationConfiguration : EntityTypeConfiguration<Organization>

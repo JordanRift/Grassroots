@@ -17,6 +17,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Entities.Models;
+using JordanRift.Grassroots.Framework.Helpers;
 using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Web.Models;
 
@@ -80,9 +81,11 @@ namespace JordanRift.Grassroots.Web.Controllers
         public ActionResult Stats()
         {
             var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var causes = organization.GetCompletedCauses();
             var model = new OrganizationStatsModel()
                             {
-                                ProjectsCompleted = organization.Causes != null ? organization.Causes.Count : 0,
+                                ProjectsCompleted = causes != null ? causes.Count() : 0,
+                                ProjectsCompletedLabel = ModelHelpers.GetCausesLabelText(causes),
                                 DollarsRaised = organization.CalculateTotalDonations(),
                                 Donations = organization.GetDonationCount(),
                                 HoursServed = organization.Causes != null ? organization.Causes.Sum(c => c.HoursVolunteered.GetValueOrDefault()) : 0,

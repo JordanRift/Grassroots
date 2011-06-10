@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.ModelConfiguration;
 
@@ -23,17 +24,16 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
     {
         [Key]
         public int RegionID { get; set; }
-        public int CauseTemplateID { get; set; }
-        public virtual CauseTemplate CauseTemplate { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
+        public virtual ICollection<Cause> Causes { get; set; }
     }
 
     public class RegionConfiguration : EntityTypeConfiguration<Region>
     {
         public RegionConfiguration()
         {
-            this.HasRequired(r => r.CauseTemplate).WithMany(c => c.Regions).HasForeignKey(r => r.CauseTemplateID);
         }
     }
 }

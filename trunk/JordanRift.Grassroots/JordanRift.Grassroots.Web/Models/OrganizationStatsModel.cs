@@ -18,6 +18,7 @@ namespace JordanRift.Grassroots.Web.Models
     public class OrganizationStatsModel
     {
         public int ProjectsCompleted { get; set; }
+        public string ProjectsCompletedLabel { get; set; }
         public decimal DollarsRaised { get; set; }
         public int Donations { get; set; }
         public int HoursServed { get; set; }

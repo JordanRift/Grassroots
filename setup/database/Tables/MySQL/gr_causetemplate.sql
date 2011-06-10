@@ -17,6 +17,7 @@ CREATE TABLE `gr_causetemplate` (
   `AfterImagePath` varchar(100) DEFAULT NULL,
   `InstructionsOpenHtml` varchar(8000) NOT NULL DEFAULT '''''',
   `InstructionsClosedHtml` varchar(20) NOT NULL DEFAULT '''''',
+  `StatisticsHtml` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`CauseTemplateID`),
   KEY `CauseTemplate_Organization_FK` (`OrganizationID`),
   CONSTRAINT `CauseTemplate_Organization_FK` FOREIGN KEY (`OrganizationID`) REFERENCES `gr_organization` (`OrganizationID`) ON DELETE CASCADE ON UPDATE NO ACTION

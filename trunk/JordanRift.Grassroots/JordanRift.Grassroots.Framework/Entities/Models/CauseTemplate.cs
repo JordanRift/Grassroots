@@ -47,7 +47,6 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
         public virtual ICollection<Campaign> Campaigns { get; set; }
         public virtual ICollection<Cause> Causes { get; set; }
-        public virtual ICollection<Region> Regions { get; set; }
 
         /// <summary>
         /// Used to create a new instance of a Cause object based on the CauseTemplate.
@@ -62,7 +61,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
                                 DescriptionHtml = this.DescriptionHtml,
                                 ImagePath = this.ImagePath,
                                 VideoEmbedHtml = this.VideoEmbedHtml,
-                                Active = true
+                                Active = true,
+                                IsCompleted = false,
                             };
 
             return cause;
