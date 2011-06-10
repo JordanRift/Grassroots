@@ -221,12 +221,14 @@ namespace JordanRift.Grassroots.Web.Controllers
         private UserProfileDetailsModel MapUserProfileDetails(UserProfile userProfile)
         {
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
+            var causes = causeRepository.FindCausesByUserProfileID(userProfile.UserProfileID);
             viewModel.Campaigns = userProfile.Campaigns
                      .Select(Mapper.Map<Campaign, CampaignDetailsModel>)
                      .OrderByDescending(c => c.EndDate).ToList();
             viewModel.DollarsRaised = userProfile.CalculateTotalDonations();
             viewModel.DollarsGiven = userProfile.CalculateTotalDonationsGiven();
-            //viewModel.ProjectsCompletedLabel = EntityHelpers.GetCausesLabelText(causes)
+            viewModel.ProjectsCompleted = causes.Count();
+            viewModel.ProjectsCompletedLabel = EntityHelpers.GetCausesLabelText(causes);
             viewModel.LastVisit = userProfile.Users.Any() ? userProfile.Users.First().LastLoggedIn : DateTime.Now;
             viewModel.Role = userProfile.Role != null ? userProfile.Role.Description : "Registered User";
             viewModel.CurrentUserIsOwner = ((User != null) && (userProfile.Email.ToLower() == User.Identity.Name.ToLower()));
