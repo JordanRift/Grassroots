@@ -271,38 +271,6 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.AreEqual(campaign.Description, viewModel.Description);
         }
 
-        [Test]
-        public void Map_Should_Update_Campaign_UrlSlug()
-        {
-            var campaign = EntityHelpers.GetValidCampaign();
-            var viewModel = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
-            viewModel.UrlSlug = "newslug";
-            var causeTemplate = EntityHelpers.GetValidCauseTemplate();
-            campaign.CauseTemplate = causeTemplate;
-            var userProfile = EntityHelpers.GetValidUserProfile();
-            userProfile.Email = "goodEmail";
-            campaign.UserProfile = userProfile;
-            campaignRepository.Add(campaign);
-            controller.Update(viewModel, campaign.CampaignID);
-            Assert.AreEqual(campaign.UrlSlug, viewModel.UrlSlug);
-        }
-
-        //[Test]
-        //public void Map_Should_Update_Campaign_ImagePath()
-        //{
-        //    var campaign = EntityHelpers.GetValidCampaign();
-        //    var viewModel = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
-        //    viewModel.ImagePath = "/new/image/path.jpg";
-        //    var causeTemplate = EntityHelpers.GetValidCauseTemplate();
-        //    campaign.CauseTemplate = causeTemplate;
-        //    var userProfile = EntityHelpers.GetValidUserProfile();
-        //    userProfile.Email = "goodEmail";
-        //    campaign.UserProfile = userProfile;
-        //    campaignRepository.Add(campaign);
-        //    controller.Update(viewModel, campaign.CampaignID);
-        //    Assert.AreEqual(campaign.ImagePath, viewModel.ImagePath);
-        //}
-
         private CampaignController GetCampaignController()
         {
             var organizationRepository = new FakeOrganizationRepository();

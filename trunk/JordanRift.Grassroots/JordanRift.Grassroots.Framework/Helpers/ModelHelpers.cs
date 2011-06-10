@@ -19,7 +19,7 @@ using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Helpers
 {
-    public static class EntityHelpers
+    public static class ModelHelpers
     {
         /// <summary>
         /// Returns a string describing the nature of the collectin of causes passed in.

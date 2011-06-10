@@ -109,7 +109,7 @@
     <Compile Include="Entities\Validation\ICauseNoteValidation.cs" />
     <Compile Include="Entities\Validation\NotEqualToAttribute.cs" />
     <Compile Include="Helpers\CacheFactory.cs" />
-    <Compile Include="Helpers\EntityHelpers.cs" />
+    <Compile Include="Helpers\ModelHelpers.cs" />
     <Compile Include="Helpers\ICache.cs" />
     <Compile Include="Helpers\RepositoryFactory.cs" />
     <Compile Include="Helpers\InMemoryCache.cs" />
