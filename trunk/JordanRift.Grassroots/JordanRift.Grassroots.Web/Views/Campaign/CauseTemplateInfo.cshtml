@@ -34,6 +34,8 @@
             <h4>100% to our projects</h4>
             @Html.ActionLink("How it works", "Details", new { controller = "CauseTemplate", area = "", id = Model.CauseTemplateID }, new { title = "How it works" })
         </div>
-        <div class="infographics"></div>
+        <div class="infographics">
+            @Html.Raw(Model.CauseTemplateStatisticsHtml)
+        </div>
         <div class="break"></div>
     </section>

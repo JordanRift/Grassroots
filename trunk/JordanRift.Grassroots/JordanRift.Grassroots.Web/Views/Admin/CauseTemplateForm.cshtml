@@ -99,7 +99,11 @@
                     @Html.TextAreaFor( m => m.InstructionsClosedHtml )
 					@Html.ValidationMessageFor( m => m.InstructionsClosedHtml, null, new { @class = "ui-state-error ui-corner-all" } )
 				</dd>
-
+                <dt>@Html.LabelFor(m => m.StatisticsHtml)</dt>
+				<dd>
+                    @Html.TextAreaFor( m => m.StatisticsHtml )
+					@Html.ValidationMessageFor( m => m.StatisticsHtml, null, new { @class = "ui-state-error ui-corner-all" } )
+				</dd>
 			</dl>
 		</fieldset>
 		<div>

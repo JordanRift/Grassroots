@@ -86,12 +86,12 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 		/// Calculates the total hours served by the user.
 		/// </summary>
 		/// <returns>Total hours served</returns>
-		public decimal CalculateTotalHoursServed()
-		{
-			// TODO:
-			var total = 0m;
-			return total;
-		}
+        //public decimal CalculateTotalHoursServed()
+        //{
+        //    // TODO: Add calculation for hours served once serving is supported in teh data model
+        //    var total = 0m;
+        //    return total;
+        //}
 
 		/// <summary>
 		/// Calculates the total donations given by the user.
@@ -111,41 +111,6 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 			return total;
 		}
 
-		/// <summary>
-		/// Calculates the total number of donations made by the user.
-		/// </summary>
-		/// <returns>Total number of donations made</returns>
-		public int CalculateTotalNumberOfDonationsMade()
-		{
-			var total = 0;
-
-			if ( CampaignDonors != null )
-			{
-				total = ( from c in CampaignDonors
-						  where c.Approved
-						  select c ).Count();
-			}
-
-			return total;
-		}
-
-		/// <summary>
-		/// Calculates the total number of campaigns that the user made donations to.
-		/// </summary>
-		/// <returns>Total number of campaigns donated to</returns>
-		public int CalculateTotalNumberOfCampaignsDonatedTo()
-		{
-			var total = 0;
-
-			if ( CampaignDonors != null )
-			{
-				total = ( from c in CampaignDonors
-						  where c.Approved
-						  select c.CampaignID ).Distinct().Count();
-			}
-
-			return total;
-		}
         /// <summary>
         /// Calculates the total raised by all of the User's campaigns.
         /// </summary>
