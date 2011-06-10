@@ -83,20 +83,32 @@ namespace JordanRift.Grassroots.Web.Models
         [Editable(false)]
         public bool Active { get; set; }
 
-		[Editable( false )]
-		public decimal TotalRaised { get; set; }
+        [Editable(false)]
+        public int ProjectsCompleted { get; set; }
 
-		[Editable( false )]
-		public decimal TotalHoursServed { get; set; }
+        [Editable(false)]
+        public string ProjectsCompletedLabel { get; set; }
 
-		[Editable( false )]
-		public int TotalDonationsMade { get; set; }
+        [Editable(false)]
+        public decimal DollarsRaised { get; set; }
 
-		[Editable( false )]
-		public decimal TotalDonationsGiven { get; set; }
+        [Editable(false)]
+        public decimal DollarsGiven { get; set; }
 
-		[Editable( false )]
-		public int TotalNumberCampaignsDonatedTo { get; set; }
+        //[Editable( false )]
+        //public decimal TotalRaised { get; set; }
+
+        //[Editable( false )]
+        //public decimal TotalHoursServed { get; set; }
+
+        //[Editable( false )]
+        //public int TotalDonationsMade { get; set; }
+
+        //[Editable( false )]
+        //public decimal TotalDonationsGiven { get; set; }
+
+        //[Editable( false )]
+        //public int TotalNumberCampaignsDonatedTo { get; set; }
 
         [Editable(false)]
         public DateTime LastVisit { get; set; }

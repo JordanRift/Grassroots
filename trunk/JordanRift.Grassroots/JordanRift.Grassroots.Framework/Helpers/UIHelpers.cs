@@ -238,36 +238,6 @@ namespace JordanRift.Grassroots.Framework.Helpers
 			return myList;
 		}
 
-        /// <summary>
-        /// Returns a string describing the nature of the collectin of causes passed in.
-        /// </summary>
-        /// <param name="causes">Collection of causes</param>
-        /// <returns>string describing the type of causes</returns>
-        public static string GetCausesLabelText(IEnumerable<Cause> causes)
-        {
-            string labelText = "Projects Completed";
-
-            if (causes == null)
-            {
-                return null;
-            }
-
-            var causeTemplatesCount = (from c in causes
-                                       select c.CauseTemplateID).Distinct().Count();
-
-            if (causes.Any() && causeTemplatesCount == 1)
-            {
-                var causeTemplate = causes.First().CauseTemplate;
-
-                if (causeTemplate != null)
-                {
-                    labelText = string.Format("{0} {1}", causeTemplate.GoalName, causeTemplate.ActionVerb);
-                }
-            }
-
-            return labelText;
-        }
-
 		#endregion
 	}
 }
