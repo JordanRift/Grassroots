@@ -94,5 +94,9 @@ namespace JordanRift.Grassroots.Web.Models
         
         [Display(Name = "After Image Path")]
         public string AfterImagePath { get; set; }
+
+        [Display(Name = "Stats/Infographics (HTML)")]
+        [AllowHtml]
+        public string StatisticsHtml { get; set; }
 	}
 }
