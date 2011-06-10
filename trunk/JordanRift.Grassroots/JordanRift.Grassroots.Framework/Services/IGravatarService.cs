@@ -18,6 +18,6 @@ namespace JordanRift.Grassroots.Framework.Services
     public interface IGravatarService
     {
         string HashEmail(string email);
-        string GetGravatarPictureUrl(string email);
+        string GetGravatarPictureUrl(string email, int size);
     }
 }

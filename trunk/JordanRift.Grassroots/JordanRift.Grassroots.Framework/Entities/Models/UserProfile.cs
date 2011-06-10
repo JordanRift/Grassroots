@@ -48,7 +48,6 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public bool Consent { get; set; }
         public bool Active { get; set; }
         public bool IsActivated { get; set; }
-        public string ImagePath { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<CampaignDonor> CampaignDonors { get; set; }
@@ -72,6 +71,37 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
         [NotMapped]
         public UserProfileService UserProfileService { get; set; }
+
+	    [NotMapped]
+	    public string ImagePath
+	    {
+	        get { return GetProfileImagePath(); }
+	    }
+
+
+        public string GetProfileImagePath(ProfileImageSize size = ProfileImageSize.Thumbnail)
+        {
+            if (string.IsNullOrEmpty(FacebookID))
+            {
+                var facebookUrl = string.Format("https://graph.facebook.com/{0}/picture", FacebookID);
+
+                switch (size)
+                {
+                    case ProfileImageSize.Full:
+                        facebookUrl += "?type=normal";
+                        break;
+                    case ProfileImageSize.Thumbnail:
+                    default:
+                        facebookUrl += "?type=square";
+                        break;
+                }
+
+                return facebookUrl;
+            }
+
+            var service = new GravatarService();
+            return service.GetGravatarPictureUrl(Email, (int) size);
+        }
 
         /// <summary>
         /// Attempts to get the UserProfile's Campaigns that are currently active.

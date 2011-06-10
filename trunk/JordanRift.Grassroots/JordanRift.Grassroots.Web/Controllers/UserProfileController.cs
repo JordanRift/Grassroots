@@ -18,6 +18,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
 using JordanRift.Grassroots.Web.Mailers;
@@ -203,6 +204,34 @@ namespace JordanRift.Grassroots.Web.Controllers
 			return HttpNotFound( "The person you are looking for could not be found." );
 		}
 
+        public ActionResult Raised(int id = -1)
+        {
+            var userProfile = id != -1
+                ? userProfileRepository.GetUserProfileByID(id)
+                : userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+
+            if (userProfile != null)
+            {
+                return View();
+            }
+
+            return HttpNotFound("The person you are looking for could not be found.");
+        }
+
+        public ActionResult Given(int id = -1)
+        {
+            var userProfile = id != -1
+                ? userProfileRepository.GetUserProfileByID(id)
+                : userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+
+            if (userProfile != null)
+            {
+                return View();
+            }
+
+            return HttpNotFound("The person you are looking for could not be found.");
+        }
+
 		#region Mapping Stuff
 
 		private static void Map(UserProfile userProfile, UserProfileDetailsModel viewModel)
@@ -226,6 +255,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             viewModel.Campaigns = userProfile.Campaigns
                      .Select(Mapper.Map<Campaign, CampaignDetailsModel>)
                      .OrderByDescending(c => c.EndDate).ToList();
+            viewModel.ImagePath = userProfile.GetProfileImagePath(ProfileImageSize.Full);
             viewModel.DollarsRaised = userProfile.CalculateTotalDonations();
             viewModel.DollarsGiven = userProfile.CalculateTotalDonationsGiven();
             viewModel.ProjectsCompleted = causes.Count();

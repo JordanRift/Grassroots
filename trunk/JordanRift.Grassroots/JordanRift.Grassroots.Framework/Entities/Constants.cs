@@ -61,6 +61,12 @@ namespace JordanRift.Grassroots.Framework.Entities
         Other = 4
     }
 
+    public enum ProfileImageSize 
+    { 
+        Thumbnail = 48, 
+        Full = 100
+    }
+
     public static class EntityConstants
     {
         public const string DEFAULT_CAMPAIGN_IMAGE_PATH = "http://lorempixum.com/450/278/people/";
