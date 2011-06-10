@@ -29,8 +29,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 	public class UserProfileController : GrassrootsControllerBase
 	{
 		private readonly IUserProfileRepository userProfileRepository;
+		private readonly ICauseRepository causeRepository;
 		private readonly IUserProfileMailer mailer;
-	    private readonly ICauseRepository causeRepository;
 
         public UserProfileController(IUserProfileRepository userProfileRepository, ICauseRepository causeRepository, IUserProfileMailer mailer)
 		{
@@ -181,6 +181,29 @@ namespace JordanRift.Grassroots.Web.Controllers
 			return RedirectToAction("Index");
 		}
 
+		/// <summary>
+		/// Action to list the users causes.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public ActionResult Causes( int id = -1 )
+		{
+			var userProfile = id != -1 
+                ? userProfileRepository.GetUserProfileByID( id ) 
+                : userProfileRepository.FindUserProfileByEmail( User.Identity.Name ).FirstOrDefault();
+
+			if ( userProfile != null )
+			{
+				var causes = causeRepository.FindCausesByUserProfileID( userProfile.UserProfileID );
+				var viewModel = MapUserProfileDetails( userProfile );
+				return View( viewModel );
+			}
+
+			return HttpNotFound( "The person you are looking for could not be found." );
+		}
+
+		#region Mapping Stuff
+
 		private static void Map(UserProfile userProfile, UserProfileDetailsModel viewModel)
 		{
 			userProfile.FirstName = viewModel.FirstName;
@@ -208,6 +231,8 @@ namespace JordanRift.Grassroots.Web.Controllers
             viewModel.Role = userProfile.Role != null ? userProfile.Role.Description : "Registered User";
             viewModel.CurrentUserIsOwner = ((User != null) && (userProfile.Email.ToLower() == User.Identity.Name.ToLower()));
             return viewModel;
-        }
+		}
+
+		#endregion
 	}
 }

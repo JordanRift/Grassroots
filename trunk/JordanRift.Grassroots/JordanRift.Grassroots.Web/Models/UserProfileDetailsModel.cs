@@ -115,6 +115,8 @@ namespace JordanRift.Grassroots.Web.Models
 
 		public List<CampaignDetailsModel> Campaigns { get; set; }
 
+		public List<CauseDetailsModel> Causes { get; set; }
+
         [Editable(false)]
         public string Role { get; set; }
 

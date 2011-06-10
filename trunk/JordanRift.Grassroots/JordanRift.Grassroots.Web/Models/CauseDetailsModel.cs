@@ -13,21 +13,23 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using JordanRift.Grassroots.Framework.Entities.Models;
-using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using JordanRift.Grassroots.Framework.Entities.Validation;
 
-namespace JordanRift.Grassroots.Framework.Data
+namespace JordanRift.Grassroots.Web.Models
 {
-	public interface ICauseRepository
+	public class CauseDetailsModel
 	{
-		IQueryable<Cause> FindAllCauses();
-		IQueryable<Cause> FindActiveCauses();
-		IQueryable<Cause> FindCausesByCauseTemplateID(int causeTemplateID);
-		IQueryable<Cause> FindCausesByUserProfileID(int userProfileID);
-		Cause GetCauseByID( int id );
-		void Add(Cause cause);
-		void AddNote( CauseNote note );
-		void Delete(Cause cause);
-		void Save();
+		[Editable( false )]
+		public int CauseID { get; set; }
+
+		[Editable( false )]
+		public int CauseTemplateID { get; set; }
+
+		[Required]
+		public string Name { get; set; }
 	}
 }
