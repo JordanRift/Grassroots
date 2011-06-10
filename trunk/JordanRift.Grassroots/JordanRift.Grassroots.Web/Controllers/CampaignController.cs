@@ -307,6 +307,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 			model.IsActive = campaign.IsActive;
             model.CauseTemplateName = causeTemplate.Name;
             model.CauseTempalteImagePath = causeTemplate.ImagePath;
+            model.CauseTemplateBeforeImagePath = causeTemplate.BeforeImagePath;
+            model.CauseTemplateAfterImagePath = causeTemplate.AfterImagePath;
             model.VideoEmbedHtml = causeTemplate.VideoEmbedHtml;
 			model.InstructionsOpenHtml = causeTemplate.InstructionsOpenHtml;
 			model.InstructionsClosedHtml = causeTemplate.InstructionsClosedHtml;

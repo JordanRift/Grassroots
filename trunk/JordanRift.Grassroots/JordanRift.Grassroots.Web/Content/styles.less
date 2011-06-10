@@ -154,7 +154,8 @@ p {
 		
 		#main .share-campaign,
 		#main .summary,
-		#main .donations {
+		#main .donations,
+		#main .cause-template-info {
 			padding: 30px;
 		}
 
@@ -343,6 +344,43 @@ p {
 
 			#main table .wide {
 				width: 400px;
+			}
+
+	#main .cause-template-info {
+		position: relative;
+	}
+
+		.cause-template-info > .close {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+		}
+
+		.cause-template-info > .overview,
+		.cause-template-info > .infographics {
+			float: left;
+			text-align: center;
+		}
+
+			.overview ul {
+				display: block;
+				width: 321px;
+				height: 100px;
+			}
+
+				.overview > ul > li {
+					display: block;
+					float: left;
+					width: 160px;
+				}
+
+					.overview li > label {
+						display: block;
+						text-align: center;
+					}
+
+			.overview > h4 {
+				padding-top: 10px;
 			}
 
 	#main .user-info {

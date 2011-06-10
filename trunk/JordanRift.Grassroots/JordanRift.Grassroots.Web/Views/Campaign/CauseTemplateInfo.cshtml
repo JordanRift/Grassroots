@@ -1,0 +1,39 @@
+﻿@model JordanRift.Grassroots.Web.Models.CampaignDetailsModel
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+
+    Layout = null;
+}
+
+    <section class="cause-template-info">
+        <a href="#" class="close" title="close">Close</a>
+        <div class="overview">
+            <ul>
+                <li>
+                    <label>Before</label>
+                    <img src="@Model.CauseTemplateBeforeImagePath" alt="Before" />
+                </li>
+                <li>
+                    <label>After</label>
+                    <img src="@Model.CauseTemplateAfterImagePath" alt="After" />
+                </li>
+            </ul>
+            <h4>100% to our projects</h4>
+            @Html.ActionLink("How it works", "Details", new { controller = "CauseTemplate", area = "", id = Model.CauseTemplateID }, new { title = "How it works" })
+        </div>
+        <div class="infographics"></div>
+        <div class="break"></div>
+    </section>

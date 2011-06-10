@@ -86,6 +86,13 @@ namespace JordanRift.Grassroots.Web.Models
 		public string InstructionsClosedHtml { get; set; }
 
 		[Required]
+        [Display(Name = "Image Path")]
 		public string ImagePath { get; set; }
+
+        [Display(Name = "Before Image Path")]
+        public string BeforeImagePath { get; set; }
+        
+        [Display(Name = "After Image Path")]
+        public string AfterImagePath { get; set; }
 	}
 }

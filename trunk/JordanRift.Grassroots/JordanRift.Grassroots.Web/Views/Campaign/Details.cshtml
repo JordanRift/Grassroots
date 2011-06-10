@@ -57,7 +57,8 @@
  		@Html.Partial( "DetailsClosed", Model )
 	}
  
-	@Html.Partial( "DonationGrid", Model.Donations )
+    @Html.Partial("CauseTemplateInfo", Model)
+	@Html.Partial("DonationGrid", Model.Donations)
 
     @section DocumentBottom {
         @if ( Model.CurrentUserIsOwner ) { 
