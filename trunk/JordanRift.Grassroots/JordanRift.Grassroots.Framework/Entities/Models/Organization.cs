@@ -107,7 +107,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         /// Calculates the total raised across all campaigns of the organization during the current fiscal year.
         /// </summary>
         /// <returns>Total raised during current fiscal year</returns>
-        public decimal CalculateTotalDonations()
+        public decimal CalculateTotalDonationsYTD()
         {
             var total = 0m;
 
@@ -124,6 +124,49 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
             return total;
         }
+
+		/// <summary>
+		/// Calculates the total raised across all campaigns of the organization.
+		/// </summary>
+		/// <returns>Total raised</returns>
+		public decimal CalculateTotalDonations()
+		{
+			var total = 0m;
+
+			try
+			{
+				if ( Campaigns != null )
+				{
+					total = Campaigns.Sum( campaign => ( from c in campaign.CampaignDonors
+														 where c.Approved
+														 select c.Amount ).Sum() );
+				}
+			}
+			catch ( ObjectDisposedException ) { }
+
+			return total;
+		}
+
+		/// <summary>
+		/// Calculates the total of all goals of the organization.
+		/// </summary>
+		/// <returns>goal total</returns>
+		public decimal CalculateGoalTotal()
+		{
+			var total = 0m;
+
+			try
+			{
+				if ( Campaigns != null )
+				{
+					total = ( from c in Campaigns
+							  select c.GoalAmount ).Sum();
+				}
+			}
+			catch ( ObjectDisposedException ) { }
+
+			return total;
+		}
 
         public int GetDonationCount()
         {

@@ -59,18 +59,32 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 150, VaryByParam = "none")]
+        [OutputCache(Duration = 60, VaryByParam = "none")]
         public ActionResult ProgressBar()
         {
             var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            var total = organization.CalculateTotalDonations();
-            var percent = (int) ((total / organization.YtdGoal) * 100);
+			decimal total;
+			decimal totalGoal;
+			string goalName = "Total";
+			if ( organization.YtdGoal > 0 )
+			{
+				total = organization.CalculateTotalDonationsYTD();
+				totalGoal = organization.YtdGoal;
+				goalName = "Total YTD";
+			}
+			else
+			{
+	            total = organization.CalculateTotalDonations();
+				totalGoal = organization.CalculateGoalTotal();
+			}
+
+			var percent = ( total > totalGoal ) ? 100 : (int)( ( total / totalGoal ) * 100 );
             var model = new ProgressBarModel
                             {
                                 Amount = total,
-                                GoalAmount = organization.YtdGoal,
+								GoalAmount = totalGoal,
                                 Percent = percent,
-                                GoalName = "YTD Total"
+								GoalName = goalName
                             };
 
             return View("ProgressBar", model);
