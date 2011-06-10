@@ -496,6 +496,7 @@
     <Content Include="Views\CauseTemplate\Index.cshtml" />
     <Content Include="Views\CauseTemplate\Details.cshtml" />
     <Content Include="Views\Campaign\CauseTemplateInfo.cshtml" />
+    <Content Include="Views\UserProfile\Projects.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
