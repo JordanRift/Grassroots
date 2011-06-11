@@ -101,13 +101,21 @@ var Grassroots = (function() {
                                 data: jsonData,
                             })
                             .success(function(result) {
-                                // TODO: Give user success feedback. Close dialog.
-                                alert("success");
+                                $(".notification").empty();
+                                $("<p>Email sent successfully!</p>").appendTo(".notification");
+                                $(".notification").fadeIn("normal", "swing", function() {
+                                    setTimeout('$(".notification").fadeOut();', 3000);
+                                });
                             })
                             .error(function (xhr, status, error) {
-                                // TODO:Give user error feedback. Prompt to try again.
-                                alert(status);
+                                $(".notification").empty();
+                                $("<p>There was a problem sending your email. Please try again.</p>").appendTo(".notification");
+                                $(".notification").fadeIn("normal", "swing", function() {
+                                    setTimeout('$(".notification").fadeOut();', 3000);
+                                });
                             });
+
+                            $(this).dialog("close");
                         }
 
                         return false;

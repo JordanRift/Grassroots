@@ -15,6 +15,10 @@
     // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
     //
 }
+
+<div class="notification">
+</div>
+
 <script type="text/javascript">
     $(function () {
         Grassroots.initEmailForm();
@@ -23,7 +27,7 @@
 
 <div id="campaign-email-form" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable">
     @using (Html.BeginForm("SendEmail", "Campaign"))
-    {
+    {   
         <fieldset>
             <legend>Tell your friends about @Model.Title</legend>
             @Html.HiddenFor(m => m.Title)
@@ -35,7 +39,7 @@
                 <dt>@Html.LabelFor(m => m.EmailAddresses)</dt>
                 <dd>
                     @Html.TextBoxFor(m => m.EmailAddresses, new { placeholder = "jon@gmail.com,jane@yaoo.com" })
-                    @Html.ValidationMessageFor(m => m.EmailAddresses, null, new { @class = "ui-widget ui-state-error ui-corner-all"  })
+                    @Html.ValidationMessageFor(m => m.EmailAddresses, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </dd>
                 <dt>@Html.LabelFor(m => m.CustomMessage)</dt>
                 <dd>
