@@ -60,8 +60,12 @@
     @Html.Partial("CauseTemplateInfo", Model)
 	@Html.Partial("DonationGrid", Model.Donations)
 
-    @section DocumentBottom {
-        @if ( Model.CurrentUserIsOwner ) { 
-        @Html.Partial( "EmailForm", emailBlastModel )
-        }
+@section DocumentBottom {
+    @if ( Model.CurrentUserIsOwner ) { 
+    @Html.Partial( "EmailForm", emailBlastModel )
     }
+        
+    @if (Model.IsActive) {
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    }
+}

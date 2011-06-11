@@ -35,7 +35,8 @@
 			}
 			<ul>
 				<li>@Html.Partial("TweetButton")</li>
-                <li><div class="fb">@Html.Partial("FacebookLikeButtonWithPictures")</div></li>
+                <li>@Html.Partial("FacebookLikeButton")</li>
+                <li>@Html.Partial("PlusOneButton")</li>
 			@if (Model.CurrentUserIsOwner) {
 				<li><a href="#" id="email-blast" title="Email your friends"><img src="@Url.Content("~/Content/images/icon_email.gif")" alt="Email your friends" height="30" width="30" /></a></li>
 			}

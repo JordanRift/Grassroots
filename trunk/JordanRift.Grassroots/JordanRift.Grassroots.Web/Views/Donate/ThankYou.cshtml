@@ -30,16 +30,17 @@
     @Html.Partial("DonationReceipt")
     <p>@Html.ActionLink(linkText, "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = linkText })</p>
     
-    <!-- TODO: Consider hiding this if no campaign present... -->
+    @if (!string.IsNullOrEmpty(Model.UrlSlug)) {
     <h3>Share this with your friends!</h3>
     <ul>
-        <li>
-            @Html.Partial("FacebookLikeButtonWithPictures")
-        </li>
-        <li>
-            @Html.Partial("TweetButton")
-        </li>
+        <li>@Html.Partial("TweetButton")</li>
+        <li>@Html.Partial("FacebookLikeButton")</li>
+        <li>@Html.Partial("PlusOneButton")</li>
     </ul>
-
+    }
     <div class="break"></div>
 </section>
+
+@section DocumentBottom {
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+}
