@@ -13,16 +13,24 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Entities.Models;
+using JordanRift.Grassroots.Web.Models;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
     public class CauseTemplateController : Controller
     {
+        private readonly ICauseTemplateRepository causeTemplateRepository;
+
+        public CauseTemplateController(ICauseTemplateRepository causeTemplateRepository)
+        {
+            this.causeTemplateRepository = causeTemplateRepository;
+            Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
+        }
+
         //
         // GET: /CauseTemplate/
 
@@ -32,6 +40,19 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         public ActionResult Details(int id = -1)
+        {
+            var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
+
+            if (causeTemplate == null)
+            {
+                return HttpNotFound("The project type you are looking for could not be found.");
+            }
+
+            var model = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
+            return View(model);
+        }
+
+        public ActionResult Search(int id = -1)
         {
             return View();
         }

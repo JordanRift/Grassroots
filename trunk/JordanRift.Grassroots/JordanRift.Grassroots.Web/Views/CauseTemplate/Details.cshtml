@@ -1,5 +1,70 @@
-﻿@{
-    ViewBag.Title = "Details";
+﻿@model JordanRift.Grassroots.Web.Models.CauseTemplateDetailsModel
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
+    ViewBag.Title = @Model.Name + " Details";
 }
 
-<h2>Details</h2>
+    <hgroup>
+        <h1>@Model.Name</h1>
+        <h3>Project Details</h3>
+    </hgroup>
+
+    <section class="project-summary">
+        <img src="@Model.ImagePath" alt="@Model.Name" />
+        <div>
+            <h3>@Model.Name</h3>
+            <p>@Model.Summary</p>
+        </div>
+    </section>
+    <section class="project-details">
+        <aside>
+            <ul class="links">
+                <li>@Html.ActionLink("Get Started", "GetStarted", new { controller = "Campaign", area = "" }, new { title = "Get Started" })</li>
+                <li>@Html.ActionLink("See Projects", "Search", new { controller = "CauseTemplate", area = "" }, new { title = "See Projects" })</li>
+            </ul>
+            <ul class="social">
+                <li>@Html.Partial("TweetButton")</li>
+                <li>@Html.Partial("FacebookLikeButton")</li>
+                <li>@Html.Partial("PlusOneButton")</li>
+            </ul>
+        </aside>
+        <div>
+            <ul>
+                <li>
+                    <label>Before</label>
+                    <img src="@Model.BeforeImagePath" alt="Before" />
+                </li>
+                <li>
+                    <label>After</label>
+                    <img src="@Model.AfterImagePath" alt="After" />
+                </li>
+            </ul>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.StatisticsHtml)) {
+        <div class="infographics">
+            @Html.Raw(Model.StatisticsHtml)
+        </div>
+        }
+        <div class="break"></div>
+    </section>
+    <section class="project-description">
+        @Html.Raw(Model.DescriptionHtml)
+    </section>
+
+@section DocumentBottom {
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+}

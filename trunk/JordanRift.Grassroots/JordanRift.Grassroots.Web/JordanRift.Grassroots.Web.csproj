@@ -503,6 +503,7 @@
     <Content Include="Views\UserProfile\DonationGrid.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\Shared\PlusOneButton.cshtml" />
+    <Content Include="Views\CauseTemplate\Search.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
