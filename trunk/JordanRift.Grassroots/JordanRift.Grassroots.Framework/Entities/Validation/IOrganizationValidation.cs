@@ -27,17 +27,14 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
             ErrorMessage = "Please enter a valid Contact Phone Number.")]
         string ContactPhone { get; set; }
 
-        [Required]
         [Display(Name = "Year to date goal")]
-        decimal YtdGoal { get; set; }
+        decimal? YtdGoal { get; set; }
 
-        [Required]
         [Range(1, 12)]
-        int FiscalYearStartMonth { get; set; }
+        int? FiscalYearStartMonth { get; set; }
 
-        [Required]
         [Range(1, 31)]
-        int FiscalYearStartDay { get; set; }
+        int? FiscalYearStartDay { get; set; }
 
         [AllowHtml]
         [MaxLength]

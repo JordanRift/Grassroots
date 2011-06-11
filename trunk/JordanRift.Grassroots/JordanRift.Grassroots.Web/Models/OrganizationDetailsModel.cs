@@ -32,15 +32,13 @@ namespace JordanRift.Grassroots.Web.Models
         [Required]
         public string Tagline { get; set; }
 
-        [Required]
         [Display(Name = "Fiscal Year Start Month")]
         [Range(1, 12)]
-        public int FiscalYearStartMonth { get; set; }
+        public int? FiscalYearStartMonth { get; set; }
 
-        [Required]
         [Display(Name = "Fiscal Year Start Day")]
         [Range(1, 31)]
-        public int FiscalYearStartDay { get; set; }
+        public int? FiscalYearStartDay { get; set; }
 
         [AllowHtml]
         [Display(Name = "Summary (HTML)")]
@@ -62,10 +60,9 @@ namespace JordanRift.Grassroots.Web.Models
 			ErrorMessage = "Please enter a valid email address." )]
 		public string ContactEmail { get; set; }
 
-        [Required]
         [DisplayName("Year To Date Goal")]
         [DataType(DataType.Currency)]
-        public decimal YtdGoal { get; set; }
+        public decimal? YtdGoal { get; set; }
 
 		[DisplayName( "Organization's Twitter Username" )]
 		public string TwitterName { get; set; }

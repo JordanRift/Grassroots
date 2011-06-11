@@ -35,9 +35,9 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public string ContactPhone { get; set; }
         public string ContactEmail { get; set; }
         
-        public decimal YtdGoal { get; set; }
-        public int FiscalYearStartMonth { get; set; }
-        public int FiscalYearStartDay { get; set; }
+        public decimal? YtdGoal { get; set; }
+        public int? FiscalYearStartMonth { get; set; }
+        public int? FiscalYearStartDay { get; set; }
 
         public int PaymentGatewayType { get; set; }
         public string PaymentGatewayApiUrl { get; set; }
@@ -79,7 +79,12 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
                     fiscalYear = DateTime.Now.Year - 1;
                 }
 
-                return new DateTime(fiscalYear, FiscalYearStartMonth, FiscalYearStartDay);
+                if (FiscalYearStartMonth.HasValue && FiscalYearStartDay.HasValue)
+                {
+                    return new DateTime(fiscalYear, FiscalYearStartMonth.Value, FiscalYearStartDay.Value);
+                }
+
+                return new DateTime(fiscalYear, 1, 1);
             }
         }
 

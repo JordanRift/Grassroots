@@ -71,10 +71,10 @@ namespace JordanRift.Grassroots.Web.Controllers
 			decimal total;
 			decimal totalGoal;
 			string goalName = "Total";
-			if ( organization.YtdGoal > 0 )
+			if ( organization.YtdGoal.HasValue && organization.YtdGoal > 0 )
 			{
 				total = organization.CalculateTotalDonationsYTD();
-				totalGoal = organization.YtdGoal;
+				totalGoal = organization.YtdGoal.Value;
 				goalName = "Total YTD";
 			}
 			else
