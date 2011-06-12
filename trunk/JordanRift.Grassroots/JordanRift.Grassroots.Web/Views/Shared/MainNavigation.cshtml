@@ -16,7 +16,7 @@
 }
                 <ul id="menu">              
                     <li>@Html.ActionLink("Home", "Index", new { Controller = "Home", Area = "" }, new { title = "Home" })</li>
-                    <li>@Html.ActionLink("Projects", "Projects", new { Controller = "Home", Area = "" }, new { title = "Projects" })</li>
+                    <li>@Html.ActionLink("Projects", "Index", new { Controller = "CauseTemplate", Area = "" }, new { title = "Projects" })</li>
                     <li>@Html.ActionLink("About", "About", new { Controller = "Home", Area = "" }, new { title = "About" })</li>
                     <li class="new-campaign">@Html.ActionLink("Get Started", "GetStarted", new { Controller = "Campaign", Area = "" }, new { title = "Get Started" })</li>
                 </ul>

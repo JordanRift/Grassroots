@@ -50,14 +50,6 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Projects()
-        {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            var templates = organization.CauseTemplates;
-            var model = templates.Where(t => t.Active).Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
-            return View(model);
-        }
-
         public ActionResult Terms()
         {
             return View();

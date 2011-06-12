@@ -36,6 +36,12 @@ namespace JordanRift.Grassroots
             RegisterHomeRoutes(routes);
 
             routes.MapRoute(
+                "Projects",
+                "Projects/{action}/{id}",
+                new { controller = "CauseTemplate", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 "UserProfileIndex", 
                 "UserProfile/{id}", 
                 new { controller = "UserProfile", action = "Index", id = UrlParameter.Optional }
@@ -124,12 +130,6 @@ namespace JordanRift.Grassroots
                 "About",
                 "About",
                 new { controller = "Home", action = "About" }
-            );
-
-            routes.MapRoute(
-                "Projects",
-                "Projects",
-                new { controller = "Home", action = "Projects" }
             );
 
             routes.MapRoute(

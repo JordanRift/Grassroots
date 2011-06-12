@@ -478,7 +478,6 @@
     <Content Include="Views\Shared\FacebookLikeButton.cshtml" />
     <None Include="Content\themes\grassroots-theme\custom.less" />
     <Content Include="Views\Shared\ThemeCss.cshtml" />
-    <Content Include="Views\Home\Projects.cshtml" />
     <Content Include="Views\UserProfileMailer\TaxInfo.cshtml" />
     <Content Include="Views\UserProfileMailer\WelcomeBack.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CauseTemplate.cshtml" />

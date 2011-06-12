@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
@@ -21,24 +22,28 @@ using JordanRift.Grassroots.Web.Models;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
-    public class CauseTemplateController : Controller
+    public class CauseTemplateController : GrassrootsControllerBase
     {
         private readonly ICauseTemplateRepository causeTemplateRepository;
+        private readonly IOrganizationRepository organizationRepository;
 
-        public CauseTemplateController(ICauseTemplateRepository causeTemplateRepository)
+        public CauseTemplateController(IOrganizationRepository organizationRepository, ICauseTemplateRepository causeTemplateRepository)
         {
             this.causeTemplateRepository = causeTemplateRepository;
+            this.organizationRepository = organizationRepository;
             Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
         }
 
-        //
-        // GET: /CauseTemplate/
-
+        [OutputCache(Duration = 150, VaryByParam = "none")]
         public ActionResult Index()
         {
-            return View();
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var templates = organization.CauseTemplates;
+            var model = templates.Where(t => t.Active).Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
+            return View(model);
         }
 
+        [OutputCache(Duration = 150, VaryByParam = "id")]
         public ActionResult Details(int id = -1)
         {
             var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
