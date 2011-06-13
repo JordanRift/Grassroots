@@ -74,6 +74,11 @@ namespace JordanRift.Grassroots.Web.Controllers
                     ViewBag.Campaign = campaign;
                 }
 
+                if (TempData["PaymentGatewayError"] != null)
+                {
+                    ModelState.AddModelError("PaymentGatewayError", TempData["PaymentGatewayError"].ToString());
+                }
+
                 return View(payment);
             }
         }
@@ -121,7 +126,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     }
 
                     Logger.LogError(model, result);
-                    TempData["ErrorMessage"] = result.ReasonText;
+                    TempData["PaymentGatewayError"] = result.ReasonText;
                 }
             }
 
