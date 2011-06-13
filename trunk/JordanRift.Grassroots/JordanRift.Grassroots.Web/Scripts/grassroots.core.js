@@ -47,7 +47,10 @@ var Grassroots = (function() {
         },
         initPayment: function () {
             $(".bank-info").hide();
-            $("#Amount").val('');
+            
+            if ($("#Amount").val() == "0") {
+                $("#Amount").val('');
+            }
 
             $(".payment-type").change(function () {
                 var val = $(this).val();
