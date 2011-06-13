@@ -25,12 +25,10 @@ namespace JordanRift.Grassroots.Web.Controllers
     public class CauseTemplateController : GrassrootsControllerBase
     {
         private readonly ICauseTemplateRepository causeTemplateRepository;
-        private readonly IOrganizationRepository organizationRepository;
 
-        public CauseTemplateController(IOrganizationRepository organizationRepository, ICauseTemplateRepository causeTemplateRepository)
+        public CauseTemplateController(ICauseTemplateRepository causeTemplateRepository)
         {
             this.causeTemplateRepository = causeTemplateRepository;
-            this.organizationRepository = organizationRepository;
             Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
         }
 
@@ -38,7 +36,14 @@ namespace JordanRift.Grassroots.Web.Controllers
         public ActionResult Index()
         {
             var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            var templates = organization.CauseTemplates;
+            var templates = organization.CauseTemplates.Where(t => t.Active);
+
+            if (templates.Count() == 1)
+            {
+                var templateModel = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(templates.First());
+                return View("Details", templateModel);
+            }
+
             var model = templates.Where(t => t.Active).Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
             return View(model);
         }
