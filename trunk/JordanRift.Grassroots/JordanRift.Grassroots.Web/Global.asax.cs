@@ -65,11 +65,16 @@ namespace JordanRift.Grassroots
             );
 
             routes.MapRoute(
+                "ProjectDetails",
+                "Projects/ProjectDetails/{referenceNumber}",
+                new { controller = "CauseTemplate", action = "CauseDetails", referenceNumber = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
-
         }
 
         protected void Application_Start()

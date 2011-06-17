@@ -66,5 +66,10 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult CauseDetails(string referenceNumber = "")
+        {
+            return View();
+        }
     }
 }
