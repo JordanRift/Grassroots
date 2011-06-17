@@ -245,6 +245,16 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         public ActionResult AwaitingActivation()
         {
+            if (User != null)
+            {
+                var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+
+                if (userProfile != null && userProfile.IsActivated)
+                {
+                    return RedirectToAction("Index", "UserProfile");
+                }
+            }
+
             return View();
         }
 
@@ -294,14 +304,28 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 
             var userProfile = userProfileRepository.GetUserProfileByActivationHash(hash);
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
             var service = new GrassrootsMembershipService();
 
-            if (userProfile != null && service.IsActivationHashValid(userProfile))
+            if (userProfile == null)
+            {
+                return RedirectToAction("Register");
+            }
+            
+            if (service.IsActivationHashValid(userProfile))
             {
                 userProfile.IsActivated = true;
-                userProfile.ActivationHash = null;
                 userProfileRepository.Save();
                 TempData["UserFeedback"] = "Sweet! Your account is activated. Please log in.";
+
+                accountMailer.Welcome(new WelcomeModel
+                                          {
+                                              Email = userProfile.Email,
+                                              FirstName = userProfile.FirstName,
+                                              ContactEmail = organization.ContactEmail,
+                                              OrganizationName = organization.Name
+                                          }).SendAsync();
+
                 return RedirectToAction("LogOn", "Account");
             }
 

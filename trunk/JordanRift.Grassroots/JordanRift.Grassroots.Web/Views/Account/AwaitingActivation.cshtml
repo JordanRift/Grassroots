@@ -1,4 +1,5 @@
-﻿@{
+﻿@model JordanRift.Grassroots.Web.Models.AuthorizeModel
+@{
     //
     // Grassroots is free software: you can redistribute it and/or modify
     // it under the terms of the GNU General Public License as published by
@@ -14,7 +15,40 @@
     // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
     //
     
-    ViewBag.Title = "AwaitingAuthorization";
+    ViewBag.Title = "Account Activation";
 }
 
-<h2>AwaitingAuthorization</h2>
+@section DocumentHead {
+    @Html.Partial("UIForm")
+}
+
+<hgroup>
+    <h1>Account Activation</h1>
+    <h3>Hang tight! You should receive an email to activate your account shortly.</h3>
+</hgroup>
+<section class="account-activation">
+    
+    <div class="ui-widget ui-state-highlight ui-corner-all">
+        <p>
+            <span class="ui-icon ui-icon-info"></span>
+            <strong>Hey!</strong> If you did not receive an activation email, double check your spam folder. If you haven't received anything still, submit the form below.
+        </p>    
+    </div>
+
+    @using(Html.BeginForm("SendAuthorizationNote", "Account")) {
+        @Html.ValidationSummary(true, "We were unable to send your email. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })    
+        <fieldset>
+            <legend>Account activation</legend>
+            <dl>
+                <dt>@Html.LabelFor(m => m.Email)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+            </dl>
+            <div>
+                @Html.UiSubmit("Send Activation Email")
+            </div>
+        </fieldset>
+    }
+</section>

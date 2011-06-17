@@ -89,7 +89,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                         return RedirectToAction("AwaitingActivation", "Account");
                     }
 
-                    //FormsAuthentication.SetAuthCookie(userProfile.Email, false);
+                    FormsAuthentication.SetAuthCookie(userProfile.Email, false);
 
                     if (Url.IsLocalUrl(state))
                     {

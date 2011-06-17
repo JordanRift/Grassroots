@@ -13,13 +13,21 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.ComponentModel.DataAnnotations;
+
 namespace JordanRift.Grassroots.Web.Models
 {
     public class AuthorizeModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        
+        [Display(Name = "Email Address")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
+            ErrorMessage = "Please enter a valid email address.")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
         public string Url { get; set; }
         public string SenderName { get; set; }
         public string SenderEmail { get; set; }
