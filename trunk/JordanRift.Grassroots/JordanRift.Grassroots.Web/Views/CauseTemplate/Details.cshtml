@@ -20,49 +20,52 @@
 
     <hgroup>
         <h1>@Model.Name</h1>
-        <h3>Project Details</h3>
     </hgroup>
 
     <section class="project-summary">
-        <img src="@Model.ImagePath" alt="@Model.Name" />
-        <div>
-            <h3>@Model.Name</h3>
-            <p>@Model.Summary</p>
-        </div>
-    </section>
-    <section class="project-details">
         <aside>
+            <img src="@Model.ImagePath" alt="@Model.Name" />
             <ul class="links">
                 <li>@Html.ActionLink("Get Started", "GetStarted", new { controller = "Campaign", area = "" }, new { title = "Get Started" })</li>
                 <li>@Html.ActionLink("See Projects", "Search", new { controller = "CauseTemplate", area = "" }, new { title = "See Projects" })</li>
             </ul>
+        </aside>
+        <div>
+            <p>@Model.Summary</p>
+            <div class="video">
+                @Html.Raw(Model.VideoEmbedHtml)
+            </div>
+        </div>
+        <div class="break"></div>
+    </section>
+    <section class="project-details">
+        <aside>
             <ul class="social">
                 <li>@Html.Partial("TweetButton")</li>
                 <li>@Html.Partial("FacebookLikeButton")</li>
                 <li>@Html.Partial("PlusOneButton")</li>
             </ul>
         </aside>
-        <div>
-            <ul>
-                <li>
-                    <label>Before</label>
-                    <img src="@Model.BeforeImagePath" alt="Before" />
-                </li>
-                <li>
-                    <label>After</label>
-                    <img src="@Model.AfterImagePath" alt="After" />
-                </li>
-            </ul>
-        </div>
-        @if (!string.IsNullOrEmpty(Model.StatisticsHtml)) {
+        <ul class="before-after">
+            <li>
+                <label>Before</label>
+                <img src="@Model.BeforeImagePath" alt="Before" />
+            </li>
+            <li>
+                <label>After</label>
+                <img src="@Model.AfterImagePath" alt="After" />
+            </li>
+        </ul>
         <div class="infographics">
+        @if (!string.IsNullOrEmpty(Model.StatisticsHtml)) {
             @Html.Raw(Model.StatisticsHtml)
-        </div>
         }
+        </div>
         <div class="break"></div>
     </section>
     <section class="project-description">
         @Html.Raw(Model.DescriptionHtml)
+        <div class="break"></div>
     </section>
 
 @section DocumentBottom {
