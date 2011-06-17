@@ -13,6 +13,9 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Framework.Data
@@ -41,7 +44,22 @@ namespace JordanRift.Grassroots.Framework.Data
 
         public virtual void Save()
         {
-            ObjectContext.SaveChanges();
+            try
+            {
+                ObjectContext.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var error in ex.EntityValidationErrors)
+                {
+                    foreach (var e in error.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", e.PropertyName, e.ErrorMessage);
+                    }
+                }
+
+                throw;
+            }
         }
     }
 }

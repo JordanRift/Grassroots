@@ -133,9 +133,19 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                     var organization = userProfile.Organization;
                     var causeTemplate = organization.CauseTemplates.FirstOrDefault(t => t.CauseTemplateID == model.CauseTemplateID);
+
+                    if (model.Amount.HasValue && causeTemplate.AmountIsConfigurable)
+                    {
+                        // TODO: Check to make sure amount entered is not greater than cause template max amount
+                        campaign.GoalAmount = model.Amount.Value;
+                    }
+                    else
+                    {
+                        campaign.GoalAmount = causeTemplate.DefaultAmount;
+                    }
+
                     campaign.StartDate = DateTime.Now;
                     campaign.EndDate = DateTime.Now.AddDays(causeTemplate.DefaultTimespanInDays);
-                    campaign.GoalAmount = causeTemplate.DefaultAmount;
                     campaign.Description = "You should type your campaign description in here...";
 
                     // TODO: Save image to disk and set path in campaign object (~/Content/UserContent/campaign/{campaignID}.jpg)

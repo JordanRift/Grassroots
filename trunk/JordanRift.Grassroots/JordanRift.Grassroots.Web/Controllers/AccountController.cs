@@ -282,7 +282,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                                             LastName = userProfile.LastName,
                                             SenderEmail = organization.ContactEmail,
                                             SenderName = organization.Name,
-                                            Url = Url.ToPublicUrl(Url.Action("Activate", "Account", new { userProfile.ActivationHash }))
+                                            Url = Url.ToPublicUrl(Url.Action("Activate", "Account", new { hash = userProfile.ActivationHash }))
                                         }).SendAsync();
 
             TempData["UserFeedback"] = "We just sent you an email. Check your email account and follow the instructions inside.";

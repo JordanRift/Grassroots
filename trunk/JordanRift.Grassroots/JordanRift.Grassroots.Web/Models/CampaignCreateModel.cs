@@ -27,6 +27,7 @@ namespace JordanRift.Grassroots.Web.Models
         [Required]
         [Display(Name = "Friendly URL")]
         [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Please enter only alpha-numeric characters.")]
+        [StringLength(30, MinimumLength = 5, ErrorMessage = "Campaign URL must be between 5 and 30 characters in length.")]
         [Remote("CheckUrlSlug", "Validation", ErrorMessage = "That friendly URL is already in use. Please try another one.")]
         public string UrlSlug { get; set; }
 
@@ -37,6 +38,6 @@ namespace JordanRift.Grassroots.Web.Models
         public string GoalName { get; set; }
         
         [DataType(DataType.Currency)]
-        public decimal Amount { get; set; }
+        public decimal? Amount { get; set; }
     }
 }
