@@ -22,6 +22,7 @@ namespace JordanRift.Grassroots.Framework.Data
     {
         UserProfile GetUserProfileByID(int id);
         UserProfile GetUserProfileByFacebookID(string facebookID);
+        UserProfile GetUserProfileByActivationHash(string hash);
         IEnumerable<UserProfile> FindUserProfileByEmail(string email);
         bool Exists(string email);
         void Add(UserProfile userProfile);

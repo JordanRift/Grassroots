@@ -23,6 +23,7 @@ using Facebook;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
+using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Web.Helpers;
 using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
@@ -83,7 +84,12 @@ namespace JordanRift.Grassroots.Web.Controllers
                         return RedirectToAction("Register", "Account");
                     }
 
-                    FormsAuthentication.SetAuthCookie(userProfile.Email, false);
+                    if (!userProfile.IsActivated)
+                    {
+                        return RedirectToAction("AwaitingActivation", "Account");
+                    }
+
+                    //FormsAuthentication.SetAuthCookie(userProfile.Email, false);
 
                     if (Url.IsLocalUrl(state))
                     {
@@ -233,25 +239,24 @@ namespace JordanRift.Grassroots.Web.Controllers
                     }
 
                     userProfile.Active = true;
+                    userProfile.IsActivated = false;
+                    var service = new GrassrootsMembershipService();
+                    userProfile.ActivationHash = service.GetUserAuthorizationHash();
+                    userProfile.LastActivationAttempt = DateTime.Now;
                     organization.UserProfiles.Add(userProfile);
                     OrganizationRepository.Save();
-                    FormsAuthentication.SetAuthCookie(userProfile.Email, false);
-                    //var mailerModel = Mapper.Map<FacebookRegisterModel, RegisterModel>(model);
-                    accountMailer.Welcome(new WelcomeModel
-                                              {
-                                                  FirstName = model.FirstName,
-                                                  Email = model.Email,
-                                                  OrganizationName = organization.Name,
-                                                  ContactEmail = organization.ContactEmail
-                                              }).SendAsync();
-                }
+                    accountMailer.Authorize(new AuthorizeModel
+                                                {
+                                                    Email = userProfile.Email,
+                                                    FirstName = userProfile.FirstName,
+                                                    LastName = userProfile.LastName,
+                                                    SenderEmail = organization.ContactEmail,
+                                                    SenderName = organization.Name,
+                                                    Url = Url.ToPublicUrl(Url.Action("Activate", "Account", new { hash = userProfile.ActivationHash }))
+                                                }).SendAsync();
 
-                if (Url.IsLocalUrl(returnUrl))
-                {
-                    return Redirect(returnUrl);
+                    return RedirectToAction("AwaitingActivation", "Account");
                 }
-
-                return RedirectToAction("Index", "UserProfile", new { id = userProfile.UserProfileID });
             }
 
             return RedirectToAction("Register");

@@ -24,7 +24,7 @@ namespace JordanRift.Grassroots.Framework.Services
         private enum IconSet { identicon, monsterid, wavatar }
         private enum Rating { g, pg, r, x }
         
-        public string HashEmail(string email)
+        public string HashEmailForGravatar(string email)
         {
             var md5 = new MD5CryptoServiceProvider();
             byte[] bytes = Encoding.ASCII.GetBytes(email.ToLower());
@@ -41,7 +41,7 @@ namespace JordanRift.Grassroots.Framework.Services
 
         public string GetGravatarPictureUrl(string email, int size)
         {
-            var hash = HashEmail(email);
+            var hash = HashEmailForGravatar(email);
             return string.Format(URL_FORMAT_STRING, hash, IconSet.identicon, size, Rating.g);
         }
     }

@@ -52,6 +52,11 @@ namespace JordanRift.Grassroots.Tests.Fakes
             return profiles.FirstOrDefault(p => p.FacebookID == facebookID);
         }
 
+        public UserProfile GetUserProfileByActivationHash(string hash)
+        {
+            return profiles.FirstOrDefault(p => p.ActivationHash == hash);
+        }
+
         public IEnumerable<UserProfile> FindUserProfileByEmail(string email)
         {
             return profiles.Where(p => p.Email.ToLower() == email.ToLower());

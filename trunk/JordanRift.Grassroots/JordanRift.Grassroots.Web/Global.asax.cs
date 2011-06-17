@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.Routing;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities;
@@ -41,11 +42,7 @@ namespace JordanRift.Grassroots
                 new { controller = "CauseTemplate", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
-                "UserProfileIndex", 
-                "UserProfile/{id}", 
-                new { controller = "UserProfile", action = "Index", id = UrlParameter.Optional }
-            );
+            RegisterUserProfileRoutes(routes);
 
             routes.MapRoute(
                 "CampaignModify",
@@ -136,6 +133,45 @@ namespace JordanRift.Grassroots
                 "Terms",
                 "Terms",
                 new { controller = "Home", action = "Terms" }
+            );
+        }
+
+        private static void RegisterUserProfileRoutes(RouteCollection routes)
+        {
+            routes.MapRoute(
+                "AuthorizeAccount",
+                "Account/Activate/{hash}",
+                new { controller = "Account", action = "Activate", hash = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "DeactivateAccount",
+                "UserProfile/DeactivateAccount",
+                new { controller = "UserProfile", action = "DeactivateAccount" }
+            );
+
+            routes.MapRoute(
+                "Deactivate",
+                "UserProfile/Deactivate",
+                new { controller = "UserProfile", action = "Deactivate" }
+            );
+
+            routes.MapRoute(
+                "ReactivateAccount",
+                "UserProfile/ReactivateAccount",
+                new { controller = "UserProfile", action = "ReactivateAccount" }
+            );
+
+            routes.MapRoute(
+                "Reactivate",
+                "UserProfile/Reactivate",
+                new { controller = "UserProfile", action = "Reactivate" }
+            );
+            
+            routes.MapRoute(
+                "UserProfileIndex",
+                "UserProfile/{id}",
+                new { controller = "UserProfile", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

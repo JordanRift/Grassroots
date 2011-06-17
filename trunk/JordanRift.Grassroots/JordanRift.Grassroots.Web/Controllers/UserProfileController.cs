@@ -144,6 +144,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			userProfileRepository.Save();
 			var mailerModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
 			mailer.TaxInfo(mailerModel).SendAsync();
+            TempData["UserFeedback"] = "Welcome back! We're glad you're with us again!";
 			return RedirectToAction("LogOff", "Account");
 		}
 

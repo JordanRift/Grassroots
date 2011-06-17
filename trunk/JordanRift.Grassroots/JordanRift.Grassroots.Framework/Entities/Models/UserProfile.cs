@@ -48,6 +48,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public bool Consent { get; set; }
         public bool Active { get; set; }
         public bool IsActivated { get; set; }
+        public string ActivationHash { get; set; }
+        public DateTime LastActivationAttempt { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<CampaignDonor> CampaignDonors { get; set; }

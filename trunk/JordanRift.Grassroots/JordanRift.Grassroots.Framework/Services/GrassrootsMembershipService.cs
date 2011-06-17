@@ -291,5 +291,27 @@ namespace JordanRift.Grassroots.Framework.Services
             grassrootsUser.IsAuthorized = user.IsLockedOut;
             userRepository.Save();
         }
+
+        public string GetUserAuthorizationHash()
+        {
+            var authString = new Guid().ToString();
+            var md5 = new MD5CryptoServiceProvider();
+            byte[] bytes = Encoding.ASCII.GetBytes(authString);
+            bytes = md5.ComputeHash(bytes);
+            string result = string.Empty;
+
+            foreach (byte b in bytes)
+            {
+                result += b.ToString("x2");
+            }
+
+            return result;
+        }
+
+        public bool IsActivationHashValid(UserProfile userProfile)
+        {
+            var hoursElapsed = DateTime.Now - userProfile.LastActivationAttempt;
+            return hoursElapsed.Hours <= 1;
+        }
     }
 }

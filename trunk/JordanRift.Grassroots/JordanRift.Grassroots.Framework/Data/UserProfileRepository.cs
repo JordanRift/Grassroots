@@ -31,6 +31,11 @@ namespace JordanRift.Grassroots.Framework.Data
             return ObjectContext.UserProfiles.FirstOrDefault(p => p.FacebookID == facebookID);
         }
 
+        public UserProfile GetUserProfileByActivationHash(string hash)
+        {
+            return ObjectContext.UserProfiles.FirstOrDefault(p => p.ActivationHash == hash);
+        }
+
         public IEnumerable<UserProfile> FindUserProfileByEmail(string email)
         {
             return ObjectContext.UserProfiles.Where(p => p.Email.ToLower() == email.ToLower());

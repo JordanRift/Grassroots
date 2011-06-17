@@ -18,11 +18,14 @@ CREATE TABLE `gr_userprofile` (
   `Active` bit(1) DEFAULT b'0',
   `IsActivated` bit(1) DEFAULT b'0',
   `ImagePath` varchar(100) DEFAULT '''''''''',
+  `ActivationHash` varchar(500) DEFAULT NULL,
+  `LastActivationAttempt` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
   PRIMARY KEY (`UserProfileID`),
   KEY `email_index` (`Email`),
   KEY `IX_FacebookID` (`FacebookID`),
   KEY `UserProfile_Organization_FK` (`OrganizationID`),
   KEY `UserProfile_Role_FK` (`RoleID`),
+  KEY `userprofile_activationhash` (`ActivationHash`(255)),
   CONSTRAINT `UserProfile_Organization_FK` FOREIGN KEY (`OrganizationID`) REFERENCES `gr_organization` (`OrganizationID`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `UserProfile_Role_FK` FOREIGN KEY (`RoleID`) REFERENCES `gr_role` (`RoleID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;

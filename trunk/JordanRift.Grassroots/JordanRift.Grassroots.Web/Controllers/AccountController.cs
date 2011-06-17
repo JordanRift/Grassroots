@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
@@ -23,6 +24,8 @@ using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
+using JordanRift.Grassroots.Framework.Services;
+using JordanRift.Grassroots.Web.Helpers;
 using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
 using Mvc.Mailer;
@@ -74,6 +77,18 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userProfile = userProfileRepository.FindUserProfileByEmail(model.Email).FirstOrDefault();
+
+                if (userProfile == null)
+                {
+                    return RedirectToAction("Register", "Account");
+                }
+
+                if (!userProfile.IsActivated)
+                {
+                    return RedirectToAction("AwaitingActivation", "Account");
+                }
+
                 if (MembershipService.ValidateUser(model.Email, model.Password))
                 {
                     FormsService.SignIn(model.Email, model.RememberMe);
@@ -118,7 +133,6 @@ namespace JordanRift.Grassroots.Web.Controllers
                 using (new UnitOfWorkScope())
                 using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    // Updating usage of TransactionScope to require a new transaction to be created every time.
                     // This should ensure best compatiblity through a variety of SQL database environments 
                     // (e.g. - SQL Server, MySQL, SQL Azure).
 
@@ -131,6 +145,10 @@ namespace JordanRift.Grassroots.Web.Controllers
                     }
 
                     userProfile.Active = true;
+                    userProfile.IsActivated = false;
+                    var service = new GrassrootsMembershipService();
+                    userProfile.ActivationHash = service.GetUserAuthorizationHash();
+                    userProfile.LastActivationAttempt = DateTime.Now;
                     organization.UserProfiles.Add(userProfile);
                     OrganizationRepository.Save();
                     status = MembershipService.CreateUser(model.Email, model.Password, model.Email);
@@ -139,15 +157,17 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 if (status == MembershipCreateStatus.Success)
                 {
-                    accountMailer.Welcome(new WelcomeModel
-                                              {
-                                                  FirstName = model.FirstName,
-                                                  Email = model.Email,
-                                                  OrganizationName = organization.Name,
-                                                  ContactEmail = organization.ContactEmail
-                                              }).SendAsync();
-                    FormsService.SignIn(model.Email, false);
-                    return RedirectToAction("Index", "UserProfile", new { id = userProfile.UserProfileID });
+                    accountMailer.Authorize(new AuthorizeModel
+                                                {
+                                                    Email = userProfile.Email,
+                                                    FirstName = userProfile.FirstName,
+                                                    LastName = userProfile.LastName,
+                                                    SenderEmail = organization.ContactEmail,
+                                                    SenderName = organization.Name,
+                                                    Url = Url.ToPublicUrl(Url.Action("Activate", "Account", new { hash = userProfile.ActivationHash }))
+                                                }).SendAsync();
+
+                    return RedirectToAction("AwaitingActivation", "Account");
                 }
             }
 
@@ -221,6 +241,72 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             TempData["ForgotPasswordModel"] = model;
             return RedirectToAction("ForgotPassword");
+        }
+
+        public ActionResult AwaitingActivation()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SendAuthorizationNote(AuthorizeModel model)
+        {
+            var userProfile = userProfileRepository.FindUserProfileByEmail(model.Email).FirstOrDefault();
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+
+            if (userProfile == null)
+            {
+                TempData["UserFeedback"] = "We couldn't find that email address in our system. Are you sure that was the right one?";
+                return RedirectToAction("AwaitingActivation", "Account");
+            }
+
+            var service = new GrassrootsMembershipService();
+            userProfile.ActivationHash = service.GetUserAuthorizationHash();
+            userProfile.LastActivationAttempt = DateTime.Now;
+            userProfileRepository.Save();
+
+            accountMailer.Authorize(new AuthorizeModel
+                                        {
+                                            Email = userProfile.Email,
+                                            FirstName = userProfile.FirstName,
+                                            LastName = userProfile.LastName,
+                                            SenderEmail = organization.ContactEmail,
+                                            SenderName = organization.Name,
+                                            Url = Url.ToPublicUrl(Url.Action("Activate", "Account", new { userProfile.ActivationHash }))
+                                        }).SendAsync();
+
+            TempData["UserFeedback"] = "We just sent you an email. Check your email account and follow the instructions inside.";
+            return RedirectToAction("AwaitingActivation", "Account");
+        }
+
+        /// <summary>
+        /// Check if activation hash is valid. 
+        /// * If yes, set user profile IsActivated to true and redirect to login
+        /// * If no, redirect to AwaitingActivation
+        /// </summary>
+        /// <param name="hash">ashed string to compare</param>
+        /// <returns>Redirect based on result</returns>
+        public RedirectToRouteResult Activate(string hash)
+        {
+            if (hash == null)
+            {
+                return RedirectToAction("AwaitingActivation", "Account");
+            }
+
+            var userProfile = userProfileRepository.GetUserProfileByActivationHash(hash);
+            var service = new GrassrootsMembershipService();
+
+            if (userProfile != null && service.IsActivationHashValid(userProfile))
+            {
+                userProfile.IsActivated = true;
+                userProfile.ActivationHash = null;
+                userProfileRepository.Save();
+                TempData["UserFeedback"] = "Sweet! Your account is activated. Please log in.";
+                return RedirectToAction("LogOn", "Account");
+            }
+
+            TempData["UserFeedback"] = "Looks like your activation request may have expired. Complete the form below to try again.";
+            return RedirectToAction("AwaitingActivation", "Account");
         }
     }
 }
