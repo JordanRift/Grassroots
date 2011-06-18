@@ -32,6 +32,8 @@ namespace JordanRift.Grassroots.Web.Controllers
             this.causeTemplateRepository = causeTemplateRepository;
             this.causeRepository = causeRepository;
             Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
+            Mapper.CreateMap<Cause, CauseDetailsModel>();
+            Mapper.CreateMap<Recipient, RecipientDetailsModel>();
         }
 
         [OutputCache(Duration = 150, VaryByParam = "none")]
@@ -64,6 +66,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(model);
         }
 
+        [OutputCache(Duration = 150, VaryByParam = "id")]
         public ActionResult Search(int id = -1)
         {
             var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
@@ -77,10 +80,26 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(model);
         }
 
+        [OutputCache(Duration = 150, VaryByParam = "referenceNumber")]
         public ActionResult CauseDetails(string referenceNumber = "")
         {
             var cause = causeRepository.GetCauseByReferenceNumber(referenceNumber);
-            return View();
+
+            if (cause == null)
+            {
+                return HttpNotFound("The project you are looking for could not be found.");
+            }
+
+            var model = MapCauseDetails(cause);
+            return View(model);
+        }
+
+        private CauseDetailsModel MapCauseDetails(Cause cause)
+        {
+            var model = Mapper.Map<Cause, CauseDetailsModel>(cause);
+            model.Region = cause.Region != null ? cause.Region.Name : string.Empty;
+            model.Recipients = cause.Recipients.Select(Mapper.Map<Recipient, RecipientDetailsModel>).ToList();
+            return model;
         }
     }
 }

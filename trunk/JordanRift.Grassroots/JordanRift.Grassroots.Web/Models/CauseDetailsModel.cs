@@ -15,25 +15,25 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-using JordanRift.Grassroots.Framework.Entities.Validation;
 
 namespace JordanRift.Grassroots.Web.Models
 {
 	public class CauseDetailsModel
 	{
-		[Editable( false )]
 		public int CauseID { get; set; }
-
-		[Editable( false )]
 		public int CauseTemplateID { get; set; }
-
-		[Required]
+        public string ReferenceNumber { get; set; }
 		public string Name { get; set; }
-
-		public JordanRift.Grassroots.Framework.Entities.Models.Region Region { get; set; }
-
+        public string Summary { get; set; }
+        public string ImagePath { get; set; }
+		public string Region { get; set; }
+        public string HoursServed { get; set; }
 		public DateTime DateCompleted { get; set; }
+        public string BeforeImagePath { get; set; }
+        public string AfterImagePath { get; set; }
+        public string VideoEmbedHtml { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
+        public List<RecipientDetailsModel> Recipients { get; set; }
 	}
 }
