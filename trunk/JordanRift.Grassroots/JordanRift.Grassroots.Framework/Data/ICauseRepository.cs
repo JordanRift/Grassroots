@@ -25,6 +25,7 @@ namespace JordanRift.Grassroots.Framework.Data
 		IQueryable<Cause> FindCausesByCauseTemplateID(int causeTemplateID);
 		IQueryable<Cause> FindCausesByUserProfileID(int userProfileID);
 		Cause GetCauseByID( int id );
+	    Cause GetCauseByReferenceNumber(string referenceNumber);
 		void Add(Cause cause);
 		void AddNote( CauseNote note );
 		void Delete(Cause cause);

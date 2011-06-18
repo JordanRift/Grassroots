@@ -46,7 +46,7 @@ namespace JordanRift.Grassroots.Framework.Data
                 return null;
             }
 
-            return ObjectContext.Campaigns.FirstOrDefault(c => c.UrlSlug.ToLower() == urlSlug.ToLower());
+            return ObjectContext.Campaigns.FirstOrDefault(c => c.c.UrlSlug.Equals(urlSlug, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public Campaign GetDefaultCampaign()
@@ -56,7 +56,7 @@ namespace JordanRift.Grassroots.Framework.Data
 
         public bool Exists(string urlSlug)
         {
-            return ObjectContext.Campaigns.Any(c => c.UrlSlug.ToLower() == urlSlug.ToLower());
+            return ObjectContext.Campaigns.Any(c => c.UrlSlug.Equals(urlSlug, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void Add(Campaign campaign)

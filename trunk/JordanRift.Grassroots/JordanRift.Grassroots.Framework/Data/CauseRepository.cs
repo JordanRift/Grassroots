@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Linq;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
@@ -62,7 +63,12 @@ namespace JordanRift.Grassroots.Framework.Data
 			return ObjectContext.Causes.FirstOrDefault( c => c.CauseID == id );
 		}
 
-		public void Add( Cause cause )
+        public Cause GetCauseByReferenceNumber(string referenceNumber)
+        {
+            return ObjectContext.Causes.FirstOrDefault(c => c.ReferenceNumber.Equals(referenceNumber, StringComparison.CurrentCultureIgnoreCase));
+        }
+
+        public void Add( Cause cause )
 		{
 			ObjectContext.Causes.Add( cause );
 		}

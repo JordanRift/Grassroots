@@ -22,12 +22,10 @@ namespace JordanRift.Grassroots.Framework.Data
     public class OrganizationRepository : GrassrootsRepositoryBase, IOrganizationRepository
     {
         private const string DEFAULT_ORG_CACHE_KEY = "Grassroots.DefaultOrganization";
-        //private readonly SingletonCache instance;
         private ICache cache;
 
         public OrganizationRepository()
         {
-            //instance = SingletonCache.Instance;
             cache = CacheFactory.GetCache();
         }
 

@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Linq;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
@@ -22,7 +23,7 @@ namespace JordanRift.Grassroots.Framework.Data
     {
         public User GetUserByName(string name)
         {
-            return ObjectContext.Users.FirstOrDefault(u => u.Username.ToLower() == name.ToLower());
+            return ObjectContext.Users.FirstOrDefault(u => u.Username.Equals(name, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void Add(User user)
@@ -39,16 +40,6 @@ namespace JordanRift.Grassroots.Framework.Data
         {
             base.Save();
         }
-
-        //public IQueryable<User> FindUsersByEmail(string email)
-        //{
-            
-        //}
-
-        //public IQueryable<User> FindUsersByName(string username)
-        //{
-        //    return ObjectContext.Users.Where(u => u.Username.ToLower() == username.ToLower());
-        //}
 
         public IQueryable<User> FindAllUsers()
         {

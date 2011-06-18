@@ -25,10 +25,12 @@ namespace JordanRift.Grassroots.Web.Controllers
     public class CauseTemplateController : GrassrootsControllerBase
     {
         private readonly ICauseTemplateRepository causeTemplateRepository;
+        private readonly ICauseRepository causeRepository;
 
-        public CauseTemplateController(ICauseTemplateRepository causeTemplateRepository)
+        public CauseTemplateController(ICauseTemplateRepository causeTemplateRepository, ICauseRepository causeRepository)
         {
             this.causeTemplateRepository = causeTemplateRepository;
+            this.causeRepository = causeRepository;
             Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
         }
 
@@ -64,11 +66,20 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         public ActionResult Search(int id = -1)
         {
-            return View();
+            var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
+
+            if (causeTemplate == null)
+            {
+                return HttpNotFound("The project type you are looking for could not be found.");
+            }
+
+            var model = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
+            return View(model);
         }
 
         public ActionResult CauseDetails(string referenceNumber = "")
         {
+            var cause = causeRepository.GetCauseByReferenceNumber(referenceNumber);
             return View();
         }
     }
