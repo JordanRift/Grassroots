@@ -266,21 +266,24 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userProfile = userProfileRepository.GetUserProfileByActivationHash(hash);
-                var service = new GrassrootsMembershipService();
-
-                if (userProfile == null)
+                using (new UnitOfWorkScope())
                 {
-                    TempData["UserFeedback"] = "The email you are looking for could not be found in our system.";
-                    return RedirectToAction("ForgotPassword");
-                }
+                    var userProfile = userProfileRepository.GetUserProfileByActivationHash(hash);
+                    var service = new GrassrootsMembershipService();
 
-                if (service.UpdatePassword(userProfile, model.ActivationPin, model.Password))
-                {
-                    var mailModel = Mapper.Map<UserProfile, RegisterModel>(userProfile);
-                    accountMailer.PasswordChange(mailModel).SendAsync();
-                    TempData["UserFeedback"] = "Sweet! Your password has been changed. You can now log in with your new password.";
-                    return RedirectToAction("LogOn");
+                    if (userProfile == null)
+                    {
+                        TempData["UserFeedback"] = "The email you are looking for could not be found in our system.";
+                        return RedirectToAction("ForgotPassword");
+                    }
+
+                    if (service.UpdatePassword(userProfile, model.ActivationPin, model.Password))
+                    {
+                        var mailModel = Mapper.Map<UserProfile, RegisterModel>(userProfile);
+                        accountMailer.PasswordChange(mailModel).SendAsync();
+                        TempData["UserFeedback"] = "Sweet! Your password has been changed. You can now log in with your new password.";
+                        return RedirectToAction("LogOn");
+                    }
                 }
             }
 
