@@ -192,6 +192,7 @@
     <Compile Include="Models\ProgressBarModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\RecipientDetailsModel.cs" />
     <Compile Include="Models\UpdatePasswordModel.cs" />
     <Compile Include="Models\UserProfileDetailsModel.cs">
       <SubType>Code</SubType>

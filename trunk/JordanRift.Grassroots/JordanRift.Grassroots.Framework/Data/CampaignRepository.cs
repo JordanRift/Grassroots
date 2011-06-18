@@ -46,7 +46,7 @@ namespace JordanRift.Grassroots.Framework.Data
                 return null;
             }
 
-            return ObjectContext.Campaigns.FirstOrDefault(c => c.c.UrlSlug.Equals(urlSlug, StringComparison.CurrentCultureIgnoreCase));
+            return ObjectContext.Campaigns.FirstOrDefault(c => c.UrlSlug.Equals(urlSlug, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public Campaign GetDefaultCampaign()

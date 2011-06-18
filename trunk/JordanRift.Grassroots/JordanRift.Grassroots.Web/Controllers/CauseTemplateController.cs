@@ -44,7 +44,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (templates.Count() == 1)
             {
-                var templateModel = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(templates.First());
+                var templateModel = MapCauseTemplateDetails(templates.First());
                 return View("Details", templateModel);
             }
 
@@ -62,7 +62,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 return HttpNotFound("The project type you are looking for could not be found.");
             }
 
-            var model = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
+            var model = MapCauseTemplateDetails(causeTemplate);
             return View(model);
         }
 
@@ -76,7 +76,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 return HttpNotFound("The project type you are looking for could not be found.");
             }
 
-            var model = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
+            var model = MapCauseTemplateDetails(causeTemplate, shouldMapCauses: true);
             return View(model);
         }
 
@@ -92,6 +92,18 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             var model = MapCauseDetails(cause);
             return View(model);
+        }
+
+        private CauseTemplateDetailsModel MapCauseTemplateDetails(CauseTemplate causeTemplate, bool shouldMapCauses = false)
+        {
+            var model = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
+
+            if (shouldMapCauses)
+            {
+                model.Causes = causeTemplate.Causes.Where(c => c.IsCompleted).Select(Mapper.Map<Cause, CauseDetailsModel>).ToList();
+            }
+
+            return model;
         }
 
         private CauseDetailsModel MapCauseDetails(Cause cause)
