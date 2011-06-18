@@ -38,7 +38,7 @@ namespace JordanRift.Grassroots.Web.Mailers
 		}
 
 		
-		public MailMessage PasswordReset(RegisterModel model)
+		public MailMessage PasswordReset(PasswordResetModel model)
 		{
 		    var mailMessage = new MailMessage { Subject = "Password Reset Notofication" };
 			mailMessage.To.Add(model.Email);

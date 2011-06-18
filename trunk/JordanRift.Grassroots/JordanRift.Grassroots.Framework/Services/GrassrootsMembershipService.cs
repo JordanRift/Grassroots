@@ -294,7 +294,7 @@ namespace JordanRift.Grassroots.Framework.Services
 
         public string GetUserAuthorizationHash()
         {
-            var authString = new Guid().ToString();
+            var authString = Guid.NewGuid().ToString();
             var md5 = new MD5CryptoServiceProvider();
             byte[] bytes = Encoding.ASCII.GetBytes(authString);
             bytes = md5.ComputeHash(bytes);
@@ -312,6 +312,32 @@ namespace JordanRift.Grassroots.Framework.Services
         {
             var hoursElapsed = DateTime.Now - userProfile.LastActivationAttempt;
             return hoursElapsed.Hours <= 1;
+        }
+
+        /// <summary>
+        /// Generates a secure random number for a user to verify password reset
+        /// </summary>
+        /// <returns>Random pin number</returns>
+        public string GenerateRandomPin()
+        {
+            var rng = new RNGCryptoServiceProvider();
+            byte[] tokenData = new byte[8];
+            rng.GetBytes(tokenData);
+            return Convert.ToBase64String(tokenData);
+        }
+
+        public bool UpdatePassword(UserProfile userProfile, string activationPin, string password)
+        {
+            if (activationPin == userProfile.ActivationPin && userProfile.Users.Any())
+            {
+                var user = userProfile.Users.First();
+                user.Password = HashPassword(password, null);
+                userProfile.ActivationPin = null;
+                userProfileRepository.Save();
+                return true;
+            }
+
+            return false;
         }
     }
 }

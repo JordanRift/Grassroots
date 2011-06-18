@@ -217,30 +217,75 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(viewModel);
         }
 
-        public ActionResult ResetPasswordSuccess()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult ResetPassword(ForgotPasswordModel model)
+        public ActionResult SendPasswordReset(ForgotPasswordModel model)
         {
             if (ModelState.IsValid)
             {
-                var newPassword = MembershipService.ResetPassword(model.Email);
+                var userProfile = userProfileRepository.FindUserProfileByEmail(model.Email).FirstOrDefault();
 
-                if (newPassword != null)
+                if (userProfile != null)
                 {
-                    var userProfile = userProfileRepository.FindUserProfileByEmail(model.Email).FirstOrDefault();
-                    var mailerModel = Mapper.Map<UserProfile, RegisterModel>(userProfile);
-                    mailerModel.Password = newPassword;
-                    accountMailer.PasswordReset(mailerModel).SendAsync();
-                    return RedirectToAction("ResetPasswordSuccess");
+                    var service = new GrassrootsMembershipService();
+                    userProfile.ActivationHash = service.GetUserAuthorizationHash();
+                    userProfile.ActivationPin = service.GenerateRandomPin();
+                    userProfile.LastActivationAttempt = DateTime.Now;
+                    userProfileRepository.Save();
+
+                    accountMailer.PasswordReset(new PasswordResetModel
+                                                    {
+                                                        FirstName = userProfile.FirstName,
+                                                        Email = userProfile.Email,
+                                                        ActivationPin = userProfile.ActivationPin,
+                                                        Url = Url.ToPublicUrl(Url.Action("UpdatePassword", "Account", new { hash = userProfile.ActivationHash }))
+                                                    }).SendAsync();
+
+                    return RedirectToAction("UpdatePassword");
                 }
+
+                TempData["UserFeedback"] = "The email you are looking for could not be found in our system.";
             }
 
             TempData["ForgotPasswordModel"] = model;
             return RedirectToAction("ForgotPassword");
+        }
+
+        public ActionResult UpdatePassword(string hash)
+        {
+            if (User != null && !string.IsNullOrEmpty(User.Identity.Name))
+            {
+                return RedirectToAction("Index", "UserProfile");
+            }
+
+            var model = new UpdatePasswordModel { ActivationHash = hash };
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateForgottenPassword(string hash, UpdatePasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userProfile = userProfileRepository.GetUserProfileByActivationHash(hash);
+                var service = new GrassrootsMembershipService();
+
+                if (userProfile == null)
+                {
+                    TempData["UserFeedback"] = "The email you are looking for could not be found in our system.";
+                    return RedirectToAction("ForgotPassword");
+                }
+
+                if (service.UpdatePassword(userProfile, model.ActivationPin, model.Password))
+                {
+                    var mailModel = Mapper.Map<UserProfile, RegisterModel>(userProfile);
+                    accountMailer.PasswordChange(mailModel).SendAsync();
+                    TempData["UserFeedback"] = "Sweet! Your password has been changed. You can now log in with your new password.";
+                    return RedirectToAction("LogOn");
+                }
+            }
+
+            var activationHash = hash;
+            return RedirectToAction("UpdatePassword", new { hash = activationHash });
         }
 
         public ActionResult AwaitingActivation()

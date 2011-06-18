@@ -343,30 +343,30 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.IsInstanceOf(typeof(ViewResult), result);
         }
 
-        [Test]
-        public void ResetPassword_Returns_Redirect_On_Success()
-        {
-            var controller = GetAccountController();
-            var userProfile = EntityHelpers.GetValidUserProfile();
-            userProfile.Email = "info@jordanrift.com";
-            userProfileRepository.Add(userProfile);
-            var result = controller.ResetPassword(new ForgotPasswordModel { Email = "info@jordanrift.com" });
-            Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
-            var action = result as RedirectToRouteResult;
-            var name = action.RouteValues["Action"];
-            Assert.AreEqual("ResetPasswordSuccess", name);
-        }
+        //[Test]
+        //public void ResetPassword_Returns_Redirect_On_Success()
+        //{
+        //    var controller = GetAccountController();
+        //    var userProfile = EntityHelpers.GetValidUserProfile();
+        //    userProfile.Email = "info@jordanrift.com";
+        //    userProfileRepository.Add(userProfile);
+        //    var result = controller.ResetPassword(new ForgotPasswordModel { Email = "info@jordanrift.com" });
+        //    Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
+        //    var action = result as RedirectToRouteResult;
+        //    var name = action.RouteValues["Action"];
+        //    Assert.AreEqual("ResetPasswordSuccess", name);
+        //}
 
-        [Test]
-        public void ResetPassword_Returns_Redirect_On_Failure()
-        {
-            var controller = GetAccountController();
-            var result = controller.ResetPassword(new ForgotPasswordModel { Email = "goodEmail" });
-            Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
-            var action = result as RedirectToRouteResult;
-            var name = action.RouteValues["Action"];
-            Assert.AreEqual("ForgotPassword", name);
-        }
+        //[Test]
+        //public void ResetPassword_Returns_Redirect_On_Failure()
+        //{
+        //    var controller = GetAccountController();
+        //    var result = controller.ResetPassword(new ForgotPasswordModel { Email = "goodEmail" });
+        //    Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
+        //    var action = result as RedirectToRouteResult;
+        //    var name = action.RouteValues["Action"];
+        //    Assert.AreEqual("ForgotPassword", name);
+        //}
 
         private AccountController GetAccountController()
         {

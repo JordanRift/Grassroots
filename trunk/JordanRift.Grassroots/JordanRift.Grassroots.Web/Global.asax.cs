@@ -164,6 +164,12 @@ namespace JordanRift.Grassroots
             );
 
             routes.MapRoute(
+                "ForgotPassword",
+                "Account/UpdatePassword/{hash}",
+                new { controller = "Account", action = "UpdatePassword", hash = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 "DeactivateAccount",
                 "UserProfile/DeactivateAccount",
                 new { controller = "UserProfile", action = "DeactivateAccount" }

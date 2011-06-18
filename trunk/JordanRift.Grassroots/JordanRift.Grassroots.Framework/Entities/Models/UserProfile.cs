@@ -49,6 +49,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public bool Active { get; set; }
         public bool IsActivated { get; set; }
         public string ActivationHash { get; set; }
+        public string ActivationPin { get; set; }
         public DateTime LastActivationAttempt { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
