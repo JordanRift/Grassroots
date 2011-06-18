@@ -56,18 +56,18 @@ namespace JordanRift.Grassroots
                 new { controller = "CauseTemplate", action = "Index", id = UrlParameter.Optional }
             );
 
+            routes.MapRoute(
+                "Projects",
+                "Projects/Search/{id}/{referenceNumber}",
+                new { controller = "CauseTemplate", action = "CauseDetails", id = UrlParameter.Optional, referenceNumber = UrlParameter.Optional }
+            );
+
             RegisterUserProfileRoutes(routes);
 
             routes.MapRoute(
                 "CampaignModify",
                 "Campaign/{action}/{slug}", // URL with url-slug appended
                 new { controller = "Campaign", action = "Edit", slug = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                "ProjectDetails",
-                "Projects/ProjectDetails/{referenceNumber}",
-                new { controller = "CauseTemplate", action = "CauseDetails", referenceNumber = UrlParameter.Optional }
             );
 
             routes.MapRoute(

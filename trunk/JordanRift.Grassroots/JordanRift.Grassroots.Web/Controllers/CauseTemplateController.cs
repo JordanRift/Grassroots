@@ -80,14 +80,28 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(model);
         }
 
-        [OutputCache(Duration = 150, VaryByParam = "referenceNumber")]
-        public ActionResult CauseDetails(string referenceNumber = "")
+        [OutputCache(Duration = 150, VaryByParam = "id;referenceNumber")]
+        public ActionResult CauseDetails(int id = -1, string referenceNumber = "")
         {
-            var cause = causeRepository.GetCauseByReferenceNumber(referenceNumber);
+            bool isValid = true;
+
+            if (id == -1 || string.IsNullOrEmpty(referenceNumber))
+            {
+                isValid = false;
+            }
+
+            var cause = causeRepository.GetCauseByCauseTemplateIdAndReferenceNumber(id, referenceNumber);
 
             if (cause == null)
             {
-                return HttpNotFound("The project you are looking for could not be found.");
+                isValid = false;
+            }
+
+            if (!isValid)
+            {
+                TempData["ErrorMessage"] = "The project you are looking for was not found. Please try your search again.";
+                var causeTemplateID = id;
+                return RedirectToAction("Search", new { id = causeTemplateID });
             }
 
             var model = MapCauseDetails(cause);

@@ -63,9 +63,9 @@ namespace JordanRift.Grassroots.Framework.Data
 			return ObjectContext.Causes.FirstOrDefault( c => c.CauseID == id );
 		}
 
-        public Cause GetCauseByReferenceNumber(string referenceNumber)
+        public Cause GetCauseByCauseTemplateIdAndReferenceNumber(int id, string referenceNumber)
         {
-            return ObjectContext.Causes.FirstOrDefault(c => c.ReferenceNumber.Equals(referenceNumber, StringComparison.CurrentCultureIgnoreCase));
+            return ObjectContext.Causes.FirstOrDefault(c => c.CauseTemplateID == id && c.ReferenceNumber.Equals(referenceNumber, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public void Add( Cause cause )
