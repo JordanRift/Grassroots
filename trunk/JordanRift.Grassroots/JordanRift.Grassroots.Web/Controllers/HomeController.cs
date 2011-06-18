@@ -75,7 +75,12 @@ namespace JordanRift.Grassroots.Web.Controllers
 				totalGoal = organization.CalculateGoalTotal();
 			}
 
-			var percent = ( total > totalGoal ) ? 100 : (int)( ( total / totalGoal ) * 100 );
+			var percent = 0;
+			if ( totalGoal > 0 )
+			{
+				percent = ( total > totalGoal ) ? 100 : (int)( ( total / totalGoal ) * 100 );
+			}
+
             var model = new ProgressBarModel
                             {
                                 Amount = total,

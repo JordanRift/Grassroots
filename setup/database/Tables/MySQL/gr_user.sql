@@ -10,6 +10,8 @@ CREATE TABLE `gr_user` (
   `ForcePasswordChange` bit(1) DEFAULT b'0',
   `RegisterDate` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
   `LastLoggedIn` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
+  `FailedLoginAttempts` int(11) NOT NULL DEFAULT '0',
+
   PRIMARY KEY (`UserID`),
   KEY `User_UserProfile_FK` (`UserProfileID`),
   KEY `username_index` (`Username`),

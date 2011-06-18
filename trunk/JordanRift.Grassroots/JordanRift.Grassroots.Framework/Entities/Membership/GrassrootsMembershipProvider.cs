@@ -196,7 +196,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Membership
         public override bool ValidateUser(string username, string password)
         {
             var service = new GrassrootsMembershipService();
-            return service.ValidateUser(username, password);
+            return service.ValidateUser(username, password, MaxInvalidPasswordAttempts);
         }
     }
 }

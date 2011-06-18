@@ -34,6 +34,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public bool ForcePasswordChange { get; set; }
         public DateTime RegisterDate { get; set; }
         public DateTime LastLoggedIn { get; set; }
+		public int FailedLoginAttempts { get; set; }
 
         public int UserProfileID { get; set; }
         public virtual UserProfile UserProfile { get; set; }

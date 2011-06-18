@@ -90,7 +90,7 @@
 		                </tr>
                         <tr>
 			                <td class="heading">Last Visit</td>
-			                <td>@Model.LastVisit</td>
+			                <td><span title='@String.Format( "{0:MM/dd/yy h:mm tt}", Model.LastVisit )'>@Model.LastVisit.RelativeDate()</span></td>
 		                </tr>
 		            </tbody>
 	            </table>
