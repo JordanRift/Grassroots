@@ -57,7 +57,7 @@ namespace JordanRift.Grassroots
             );
 
             routes.MapRoute(
-                "Projects",
+                "CauseSearch",
                 "Projects/Search/{id}/{referenceNumber}",
                 new { controller = "CauseTemplate", action = "CauseDetails", id = UrlParameter.Optional, referenceNumber = UrlParameter.Optional }
             );

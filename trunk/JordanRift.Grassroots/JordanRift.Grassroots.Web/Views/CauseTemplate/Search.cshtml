@@ -1,5 +1,74 @@
-﻿@{
-    ViewBag.Title = "Search";
+﻿@model JordanRift.Grassroots.Web.Models.CauseTemplateDetailsModel
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
+    ViewBag.Title = "Search Projects";
 }
 
-<h2>Search</h2>
+@section DocumentHead {
+    @Html.Partial("UIForm")
+}
+
+    <hgroup>
+        <h1>Completed Projects</h1>
+        <h3>@Model.GoalName @Model.ActionVerb: <em>@Model.Causes.Count</em></h3>
+    </hgroup>
+
+    <section class="project-summary">
+        <aside>
+            <img src="@Model.ImagePath" alt="@Model.Name" />
+            <ul class="links">
+                <li>@Html.ActionLink("Get Started", "GetStarted", new { controller = "Campaign", area = "" }, new { title = "Get Started" })</li>
+                <li>@Html.ActionLink("See Projects", "Search", new { controller = "CauseTemplate", area = "" }, new { title = "See Projects" })</li>
+            </ul>
+        </aside>
+        <div>
+            <ol class="search-instructions">
+                <li>
+                    <p>You should have received an email from @OrganizationName with a reference number. 
+                    You can also find this reference number on your user profile page. Just 
+                    @Html.ActionLink("click here", "Index", new { controller = "UserProfile", area = "" }, new { title = "click here" }).</p>
+                </li>
+                <li>
+                    <p>Enter that reference number in the box below. You'll be given all the details about the project you helped complete.</p>
+                </li>
+            </ol>
+        </div>
+        <div class="break"></div>
+    </section>
+    <section class="project-details">
+        <aside>
+            <ul class="social">
+                <li>@Html.Partial("TweetButton")</li>
+                <li>@Html.Partial("FacebookLikeButton")</li>
+                <li>@Html.Partial("PlusOneButton")</li>
+            </ul>
+        </aside>
+        <div class="search">
+            <h3>Enter Reference Number</h3>
+            <div class="form">
+                @Html.TextBox("ReferenceNumber", null, new { placeholder = "Reference Number" })
+                @Html.UiSubmit("Search")
+            </div>
+        </div>
+    </section>
+    <section class="completed-projects">
+        @Html.Partial("CauseGrid", Model.Causes)
+    </section>
+
+@section DocumentBottom {
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+}

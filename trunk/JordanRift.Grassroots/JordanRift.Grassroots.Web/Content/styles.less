@@ -489,7 +489,8 @@ p {
 
 		.project-summary > aside,
 		.project-summary > div,
-		.project-details > aside {
+		.project-details > aside,
+		.project-details > .search {
 			display: block;
 			float: left;
 		}
@@ -510,7 +511,8 @@ p {
 					text-align: center;
 				}
 
-		.project-summary > div {
+		.project-summary > div,
+		.project-details > .search {
 			width: 725px;
 		}
 
@@ -533,6 +535,22 @@ p {
 				float: left;
 				padding: 0px;
 			}
+
+			.project-summary  .search-instructions {
+				padding: 0px 20px;
+			}
+
+				.search-instructions > li {
+					display: list-item;
+					font-size: 16px;
+					list-style: decimal inside;
+					float: left;
+					padding: 10px 0px;
+				}
+
+					.search-instructions > li > p {
+						display: inline;
+					}
 
 	#main .project-details,
 	#main .project-description {
@@ -557,7 +575,7 @@ p {
 		.project-details > .infographics {
 			overflow: hidden;
 		}
-
+		
 	#main .admin-dashboard {
 		margin: 20px auto 0px;
 		width: 800px;

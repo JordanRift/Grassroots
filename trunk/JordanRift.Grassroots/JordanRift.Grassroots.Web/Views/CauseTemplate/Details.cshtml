@@ -27,7 +27,7 @@
             <img src="@Model.ImagePath" alt="@Model.Name" />
             <ul class="links">
                 <li>@Html.ActionLink("Get Started", "GetStarted", new { controller = "Campaign", area = "" }, new { title = "Get Started" })</li>
-                <li>@Html.ActionLink("See Projects", "Search", new { controller = "CauseTemplate", area = "" }, new { title = "See Projects" })</li>
+                <li>@Html.ActionLink("See Projects", "Search", new { controller = "CauseTemplate", area = "", id = Model.CauseTemplateID }, new { title = "See Projects" })</li>
             </ul>
         </aside>
         <div>

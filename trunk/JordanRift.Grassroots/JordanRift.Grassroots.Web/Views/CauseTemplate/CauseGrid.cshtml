@@ -1,0 +1,52 @@
+﻿@model IEnumerable<JordanRift.Grassroots.Web.Models.CauseDetailsModel>
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
+    Layout = null;
+    var shouldLinkNames = ViewBag.LinkNames != null ? ViewBag.LinkNames : false;
+}
+
+@if (Model.Count() > 0)
+{
+<table class="cause-grid">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date Completed</th>
+            <th>Video</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cause in Model) { 
+        <tr>
+            <td>
+            @if (shouldLinkNames) { 
+                @Html.ActionLink(cause.Name, "CauseDetails", new { controller = "CauseTemplate", area = "", id = cause.CauseTemplateID, referenceNumber = cause.ReferenceNumber }, new { title = cause.Name })
+            }
+            else {
+                @cause.Name
+            }
+            </td>
+            <td>@cause.DateCompleted.ToShortDateString()</td>
+            <td><a href="#" data-cause-template-id="@cause.CauseTemplateID" title="Video">Video</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+}
+else { 
+    <strong>We haven't completed any projects yet.</strong>
+}
