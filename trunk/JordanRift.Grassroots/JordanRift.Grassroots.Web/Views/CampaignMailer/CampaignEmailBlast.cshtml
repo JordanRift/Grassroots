@@ -17,15 +17,13 @@
     
     Layout = "~/Views/Shared/_EmailLayout.cshtml";
 }
-<h1>Hi'dly-ho neighborinos!</h1>
+<h1>Hi!</h1>
 
-<p>Your friend <strong>@Model.FirstName @Model.LastName</strong> thought you might be interested in learning more about 
-the cause they're championing: <strong>@Model.Title</strong>.</p>
-
-<p>Here's what they have to say:</p>
+<p><strong>@Model.FirstName @Model.LastName</strong> thought you might be interested in learning more about <strong>@Model.Title</strong>.</p>
 
 @if (!string.IsNullOrEmpty(Model.CustomMessage)) {
+<p>Here's what @Model.FirstName has to say:</p>
 <p><em>@Model.CustomMessage</em></p>
 }
 
-<p>To learn more, head on over <a href="@Model.Url">here</a> to have a look-see!</p>
+<p>To learn more, <a href="@Model.Url">click here</a>.</p>

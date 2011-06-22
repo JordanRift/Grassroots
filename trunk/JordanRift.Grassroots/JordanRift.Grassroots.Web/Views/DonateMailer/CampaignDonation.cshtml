@@ -17,10 +17,8 @@
     
     Layout = "~/Views/Shared/_EmailLayout.cshtml";
 }
-<h1>Woohoo!</h1>
-
-<p>Greetings!</p>
-
-<p><strong>@Model.FirstName @Model.LastName</strong> just made a donation of <strong>@Model.Amount</strong> on your behalf!</p>
-
-<p>Thought you'd like to know!</p>
+<h1>Great News!</h1>
+<p><strong>@Model.FirstName @Model.LastName</strong> just made a donation of <strong>@Model.Amount.ToString("C")</strong> on your behalf!</p>
+<p>Keep it up!</p>
+<p>-- @OrganizationName</p>
+<p>Take me to @Html.ActionLink("my profile page", "Index", new { controller = "UserProfile", area = "" }).</p>

@@ -135,6 +135,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			}
 
 			userProfile.Active = false;
+		    var organization = userProfile.Organization;
 			
 			foreach (var user in userProfile.Users)
 			{
@@ -142,8 +143,15 @@ namespace JordanRift.Grassroots.Web.Controllers
 			}
 
 			userProfileRepository.Save();
-			var mailerModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
-			mailer.TaxInfo(mailerModel).SendAsync();
+			mailer.TaxInfo(new DeactivateModel
+			                   {
+                                   Email = userProfile.Email,
+                                   FirstName = userProfile.FirstName,
+			                       FacebookUrl = organization.FacebookPageUrl,
+                                   TwitterUrl = string.Format("http://twitter.com/{0}", organization.TwitterName.Replace("@", "")),
+                                   BlogUrl= organization.BlogRssUrl
+			                   }).SendAsync();
+
             TempData["UserFeedback"] = "Welcome back! We're glad you're with us again!";
 			return RedirectToAction("LogOff", "Account");
 		}

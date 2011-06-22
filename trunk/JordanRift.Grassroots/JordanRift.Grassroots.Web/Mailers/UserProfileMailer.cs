@@ -27,7 +27,7 @@ namespace JordanRift.Grassroots.Web.Mailers
             MasterName = "_EmailLayout";
 		}
 
-		public MailMessage TaxInfo(UserProfileDetailsModel model)
+		public MailMessage TaxInfo(DeactivateModel model)
 		{
 		    var mailMessage = new MailMessage { Subject = "So long, farewell..." };
 			mailMessage.To.Add(model.Email);

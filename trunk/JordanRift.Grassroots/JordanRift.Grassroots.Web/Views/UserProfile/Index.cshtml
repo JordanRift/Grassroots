@@ -102,7 +102,7 @@
                     }
                     <li>@Html.ActionLink("Change Password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change Password" })</li>
                     @if (Model.Active)  { 
-                    <li>@Html.ActionLink("Disable Account", "DeactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Disable Account" })</li>
+                    <li>@Html.ActionLink("Deactivate Account", "DeactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Deactivate Account" })</li>
                     }
                     else {
                     <li>@Html.ActionLink("Activate Account", "ReactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Activate Account" })</li>

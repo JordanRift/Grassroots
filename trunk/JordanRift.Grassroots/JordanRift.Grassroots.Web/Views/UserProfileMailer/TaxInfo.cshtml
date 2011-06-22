@@ -1,4 +1,4 @@
-@model JordanRift.Grassroots.Web.Models.UserProfileDetailsModel
+@model JordanRift.Grassroots.Web.Models.DeactivateModel
 @{
     //
     // Grassroots is free software: you can redistribute it and/or modify
@@ -17,9 +17,8 @@
     
     Layout = "~/Views/Shared/_EmailLayout.cshtml";
 }    
-<h1>Sorry to see you go @Model.FirstName!</h1>
-<p>We keep your information on file for two reasons:</p>
-<ol>
-    <li>Just in case you decide to come back.</li>
-    <li>For tax filing purposes. All donations you made during your stay are tax deductible.</li>
-</ol>
+<h1>Sorry to see you go!</h1>
+<p>This email confirms your profile has been deactivated.</p>
+<p>Please stay connected through our <a href="@Model.FacebookUrl">Facebook page</a>, 
+<a href="@Model.TwitterUrl">Twitter account</a> and our <a href="@Model.BlogUrl">blog</a>.</p>
+<p>-- @OrganizationName</p>
