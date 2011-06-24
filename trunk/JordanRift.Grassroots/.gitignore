@@ -7,3 +7,7 @@
 /AppHarbor.5.1.ReSharper.user
 /AppHarbor.suo
 /*.Grassroots.sln.docstates
+/*.suo
+/_ReSharper.Azure/
+/*.sln.docstates
+/*.5.1.ReSharper.user
