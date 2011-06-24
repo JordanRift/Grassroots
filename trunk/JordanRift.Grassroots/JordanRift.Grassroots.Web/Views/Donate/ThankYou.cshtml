@@ -24,19 +24,21 @@
     <h1>@Model.FirstName, thank you so much!</h1>
     <h3>Seriously, we &hearts; you! We couldn't do what we do without your generosity!</h3>
 </hgroup>
-<section>
+<section class="thanks">
     <p>You'll be receiving an email receipt shortly. You can either print this page or keep a copy of the email for your recepit.</p>
 
     @Html.Partial("DonationReceipt")
     <p>@Html.ActionLink(linkText, "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = linkText })</p>
     
     @if (!string.IsNullOrEmpty(Model.UrlSlug)) {
-    <h3>Share this with your friends!</h3>
-    <ul>
-        <li>@Html.Partial("TweetButton")</li>
-        <li>@Html.Partial("FacebookLikeButton")</li>
-        <li>@Html.Partial("PlusOneButton")</li>
-    </ul>
+    <div class="share">
+        <h3>Share this with your friends!</h3>
+        <ul>
+            <li>@Html.Partial("TweetButton")</li>
+            <li>@Html.Partial("FacebookLikeButton")</li>
+            <li>@Html.Partial("PlusOneButton")</li>
+        </ul>
+    </div>
     }
     <div class="break"></div>
 </section>
