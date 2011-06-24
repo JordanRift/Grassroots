@@ -102,7 +102,8 @@ p {
 				padding-left: 40px;
 			}
 
-				.org-summary > .social {
+				.org-summary > .social,
+				.campaign-summary .share {
 					display: block;
 					position: relative;
 					text-align: center;
@@ -110,7 +111,8 @@ p {
 					width: 225px;
 				}
 
-					.org-summary > .social > li {
+					.org-summary > .social > li,
+					.campaign-summary .share li {
 						display: block;
 						float: left;
 						width: 75px;
@@ -175,6 +177,10 @@ p {
 		#main .cause-template-info {
 			padding: 30px;
 		}
+
+			.cause-template-info .overview h4 {
+				padding: 10px 0px;
+			}
 
 		#main .get-started {
 		}
@@ -254,6 +260,47 @@ p {
 					height: 20px;
 				}
 
+		#main .campaign-summary .share {
+			width: 350px;
+		}
+
+			#main .campaign-summary .share ul {
+				width: 225px;
+				padding-top: 20px;
+				margin: 20px auto 0px; 
+			}
+
+			#main .campaign-summary .share .email {
+				width: 300px;
+			}
+
+				.campaign-summary .share .email li {
+					width: 75px;
+					display: block;
+					float: left;
+				}
+
+				.campaign-summary .share .email-button {
+					padding-top: 10px;
+				}
+
+					.campaign-summary .email li a {
+						display: block;
+						width: 50px;
+						margin: 0px auto;
+						height: auto;
+					}
+
+			#main .campaign-summary .share .buttons {
+				width: 350px;
+				text-align: center;
+			}
+
+				#main .campaign-summary .share .buttons a {
+					display: inline;
+					margin: 5px 10px;
+				}
+
 		#main .share-campaign {
 			margin: 20px 0px 0px;
 			min-height: 278px;
@@ -312,7 +359,7 @@ p {
 			}
 
 		#main .summary {
-			min-height: 253px;
+			min-height: 323px;
 		}
 
 			#main > .summary > div,
@@ -377,6 +424,10 @@ p {
 		.cause-template-info > .infographics {
 			float: left;
 			text-align: center;
+		}
+
+		.cause-template-info > .infographics {
+			margin-left: 20px;
 		}
 
 			.overview ul {
@@ -859,6 +910,10 @@ div.check-box {
 
 .ui-widget-overlay {
 	display: none;
+}
+
+.ui-dialog .ui-dialog-content {
+	overflow: hidden !important;
 }
 
 .notification {
