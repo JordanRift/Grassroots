@@ -16,6 +16,15 @@
 //
 
 var Grassroots = (function() {
+    function _causeSearch($el) {
+        var id = $el.parents(".form").attr("data-cause-template-id");
+        var referenceNumber = $(".reference-number").val();
+                
+        if (referenceNumber !== "") {
+            window.location = "/Projects/Search/" + id + "/" + escape(referenceNumber);
+        }
+    }
+
     return {
         progressbar: function () {
             var $progressbar = $(".ui-progressbar-value");
@@ -155,6 +164,20 @@ var Grassroots = (function() {
                 $(this).parent("li").addClass("selected");
                 $("#CampaignType").val($(this).attr("data-campaign-type"));
                 return false;
+            });
+        },
+        initCauseSearch: function() {
+            $(".project-details .search input:submit").click(function() {
+                _causeSearch($(this));
+                return false;
+            });
+
+            $(".reference-number").keypress(function(event) {
+                if (event.keyCode == 13) {
+                    _causeSearch($(this));
+                }
+
+                return true;
             });
         }
     };

@@ -20,6 +20,11 @@
 
 @section DocumentHead {
     @Html.Partial("UIForm")
+    <script type="text/javascript">
+        $(function () {
+            Grassroots.initCauseSearch();
+        });
+    </script>
 }
 
     <hgroup>
@@ -59,8 +64,8 @@
         </aside>
         <div class="search">
             <h3>Enter Reference Number</h3>
-            <div class="form">
-                @Html.TextBox("ReferenceNumber", null, new { placeholder = "Reference Number" })
+            <div class="form" data-cause-template-id="@Model.CauseTemplateID">
+                @Html.TextBox("ReferenceNumber", null, new { placeholder = "Reference Number", @class = "reference-number" })
                 @Html.UiSubmit("Search")
             </div>
         </div>
