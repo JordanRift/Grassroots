@@ -29,6 +29,23 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Birthdate { get; set; }
+
+        [NotMapped]
+        public int Age
+        {
+            get
+            {
+                DateTime now = DateTime.Now;
+                int years = now.Year - Birthdate.Year;
+
+                if (now.Month < Birthdate.Month || (now.Month == Birthdate.Month && now.Day < Birthdate.Day))
+                {
+                    --years;
+                }
+
+                return years;
+            }
+        }
     }
 
     public class RecipientConfiguration : EntityTypeConfiguration<Recipient>
