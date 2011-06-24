@@ -209,6 +209,7 @@
     <Content Include="Content\images\fb-login.jpg" />
     <Content Include="Content\images\fb-register.jpg" />
     <Content Include="Content\images\icon_email.gif" />
+    <Content Include="Content\images\tweet.png" />
     <Content Include="Content\images\tweetn.png" />
     <Content Include="Content\jquery.wijmo-complete.1.2.0.css" />
     <Content Include="Content\jquery.wijmo-open.1.2.0.css" />

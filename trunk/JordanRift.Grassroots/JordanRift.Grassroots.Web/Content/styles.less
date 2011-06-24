@@ -854,6 +854,24 @@ div.check-box {
 		margin-right: .3em;
 	}
 
+.ui-widget-overlay {
+	display: none;
+}
+
+.notification {
+	position: fixed;
+	display: none;
+	top: 30%;
+	right: 50%;
+	margin-right: -170px;
+	margin-top: -70px;
+	padding: 20px;
+	height: 100px;
+	width: 300px;
+	opacity: 0.8;
+	filter:alpha(opacity=80)
+}
+
 .fb-login {
 	display: block;
 	background: url(images/fb-login.jpg);
@@ -874,20 +892,46 @@ div.check-box {
 	margin: 20px 0px;
 }
 
-.ui-widget-overlay {
-	display: none;
+#main .twitter-vertical {
+	width: 55px;
 }
 
-.notification {
-	position: fixed;
-	display: none;
-	top: 30%;
-	right: 50%;
-	margin-right: -170px;
-	margin-top: -70px;
-	padding: 20px;
-	height: 100px;
-	width: 300px;
-	opacity: 0.8;
-	filter:alpha(opacity=80)
-}
+	#main .twitter-vertical > .count {
+		background: url(images/tweet.png) no-repeat 0px -63px;
+		display: block;
+		width: 55px;
+		height: 40px;
+		color: #2A7090 !important;
+		text-align: center;
+		font: bold 16px/34px Arial,Helvetica,sans-serif;
+	}
+
+		#main .count > a {
+			color: #2A7090 !important;
+			text-align: center;
+			font: bold 16px/34px Arial,Helvetica,sans-serif;
+			height: 34px;
+		}
+
+		#main .count > a:hover {
+			color: #30566d !important;
+			text-decoration: none;
+		}
+
+	#main .twitter-vertical > .count:hover {
+		background: url(images/tweet.png) no-repeat 0px -104px;
+		color: #30566d !important;
+	}
+	
+	#main .twitter-vertical > .tweet {
+		display: block;
+		height: 20px;
+		width: 55px;
+		overflow: hidden;
+		text-indent: -1000px;
+		background: url(images/tweet.png) no-repeat 0px 0px;
+	}
+
+		#main .tweet:hover {
+			background: url(images/tweet.png) no-repeat 0px -21px;
+		}

@@ -151,6 +151,15 @@ var Grassroots = (function() {
             mywindow = window.open('http://twitter.com/share?url=' + str, "Tweet_widow", "channelmode=no,directories=no,location=no,menubar=no,scrollbars=no,toolbar=no,status=no,width=500,height=375,left=300,top=200");
             mywindow.focus();
         },
+        getTweetCount: function(url) {
+            var request = "http://urls.api.twitter.com/1/urls/count.json?url=" + escape(url) + "&callback=?";
+
+            $.getJSON(request, function(data) {
+                $(".count > a").text(data.count);
+            });
+
+            return false;
+        },
         getStarted: function() {
             $(".cause-template").click(function() {
                 $(".projects li").removeClass("selected");
