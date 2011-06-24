@@ -281,6 +281,27 @@
     <Content Include="Content\themes\grassroots-theme\images\other.png" />
     <Content Include="Content\themes\grassroots-theme\images\sports-hover.png" />
     <Content Include="Content\themes\grassroots-theme\images\sports.png" />
+    <Content Include="Content\themes\onemission\images\ui-bg_diagonals-medium_25_000000_40x40.png" />
+    <Content Include="Content\themes\onemission\images\ui-bg_flat_30_cccccc_40x100.png" />
+    <Content Include="Content\themes\onemission\images\ui-bg_flat_50_5c5c5c_40x100.png" />
+    <Content Include="Content\themes\onemission\images\ui-bg_glass_40_ffc73d_1x400.png" />
+    <Content Include="Content\themes\onemission\images\ui-bg_glass_40_ffd6a0_1x400.png" />
+    <Content Include="Content\themes\onemission\images\ui-bg_glow-ball_80_222222_600x600.png" />
+    <Content Include="Content\themes\onemission\images\ui-bg_highlight-hard_20_0972a5_1x100.png" />
+    <Content Include="Content\themes\onemission\images\ui-bg_highlight-hard_20_528f00_1x100.png" />
+    <Content Include="Content\themes\onemission\images\ui-bg_highlight-soft_33_003147_1x100.png" />
+    <Content Include="Content\themes\onemission\images\ui-bg_highlight-soft_33_528f00_1x100.png" />
+    <Content Include="Content\themes\onemission\images\ui-bg_highlight-soft_35_222222_1x100.png" />
+    <Content Include="Content\themes\onemission\images\ui-bg_highlight-soft_65_222222_1x100.png" />
+    <Content Include="Content\themes\onemission\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\onemission\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\onemission\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\onemission\images\ui-icons_a83300_256x240.png" />
+    <Content Include="Content\themes\onemission\images\ui-icons_cccccc_256x240.png" />
+    <Content Include="Content\themes\onemission\images\ui-icons_ccff99_256x240.png" />
+    <Content Include="Content\themes\onemission\images\ui-icons_ff0000_256x240.png" />
+    <Content Include="Content\themes\onemission\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\onemission\jquery-ui-1.8.11.custom.css" />
     <Content Include="Scripts\grassroots.core.js" />
     <Content Include="Scripts\jquery-1.5.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.2.js" />
@@ -511,6 +532,7 @@
     <Content Include="Views\CauseTemplate\CauseDetails.cshtml" />
     <Content Include="Views\Account\UpdatePassword.cshtml" />
     <Content Include="Views\CauseTemplate\CauseGrid.cshtml" />
+    <None Include="Content\themes\onemission\custom.less" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
