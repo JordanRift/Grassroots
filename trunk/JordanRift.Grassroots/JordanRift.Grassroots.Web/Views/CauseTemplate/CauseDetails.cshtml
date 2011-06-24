@@ -1,5 +1,86 @@
-﻿@{
-    ViewBag.Title = "CauseDetails";
+﻿@model JordanRift.Grassroots.Web.Models.CauseDetailsModel
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
+    ViewBag.Title = @Model.Name + " Project Details";
 }
 
-<h2>CauseDetails</h2>
+<hgroup>
+    <h1>@Model.Name</h1>
+    <h3>Project Details</h3>
+</hgroup>
+<section class="cause-details">
+    <span class="reference-number">Reference ID: @Model.ReferenceNumber</span>
+    <div class="recipients">
+        <img src="@Model.ImagePath" alt="@Model.Name" />
+        @if (Model.Recipients.Count > 0) { 
+        <ul>
+            @foreach (var recipient in Model.Recipients) {
+            <li>
+                <p><strong>@recipient.FirstName @recipient.LastName</strong></p>
+                <span>@recipient.Age years old</span>
+            </li>
+            }
+        </ul>
+        }
+        <div class="break"></div>
+    </div>
+    <div class="before-after">
+        <ul>
+            <li>
+                <label>Before</label>
+                <img src="@Model.BeforeImagePath" alt="Before" />
+            </li>
+            <li>
+                <label>After</label>
+                <img src="@Model.AfterImagePath" alt="After" />
+            </li>
+        </ul>
+        <div class="deets">
+            @if (!string.IsNullOrEmpty(Model.Region)) { 
+            <p><strong>@Model.Region</strong></p>
+            }
+            <p><strong>Completed:</strong> @Model.DateCompleted.ToShortDateString()</p>
+            <p class="serving"><strong>Hours Served:</strong> @Model.HoursVolunteered</p>
+        </div>
+        <div class="break"></div>
+    </div>
+    <div class="media">
+        <div class="video">
+            @Html.Raw(Model.VideoEmbedHtml)
+        </div>
+        <div class="map">
+            <div>
+                <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=@Model.Latitude,@Model.Longitude&am;pll=@Model.Latitude,@Model.Longitude&spn=0.29351,0.639438&output=embed&z=14"></iframe>
+            </div>
+            <ul>
+                <li><strong>Latitude:</strong> @Model.Latitude</li>
+                <li><strong>Longitude:</strong> @Model.Longitude</li>
+            </ul>
+        </div>
+        <div class="break"></div>
+    </div>
+    <div class="details">
+        <h4>A little bit about @Model.Name</h4>
+        <p>@Model.Summary</p>
+    </div>
+    @if (!string.IsNullOrEmpty(Model.DescriptionHtml)) {
+    <div class="description">
+        @Html.Raw(Model.DescriptionHtml)   
+        <div class="break"></div>
+    </div>
+    }
+</section>
