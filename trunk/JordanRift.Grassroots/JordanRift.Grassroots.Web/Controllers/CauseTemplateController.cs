@@ -66,7 +66,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(model);
         }
 
-        //[OutputCache(Duration = 150, VaryByParam = "id")]
+        [OutputCache(Duration = 150, VaryByParam = "id")]
         public ActionResult Search(int id = -1)
         {
             var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
