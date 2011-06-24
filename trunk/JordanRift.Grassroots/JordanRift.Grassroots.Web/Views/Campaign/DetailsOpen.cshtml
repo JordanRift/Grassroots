@@ -28,8 +28,7 @@
 				@Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
 			</aside>
 			<p>@Html.Raw( Model.InstructionsOpenHtml )</p>
-		</div>
-		<div class="share">
+            <div class="share">
 			@if ( !Model.CurrentUserIsOwner ) {
 				@Html.ActionLink( "I want my own campaign", "GetStarted", new { Controller = "Campaign", Area = "" }, new { Title = "Click here go start your own campaign", @class = "ui-button ui-corner-all" } )
 			}
@@ -41,6 +40,7 @@
 				<li><a href="#" id="email-blast" title="Email your friends"><img src="@Url.Content("~/Content/images/icon_email.gif")" alt="Email your friends" height="30" width="30" /></a></li>
 			}
 			</ul>
+		</div>
 		</div>
 		<div class="break"></div>
 	</section>
