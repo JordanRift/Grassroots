@@ -156,6 +156,18 @@ var Grassroots = (function() {
                 $("#CampaignType").val($(this).attr("data-campaign-type"));
                 return false;
             });
+        },
+        initCauseSearch: function() {
+            $(".project-details .search input:submit").click(function() {
+                var id = $(this).parents(".form").attr("data-cause-template-id");
+                var referenceNumber = $(".reference-number").val();
+                
+                if (referenceNumber !== "") {
+                    window.location = "/Projects/Search/" + id + "/" + escape(referenceNumber);
+                }
+
+                return false;
+            });
         }
     };
 })();

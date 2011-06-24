@@ -108,7 +108,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(model);
         }
 
-        private CauseTemplateDetailsModel MapCauseTemplateDetails(CauseTemplate causeTemplate, bool shouldMapCauses = false)
+        private static CauseTemplateDetailsModel MapCauseTemplateDetails(CauseTemplate causeTemplate, bool shouldMapCauses = false)
         {
             var model = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
 
@@ -120,7 +120,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             return model;
         }
 
-        private CauseDetailsModel MapCauseDetails(Cause cause)
+        private static CauseDetailsModel MapCauseDetails(Cause cause)
         {
             var model = Mapper.Map<Cause, CauseDetailsModel>(cause);
             model.Region = cause.Region != null ? cause.Region.Name : string.Empty;
