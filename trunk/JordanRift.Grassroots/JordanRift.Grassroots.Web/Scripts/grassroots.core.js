@@ -16,6 +16,15 @@
 //
 
 var Grassroots = (function() {
+    function _causeSearch($el) {
+        var id = $el.parents(".form").attr("data-cause-template-id");
+        var referenceNumber = $(".reference-number").val();
+                
+        if (referenceNumber !== "") {
+            window.location = "/Projects/Search/" + id + "/" + escape(referenceNumber);
+        }
+    }
+
     return {
         progressbar: function () {
             var $progressbar = $(".ui-progressbar-value");
@@ -159,14 +168,16 @@ var Grassroots = (function() {
         },
         initCauseSearch: function() {
             $(".project-details .search input:submit").click(function() {
-                var id = $(this).parents(".form").attr("data-cause-template-id");
-                var referenceNumber = $(".reference-number").val();
-                
-                if (referenceNumber !== "") {
-                    window.location = "/Projects/Search/" + id + "/" + escape(referenceNumber);
+                _causeSearch($(this));
+                return false;
+            });
+
+            $(".reference-number").keypress(function(event) {
+                if (event.keyCode == 13) {
+                    _causeSearch($(this));
                 }
 
-                return false;
+                return true;
             });
         }
     };
