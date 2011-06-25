@@ -58,7 +58,10 @@
                 
                     @Html.UiSubmit("Log On")
                 </div>
-                <p>@Html.ActionLink("I forgot my password", "ForgotPassword", new { controller = "Account", area = "" }, new { title = "I forgot my password" })</p>
+                <ul class="account-maintenance">
+                    <li><p>Don't have an account? @Html.ActionLink("Click here", "Register", new { controller = "Account", area = "" }, new { title = "Click here" }) to register.</p></li>
+                    <li><p>Forgot your password? @Html.ActionLink("Click here!", "ForgotPassword", new { controller = "Account", area = "" }, new { title = "Click here!" })</p></li>
+                </ul>
         </fieldset>
     }
 </div>
