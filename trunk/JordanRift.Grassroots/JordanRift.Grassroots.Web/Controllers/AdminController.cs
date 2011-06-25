@@ -18,6 +18,11 @@ using System.Web.Mvc;
 using JordanRift.Grassroots.Web.Models;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using AutoMapper;
+using System.Collections.Generic;
+using System.Web;
+using System.IO;
+using System;
+using System.Text.RegularExpressions;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
@@ -89,10 +94,24 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
             var causeTemplate = organization.CauseTemplates.FirstOrDefault(c => c.CauseTemplateID == id);
-
-            if (causeTemplate != null)
+            
+			if (causeTemplate != null)
             {
-                var viewModel = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
+				CauseTemplateDetailsModel viewModel;
+
+				if ( TempData["CauseTemplateErrors"] != null )
+				{
+					foreach ( var error in ( List<ViewDataUploadFilesResult>)TempData["CauseTemplateErrors"] )
+					{
+						ModelState.AddModelError( string.Empty, string.Format( "{0}: {1}", error.OriginalName, error.ErrorMessage ) );					
+					}
+					viewModel = TempData["CauseTemplateDetailsModel"] as CauseTemplateDetailsModel;
+				}
+				else
+				{
+					viewModel = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>( causeTemplate );
+				}
+
                 return View(viewModel);
             }
 
@@ -110,16 +129,108 @@ namespace JordanRift.Grassroots.Web.Controllers
 				return HttpNotFound( "The project template could not be found." );
 			}
 
-			if ( !ModelState.IsValid )
+			if ( ! ModelState.IsValid )
 			{
 				TempData["CauseTemplateDetailsModel"] = model;
 				return RedirectToAction( "EditCauseTemplate", "Admin", new { id = model.CauseTemplateID } );
 			}
 
 			MapCauseTemplate( causeTemplate, model );
+
+			// Now save any new images and associate the new image names (URL) with the causeTemplate.
+			var results = SaveFiles( causeTemplate );
+			var fileErrors = results.Where( r => r.IsError == true ).ToList<ViewDataUploadFilesResult>();
+			if ( fileErrors.Count() > 0 )
+			{
+				TempData["CauseTemplateErrors"] = fileErrors;
+				TempData["CauseTemplateDetailsModel"] = model;
+				return RedirectToAction( "EditCauseTemplate", "Admin", new { id = model.CauseTemplateID } );
+			}
+
 			OrganizationRepository.Save();
 
 			return RedirectToAction( "CauseTemplateList", "Admin" );
+		}
+
+		/// <summary>
+		/// TODO: implement this as a provider so we can create and use other
+		/// file save providers (Amazon S3, Azure, etc.) easily.
+		/// </summary>
+		/// <param name="causeTemplate"></param>
+		private List<ViewDataUploadFilesResult> SaveFiles( CauseTemplate causeTemplate )
+		{
+			// the regex for an image
+		    Regex imageFilenameRegex = new Regex(@"(.*?)\.(jpg|jpeg|png|gif)$", RegexOptions.IgnoreCase);
+
+			int index = 0;
+			var results = new List<ViewDataUploadFilesResult>();
+
+			foreach ( string fileKey in Request.Files )
+			{
+				index++;
+				HttpPostedFileBase file = Request.Files[fileKey] as HttpPostedFileBase;
+
+				if ( file.ContentLength == 0 )
+				{
+					continue;
+				}
+
+				var fileResult = new ViewDataUploadFilesResult(){OriginalName = file.FileName, Length = file.ContentLength, IsError = false};
+
+				try
+				{
+					if ( imageFilenameRegex.IsMatch( file.FileName ) )
+					{
+						string fileExtension = Path.GetExtension( file.FileName );
+						string newFileName = string.Format( "{0}{1}", Guid.NewGuid().ToString(), fileExtension );
+						string relativePathFileName = Path.Combine( "Content", "UserContent", newFileName );
+						string physicalPathFileName = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, relativePathFileName );
+						file.SaveAs( physicalPathFileName );
+						fileResult.Name = relativePathFileName;
+						string oldFile = string.Empty;
+						switch ( index )
+						{
+							case 1:
+								oldFile = causeTemplate.ImagePath;
+								causeTemplate.ImagePath = relativePathFileName;
+								break;
+							case 2:
+								oldFile = causeTemplate.BeforeImagePath;
+								causeTemplate.BeforeImagePath = relativePathFileName;
+								break;
+							case 3:
+								oldFile = causeTemplate.AfterImagePath;
+								causeTemplate.AfterImagePath = relativePathFileName;
+								break;
+							default:
+								break;
+						}
+
+						if ( oldFile != null && oldFile != string.Empty && ! oldFile.ToLower().StartsWith("http") )
+						{
+							oldFile = Request.MapPath( Path.Combine( "~", oldFile ) );
+							if ( System.IO.File.Exists( oldFile ) )
+							{
+								System.IO.File.Delete( oldFile );
+							}
+						}
+					}
+					else
+					{
+						fileResult.IsError = true;
+						fileResult.ErrorMessage = "Invalid file type.";
+					}
+				}
+				catch ( HttpException  ex )
+				{
+					fileResult.IsError = true;
+					fileResult.ErrorMessage = string.Format( "Unable to save file. {0}", ex.Message);
+				};
+
+				results.Add( fileResult );
+
+			}
+			return results;
 		}
 
 		private static void MapCauseTemplate( CauseTemplate causeTemplate, CauseTemplateDetailsModel model )
@@ -208,4 +319,17 @@ namespace JordanRift.Grassroots.Web.Controllers
 		    organization.ThemeName = model.ThemeName;
 		}
 	}
+
+	/// <summary>
+	/// helper class for file uploading (TODO: possibly move to somewhere more appropriate or not?)
+	/// </summary>
+	public class ViewDataUploadFilesResult
+	{
+		public string OriginalName { get; set; } 
+		public string Name { get; set; }
+		public int Length { get; set; }
+		public bool IsError { get; set; }
+		public string ErrorMessage { get; set; }
+	}
+
 }
