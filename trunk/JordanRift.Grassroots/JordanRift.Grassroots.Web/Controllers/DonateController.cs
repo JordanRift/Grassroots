@@ -44,6 +44,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<UserProfile, Payment>();
             Mapper.CreateMap<Payment, CampaignDonor>();
             Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
+            Mapper.CreateMap<Campaign, CampaignDetailsModel>();
         }
 
         [OutputCache(Duration = 30, VaryByParam = "urlSlug")]
@@ -63,7 +64,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 if (campaign != null)
                 {
-                    // TODO: Consider creating an action filter for this
                     if (!campaign.IsActive)
                     {
                         TempData["UserFeedback"] = "Sorry, this campaign is inactive and can no longer receive donations.";
@@ -71,7 +71,8 @@ namespace JordanRift.Grassroots.Web.Controllers
                         return RedirectToAction("Index", "Campaign", new { slug = urlSlug });
                     }
 
-                    ViewBag.Campaign = campaign;
+                    var campaignModel = Mapper.Map<Campaign, CampaignDetailsModel>(campaign);
+                    ViewBag.Campaign = campaignModel;
                 }
 
                 if (TempData["PaymentGatewayError"] != null)

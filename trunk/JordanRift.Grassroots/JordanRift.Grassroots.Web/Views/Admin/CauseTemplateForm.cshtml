@@ -108,5 +108,5 @@
 		</fieldset>
 		<div>
 			@Html.UiSubmit("Save")
-			@Html.UiCancel()
+			@Html.ActionLink("Cancel", "CauseTemplateList", new { controller = "Admin", area = "" }, new { title = "Cancel", @class = "cancel" })
 		</div>

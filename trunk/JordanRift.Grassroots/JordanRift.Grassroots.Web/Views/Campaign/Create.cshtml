@@ -56,6 +56,7 @@
         </fieldset>
         <div>
             @Html.UiSubmit("Create")
+            @Html.ActionLink("Cancel", "Index", new { controller = "Home", area = "" }, new { title = "Cancel", @class = "cancel" })
         </div>
     } 
 </div>

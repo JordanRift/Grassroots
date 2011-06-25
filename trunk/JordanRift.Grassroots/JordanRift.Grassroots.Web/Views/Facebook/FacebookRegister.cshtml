@@ -79,7 +79,10 @@
                 @Html.LabelFor(m => m.Consent)
                 @Html.ValidationMessageFor(m => m.Consent, null, new { @class = "ui-state-error ui-corner-all" })
             </div>
-            <div>@Html.UiSubmit("Register")</div>
+            <div>
+                @Html.UiSubmit("Register")
+                @Html.ActionLink("Cancel", "Index", new { controller = "Home", area = "" }, new { title = "Cancel", @class = "cancel" })
+            </div>
         </fieldset>
     }
 </div>
