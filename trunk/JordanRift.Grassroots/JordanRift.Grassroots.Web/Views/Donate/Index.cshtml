@@ -1,5 +1,5 @@
 ﻿@model JordanRift.Grassroots.Framework.Entities.Payment
-@using JordanRift.Grassroots.Framework.Entities.Models
+@using JordanRift.Grassroots.Web.Models
 @{
     //
     // Grassroots is free software: you can redistribute it and/or modify
@@ -16,7 +16,10 @@
     // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
     //
     
-	ViewBag.Title = "Donate"; <!-- TODO: Add title with organization name -->
+	ViewBag.Title = "Donate to " + @OrganizationName;
+    var campaign = ViewBag.Campaign as CampaignDetailsModel;
+    var urlSlug = campaign != null ? campaign.UrlSlug : string.Empty;
+    var title = campaign != null ? campaign.Title : "our general fund";
 }
 
 @section DocumentHead 
@@ -28,14 +31,6 @@
         });
 	</script>
 }
-
-@{ 
-    // TODO: change Campaign object into a viewmodel here... no need for the actual entity to be exposed in the view
-	var campaign = ViewBag.Campaign as Campaign;
-	var urlSlug = campaign != null ? campaign.UrlSlug : string.Empty;
-    var title = campaign != null ? campaign.Title : "our general fund";
-}
-
 <hgroup>
     <h1>Make a Donation</h1>
     <h3>This donation will be applied toward @title.</h3>
@@ -161,8 +156,13 @@
             </dl>
 		</fieldset>
 		<div>
-			@Html.UiSubmit("Submit")
-			@Html.UiCancel()
+            @Html.UiSubmit("Submit")
+            @if (campaign != null) {
+            @Html.ActionLink("Cancel", "Index", new { controller = "Campaign", area = "", slug = campaign.UrlSlug }, new { title = "Cancel", @class = "cancel" })
+            }
+            else {
+            @Html.ActionLink("Cancel", "Index", new { controller = "Home", area = "" }, new { title = "Cancel", @class = "cancel" })
+            }
 		</div> 
 	} 
 </div>

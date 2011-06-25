@@ -18,4 +18,12 @@
     var urlToLike = ViewBag.UrlToLike ?? Url.Abs(@Request.RawUrl);
 }
 
-<a href="javascript:Grassroots.tweet('@urlToLike')"><img src="@Url.Content("~/Content/images/tweetn.png")" alt="Tweet this" height="20" width="55" /></a>
+<div class="twitter-vertical">
+    <div class="count"><a href="http://twitter.com/search?q=@urlToLike">0</a></div>
+    <a href="javascript:Grassroots.tweet('@urlToLike')" class="tweet">Tweet</a>
+    <script type="text/javascript">
+        $(function () {
+            Grassroots.getTweetCount("@urlToLike");
+        });
+    </script>
+</div>

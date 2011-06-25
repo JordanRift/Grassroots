@@ -34,6 +34,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 			Mapper.CreateMap<Organization, OrganizationDetailsModel>();
 			Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
 			Mapper.CreateMap<CauseTemplateDetailsModel, CauseTemplate>();
+		    Mapper.CreateMap<Cause, CauseDetailsModel>();
+		    Mapper.CreateMap<Recipient, RecipientDetailsModel>();
 		}
 
 		//

@@ -19,7 +19,6 @@
 }
 
     <section class="cause-template-info">
-        <a href="#" class="close" title="close">Close</a>
         <div class="overview">
             <ul>
                 <li>
@@ -32,7 +31,7 @@
                 </li>
             </ul>
             <h4>100% to our projects</h4>
-            @Html.ActionLink("How it works", "Details", new { controller = "CauseTemplate", area = "", id = Model.CauseTemplateID }, new { title = "How it works" })
+            @Html.ActionLink("How it works", "Details", new { controller = "CauseTemplate", area = "", id = Model.CauseTemplateID }, new { title = "How it works", @class="button-style round-corners" })
         </div>
         @if (!string.IsNullOrEmpty(Model.CauseTemplateStatisticsHtml)) {
         <div class="infographics">

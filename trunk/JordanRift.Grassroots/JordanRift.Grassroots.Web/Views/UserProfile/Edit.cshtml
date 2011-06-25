@@ -89,7 +89,7 @@
         </fieldset>
         <div>
             @Html.UiSubmit("Submit")
-            @Html.UiCancel()
+            @Html.ActionLink("Cancel", "Index", new { controller = "UserProfile", area = "" }, new { title = "Cancel", @class = "cancel" })
         </div>
     }
 </div>

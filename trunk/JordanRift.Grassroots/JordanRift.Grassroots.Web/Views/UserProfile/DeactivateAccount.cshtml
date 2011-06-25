@@ -30,7 +30,7 @@
         
         <div>
             @Html.UiSubmit("Yes, deactivate my account")
-            @Html.ActionLink("No way, get me out of here!", "Index", new { controller = "UserProfile", area = "" }, new { title = "No way, get me out of here!", @class="cancel" })
+            @Html.ActionLink("Cancel", "Index", new { controller = "UserProfile", area = "" }, new { title = "Cancel", @class="cancel" })
         </div>
     }
     <div class="break"></div>

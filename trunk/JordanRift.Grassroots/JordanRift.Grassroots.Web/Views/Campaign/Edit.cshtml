@@ -104,7 +104,7 @@
             @Html.Partial("DonationGrid", Model.Donations)
             <div>
                 @Html.UiSubmit("Submit Changes")
-                @Html.ActionLink("Cancel", "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Cancel", @class = "cancel" })
+                @Html.ActionLink("Cancel", "Index", new { controller = "Campaign", area = "", slug = Model.UrlSlug }, new { title = "Cancel", @class = "cancel" })
             </div>
         }
     </div>

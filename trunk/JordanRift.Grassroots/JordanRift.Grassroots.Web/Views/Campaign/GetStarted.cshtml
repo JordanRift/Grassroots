@@ -82,7 +82,7 @@
         </section>
         <div>
             @Html.UiSubmit("Let's go!")
-            @Html.UiCancel()
+            @Html.ActionLink("Cancel", "Index", new { controller = "Home", area = "" }, new { title = "Cancel", @class = "cancel" })
         </div>
     }
 </div>

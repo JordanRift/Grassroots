@@ -25,9 +25,10 @@ namespace JordanRift.Grassroots.Web.Models
         public string ReferenceNumber { get; set; }
 		public string Name { get; set; }
         public string Summary { get; set; }
+        public string DescriptionHtml { get; set; }
         public string ImagePath { get; set; }
 		public string Region { get; set; }
-        public string HoursServed { get; set; }
+        public string HoursVolunteered { get; set; }
 		public DateTime DateCompleted { get; set; }
         public string BeforeImagePath { get; set; }
         public string AfterImagePath { get; set; }

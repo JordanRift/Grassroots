@@ -16,6 +16,15 @@
 //
 
 var Grassroots = (function() {
+    function _causeSearch($el) {
+        var id = $el.parents(".form").attr("data-cause-template-id");
+        var referenceNumber = $(".reference-number").val();
+                
+        if (referenceNumber !== "") {
+            window.location = "/Projects/Search/" + id + "/" + escape(referenceNumber);
+        }
+    }
+
     return {
         progressbar: function () {
             var $progressbar = $(".ui-progressbar-value");
@@ -142,6 +151,15 @@ var Grassroots = (function() {
             mywindow = window.open('http://twitter.com/share?url=' + str, "Tweet_widow", "channelmode=no,directories=no,location=no,menubar=no,scrollbars=no,toolbar=no,status=no,width=500,height=375,left=300,top=200");
             mywindow.focus();
         },
+        getTweetCount: function(url) {
+            var request = "http://urls.api.twitter.com/1/urls/count.json?url=" + escape(url) + "&callback=?";
+
+            $.getJSON(request, function(data) {
+                $(".count > a").text(data.count);
+            });
+
+            return false;
+        },
         getStarted: function() {
             $(".cause-template").click(function() {
                 $(".projects li").removeClass("selected");
@@ -155,6 +173,20 @@ var Grassroots = (function() {
                 $(this).parent("li").addClass("selected");
                 $("#CampaignType").val($(this).attr("data-campaign-type"));
                 return false;
+            });
+        },
+        initCauseSearch: function() {
+            $(".project-details .search input:submit").click(function() {
+                _causeSearch($(this));
+                return false;
+            });
+
+            $(".reference-number").keypress(function(event) {
+                if (event.keyCode == 13) {
+                    _causeSearch($(this));
+                }
+
+                return true;
             });
         }
     };
