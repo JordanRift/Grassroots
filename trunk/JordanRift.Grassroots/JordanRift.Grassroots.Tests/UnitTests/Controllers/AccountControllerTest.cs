@@ -14,9 +14,12 @@
 //
 
 using System;
+using System.Collections.Specialized;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Tests.Helpers;
 using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
@@ -33,6 +36,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
     {
 
         private IUserProfileRepository userProfileRepository;
+        private UserProfile userProfile;
 
         [Test]
         public void UpdatePassword_Get_Returns_View()
@@ -159,6 +163,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             // Arrange
             AccountController controller = GetAccountController();
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "goodEmail";
+            userProfileRepository.Add(userProfile);
             LogOnModel model = new LogOnModel
                                    {
                                        Email = "goodEmail",
@@ -182,6 +189,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             // Arrange
             AccountController controller = GetAccountController();
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "goodEmail";
+            userProfileRepository.Add(userProfile);
             LogOnModel model = new LogOnModel
                                    {
                                        Email = "goodEmail",
@@ -226,6 +236,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             // Arrange
             AccountController controller = GetAccountController();
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "goodEmail";
+            userProfileRepository.Add(userProfile);
             LogOnModel model = new LogOnModel
                                    {
                                        Email = "goodEmail",
@@ -385,13 +398,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                                                    OrganizationRepository = fakeOrganizationRepository
                                                };
 
-            controller.ControllerContext = new ControllerContext
-                                               {
-                                                   Controller = controller,
-                                                   RequestContext =
-                                                       new RequestContext(new MockHttpContext(), new RouteData())
-                                               };
-
+            
+            TestHelpers.MockHttpContext(controller);
             return controller;
         }
     }

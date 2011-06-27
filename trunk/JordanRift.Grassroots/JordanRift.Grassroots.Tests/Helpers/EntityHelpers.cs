@@ -120,7 +120,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
 		                              ZipCode = "85213",
 		                              Consent = true,
                                       Active = true,
-                                      IsActivated = false,
+                                      IsActivated = true,
                                       ActivationHash = string.Empty,
                                       LastActivationAttempt = DateTime.Now,
                                       Users = new List<User>()
