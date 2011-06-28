@@ -12,17 +12,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
-
-using System.Linq;
-using System.Web.Mvc;
-using JordanRift.Grassroots.Web.Models;
-using JordanRift.Grassroots.Framework.Entities.Models;
-using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.IO;
-using System;
 using System.Text.RegularExpressions;
+using System.Linq;
+using System.Web.Mvc;
+
+using AutoMapper;
+using JordanRift.Grassroots.Web.Models;
+using JordanRift.Grassroots.Framework.Entities.Models;
+
+using JordanRift.Grassroots.Framework.Services;
+using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
@@ -103,9 +106,9 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 				if ( TempData["CauseTemplateErrors"] != null )
 				{
-					foreach ( var error in ( List<ViewDataUploadFilesResult>)TempData["CauseTemplateErrors"] )
+					foreach ( var error in ( List<FileUpload>)TempData["CauseTemplateErrors"] )
 					{
-						ModelState.AddModelError( string.Empty, string.Format( "{0}: {1}", error.OriginalName, error.ErrorMessage ) );					
+						ModelState.AddModelError( string.Empty, string.Format( "{0}: {1}", error.File.FileName, error.ErrorMessage ) );					
 					}
 					viewModel = TempData["CauseTemplateDetailsModel"] as CauseTemplateDetailsModel;
 				}
@@ -141,7 +144,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 			// Now save any new images and associate the new image names (URL) with the causeTemplate.
 			var results = SaveFiles( causeTemplate );
-			var fileErrors = results.Where( r => r.IsError == true ).ToList<ViewDataUploadFilesResult>();
+			var fileErrors = results.Where( r => r.IsError == true ).ToList<FileUpload>();
 			if ( fileErrors.Count() > 0 )
 			{
 				TempData["CauseTemplateErrors"] = fileErrors;
@@ -155,84 +158,89 @@ namespace JordanRift.Grassroots.Web.Controllers
 		}
 
 		/// <summary>
-		/// TODO: implement this as a provider so we can create and use other
-		/// file save providers (Amazon S3, Azure, etc.) easily.
+		/// Pre-processes the uploaded files and calls a IFileSaveService provider to save
+		/// the actual files.  Afterwards, it sets the new file name URLs onto the appropriate
+		/// fields of the causeTemplate.
 		/// </summary>
 		/// <param name="causeTemplate"></param>
-		private List<ViewDataUploadFilesResult> SaveFiles( CauseTemplate causeTemplate )
+		/// <returns></returns>
+		private List<FileUpload> SaveFiles( CauseTemplate causeTemplate )
 		{
-			// the regex for an image
+			// the regex for a valid image
 		    Regex imageFilenameRegex = new Regex(@"(.*?)\.(jpg|jpeg|png|gif)$", RegexOptions.IgnoreCase);
 
 			int index = 0;
-			var results = new List<ViewDataUploadFilesResult>();
+			var fileUploadList = new List<FileUpload>();
 
+			// Pre process the list of files and verify each is valid before calling IFileSaveService
 			foreach ( string fileKey in Request.Files )
 			{
 				index++;
 				HttpPostedFileBase file = Request.Files[fileKey] as HttpPostedFileBase;
 
+				// No file was uploaded (form element was left blank)
 				if ( file.ContentLength == 0 )
 				{
 					continue;
 				}
 
-				var fileResult = new ViewDataUploadFilesResult(){OriginalName = file.FileName, Length = file.ContentLength, IsError = false};
+				// Create a new FileUpload item
+				var fileUpload = new FileUpload() { File = file, Length = file.ContentLength, IsError = false, Index = index };
 
-				try
+				// Pull the existing (soon to be previous) file name from the CauseTemplate
+				// and set into the fileUpload because the provider may choose to delete
+				// the previous file.
+				if ( imageFilenameRegex.IsMatch( file.FileName ) )
 				{
-					if ( imageFilenameRegex.IsMatch( file.FileName ) )
+					switch ( index )
 					{
-						string fileExtension = Path.GetExtension( file.FileName );
-						string newFileName = string.Format( "{0}{1}", Guid.NewGuid().ToString(), fileExtension );
-						string relativePathFileName = Path.Combine( "Content", "UserContent", newFileName );
-						string physicalPathFileName = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, relativePathFileName );
-						file.SaveAs( physicalPathFileName );
-						fileResult.Name = relativePathFileName;
-						string oldFile = string.Empty;
-						switch ( index )
-						{
-							case 1:
-								oldFile = causeTemplate.ImagePath;
-								causeTemplate.ImagePath = relativePathFileName;
-								break;
-							case 2:
-								oldFile = causeTemplate.BeforeImagePath;
-								causeTemplate.BeforeImagePath = relativePathFileName;
-								break;
-							case 3:
-								oldFile = causeTemplate.AfterImagePath;
-								causeTemplate.AfterImagePath = relativePathFileName;
-								break;
-							default:
-								break;
-						}
-
-						if ( oldFile != null && oldFile != string.Empty && ! oldFile.ToLower().StartsWith("http") )
-						{
-							oldFile = Request.MapPath( Path.Combine( "~", oldFile ) );
-							if ( System.IO.File.Exists( oldFile ) )
-							{
-								System.IO.File.Delete( oldFile );
-							}
-						}
-					}
-					else
-					{
-						fileResult.IsError = true;
-						fileResult.ErrorMessage = "Invalid file type.";
+						case 1:
+							fileUpload.PreviousFileName = causeTemplate.ImagePath;
+							break;
+						case 2:
+							fileUpload.PreviousFileName = causeTemplate.BeforeImagePath;
+							break;
+						case 3:
+							fileUpload.PreviousFileName = causeTemplate.AfterImagePath;
+							break;
+						default:
+							break;
 					}
 				}
-				catch ( HttpException  ex )
+				else
 				{
-					fileResult.IsError = true;
-					fileResult.ErrorMessage = string.Format( "Unable to save file. {0}", ex.Message);
-				};
+					fileUpload.IsError = true;
+					fileUpload.ErrorMessage = "Invalid file type.";
+				}
 
-				results.Add( fileResult );
-
+				fileUploadList.Add( fileUpload );
 			}
-			return results;
+
+			// Get the configured IFileSaveService from the factory
+			IFileSaveService fileSaveService = FileSaveServiceFactory.GetFileSaveService();
+			fileSaveService.SaveFiles( fileUploadList );
+
+			// Post process files to set the new file name (URL) to the campaign's image
+			foreach ( var fileItem in fileUploadList )
+			{
+				string oldFile = string.Empty;
+				switch ( fileItem.Index )
+				{
+					case 1:
+						causeTemplate.ImagePath = fileItem.NewFileName;
+						break;
+					case 2:
+						causeTemplate.BeforeImagePath = fileItem.NewFileName;
+						break;
+					case 3:
+						causeTemplate.AfterImagePath = fileItem.NewFileName;
+						break;
+					default:
+						break;
+				}
+			}
+
+			return fileUploadList;
 		}
 
 		private static void MapCauseTemplate( CauseTemplate causeTemplate, CauseTemplateDetailsModel model )
@@ -321,17 +329,4 @@ namespace JordanRift.Grassroots.Web.Controllers
 		    organization.ThemeName = model.ThemeName;
 		}
 	}
-
-	/// <summary>
-	/// helper class for file uploading (TODO: possibly move to somewhere more appropriate or not?)
-	/// </summary>
-	public class ViewDataUploadFilesResult
-	{
-		public string OriginalName { get; set; } 
-		public string Name { get; set; }
-		public int Length { get; set; }
-		public bool IsError { get; set; }
-		public string ErrorMessage { get; set; }
-	}
-
 }

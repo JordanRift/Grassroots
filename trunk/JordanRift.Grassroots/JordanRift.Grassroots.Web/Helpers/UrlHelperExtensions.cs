@@ -30,6 +30,11 @@ namespace JordanRift.Grassroots.Web.Helpers
         {
             var httpContext = helper.RequestContext.HttpContext;
 
+            if (httpContext.Request.Url == null)
+            {
+                return null;
+            }
+
             var uri = new UriBuilder
                           {
                               Host = httpContext.Request.Url.Host,
