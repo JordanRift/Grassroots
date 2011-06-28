@@ -219,6 +219,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void Deactivate_Should_Redirect_To_LogOff_If_Successful()
         {
             userProfile.Email = "goodEmail";
+            userProfile.Organization = EntityHelpers.GetValidOrganization();
             var result = controller.Deactivate();
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             var action = ((RedirectToRouteResult) result).RouteValues["Action"];
@@ -229,6 +230,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void Deactivate_Should_Set_Active_To_False_If_Successful()
         {
             userProfile.Email = "goodEmail";
+            userProfile.Organization = EntityHelpers.GetValidOrganization();
             Assert.IsTrue(userProfile.Active);
             controller.Deactivate();
             Assert.IsFalse(userProfile.Active);
@@ -274,12 +276,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var mailer = mocks.DynamicMock<IUserProfileMailer>();
             MailerBase.IsTestModeEnabled = true;
             var upc = new UserProfileController(repository, causeRepository, mailer);
-            upc.ControllerContext = new ControllerContext
-                                        {
-                                            Controller = upc,
-                                            RequestContext = new RequestContext(new MockHttpContext(), new RouteData()),
-                                        };
-
+            TestHelpers.MockHttpContext(upc);
             return upc;
         }
     }

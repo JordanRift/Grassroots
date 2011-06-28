@@ -14,8 +14,13 @@
 //
 
 using System;
+using System.Collections.Specialized;
+using System.Security.Principal;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using JordanRift.Grassroots.Framework.Entities.Models;
+using Rhino.Mocks;
 
 namespace JordanRift.Grassroots.Tests.Helpers
 {
@@ -46,6 +51,34 @@ namespace JordanRift.Grassroots.Tests.Helpers
                                           { "Consent", userProfile.Consent.ToString() }
                                       };
             return form;
+        }
+
+        public static void MockHttpContext(Controller controller, bool isAuthenticated = true)
+        {
+            // Mocking http request so MVC UrlHelper class will function normally under test
+            // http://blog.muonlab.com/2010/02/22/how-to-use-mvcs-urlhelper-in-your-tests-with-rhinomocks/
+            var routes = new RouteCollection();
+            MvcApplication.RegisterRoutes(routes);
+
+            var mockRequest = MockRepository.GenerateStub<HttpRequestBase>();
+            mockRequest.Stub(x => x.ApplicationPath).Return("/");
+            mockRequest.Stub(x => x.Url).Return(new Uri("http://localhost/a", UriKind.Absolute));
+            mockRequest.Stub(x => x.ServerVariables).Return(new NameValueCollection());
+
+            var mockResponse = MockRepository.GenerateStub<HttpResponseBase>();
+            mockResponse.Stub(x => x.ApplyAppPathModifier(Arg<string>.Is.Anything)).Return(null).WhenCalled(x => x.ReturnValue = x.Arguments[0]);
+
+            var mockContext = MockRepository.GenerateStub<HttpContextBase>();
+            mockContext.Stub(x => x.Request).Return(mockRequest);
+            mockContext.Stub(x => x.Response).Return(mockResponse);
+
+            if (isAuthenticated)
+            {
+                mockContext.User = new GenericPrincipal(new GenericIdentity("goodEmail"), null /* roles */);
+            }
+
+            controller.ControllerContext = new ControllerContext(mockContext, new RouteData(), controller);
+            controller.Url = new UrlHelper(new RequestContext(mockContext, new RouteData()), routes);
         }
     }
 }
