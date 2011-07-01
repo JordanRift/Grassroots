@@ -26,7 +26,7 @@
 	<h1>Create New Project Template</h1>
 </hgroup>
 <div id="edit-form">
-	@using (Html.BeginForm(new { Action = "NewCauseTemplate", Controller = "Admin" } )) { 
+	@using (Html.BeginForm(new { Action = "New", Controller = "CauseTemplate" } )) { 
 		@Html.Partial("CauseTemplateForm", Model)
     }
 </div>

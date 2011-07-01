@@ -41,6 +41,8 @@ namespace JordanRift.Grassroots
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+			RegisterAdminRoutes( routes );
+
             routes.MapRoute(
                 "Campaigns",
                 "Campaigns/{slug}",
@@ -118,6 +120,15 @@ namespace JordanRift.Grassroots
             kernel.Bind<IBlogService>().To<BlogService>();
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
+
+		private static void RegisterAdminRoutes( RouteCollection routes )
+		{
+			routes.MapRoute(
+				"Admin",
+				"Admin/Project/{action}/{id}",
+				new { controller = "CauseTemplate", action = "Index", id = UrlParameter.Optional }
+			);
+		}
 
         private static void RegisterDonateRoutes(RouteCollection routes)
         {

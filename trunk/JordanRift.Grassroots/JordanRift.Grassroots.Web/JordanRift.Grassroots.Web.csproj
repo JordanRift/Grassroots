@@ -502,10 +502,10 @@
     <Content Include="Views\Admin\EditUserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\CauseTemplateList.cshtml" />
+    <Content Include="Views\CauseTemplate\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\EditCauseTemplate.cshtml" />
+    <Content Include="Views\CauseTemplate\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\CauseList.cshtml" />
@@ -549,11 +549,11 @@
     <Content Include="Views\UserProfileMailer\WelcomeBack.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CauseTemplate.cshtml" />
     <Content Include="Views\Campaign\DonationGrid.cshtml" />
-    <Content Include="Views\Admin\CreateCauseTemplate.cshtml" />
+    <Content Include="Views\CauseTemplate\Create.cshtml" />
     <Content Include="Views\UserProfile\DeactivateAccount.cshtml" />
     <Content Include="Views\UserProfile\ReactivateAccount.cshtml" />
     <Content Include="Views\Shared\DonationReceipt.cshtml" />
-    <Content Include="Views\Admin\CauseTemplateForm.cshtml" />
+    <Content Include="Views\CauseTemplate\CauseTemplateForm.cshtml" />
     <Content Include="Views\Shared\UIGrid.cshtml" />
     <Content Include="Views\AccountMailer\Authorize.cshtml" />
     <Content Include="Views\Campaign\GetStarted.cshtml" />
