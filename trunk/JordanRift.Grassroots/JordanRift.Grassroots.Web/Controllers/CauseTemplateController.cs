@@ -19,6 +19,11 @@ using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Web.Models;
+using System.Collections.Generic;
+using JordanRift.Grassroots.Framework.Services;
+using System.Text.RegularExpressions;
+using System.Web;
+using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
@@ -31,7 +36,8 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             this.causeTemplateRepository = causeTemplateRepository;
             this.causeRepository = causeRepository;
-            Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
+			Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
+			Mapper.CreateMap<CauseTemplateDetailsModel, CauseTemplate>();
             Mapper.CreateMap<Cause, CauseDetailsModel>();
             Mapper.CreateMap<Recipient, RecipientDetailsModel>();
         }
@@ -108,7 +114,230 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(model);
         }
 
-        private static CauseTemplateDetailsModel MapCauseTemplateDetails(CauseTemplate causeTemplate, bool shouldMapCauses = false)
+		#region Administrative Actions
+
+
+		public ActionResult List()
+		{
+			var organization = OrganizationRepository.GetDefaultOrganization( readOnly: true );
+			var templates = organization.CauseTemplates;
+			var model = templates.Select( Mapper.Map<CauseTemplate, CauseTemplateDetailsModel> ).ToList();
+			return View( model );
+		}
+
+		//public JsonResult LoadCauseTemplateList(int page = 1, int rows = 10)
+		//{
+		//    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+		//    var theTotal = organization.CauseTemplates.Count;
+		//    //var pageNumber = page;
+		//    var templates = organization.CauseTemplates.Skip((page - 1) * rows).Take(rows);
+
+		//    return Json(new {
+		//        rows = templates,
+		//        totalrows = theTotal,
+		//        totals = templates
+		//    }, JsonRequestBehavior.AllowGet);
+		//}
+
+		[Authorize( Roles = "Administrator" )] 
+		public ActionResult Create()
+		{
+			return View();
+		}
+
+		[Authorize( Roles = "Administrator" )] 
+		[HttpPost]
+		public ActionResult New( CauseTemplateDetailsModel model )
+		{
+			if ( !ModelState.IsValid )
+			{
+				TempData["CauseTemplateCreateModel"] = model;
+				return RedirectToAction( "Create", "Admin/Project" );
+			}
+
+			var organization = OrganizationRepository.GetDefaultOrganization( readOnly: false );
+			var causeTemplate = Mapper.Map<CauseTemplateDetailsModel, CauseTemplate>( model );
+			organization.CauseTemplates.Add( causeTemplate );
+			OrganizationRepository.Save();
+
+			return RedirectToAction( "List", "Admin/Project" );
+		}
+
+		[Authorize( Roles = "Administrator" )] 
+		public ActionResult Edit( int id )
+		{
+			var organization = OrganizationRepository.GetDefaultOrganization( readOnly: true );
+			var causeTemplate = organization.CauseTemplates.FirstOrDefault( c => c.CauseTemplateID == id );
+
+			if ( causeTemplate != null )
+			{
+				CauseTemplateDetailsModel viewModel;
+
+				if ( TempData["CauseTemplateErrors"] != null )
+				{
+					foreach ( var error in (List<FileUpload>)TempData["CauseTemplateErrors"] )
+					{
+						ModelState.AddModelError( string.Empty, string.Format( "{0}: {1}", error.File.FileName, error.ErrorMessage ) );
+					}
+					viewModel = TempData["CauseTemplateDetailsModel"] as CauseTemplateDetailsModel;
+				}
+				else
+				{
+					viewModel = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>( causeTemplate );
+				}
+
+				return View( viewModel );
+			}
+
+			return HttpNotFound( "The project template could not be found." );
+		}
+
+
+		[HttpPost]
+		[Authorize( Roles = "Administrator" )] 
+		public ActionResult Update( CauseTemplateDetailsModel model )
+		{
+			var organization = OrganizationRepository.GetDefaultOrganization( readOnly: false );
+			var causeTemplate = organization.CauseTemplates.FirstOrDefault( c => c.CauseTemplateID == model.CauseTemplateID );
+
+			if ( causeTemplate == null )
+			{
+				return HttpNotFound( "The project template could not be found." );
+			}
+
+			if ( !ModelState.IsValid )
+			{
+				TempData["CauseTemplateDetailsModel"] = model;
+				return RedirectToAction( "Edit", "Admin/Project", new { id = model.CauseTemplateID } );
+			}
+
+			MapCauseTemplate( causeTemplate, model );
+
+			// Now save any new images and associate the new image names (URL) with the causeTemplate.
+			var results = SaveFiles( causeTemplate );
+			var fileErrors = results.Where( r => r.IsError == true ).ToList<FileUpload>();
+			if ( fileErrors.Count() > 0 )
+			{
+				TempData["CauseTemplateErrors"] = fileErrors;
+				TempData["CauseTemplateDetailsModel"] = model;
+				return RedirectToAction( "Edit", "Admin/Project", new { id = model.CauseTemplateID } );
+			}
+
+			OrganizationRepository.Save();
+
+			return RedirectToAction( "List", "Admin/Project" );
+		}
+
+		/// <summary>
+		/// Pre-processes the uploaded files and calls a IFileSaveService provider to save
+		/// the actual files.  Afterwards, it sets the new file name URLs onto the appropriate
+		/// fields of the causeTemplate.
+		/// </summary>
+		/// <param name="causeTemplate"></param>
+		/// <returns></returns>
+		private List<FileUpload> SaveFiles( CauseTemplate causeTemplate )
+		{
+			// the regex for a valid image
+			Regex imageFilenameRegex = new Regex( @"(.*?)\.(jpg|jpeg|png|gif)$", RegexOptions.IgnoreCase );
+
+			int index = 0;
+			var fileUploadList = new List<FileUpload>();
+
+			// Pre process the list of files and verify each is valid before calling IFileSaveService
+			foreach ( string fileKey in Request.Files )
+			{
+				index++;
+				HttpPostedFileBase file = Request.Files[fileKey] as HttpPostedFileBase;
+
+				// No file was uploaded (form element was left blank)
+				if ( file.ContentLength == 0 )
+				{
+					continue;
+				}
+
+				// Create a new FileUpload item
+				var fileUpload = new FileUpload() { File = file, Length = file.ContentLength, IsError = false, Index = index };
+
+				// Pull the existing (soon to be previous) file name from the CauseTemplate
+				// and set into the fileUpload because the provider may choose to delete
+				// the previous file.
+				if ( imageFilenameRegex.IsMatch( file.FileName ) )
+				{
+					switch ( index )
+					{
+						case 1:
+							fileUpload.PreviousFileName = causeTemplate.ImagePath;
+							break;
+						case 2:
+							fileUpload.PreviousFileName = causeTemplate.BeforeImagePath;
+							break;
+						case 3:
+							fileUpload.PreviousFileName = causeTemplate.AfterImagePath;
+							break;
+						default:
+							break;
+					}
+				}
+				else
+				{
+					fileUpload.IsError = true;
+					fileUpload.ErrorMessage = "Invalid file type.";
+				}
+
+				fileUploadList.Add( fileUpload );
+			}
+
+			// Get the configured IFileSaveService from the factory
+			IFileSaveService fileSaveService = FileSaveServiceFactory.GetFileSaveService();
+			fileSaveService.SaveFiles( fileUploadList );
+
+			// Post process files to set the new file name (URL) to the campaign's image
+			foreach ( var fileItem in fileUploadList )
+			{
+				string oldFile = string.Empty;
+				switch ( fileItem.Index )
+				{
+					case 1:
+						causeTemplate.ImagePath = fileItem.NewFileName;
+						break;
+					case 2:
+						causeTemplate.BeforeImagePath = fileItem.NewFileName;
+						break;
+					case 3:
+						causeTemplate.AfterImagePath = fileItem.NewFileName;
+						break;
+					default:
+						break;
+				}
+			}
+
+			return fileUploadList;
+		}
+
+		private static void MapCauseTemplate( CauseTemplate causeTemplate, CauseTemplateDetailsModel model )
+		{
+			causeTemplate.Name = model.Name;
+			causeTemplate.ActionVerb = model.ActionVerb;
+			causeTemplate.Active = model.Active;
+			causeTemplate.AmountIsConfigurable = model.AmountIsConfigurable;
+			causeTemplate.DefaultAmount = model.DefaultAmount;
+			causeTemplate.DefaultTimespanInDays = model.DefaultTimespanInDays;
+			causeTemplate.DescriptionHtml = model.DescriptionHtml;
+			causeTemplate.GoalName = model.GoalName;
+			causeTemplate.ImagePath = model.ImagePath;
+			causeTemplate.BeforeImagePath = model.BeforeImagePath;
+			causeTemplate.AfterImagePath = model.AfterImagePath;
+			causeTemplate.Summary = model.Summary;
+			causeTemplate.TimespanIsConfigurable = model.TimespanIsConfigurable;
+			causeTemplate.VideoEmbedHtml = model.VideoEmbedHtml;
+			causeTemplate.InstructionsOpenHtml = model.InstructionsOpenHtml;
+			causeTemplate.InstructionsClosedHtml = model.InstructionsClosedHtml;
+			causeTemplate.StatisticsHtml = model.StatisticsHtml;
+		}
+
+		#endregion
+
+		private static CauseTemplateDetailsModel MapCauseTemplateDetails(CauseTemplate causeTemplate, bool shouldMapCauses = false)
         {
             var model = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
 

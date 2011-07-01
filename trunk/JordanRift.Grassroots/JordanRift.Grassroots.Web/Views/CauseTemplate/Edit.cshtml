@@ -26,7 +26,7 @@
 	<h1>Edit '@Model.Name'</h1>
 </hgroup>
 <div id="edit-form">
-	@using ( Html.BeginForm( "UpdateCauseTemplate", "Admin", FormMethod.Post, new { enctype="multipart/form-data" } ) ) {
+	@using ( Html.BeginForm( "Update", "CauseTemplate", FormMethod.Post, new { enctype="multipart/form-data" } ) ) {
 		@Html.Partial( "CauseTemplateForm", Model )
         @Html.HiddenFor( m => m.CauseTemplateID )
     }

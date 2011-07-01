@@ -128,7 +128,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     if (userProfile.GetActiveCampaigns().Any())
                     {
                         TempData["ErrorMessage"] = "You do not have permission to create a new Campaign. You've already got one that's active.";
-                        return RedirectToAction("Index");
+						return RedirectToAction( "Index", new { controller = "UserProfile", id = "" } );
                     }
 
                     var organization = userProfile.Organization;

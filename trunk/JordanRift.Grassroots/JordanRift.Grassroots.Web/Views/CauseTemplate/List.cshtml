@@ -16,7 +16,7 @@
     // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
     //
     
-    ViewBag.Title = "CauseTemplateList";
+    ViewBag.Title = "List";
 }
 
 @section DocumentHead {
@@ -52,7 +52,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>@Html.CheckBoxFor(i => item.Active, new { disabled = true })</td>
-            <td>@Html.ActionLink(item.Name, "EditCauseTemplate", new { controller = "Admin", id = item.CauseTemplateID }, new { title = item.Name })</td>
+            <td>@Html.ActionLink(item.Name, "Edit", new { controller = "CauseTemplate", id = item.CauseTemplateID }, new { title = item.Name })</td>
             <td>@item.ActionVerb</td>
             <td>@item.GoalName</td>
             <td>@item.Summary</td>
@@ -60,5 +60,5 @@
 }
     </tbody>
 </table>
-<p>@Html.ActionLink("Create New", "CreateCauseTemplate")</p>
+<p>@Html.ActionLink("Create New", "Create")</p>
 <p>@Html.ActionLink("Back to Admin Dashboard", "Index", new { controller = "Admin", area = "" }, new { title = "Back to Admin Dashboard" })</p>
