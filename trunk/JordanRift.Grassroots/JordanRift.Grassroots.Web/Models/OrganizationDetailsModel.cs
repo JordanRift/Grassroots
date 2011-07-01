@@ -66,6 +66,12 @@ namespace JordanRift.Grassroots.Web.Models
 
 		[DisplayName( "Organization's Twitter Username" )]
 		public string TwitterName { get; set; }
+		
+        [DisplayName("Public Website Home Page")]
+		public string PublicWebsiteUrl { get; set; }
+
+		[DisplayName("Public About Page")]
+		public string PublicAboutPageUrl { get; set; }
 
         [DisplayName("Organization's Facebook Page")]
         public string FacebookPageUrl { get; set; }

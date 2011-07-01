@@ -322,6 +322,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 			organization.PaymentGatewayApiKey = model.PaymentGatewayApiKey ?? "";
 			organization.PaymentGatewayApiSecret = model.PaymentGatewayApiSecret ?? "";
 			organization.PaymentGatewayType = model.PaymentGatewayType;
+			organization.PublicWebsiteUrl = model.PublicWebsiteUrl;
+			organization.PublicAboutPageUrl = model.PublicAboutPageUrl;
 		    organization.FacebookPageUrl = model.FacebookPageUrl;
 			organization.TwitterName = model.TwitterName;
 		    organization.BlogRssUrl = model.BlogRssUrl;

@@ -41,6 +41,16 @@
                         @Html.TextBoxFor(m => m.Tagline)
                         @Html.ValidationMessageFor(m => m.Tagline)
                     </dd>
+					<dt>@Html.LabelFor(m => m.PublicWebsiteUrl)</dt>
+                    <dd>
+                        @Html.TextBoxFor( m => m.PublicWebsiteUrl )
+                        @Html.ValidationMessageFor( m => m.PublicWebsiteUrl )
+                    </dd>
+					<dt>@Html.LabelFor(m => m.PublicAboutPageUrl)</dt>
+                    <dd>
+                        @Html.TextBoxFor( m => m.PublicAboutPageUrl )
+                        @Html.ValidationMessageFor( m => m.PublicAboutPageUrl )
+                    </dd>
                     <dt>@Html.LabelFor(m => m.ContactEmail)</dt>
                     <dd>
                         @Html.TextBoxFor(m => m.ContactEmail)
