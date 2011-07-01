@@ -51,9 +51,7 @@
 				    @String.Format( "{0:MM/dd/yy}", item.DateCompleted ) 
 			    </td>
 			    <td>
-			    @if ( item.Region != null ) {
-				    @item.Region.Name;
-			    }
+				    @item.Region
 			    </td>
 		    </tr>
 	    }
