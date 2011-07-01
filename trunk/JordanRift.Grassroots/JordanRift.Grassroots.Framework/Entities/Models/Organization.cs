@@ -44,6 +44,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public string PaymentGatewayApiKey { get; set; }
         public string PaymentGatewayApiSecret { get; set; }
 
+        public string PublicWebsiteUrl { get; set; }
+        public string PublicAboutPageUrl { get; set; }
         public string FacebookPageUrl { get; set; }
         public string VideoEmbedHtml { get; set; }
         public string TwitterName { get; set; }

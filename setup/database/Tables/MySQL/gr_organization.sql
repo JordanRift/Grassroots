@@ -13,11 +13,13 @@ CREATE TABLE `gr_organization` (
   `PaymentGatewayApiUrl` varchar(100) DEFAULT '''''',
   `PaymentGatewayApiKey` varchar(100) NOT NULL DEFAULT '''''',
   `PaymentGatewayApiSecret` varchar(100) NOT NULL DEFAULT '''''',
-  `FacebookPageUrl` varchar(150) NOT NULL DEFAULT '''''',
+  `PublicWebsiteUrl` varchar(200) DEFAULT NULL,
+  `FacebookPageUrl` varchar(200) NOT NULL DEFAULT '''''''''',
   `VideoEmbedHtml` varchar(1000) NOT NULL DEFAULT '''''',
   `TwitterName` varchar(50) NOT NULL DEFAULT '''''',
   `BlogRssUrl` varchar(250) DEFAULT '''''',
   `ThemeName` varchar(50) NOT NULL DEFAULT '''''',
+  `PublicAboutPageUrl` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`OrganizationID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
