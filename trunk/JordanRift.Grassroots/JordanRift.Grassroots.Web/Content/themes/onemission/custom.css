@@ -109,6 +109,11 @@ a:hover {
         #main hgroup {
             padding: 20px 0px 30px;
         }
+        
+            #main hgroup h3 em {
+                font-style: normal;
+                color: #ffd6a0;
+            }
     
         #main h1 {
             font: 40px 'LeagueGothicRegular', Impact, Arial, sans-serif;
@@ -183,7 +188,7 @@ a.ui-button,
 	background: url("images/ui-bg_highlight-hard_20_528f00_1x100.png") repeat-x #CBE86B;
 	border: 1px solid #B6D060;
 	height: 1.3em;
-	-mox-border-radius: 6px;
+	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	-khtml-border-radius: 6px;
 	-ms-border-radius: 6px;

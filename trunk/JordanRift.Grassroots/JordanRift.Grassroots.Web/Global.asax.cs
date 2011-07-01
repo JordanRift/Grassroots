@@ -123,11 +123,11 @@ namespace JordanRift.Grassroots
 
 		private static void RegisterAdminRoutes( RouteCollection routes )
 		{
-			routes.MapRoute(
-				"Admin",
-				"Admin/Project/{action}/{id}",
-				new { controller = "CauseTemplate", action = "Index", id = UrlParameter.Optional }
-			);
+            //routes.MapRoute(
+            //    "Admin",
+            //    "Admin/Project/{action}/{id}",
+            //    new { controller = "CauseTemplate", action = "Index", id = UrlParameter.Optional }
+            //);
 		}
 
         private static void RegisterDonateRoutes(RouteCollection routes)

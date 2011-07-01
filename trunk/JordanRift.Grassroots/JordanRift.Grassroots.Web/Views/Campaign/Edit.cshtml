@@ -91,14 +91,6 @@
                         @Html.ValidationMessageFor(m => m.Description, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                     </div>
                 </div>
-                <div class="share">
-                    <h3>Share this with your friends</h3>
-                    <ul>
-                        <li>@Html.Partial("TweetButton")</li>
-                        <li>@Html.Partial("FacebookLikeButton")</li>
-                        <li>@Html.Partial("PlusOneButton")</li>
-                    </ul>
-                </div>
                 <div class="break"></div>
             </section>
             @Html.Partial("DonationGrid", Model.Donations)
