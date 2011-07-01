@@ -43,6 +43,8 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
             Mapper.CreateMap<UserProfile, CampaignDetailsModel>();
             Mapper.CreateMap<CauseTemplate, CampaignDetailsModel>();
+            Mapper.CreateMap<Cause, CauseDetailsModel>();
+            Mapper.CreateMap<Recipient, RecipientDetailsModel>();
             Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
             Mapper.CreateMap<Campaign, CampaignEmailBlastModel>();
             Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();

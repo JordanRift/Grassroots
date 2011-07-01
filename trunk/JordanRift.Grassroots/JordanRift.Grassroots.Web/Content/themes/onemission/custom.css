@@ -48,6 +48,8 @@ a:hover {
 		float: none;
 		height: 260px;
 		z-index: 3;
+		width: 900px;
+		margin: 0px auto;
 	}
 
         header > hgroup > h1 {
@@ -65,10 +67,48 @@ a:hover {
         header > hgroup > h2 {
             display: none;
         }
-
+        
+        header > .user-info {
+            color: #fff;
+            top: 120px;
+            right: 45px;
+        }
+        
+        header nav {
+			display: block;
+			position: absolute;
+			top: 165px;
+			right: 25px;
+		}
+		
+		    #menu li {
+		        display: block;
+		        float: left;
+		        padding: 0px;
+		    }
+		
+		        #menu li a {
+		            color: #f1f1f1;
+				    font-family: 'LeagueGothicRegular', Impact, Arial, sans-serif;
+				    font-size: 26px;
+				    text-transform: uppercase;
+				    padding: 15px 20px 10px 20px;
+				    display: block;
+		        }
+		    
+		        #menu li a:hover {
+					background: #444444;
+					color: #ffd6a0;
+					text-decoration: none;
+				}
+				
     #main {
         color: #f1f1f1;
     }
+    
+        #main hgroup {
+            padding: 20px 0px 30px;
+        }
     
         #main h1 {
             font: 40px 'LeagueGothicRegular', Impact, Arial, sans-serif;
@@ -78,6 +118,10 @@ a:hover {
 		    display: block;
 		    float: none;
 		    padding-top: 15px;
+        }
+        
+        #main h2 > a:hover {
+            text-decoration: none;
         }
     
             .stats > li,
@@ -105,7 +149,168 @@ a:hover {
 					font-family: Georgia, "Times New Roman";
 				}
 
-.ui-progressbar-value {
-    background: #ffd6a0 url(images/ui-bg_inset-soft_20_ffd6a0_1x100.png) 50% 50% repeat-x;
-    border: 1px solid #999999;
+#progressbar {
+    border: 1px solid #333;
 }
+
+    .ui-progressbar-value {
+        background: #ffd6a0 url(images/ui-bg_inset-soft_20_ffd6a0_1x100.png) 50% 50% repeat-x;
+        border: 1px solid #B68E68;
+    }
+    
+    #progress .label,
+    #progress .goal-start,
+    #progress .goal-complete {
+        color: #444;
+    }
+    
+#main .dashboard > .donate {
+    margin-top: 59px;
+}
+    
+a.ui-button,
+.links a {
+	cursor: pointer;
+    display: inline-block;
+    margin-right: 0.1em;
+    overflow: visible;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none !important;
+	padding: 0.5em 1em !important;
+	color: #f1f1f1 !important;
+	background: url("images/ui-bg_highlight-hard_20_528f00_1x100.png") repeat-x #CBE86B;
+	border: 1px solid #B6D060;
+	height: 1.3em;
+	-mox-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-khtml-border-radius: 6px;
+	-ms-border-radius: 6px;
+}
+
+.ui-button:hover,
+.links a:hover {
+    background: #FFD6A0 url("images/ui-bg_inset-soft_20_ffd6a0_1x100.png") repeat-x;
+    color: #000 !important;
+    border: 1px solid #B68E68;
+}
+
+input[type='text'].ui-state-focus, 
+input[type='text'].ui-state-active, 
+input[type='text'].ui-state-hover,
+input[type='password'].ui-state-focus, 
+input[type='password'].ui-state-active, 
+input[type='password'].ui-state-hover,
+textarea.ui-state-focus, 
+textarea.ui-state-active, 
+textarea.ui-state-hover,
+.wijmo-wijdropdown .ui-state-focus, 
+.wijmo-wijdropdown .ui-state-active, 
+.wijmo-wijdropdown .ui-state-hover {
+	-moz-box-shadow: 0px 0px 5px 1px #CCFF99;
+	-webkit-box-shadow: 0px 0px 5px 1px #CCFF99;
+	box-shadow: 0px 0px 5px 1px #CCFF99;
+	background: url("images/ui-bg_highlight-soft_35_222222_1x100.png") repeat-x scroll 50% 50% #222222;
+}
+
+#main .summary,
+#main .share-campaign,
+#main .donations,
+#main .cause-template-info,
+fieldset,
+#main .get-started .campaign-types li,
+#main .get-started .projects .selected,
+#main .get-started .campaign-types .selected  {
+	border-radius: 10px;
+	-mox-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	-ms-border-radius: 10px;
+	border: 1px solid #333333;
+	background: #000 url(images/panel-bg.jpg) repeat-x;
+	position: relative;
+}
+
+    fieldset, fieldset.column {
+        margin: 20px 10px 0px;
+    }
+
+        fieldset > legend {
+            position: absolute;
+            top: -60px;
+        }
+        
+        .validation-summary-errors {
+            margin-bottom: 40px;
+        }
+
+.grid tbody > tr:hover {
+    background: #444;
+}
+
+#main .get-started .projects > p,
+#main .get-started .campaign-types > p {
+	font-weight: bold;
+	color: #999;
+}
+
+    #main .get-started .projects .selected a,
+    #main .get-started .campaign-types .selected a {
+        color: #CCFF99;
+    }
+
+	#main .get-started .projects a {
+		color: #444;
+	}
+
+	#main .get-started .projects a:hover,
+	#main .get-started .campaign-types a:hover {
+		text-decoration: none;
+	}
+
+	.get-started .campaign-types li {
+		color: #444;
+	}
+
+		.get-started .campaign-types #birthday a {
+			background: url(images/birthday.png) no-repeat center 80px;
+		}
+
+		.get-started .campaign-types #birthday.selected a {
+			background: url(images/birthday-hover.png) no-repeat center 80px;
+		}
+
+		.get-started .campaign-types #sports a {
+			background: url(images/sports.png) no-repeat center 80px;
+		}
+
+		.get-started .campaign-types #sports.selected a {
+			background: url(images/sports-hover.png) no-repeat center 80px;
+		}
+
+		.get-started .campaign-types #groups a {
+			background: url(images/groups.png) no-repeat center 80px;
+		}
+
+		.get-started .campaign-types #groups.selected a {
+			background: url(images/groups-hover.png) no-repeat center 80px;
+		}
+
+		.get-started .campaign-types #other a {
+			background: url(images/other.png) no-repeat center 80px;
+		}
+
+		.get-started .campaign-types #other.selected a {
+			background: url(images/other-hover.png) no-repeat center 80px;
+		}
+
+			.get-started .campaign-types li strong,
+			.get-started .campaign-types li span {
+				color: #444;
+			}
+			
+			.get-started .campaign-types .selected strong,
+			.get-started .campaign-types .selected span {
+				color: #CCFF99;
+			}

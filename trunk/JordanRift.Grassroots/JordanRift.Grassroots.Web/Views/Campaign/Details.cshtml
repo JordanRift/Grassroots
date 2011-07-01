@@ -43,8 +43,8 @@
     <section class="dashboard campaign-dashboard">
         @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
         <ul class="stats break">
-            <li class="first"><span>@Model.GoalAmount.ToString("C")</span> Campaign Goal</li>
-            <li><span>@total.ToString("C")</span> Raised to Date</li>
+            <li class="first"><span>@Model.GoalAmount.ToString("C0")</span> Campaign Goal</li>
+            <li><span>@total.ToString("C0")</span> Raised to Date</li>
             <li><span>@Model.Donations.Count</span> Individual Donations</li>
             <li class="last"><span>@daysRemaining</span> Days Remaining</li>
         </ul>

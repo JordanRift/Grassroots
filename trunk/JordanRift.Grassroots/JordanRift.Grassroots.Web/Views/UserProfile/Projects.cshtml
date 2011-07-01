@@ -27,7 +27,7 @@
     @Html.ActionLink(linkText, "Index", new { controller = "UserProfile", area = "", id = Model.UserProfileID })
 <section class="donations">
 @if ( Model.Causes.Count() > 0 ) {
-    <table>
+    <table class="grid">
         <thead>
             <tr>
                 <th>
