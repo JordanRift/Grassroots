@@ -86,7 +86,7 @@ namespace JordanRift.Grassroots.Web.Models
 		[DisplayName( "Instructions Closed (HTML)" )]
 		public string InstructionsClosedHtml { get; set; }
 
-		[Required]
+		[Required( ErrorMessage="An image is required... something like http://placehold.it/156x80" )]
         [Display(Name = "Image Path")]
 		public string ImagePath { get; set; }
 
