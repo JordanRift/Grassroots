@@ -20,16 +20,27 @@
 <table>
     <tbody>
         <tr>
-            <td><strong>Name</strong></td>
-            <td>@Model.FirstName @Model.LastName</td>
+            <td>Donation From:</td>
+            <td>
+                @Model.FirstName @Model.LastName<br />
+                @Model.AddressLine1
+                @if (!string.IsNullOrEmpty(Model.AddressLine2)) {
+                <br />@Model.AddressLine2
+                }
+                <br />@Model.City, @Model.State @Model.ZipCode
+            </td>
         </tr>
         <tr>
-            <td><strong>Amount</strong></td>
+            <td>Amount:</td>
             <td>@Model.Amount.ToString("C")</td>
         </tr>
         <tr>
-            <td><strong>Date Received</strong></td>
-            <td>@Model.DonationDate</td>
+            <td>Payment Method:</td>
+            <td>@Model.PaymentType</td>
+        </tr>
+        <tr>
+            <td>Gift Date:</td>
+            <td>@Model.DonationDate.ToShortDateString()</td>
         </tr>
     </tbody>
 </table>

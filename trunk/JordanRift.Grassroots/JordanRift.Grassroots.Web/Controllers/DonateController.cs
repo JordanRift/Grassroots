@@ -121,8 +121,8 @@ namespace JordanRift.Grassroots.Web.Controllers
                         donation.Approved = true;
                         campaign.CampaignDonors.Add(donation);
                         campaignRepository.Save();
-                        SendNotifications(campaign, donation);
-                        TempData["Donation"] = donation;
+                        var viewModel = SendNotifications(campaign, donation, model);
+                        TempData["Donation"] = viewModel;
                         return RedirectToAction("ThankYou");
                     }
 
@@ -137,17 +137,17 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         public ActionResult ThankYou()
         {
-            var donation = TempData["Donation"] as CampaignDonor;
+            var viewModel = TempData["Donation"] as DonationDetailsModel;
 
-            if (donation == null)
+            if (viewModel == null)
             {
                 return HttpNotFound("The donation you are looking for could not be found.");
             }
 
-            var campaign = donation.Campaign;
-            var viewModel = Mapper.Map<CampaignDonor, DonationDetailsModel>(donation);
-            viewModel.Title = campaign.Title;
-            viewModel.UrlSlug = campaign.UrlSlug;
+            //var campaign = donation.Campaign;
+            //var viewModel = Mapper.Map<CampaignDonor, DonationDetailsModel>(donation);
+            //viewModel.Title = campaign.Title;
+            //viewModel.UrlSlug = campaign.UrlSlug;
             return View(viewModel);
         }
 
@@ -199,17 +199,19 @@ namespace JordanRift.Grassroots.Web.Controllers
             return paymentProviderFactory.GetPaymentProvider(organization.PaymentGateway);
         }
 
-        private void SendNotifications(Campaign campaign, CampaignDonor donation)
+        private DonationDetailsModel SendNotifications(Campaign campaign, CampaignDonor donation, Payment payment)
         {
             // Send receipt of payment to user
             var mailerModel = Mapper.Map<CampaignDonor, DonationDetailsModel>(donation);
             mailerModel.Title = campaign.Title;
             mailerModel.UrlSlug = campaign.UrlSlug;
+            mailerModel.PaymentType = payment.PaymentType == PaymentType.CC ? "Credit/Debit Card" : "Electronic Check";
             donateMailer.UserDonation(mailerModel).SendAsync();
 
             // Send notification to campaign owner
             mailerModel.Email = campaign.UserProfile.Email;
             donateMailer.CampaignDonation(mailerModel).SendAsync();
+            return mailerModel;
         }
     }
 }

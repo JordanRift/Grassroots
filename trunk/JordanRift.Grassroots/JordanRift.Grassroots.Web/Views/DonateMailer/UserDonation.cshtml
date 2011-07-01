@@ -17,16 +17,8 @@
     
     Layout = "~/Views/Shared/_EmailLayout.cshtml";
 }
-<h1>Wow! Thanks!</h1>
-
-<p>Dear @Model.FirstName @Model.LastName,</p>
-
-<p>Thank you so much for your generous donation of <strong>@Model.Amount.ToString("C")</strong>!</p>
-
-@Html.Partial("DonationReceipt")
-
-<p>Your payment has been approved and received as of @DateTime.Now.ToLongDateString(). Please keep a copy of this email as your receipt.</p>
-
-<p>Thanks again!</p>
-
-<p><strong>@OrganizationName</strong></p>
+<p>Dear @Model.FirstName,</p>
+<p>Thank you for your contribution to @OrganizationName. Please save this letter as a confirmation of your donation and for your tax records.</p>
+@Html.Partial("DonationReceipt", Model)
+<p>Thanks again for your support, we are truly grateful!</p>
+<p>The @OrganizationName Team</p>
