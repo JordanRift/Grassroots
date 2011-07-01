@@ -59,7 +59,6 @@
 
 .header-style {
 	.dark-green;
-	font-size: 48px;
 }
 
 .round-corners {
@@ -72,7 +71,6 @@
 .nav-style {
 	.hilight;
 	font-weight: bold;
-	font-size: 16px;
 	text-decoration: none;
 }
 
@@ -97,22 +95,9 @@ body {
 	background: #000000 url("images/gradient-top.jpg") repeat-x;
 	font-family: Helvetica, Arial, sans-serif;
 	.dark-green;
-	font-size: 14px;
-	line-height: normal;
-}
-
-fieldset {
-    margin: 1em 0;
-    padding: 1em;
-    border: 1px solid #CCC;
 }
 
 header {
-	width: 980px;
-	height: 167px;
-	margin: 0px 0px -20px 10px;
-	display: block;
-	position: relative;
 	background: url("images/banner-top.png") no-repeat;
 	background-position: center bottom;
 	color: #cbe86b;
@@ -127,33 +112,13 @@ header {
 		background: url("images/logo.png") no-repeat;
 	}
 
-	header h2 {
-		font-size: 25px;
-		margin: 10px 0px 0px 28px;
-	}
-
 	header section.user-info {
-		position: absolute;
-		top: 15px;
-		right: 20px;
-		font-size: 14px;
 		.light-green;
 	}
 
 		.user-info a {
 			.hilight;
 			text-decoration: none;
-		}
-
-	header nav {
-		position: absolute;
-		right: 15px;
-		top: 88px;
-	}
-		
-		#menu li {
-			display: inline;
-			padding: 0px 5px;
 		}
 
 			#menu li a {
@@ -208,8 +173,6 @@ header {
 		}
 
 #main h2 {
-	font-size: 24px;
-	padding-bottom: 10px;
 	.medium-green;
 }
 
@@ -218,19 +181,11 @@ header {
 	}
 
 #main h3 {
-	font-size: 20px;
 	.medium-green;
 }
 
 	#main form fieldset h3 {
 		.medium-gray;
-		font-size: 18px;
-		padding: 0px 0px 10px;
-	}
-
-	#main > hgroup > h3 {
-		margin-left: 41px;
-		margin-top: 5px;
 	}
 
 		#main > hgroup > h3 > em {
@@ -242,61 +197,8 @@ header {
 		.dark-green;
 	}
 
-	#main #progress {
-		position: relative;
-		margin: 0px 0px 30px 0px;
-	}
-
-	#main .dashboard > #progress {
-		width: 668px;
-		float: left;
-		margin: 30px 0px;
-	}
-
-	#main .campaign-dashboard > #progress {
-		width: 100%;
-		float: none;
-	}
-
-		#progressbar {
-			margin-top: 5px;
-			position: relative;
-		}
-
-		.progress-indicator {
-			position: absolute;
-			border-left: 1px solid #495a5a;
-			height: 15px;
-			margin-left: 1px;
-			padding: 35px 0px 0px 5px;
-			top: 30px;
-			.transparent;
-		}
-
 		.goal-start, .goal-complete {
-			float: left;
-			font-size: 12px;
 			.medium-gray;
-		}
-
-		.goal-complete {
-			float: right;
-		}
-
-		.ui-progressbar-value {
-			display: none;
-		}
-
-	#main .dashboard > .donate {
-		width: 156px;
-		text-align: center;
-		float: left;
-		margin: 60px 0px 30px 40px;
-	}
-
-		.dashboard .donate > .ui-button {
-			width: 167px;
-			margin-right: 0px;
 		}
 
 			.stats > li,
@@ -306,12 +208,7 @@ header {
 				width: 194px;
 				border: 1px solid #cccccc;
 			}
-
-			.stats > .user-image {
-				background: none;
-				border: none;
-			}
-
+			
 			.stats > li,
 			#main .stats > li > a,
 			#main .stats > li > a:hover,
@@ -365,30 +262,10 @@ header {
 	.cause-template-info label {
 		.medium-gray;
 	}
-
-#main > .feeds {
-	margin-top: 30px;
-}
-
-	#main .tweets li {
-		display: block;
-		position: relative;
-		clear: both;
-		float: none;
-		padding: 10px 0px;
-	}
-
-		.tweets li img {
-			display: block;
-			float: left;
-			margin: 0px 10px 5px 0px;
-		}
-
+	
 		.tweets li .meta {
 			color: #999999;
-			font-size: 12px;
 			font-weight: bold;
-			float: right;
 		}
 
 	#main .user-info table .heading {
@@ -410,8 +287,6 @@ header {
 		#main .user-info > .user-dashboard a {
 			.button-style;
 			.round-corners;
-			width: 130px;
-			padding: 0.4em 0em !important;
 		}
 
 		#main .user-info > .user-dashboard a:hover {
@@ -423,17 +298,14 @@ header {
 		.round-corners;
 		.medium-gray;
 		border: 1px solid #cccccc;
-		font-size: 14px;
 	}
 
 		#main .user-info aside > ul > li > span {
 			.dark-green;
-			font-size: 18px;
 		}
 
 		#main .get-started .projects > p,
 		#main .get-started .campaign-types > p {
-			font-size: 18px;
 			font-weight: bold;
 			.medium-gray;
 		}
@@ -458,7 +330,6 @@ header {
 				.round-corners;
 				background: #e5e5e5;
 				border: 1px solid #cccccc;
-				font-size: 14px;
 			}
 
 				.get-started .campaign-types #birthday a {
@@ -494,7 +365,6 @@ header {
 				}
 
 					.get-started .campaign-types li strong {
-						font-size: 24px;
 						.dark-green;
 					}
 
@@ -519,21 +389,11 @@ header {
 		}
 
 footer {
-	width: 920px;
-	height: 135px;
 	background: url("images/footer-bg.png") no-repeat;
-	display: block;
 	margin: -14px 0px 0px 11px;
-	padding: 30px;
-	float: none;
-	clear: both;
 }
 
 	footer aside {
-		float: right;
-		font-size: 12px;
-		text-align: right;
-		margin-left: 28px;
 		.medium-gray;
 	}
 
@@ -545,23 +405,6 @@ footer {
 		footer aside a:hover {
 			text-decoration: underline;
 		}
-
-form > div
-{
-	clear: both;
-	float: none;
-	padding: 20px 0px;
-}
-
-	form > div > input,
-	form > div > button,
-	form > div > a {
-		margin: 10px 20px 10px 0px;
-	}
-
-	form > div > a {
-		margin-left: 20px;
-	}
 
 a.ui-button {
 	.button-style;

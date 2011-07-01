@@ -26,7 +26,25 @@
 	clear: both;
 }
 
+.header-style {
+	font-size: 48px;
+}
+
+.nav-style {
+	font-size: 16px;
+}
+
+.transparent {
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
 /// Styles ///
+
+body {
+	font-size: 14px;
+	line-height: normal;
+}
 
 section, aside, article, hgroup, nav, header, footer {
 	display: block;
@@ -37,6 +55,47 @@ section, aside, article, hgroup, nav, header, footer {
 	width: 400px;
 	padding: 10px 15px;
 }
+
+fieldset {
+    margin: 1em 0;
+    padding: 1em;
+    border: 1px solid #CCC;
+}
+
+header {
+	width: 980px;
+	height: 167px;
+	margin: 0px 0px -20px 10px;
+	display: block;
+	position: relative;
+}
+
+	header h2 {
+		font-size: 25px;
+		margin: 10px 0px 0px 28px;
+	}
+
+	header section.user-info {
+		position: absolute;
+		top: 15px;
+		right: 20px;
+		font-size: 14px;
+	}
+
+	header nav {
+		position: absolute;
+		right: 15px;
+		top: 88px;
+	}
+		
+		#menu li {
+			display: inline;
+			padding: 0px 5px;
+		}
+
+			#menu li a {
+				font-size: 16px;
+			}
 
 fieldset.column {
 	.two-column;
@@ -60,6 +119,118 @@ p {
 		padding: 20px 28px;
 	}
 
+		#main h1 {
+			font-size: 48px;
+		}
+
+		#main h2 {
+			font-size: 24px;
+			padding-bottom: 10px
+		}
+
+		#main h3 {
+			font-size: 20px;
+		}
+
+			#main form fieldset h3 {
+				font-size: 18px;
+				padding: 0px 0px 10px;
+			}
+
+			#main > hgroup > h3 {
+				margin-left: 41px;
+				margin-top: 5px;
+			}
+
+		#main #progress {
+			position: relative;
+			margin: 0px 0px 30px 0px;
+		}
+
+		#main .dashboard > #progress {
+			width: 668px;
+			float: left;
+			margin: 30px 0px;
+		}
+
+		#main .campaign-dashboard > #progress {
+			width: 100%;
+			float: none;
+		}
+
+			#progressbar {
+				margin-top: 5px;
+				position: relative;
+			}
+
+			.progress-indicator {
+				position: absolute;
+				border-left: 1px solid #495a5a;
+				height: 15px;
+				margin-left: 1px;
+				padding: 35px 0px 0px 5px;
+				top: 30px;
+				.transparent;
+			}
+
+			.goal-start, .goal-complete {
+				float: left;
+				font-size: 12px;
+			}
+
+			.goal-complete {
+				float: right;
+			}
+
+			.ui-progressbar-value {
+				display: none;
+			}
+
+		#main .dashboard > .donate {
+			width: 156px;
+			text-align: center;
+			float: left;
+			margin: 60px 0px 30px 40px;
+		}
+
+			.dashboard .donate > .ui-button {
+				width: 167px;
+				margin-right: 0px;
+			}
+
+				.stats > li,
+				#main .get-started .projects li {
+					width: 196px;
+				}
+
+				.stats > .user-image {
+					background: none;
+					border: none;
+				}
+
+		#main > .feeds {
+			margin-top: 30px;
+		}
+
+			#main .tweets li {
+				display: block;
+				position: relative;
+				clear: both;
+				float: none;
+				padding: 10px 0px;
+			}
+
+				.tweets li img {
+					display: block;
+					float: left;
+					margin: 0px 10px 5px 0px;
+				}
+
+				.tweets li .meta {
+					font-size: 12px;
+					float: right;
+				}
+				
 		header h1 a {
 			display: block;
 			height: 100%;
@@ -242,6 +413,7 @@ p {
 
 						.get-started .campaign-types strong {
 							display: block;
+							font-size: 24px;
 						}
 
 		.campaign-header {
@@ -460,6 +632,31 @@ p {
 			.overview > h4 {
 				padding-top: 10px;
 			}
+
+			#main .user-info > .user-dashboard li {
+			}
+
+		#main .user-info > .user-dashboard a {
+			width: 130px;
+			padding: 0.4em 0em !important;
+		}
+		
+	#main .user-info aside ul {
+		font-size: 14px;
+	}
+
+		#main .user-info aside > ul > li > span {
+			font-size: 18px;
+		}
+
+		#main .get-started .projects > p,
+		#main .get-started .campaign-types > p {
+			font-size: 18px;
+		}
+
+		.get-started .campaign-types li {
+			font-size: 14px;
+		}
 
 	#main .user-profile {
 	}
@@ -792,6 +989,38 @@ p {
 				padding: 5px 0px;
 				font-size: 24px;
 			}
+
+footer {
+	width: 920px;
+	height: 135px;
+	display: block;
+	padding: 30px;
+	float: none;
+	clear: both;
+}
+
+	footer aside {
+		float: right;
+		font-size: 12px;
+		text-align: right;
+		margin-left: 28px;
+	}
+
+form > div {
+	clear: both;
+	float: none;
+	padding: 20px 0px;
+}
+
+	form > div > input,
+	form > div > button,
+	form > div > a {
+		margin: 10px 20px 10px 0px;
+	}
+
+	form > div > a {
+		margin-left: 20px;
+	}
 
 form fieldset {
 	position: relative;
