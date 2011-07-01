@@ -36,6 +36,16 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
             get { return organization.Tagline; }
         }
 
+        public string PublicWebsiteUrl
+        {
+            get { return organization.PublicWebsiteUrl; }
+        }
+
+        public string PublicAboutPageUrl
+        {
+            get { return organization.PublicAboutPageUrl; }
+        }
+
         public string AnalyticsTrackingCode
         {
             get
