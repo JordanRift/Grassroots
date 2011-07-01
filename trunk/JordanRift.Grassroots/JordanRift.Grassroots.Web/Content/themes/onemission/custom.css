@@ -1,20 +1,111 @@
+@font-face {
+    font-family: 'LeagueGothicRegular';
+    src: url('League_Gothic-webfont.eot');
+    src: url('League_Gothic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('League_Gothic-webfont.woff') format('woff'),
+         url('League_Gothic-webfont.ttf') format('truetype'),
+         url('League_Gothic-webfont.svg#LeagueGothicRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 ::selection {
-  background: #c0da65;
+  background: #ffd6a0;
+  color: #444;
 }
 ::-moz-selection {
-  background: #c0da65;
+  background: #ffd6a0;
+  color: #444;
 }
 ::-webkit-selection {
-  background: #c0da65;
+  background: #ffd6a0;
+  color: #444;
 }
 
 body, html
 {
-	background: #000000;
+	background: #000000 url(images/pano-new.jpg) no-repeat;
+	background-position: center top;
 	color: #444444;
+	font-family: Helvetica, Arial, Sans-Serif;
 }
 
-a
-{
+a {
 	text-decoration: none;
+	color: #CCFF99;
+}
+
+h2, h3 {
+    font-family: Georgia, "Times New Roman";
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+    header {
+		position: relative;
+		float: none;
+		height: 260px;
+		z-index: 3;
+	}
+
+        header > hgroup > h1 {
+	        display: block;
+	        margin: 75px 0px 0px 40px;
+	        width: 254px;
+	        height: 190px;
+	        float: left;
+	        position: relative;
+	        background: url(images/logo.png) no-repeat;
+	        text-indent: -2000px;
+	        overflow: hidden;
+        }
+
+        header > hgroup > h2 {
+            display: none;
+        }
+
+    #main {
+        color: #f1f1f1;
+    }
+    
+        #main h1 {
+            font: 40px 'LeagueGothicRegular', Impact, Arial, sans-serif;
+            letter-spacing: 0;
+		    color: #ffd6a0;
+		    text-transform: uppercase;
+		    display: block;
+		    float: none;
+		    padding-top: 15px;
+        }
+    
+            .stats > li,
+			#main .get-started .projects li {
+				border-radius: 10px;
+				-mox-border-radius: 10px;
+				-webkit-border-radius: 10px;
+				-khtml-border-radius: 10px;
+				-ms-border-radius: 10px;
+				width: 194px;
+				border: 1px solid #333333;
+		        background: url(images/panel-bg.jpg) repeat-x;
+			}
+			
+			.stats > li,
+			#main .stats > li > a,
+			#main .stats > li > a:hover,
+			#main .get-started .projects li {
+				color: #555;
+				text-decoration: none;
+			}
+
+				.stats > li span {
+					color: #f1f1f1;
+					font-family: Georgia, "Times New Roman";
+				}
+
+.ui-progressbar-value {
+    background: #ffd6a0 url(images/ui-bg_inset-soft_20_ffd6a0_1x100.png) 50% 50% repeat-x;
+    border: 1px solid #999999;
 }

@@ -307,6 +307,8 @@
     <Content Include="Content\themes\onemission\images\youtube-hover.gif" />
     <Content Include="Content\themes\onemission\images\youtube.gif" />
     <Content Include="Content\themes\onemission\jquery-ui-1.8.11.custom.css" />
+    <Content Include="Content\themes\onemission\League_Gothic-webfont.svg" />
+    <Content Include="Content\themes\onemission\SIL Open Font License 1.1.txt" />
     <Content Include="Scripts\grassroots.core.js" />
     <Content Include="Scripts\jquery-1.5.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.2.js" />
@@ -536,6 +538,9 @@
     <Content Include="Views\CauseTemplate\CauseDetails.cshtml" />
     <Content Include="Views\Account\UpdatePassword.cshtml" />
     <Content Include="Views\CauseTemplate\CauseGrid.cshtml" />
+    <None Include="Content\themes\onemission\League_Gothic-webfont.eot" />
+    <None Include="Content\themes\onemission\League_Gothic-webfont.ttf" />
+    <None Include="Content\themes\onemission\League_Gothic-webfont.woff" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
