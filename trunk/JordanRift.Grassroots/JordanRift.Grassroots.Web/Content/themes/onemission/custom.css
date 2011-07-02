@@ -240,12 +240,7 @@ fieldset,
     fieldset, fieldset.column {
         margin: 20px 10px 0px;
     }
-
-        fieldset > legend {
-            position: absolute;
-            top: -60px;
-        }
-        
+            
         .validation-summary-errors {
             margin-bottom: 40px;
         }
