@@ -174,7 +174,8 @@ a:hover {
 }
     
 a.ui-button,
-.links a {
+.links a,
+.button-style {
 	cursor: pointer;
     display: inline-block;
     margin-right: 0.1em;
@@ -207,6 +208,9 @@ input[type='text'].ui-state-hover,
 input[type='password'].ui-state-focus, 
 input[type='password'].ui-state-active, 
 input[type='password'].ui-state-hover,
+textarea.ui-state-focus, 
+textarea.ui-state-active, 
+textarea.ui-state-hover,
 textarea.ui-state-focus, 
 textarea.ui-state-active, 
 textarea.ui-state-hover,
