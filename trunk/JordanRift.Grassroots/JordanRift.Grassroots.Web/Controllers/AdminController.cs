@@ -49,11 +49,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 			return View();
 		}
 
-		#region CauseTemplate (aka Project) stuff
-
-
-		#endregion
-
 		public ActionResult EditOrganization()
 		{
 			// Perhaps someday we'll pull this from the route?
@@ -87,7 +82,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			{
 				MapOrganization( organization, model );
 				OrganizationRepository.Save();
-				
+			    TempData["UserFeedback"] = "Your changes have been saved. Please allow a few minutes for them to take effect.";
 				return RedirectToAction( "Index", "Admin" );
 			}
 
@@ -106,12 +101,14 @@ namespace JordanRift.Grassroots.Web.Controllers
 		    organization.FiscalYearStartDay = model.FiscalYearStartDay;
 		    organization.SummaryHtml = model.SummaryHtml;
 		    organization.DescriptionHtml = model.DescriptionHtml;
+		    organization.FooterHtml = model.FooterHtml;
 		    organization.PaymentGatewayApiUrl = model.PaymentGatewayApiUrl ?? "";
 			organization.PaymentGatewayApiKey = model.PaymentGatewayApiKey ?? "";
 			organization.PaymentGatewayApiSecret = model.PaymentGatewayApiSecret ?? "";
 			organization.PaymentGatewayType = model.PaymentGatewayType;
 			organization.PublicWebsiteUrl = model.PublicWebsiteUrl;
 			organization.PublicAboutPageUrl = model.PublicAboutPageUrl;
+		    organization.PublicServicesPageUrl = model.PublicServicesPageUrl;
 		    organization.FacebookPageUrl = model.FacebookPageUrl;
 			organization.TwitterName = model.TwitterName;
 		    organization.BlogRssUrl = model.BlogRssUrl;

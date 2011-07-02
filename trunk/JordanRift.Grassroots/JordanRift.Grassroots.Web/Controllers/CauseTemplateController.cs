@@ -86,7 +86,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(model);
         }
 
-        //[OutputCache(Duration = 150, VaryByParam = "id;referenceNumber")]
+        [OutputCache(Duration = 150, VaryByParam = "id;referenceNumber")]
         public ActionResult CauseDetails(int id = -1, string referenceNumber = "")
         {
             bool isValid = true;
@@ -152,7 +152,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			if ( !ModelState.IsValid )
 			{
 				TempData["CauseTemplateCreateModel"] = model;
-				return RedirectToAction( "Create", "Admin/Project" );
+				return RedirectToAction( "Create" );
 			}
 
 			var organization = OrganizationRepository.GetDefaultOrganization( readOnly: false );
@@ -160,7 +160,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			organization.CauseTemplates.Add( causeTemplate );
 			OrganizationRepository.Save();
 
-			return RedirectToAction( "List", "Admin/Project" );
+			return RedirectToAction( "List" );
 		}
 
 		[Authorize( Roles = "Administrator" )] 
@@ -208,7 +208,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			if ( !ModelState.IsValid )
 			{
 				TempData["CauseTemplateDetailsModel"] = model;
-				return RedirectToAction( "Edit", "Admin/Project", new { id = model.CauseTemplateID } );
+				return RedirectToAction( "Edit", new { id = model.CauseTemplateID } );
 			}
 
 			MapCauseTemplate( causeTemplate, model );
@@ -220,12 +220,13 @@ namespace JordanRift.Grassroots.Web.Controllers
 			{
 				TempData["CauseTemplateErrors"] = fileErrors;
 				TempData["CauseTemplateDetailsModel"] = model;
-				return RedirectToAction( "Edit", "Admin/Project", new { id = model.CauseTemplateID } );
+				return RedirectToAction( "Edit", new { id = model.CauseTemplateID } );
 			}
 
 			OrganizationRepository.Save();
+            TempData["UserFeedback"] = "Your changes have been saved. Please allow a few minutes for them to take effect.";
 
-			return RedirectToAction( "List", "Admin/Project" );
+			return RedirectToAction( "List" );
 		}
 
 		/// <summary>

@@ -32,6 +32,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public string Tagline { get; set; }
         public string SummaryHtml { get; set; }
         public string DescriptionHtml { get; set; }
+        public string FooterHtml { get; set; }
         public string ContactPhone { get; set; }
         public string ContactEmail { get; set; }
         
@@ -46,6 +47,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
         public string PublicWebsiteUrl { get; set; }
         public string PublicAboutPageUrl { get; set; }
+        public string PublicServicesPageUrl { get; set; }
         public string FacebookPageUrl { get; set; }
         public string VideoEmbedHtml { get; set; }
         public string TwitterName { get; set; }

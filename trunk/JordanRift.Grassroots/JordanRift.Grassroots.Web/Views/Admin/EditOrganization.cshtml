@@ -39,17 +39,22 @@
                     <dt>@Html.LabelFor(m => m.Tagline)</dt>
                     <dd>
                         @Html.TextBoxFor(m => m.Tagline)
-                        @Html.ValidationMessageFor(m => m.Tagline)
+                        @Html.ValidationMessageFor(m => m.Tagline, null, new { @class = "ui-state-error ui-corner-all" })
                     </dd>
 					<dt>@Html.LabelFor(m => m.PublicWebsiteUrl)</dt>
                     <dd>
                         @Html.TextBoxFor( m => m.PublicWebsiteUrl )
-                        @Html.ValidationMessageFor( m => m.PublicWebsiteUrl )
+                        @Html.ValidationMessageFor(m => m.PublicWebsiteUrl, null, new { @class = "ui-state-error ui-corner-all" })
                     </dd>
 					<dt>@Html.LabelFor(m => m.PublicAboutPageUrl)</dt>
                     <dd>
                         @Html.TextBoxFor( m => m.PublicAboutPageUrl )
-                        @Html.ValidationMessageFor( m => m.PublicAboutPageUrl )
+                        @Html.ValidationMessageFor(m => m.PublicAboutPageUrl, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.PublicServicesPageUrl)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.PublicServicesPageUrl)
+                        @Html.ValidationMessageFor(m => m.PublicServicesPageUrl, null, new { @class = "ui-state-error ui-corner-all" })
                     </dd>
                     <dt>@Html.LabelFor(m => m.ContactEmail)</dt>
                     <dd>
@@ -84,7 +89,7 @@
                     <dt>@Html.LabelFor(m => m.FacebookPageUrl)</dt>
                     <dd>
                         @Html.TextBoxFor(m => m.FacebookPageUrl)
-                        @Html.ValidationMessageFor(m => m.FacebookPageUrl)
+                        @Html.ValidationMessageFor(m => m.FacebookPageUrl, null, new { @class = "ui-state-error ui-corner-all" })
                     </dd>
                     <dt>@Html.LabelFor(m => m.TwitterName)</dt>
                     <dd>
@@ -94,7 +99,7 @@
                     <dt>@Html.LabelFor(m => m.BlogRssUrl)</dt>
                     <dd>
                         @Html.TextBoxFor(m => m.BlogRssUrl)
-                        @Html.ValidationMessageFor(m => m.BlogRssUrl)
+                        @Html.ValidationMessageFor(m => m.BlogRssUrl, null, new { @class = "ui-state-error ui-corner-all" })
                     </dd>
                 </dl>
             </fieldset>
@@ -131,7 +136,7 @@
                     <dt>@Html.LabelFor(m => m.ThemeName)</dt>
                     <dd>
                         @Html.TextBoxFor(m => m.ThemeName)
-                        @Html.ValidationMessageFor(m => m.ThemeName)
+                        @Html.ValidationMessageFor(m => m.ThemeName, null, new { @class = "ui-state-error ui-corner-all" })
                     </dd>
                     <dt>@Html.LabelFor(m => m.VideoEmbedHtml)</dt>
                     <dd>
@@ -147,6 +152,11 @@
                     <dd>
                         @Html.TextAreaFor(m => m.DescriptionHtml)
                         @Html.ValidationMessageFor(m => m.DescriptionHtml, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.FooterHtml)</dt>
+                    <dd>
+                        @Html.TextAreaFor(m => m.FooterHtml)
+                        @Html.ValidationMessageFor(m => m.FooterHtml, null, new { @class = "ui-state-error ui-corner-all" })
                     </dd>
                 </dl>
             </fieldset>

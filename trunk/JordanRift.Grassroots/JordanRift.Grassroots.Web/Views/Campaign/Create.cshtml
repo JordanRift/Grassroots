@@ -46,7 +46,7 @@
                     @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </dd>
                 @if (Model.AmountIsConfigurable) { 
-                <dt>The cost of a @Model.GoalName is around @Model.DefaultAmount.ToString("C"). Now set your goal and LETS GO!</dt>
+                <dt> @Model.GoalName cost around @Model.DefaultAmount.ToString("C"). Now set your goal and LETS GO!</dt>
                 <dd>
                     @Html.TextBoxFor(m => m.Amount)
                     @Html.ValidationMessageFor(m => m.Amount, null, new { @class = "ui-widget ui-state-error ui-corner-all" })

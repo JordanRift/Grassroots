@@ -17,9 +17,9 @@
     Layout = null;
 }
 
-<nav>
-    @Html.Partial("MainNavigation")
-</nav>
+<div>
+    @FooterHtml
+</div>
 <aside class="copyright">
     <p>
         @Html.ActionLink("Terms & Conditions", "Terms", new { controller = "Home", area = "" }, new { title = "Terms &amp; Conditions" })<br />

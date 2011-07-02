@@ -41,8 +41,6 @@ namespace JordanRift.Grassroots
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-			RegisterAdminRoutes( routes );
-
             routes.MapRoute(
                 "Campaigns",
                 "Campaigns/{slug}",
@@ -65,6 +63,7 @@ namespace JordanRift.Grassroots
             );
 
             RegisterUserProfileRoutes(routes);
+            RegisterAdminRoutes(routes);
 
             routes.MapRoute(
                 "CampaignModify",
@@ -123,11 +122,11 @@ namespace JordanRift.Grassroots
 
 		private static void RegisterAdminRoutes( RouteCollection routes )
 		{
-            //routes.MapRoute(
-            //    "Admin",
-            //    "Admin/Project/{action}/{id}",
-            //    new { controller = "CauseTemplate", action = "Index", id = UrlParameter.Optional }
-            //);
+            routes.MapRoute(
+                "Admin",
+                "Admin/Project/{action}/{id}",
+                new { controller = "CauseTemplate", action = "Index", id = UrlParameter.Optional }
+            );
 		}
 
         private static void RegisterDonateRoutes(RouteCollection routes)

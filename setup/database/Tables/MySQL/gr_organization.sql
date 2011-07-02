@@ -4,6 +4,7 @@ CREATE TABLE `gr_organization` (
   `Tagline` varchar(150) NOT NULL DEFAULT '''''',
   `SummaryHtml` varchar(1000) DEFAULT '''''''''',
   `DescriptionHtml` varchar(8000) DEFAULT '''''''''',
+  `FooterHtml` varchar(8000) DEFAULT NULL,
   `ContactPhone` varchar(20) NOT NULL DEFAULT '''''',
   `ContactEmail` varchar(30) NOT NULL DEFAULT '''''',
   `YtdGoal` decimal(18,2) DEFAULT '0.00',
@@ -14,12 +15,13 @@ CREATE TABLE `gr_organization` (
   `PaymentGatewayApiKey` varchar(100) NOT NULL DEFAULT '''''',
   `PaymentGatewayApiSecret` varchar(100) NOT NULL DEFAULT '''''',
   `PublicWebsiteUrl` varchar(200) DEFAULT NULL,
+  `PublicAboutPageUrl` varchar(200) DEFAULT NULL,
+  `PublicServicesPageUrl` varchar(200) DEFAULT NULL,
   `FacebookPageUrl` varchar(200) NOT NULL DEFAULT '''''''''',
   `VideoEmbedHtml` varchar(1000) NOT NULL DEFAULT '''''',
   `TwitterName` varchar(50) NOT NULL DEFAULT '''''',
   `BlogRssUrl` varchar(250) DEFAULT '''''',
   `ThemeName` varchar(50) NOT NULL DEFAULT '''''',
-  `PublicAboutPageUrl` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`OrganizationID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 

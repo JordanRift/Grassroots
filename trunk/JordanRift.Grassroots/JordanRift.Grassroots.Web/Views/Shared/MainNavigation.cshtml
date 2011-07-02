@@ -15,16 +15,23 @@
     //
 }
                 <ul id="menu">
-                    <li>@Html.ActionLink("What We Do", "Index", new { Controller = "CauseTemplate", Area = "" }, new { title = "What We Do" })</li>
-				@if ( string.IsNullOrEmpty( PublicAboutPageUrl) ) {
+                @if ( string.IsNullOrEmpty( PublicAboutPageUrl) ) {
 					<li>@Html.ActionLink( "Who We Are", "About", new { Controller = "Home", Area = "" }, new { title = "Who We Are" } )</li>					 
 				} else {
-					<li><a title="Who We Are @OrganizationName" href="@PublicAboutPageUrl" >Who We Are</a></li> 
+					<li><a title="Who We Are" href="@PublicAboutPageUrl" >Who We Are</a></li> 
 				}
+                @if (string.IsNullOrEmpty(PublicServicesPageUrl)) {
+                    <li>@Html.ActionLink("What We Do", "Index", new { Controller = "CauseTemplate", Area = "" }, new { title = "What We Do" })</li>
+                } else {
+                    <li><a title="What We Do" href="@PublicServicesPageUrl" >What We Do</a></li>
+                }
                     <li class="new-campaign">@Html.ActionLink("Get Started", "GetStarted", new { Controller = "Campaign", Area = "" }, new { title = "Get Started" })</li>
-                @if ( string.IsNullOrEmpty( PublicWebsiteUrl ) ) {
+                @if (string.IsNullOrEmpty(PublicWebsiteUrl))
+                {
 					<li>@Html.ActionLink("Home", "Index", new { Controller = "Home", Area = "" }, new { title = "Home" })</li>
-				} else { 
+                }
+                else
+                { 
 					<li><a title="@OrganizationName Home" href="@PublicWebsiteUrl" >@OrganizationName Home</a></li> 
 				}  
                 </ul>
