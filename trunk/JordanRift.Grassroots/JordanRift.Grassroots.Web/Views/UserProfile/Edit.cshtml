@@ -30,6 +30,7 @@
     @using (Html.BeginForm(new { Action = "Update", Controller = "UserProfile", ID = Model.UserProfileID })) {
         @Html.ValidationSummary(false, "Could not save your profile. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
         <fieldset class="column">
+            <legend>Personal Info</legend>
             <dl>
                 <dt>@Html.LabelFor(model => model.FirstName)</dt>
                 <dd>
@@ -54,6 +55,7 @@
             </dl>
         </fieldset>
         <fieldset class="column">
+            <legend>Contact Info</legend>
             <dl>            
                 <dt>@Html.LabelFor(model => model.PrimaryPhone)</dt>
                 <dd>
