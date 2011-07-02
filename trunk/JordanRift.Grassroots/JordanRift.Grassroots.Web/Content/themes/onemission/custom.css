@@ -314,3 +314,320 @@ fieldset,
 			.get-started .campaign-types .selected span {
 				color: #CCFF99;
 			}
+			
+/* OM Footer Style */
+
+    footer {
+        height: 90px;
+        width: 900px;
+        margin: 0px auto;
+        padding-bottom: 0px;
+    }
+    
+        footer > div {
+            float: left;
+            width: 593px;
+            position: relative;
+        }
+    
+    #footer
+	{
+		height: 80px;
+		margin-top: 10px;
+	}
+	
+		#footer > ul > li,
+		aside.copyright {
+			display: block;
+			float: left;
+			height: 80px;
+			width: 197px;
+			border-right: 1px dotted #444444;
+			text-align: center;
+			position: relative;
+		}
+		
+		aside.copyright {
+		    border-left: 1px dotted #444;
+		    border-right: none;
+		    text-align: right;
+		    margin-top: 10px
+		}
+
+		#footer > ul > li:last-child
+		{
+			border-right: none;
+		}
+		
+		#footer #copy
+		{
+			border-right: 1px dotted #000000;
+		}
+		
+			#donate, #contact, #news-letter
+			{
+				display: block;
+				text-indent: -1000px;
+				margin: 0px auto;
+				overflow: hidden;
+				font-size: 1px;
+			}
+		
+			#donate
+			{
+				height: 43px;
+				width: 80px;
+				background: url('images/donate.gif') no-repeat;
+				margin-top: 20px;
+			}
+			
+			#donate:hover
+			{
+				background: url('images/donate-hover.gif') no-repeat;
+			}
+			
+			#contact
+			{
+				width: 84px;
+				height: 21px;
+				background: url('images/contact.gif') no-repeat;
+				margin-top: 20px;
+			}
+			
+			#contact:hover
+			{
+				background: url('images/contact-hover.gif') no-repeat;
+			}
+			
+			#social-networks
+			{
+				width: 84px;
+				height: 21px;
+				display: block;
+				margin: 0px auto;
+				padding-top: 2px;
+			}
+			
+				#social-networks > li,
+				#social-networks a
+				{
+					display: block;
+					float: left;
+					height: 19px;
+					width: 21px;
+					text-indent: -1000px;
+					overflow: hidden;
+				}
+				
+				#social-networks a
+				{
+					padding-left: 2px;
+					width: 21px;
+				}
+				
+					#facebook
+					{
+						background: url('images/facebook.gif') no-repeat;
+					}
+					
+					#facebook:hover
+					{
+						background: url('images/facebook-hover.gif') no-repeat;
+					}
+					
+					#twitter
+					{
+						background: url('images/twitter.gif') no-repeat;
+					}
+					
+					#twitter:hover
+					{
+						background: url('images/twitter-hover.gif') no-repeat;
+					}
+					
+					#blogger
+					{
+						background: url('images/blogger.gif') no-repeat;
+					}
+					
+					#blogger:hover
+					{
+						background: url('images/blogger-hover.gif') no-repeat;
+					}
+					
+					#youtube
+					{
+						background: url('images/youtube.gif') no-repeat;
+					}
+					
+					#youtube:hover
+					{
+						background: url('images/youtube-hover.gif') no-repeat;
+					}
+		
+			#news-letter
+			{
+				width: 103px;
+				height: 21px;
+				background: url('images/news.gif') no-repeat;
+				margin-top: 20px;
+			}
+			
+			#news-letter:hover
+			{
+				background: url('images/news-hover.gif') no-repeat;
+					}
+			
+			input, form
+			{
+				padding: 0px;
+				margin: 0px;
+				display: block;
+				position: relative;
+			}
+			
+			#footer #form
+			{
+				margin: 0px auto;
+				margin-top: 2px;
+				display: block;
+				width: 122px;
+				height: 22px;
+				padding-left: 18px;
+			}
+			
+				#tbEmail
+				{
+					float: left;
+					width: 95px;
+					height: 20px;
+					background: #444444;
+					color: #939393;
+					font-family: Georgia, "Times New Roman";
+					font-size: 12px;
+					border: none;
+					padding-left: 7px;
+				}
+		
+				#btnSubmit
+				{
+					float: left;
+					color: #444444;
+					font-size: 24px;
+					border: none;
+					background: none;
+					height: 23px;
+					margin-top: -5px;
+					cursor: pointer;
+				}
+			
+			p.copyright,
+			aside.copyright
+			{
+				font-size: 10px;
+				font-family: Arial, Helvetica, Verdana;
+				text-align: right;
+				line-height: normal;
+			}
+			
+				p.copyright a,
+				aside.copyright a
+				{
+					color: #444444;
+				}
+				
+				p.copyright a:hover,
+				aside.copyright a:hover
+				{
+					color: #ccff99;
+				}
+	
+	footer #contact-bubble
+	{
+		position: absolute;
+		width: 419px;
+		height: 190px;
+		z-index: 15;
+		display: none;
+		top: -160px;
+		left: 243px;
+	}
+	
+		#contact-bubble > div
+		{
+			width: 205px;
+			position: absolute;
+		}
+		
+		#contact-bubble a
+		{
+			color: #77553b;
+			text-decoration: none;
+			display: block;
+			padding: 10px 0px;
+		}
+		
+		#contact-bubble a:hover
+		{
+			text-decoration: underline;
+		}
+	
+		#contact-bubble .top
+		{
+			height: 12px;
+			background: url('images/contact-top.png') no-repeat;
+			top: 0px;
+		}
+		
+		#contact-bubble .content
+		{
+			width: 145px;
+			background: #f1f1f1;
+			top: 12px;
+			font-family: Georgia, "Times New Roman";
+			line-height: normal;
+			padding: 0px 30px;
+		}
+			
+			.content > .close
+			{
+				display: block;
+				height: 20px;
+				width: 20px;
+				position: absolute;
+				top: 0px;
+				right: 10px;
+				text-indent: 1000px;
+				overflow: hidden;
+				background: #f1f1f1 url(images/close.png) no-repeat;
+			}
+			
+			.content > h1
+			{
+				display: block;
+				font-size: 26px;
+				font-family: 'LeagueGothicRegular', Impact, Arial, Helvetica;
+				color: #4d603a;
+				padding: 5px 0px 10px 0px;
+			}		
+		
+			.content > div
+			{
+				width: 167px;
+				float: left;
+				height: 154px;
+				padding-top: 10px;
+			}
+			
+			.content li
+			{
+				display: block;
+				padding-bottom: 3px;
+			}
+		
+		#contact-bubble .bottom
+		{
+			height: 29px;
+			background: url('images/contact-bottom.png') no-repeat;
+			bottom: 0px;
+		}
