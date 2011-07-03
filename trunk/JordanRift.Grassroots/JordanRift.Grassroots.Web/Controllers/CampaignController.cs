@@ -67,13 +67,13 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
         
         [Authorize]
+        [OutputCache(Duration = 150, VaryByParam = "none")]
         public ActionResult GetStarted()
         {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            var repository = RepositoryFactory.GetRepository<ICauseTemplateRepository>();
             var viewModel = new GetStartedModel
                                 {
-                                    CauseTemplates = organization.CauseTemplates
-                                        .Where(t => t.Active)
+                                    CauseTemplates = repository.FindActiveCauseTemplates()
                                         .Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>),
                                     CampaignType = (int) CampaignType.Unknown
                                 };
