@@ -32,12 +32,14 @@ namespace JordanRift.Grassroots.Web.Controllers
     public class CampaignController : GrassrootsControllerBase
     {
         private readonly ICampaignRepository campaignRepository;
+        private readonly ICauseTemplateRepository causeTemplateRepository;
         private readonly IUserProfileRepository userProfileRepository;
         private readonly ICampaignMailer campaignMailer;
 
-        public CampaignController(ICampaignRepository campaignRepository, IUserProfileRepository userProfileRepository, ICampaignMailer campaignMailer)
+        public CampaignController(ICampaignRepository campaignRepository, ICauseTemplateRepository causeTemplateRepository, IUserProfileRepository userProfileRepository, ICampaignMailer campaignMailer)
         {
             this.campaignRepository = campaignRepository;
+            this.causeTemplateRepository = causeTemplateRepository;
             this.userProfileRepository = userProfileRepository;
             this.campaignMailer = campaignMailer;
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
@@ -70,10 +72,9 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 150, VaryByParam = "none")]
         public ActionResult GetStarted()
         {
-            var repository = RepositoryFactory.GetRepository<ICauseTemplateRepository>();
             var viewModel = new GetStartedModel
                                 {
-                                    CauseTemplates = repository.FindActiveCauseTemplates()
+                                    CauseTemplates = causeTemplateRepository.FindActiveCauseTemplates()
                                         .Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>),
                                     CampaignType = (int) CampaignType.Unknown
                                 };

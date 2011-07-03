@@ -34,6 +34,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
     public class CampaignControllerTests
     {
         private ICampaignRepository campaignRepository;
+        private ICauseTemplateRepository causeTemplateRepository;
         private IUserProfileRepository userProfileRepository;
         private CampaignController controller;
 
@@ -281,12 +282,14 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             organization.CauseTemplates = new List<CauseTemplate> { causeTemplate };
             campaignRepository = new FakeCampaignRepository();
             ((FakeCampaignRepository)campaignRepository).SetUpRepository();
+            causeTemplateRepository = new FakeCauseTemplateRepository();
+            ((FakeCauseTemplateRepository)causeTemplateRepository).SetUpRepository();
             userProfileRepository = new FakeUserProfileRepository();
             ((FakeUserProfileRepository)userProfileRepository).SetUpRepository();
             var mocks = new MockRepository();
             var mailer = mocks.DynamicMock<ICampaignMailer>();
             MailerBase.IsTestModeEnabled = true;
-            var upc = new CampaignController(campaignRepository, userProfileRepository, mailer)
+            var upc = new CampaignController(campaignRepository, causeTemplateRepository, userProfileRepository, mailer)
                           {
                               OrganizationRepository = organizationRepository
                           };
