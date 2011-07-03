@@ -356,7 +356,7 @@ header h1 a {
 #main .campaign-summary .share ul {
   width: 225px;
   padding-top: 20px;
-  margin: 20px auto 0px;
+  margin: 10px auto 0px;
 }
 #main .campaign-summary .share .email {
   width: 300px;
@@ -380,8 +380,9 @@ header h1 a {
   text-align: center;
 }
 #main .campaign-summary .share .buttons a {
-  display: inline;
-  margin: 5px 10px;
+  display: inline-block;
+  *display: inline;
+  margin: 0px 10px;
 }
 #main .share-campaign {
   margin: 20px 0px 0px;
