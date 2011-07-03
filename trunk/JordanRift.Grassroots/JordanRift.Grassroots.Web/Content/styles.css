@@ -440,7 +440,7 @@ header h1 a {
   height: 125px;
 }
 #main .summary, #main .donations {
-  margin: 30px 0px 30px;
+  margin: 30px 0px 30px !important;
 }
 #main table {
   display: block;
