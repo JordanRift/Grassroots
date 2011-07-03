@@ -22,6 +22,6 @@ namespace JordanRift.Grassroots.Web.Models
         public int CauseTemplateID { get; set; }
         public int CampaignType { get; set; }
 
-        public IEnumerable<CauseTemplateDetailsModel> CauseTemplates { get; set; }
+        public List<CauseTemplateDetailsModel> CauseTemplates { get; set; }
     }
 }
