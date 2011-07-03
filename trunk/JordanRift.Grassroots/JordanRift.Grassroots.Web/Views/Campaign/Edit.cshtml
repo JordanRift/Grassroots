@@ -60,9 +60,9 @@
                     </li>
                     }
                     else { 
-                    <li class="first"><span>@Model.GoalAmount.ToString("C")</span> Campaign Goal</li>
+                    <li class="first"><span>@Model.GoalAmount.ToString("C0")</span> Campaign Goal</li>
                     }
-                    <li><span>@total.ToString("C")</span> Raised</li>
+                    <li><span>@total.ToString("C0")</span> Raised</li>
                     <li><span>@Model.Donations.Count</span> Donations</li>
                     @if (Model.TimespanIsConfigurable) { 
                     <li class="last">
