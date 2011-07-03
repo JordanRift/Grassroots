@@ -144,10 +144,6 @@ namespace JordanRift.Grassroots.Web.Controllers
                 return HttpNotFound("The donation you are looking for could not be found.");
             }
 
-            //var campaign = donation.Campaign;
-            //var viewModel = Mapper.Map<CampaignDonor, DonationDetailsModel>(donation);
-            //viewModel.Title = campaign.Title;
-            //viewModel.UrlSlug = campaign.UrlSlug;
             return View(viewModel);
         }
 

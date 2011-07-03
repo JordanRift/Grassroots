@@ -25,6 +25,7 @@ using JordanRift.Grassroots.Tests.Fakes;
 using JordanRift.Grassroots.Tests.Helpers;
 using JordanRift.Grassroots.Web.Controllers;
 using JordanRift.Grassroots.Web.Mailers;
+using JordanRift.Grassroots.Web.Models;
 using Mvc.Mailer;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -51,6 +52,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var fakeUserRepository = new FakeUserRepository();
             fakeUserRepository.SetUpRepository();
             Mapper.CreateMap<Payment, CampaignDonor>();
+            Mapper.CreateMap<Payment, DonationDetailsModel>();
         }
 
         [Test]
@@ -264,8 +266,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var mocks = new MockRepository();
             var payment = EntityHelpers.GetValidCCPayment();
             var campaign = EntityHelpers.GetValidCampaign();
-            var donation = Mapper.Map<Payment, CampaignDonor>(payment);
-            donation.Campaign = campaign;
+            var donation = Mapper.Map<Payment, DonationDetailsModel>(payment);
+            donation.UrlSlug = campaign.UrlSlug;
             SetUpController(mocks);
             controller.TempData["Donation"] = donation;
             var result = controller.ThankYou();
