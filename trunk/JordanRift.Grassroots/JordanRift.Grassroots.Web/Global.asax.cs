@@ -34,7 +34,7 @@ namespace JordanRift.Grassroots
         {
             filters.Add(new HandleErrorAttribute());
             // Require https globally
-            filters.Add(new RequireHttpsAttribute()); 
+            //filters.Add(new RequireHttpsAttribute()); 
         }
 
         public static void RegisterRoutes(RouteCollection routes)
