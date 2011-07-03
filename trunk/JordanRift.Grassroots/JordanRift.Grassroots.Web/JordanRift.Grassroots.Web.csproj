@@ -583,9 +583,9 @@
     <Content Include="Views\CauseTemplate\CauseDetails.cshtml" />
     <Content Include="Views\Account\UpdatePassword.cshtml" />
     <Content Include="Views\CauseTemplate\CauseGrid.cshtml" />
-    <None Include="Content\themes\onemission\League_Gothic-webfont.eot" />
-    <None Include="Content\themes\onemission\League_Gothic-webfont.ttf" />
-    <None Include="Content\themes\onemission\League_Gothic-webfont.woff" />
+    <Content Include="Content\themes\onemission\League_Gothic-webfont.eot" />
+    <Content Include="Content\themes\onemission\League_Gothic-webfont.ttf" />
+    <Content Include="Content\themes\onemission\League_Gothic-webfont.woff" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
