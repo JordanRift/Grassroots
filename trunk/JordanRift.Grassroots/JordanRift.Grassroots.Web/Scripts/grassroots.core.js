@@ -36,13 +36,13 @@ var Grassroots = (function() {
             }
         },
         formui: function () {
-            $(".datePicker").datepicker();
-            $("fieldset").addClass("ui-widget").addClass("ui-corner-all");
-            $("button, input:submit, input:button}").button();
-            $(":input[type='text'], textarea, input[type='password'], input[type='email']").wijtextbox();
-            $("select").wijdropdown();
-            $(":input[type='radio']").wijradio();
-            $(":input[type='checkbox']").wijcheckbox();
+            $("#main .datePicker").datepicker();
+            $("#main fieldset").addClass("ui-widget").addClass("ui-corner-all");
+            $("#main button, #main input:submit, #main input:button}").button();
+            $("#main :input[type='text'], #main textarea, #main input[type='password'], #main input[type='email']").wijtextbox();
+            $("#main select").wijdropdown();
+            $("#main :input[type='radio']").wijradio();
+            $("#main :input[type='checkbox']").wijcheckbox();
         },
         gridui: function (cols) {
             $(".grid").wijgrid({
