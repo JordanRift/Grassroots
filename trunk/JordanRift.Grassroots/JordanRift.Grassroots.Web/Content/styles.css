@@ -271,6 +271,13 @@ header h1 a {
   font-size: 32px;
   display: block;
 }
+.stats > li span.field-validation-valid {
+  display: none;
+}
+.stats > li .wijmo-wijtextbox {
+  width: 130px !important;
+  margin: 10px auto 0px;
+}
 #main .share-campaign,
 #main .summary,
 #main .donations,
