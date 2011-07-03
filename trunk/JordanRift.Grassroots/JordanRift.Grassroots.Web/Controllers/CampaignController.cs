@@ -72,12 +72,21 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 150, VaryByParam = "none")]
         public ActionResult GetStarted()
         {
+            var activeCauseTemplates = causeTemplateRepository.FindActiveCauseTemplates();
             var viewModel = new GetStartedModel
                                 {
-                                    CauseTemplates = causeTemplateRepository.FindActiveCauseTemplates()
-                                        .Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>),
                                     CampaignType = (int) CampaignType.Unknown
                                 };
+
+            foreach (var causeTemplate in activeCauseTemplates)
+            {
+                viewModel.CauseTemplates.Add(new CauseTemplateDetailsModel
+                                                 {
+                                                     CauseTemplateID = causeTemplate.CauseTemplateID,
+                                                     Name = causeTemplate.Name,
+                                                     ImagePath = causeTemplate.ImagePath
+                                                 });
+            }
 
             var defaultCauseTemplate = viewModel.CauseTemplates.FirstOrDefault();
 
@@ -85,7 +94,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             {
                 viewModel.CauseTemplateID = defaultCauseTemplate.CauseTemplateID;
             }
-            
+
             return View(viewModel);
         }
 
