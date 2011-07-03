@@ -200,9 +200,16 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
         public IEnumerable<Cause> GetCompletedCauses()
         {
-            return from c in Causes
-                   where c.IsCompleted //&& c.Active
-                   select c;
+            try
+            {
+                return from c in Causes
+                       where c.IsCompleted //&& c.Active
+                       select c;
+            }
+            catch (ObjectDisposedException)
+            {
+                return new List<Cause>();
+            }
         }
     }
 
