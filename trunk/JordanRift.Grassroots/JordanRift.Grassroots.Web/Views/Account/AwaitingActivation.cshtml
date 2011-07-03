@@ -20,6 +20,11 @@
 
 @section DocumentHead {
     @Html.Partial("UIForm")
+    <script type="text/javascript">
+        $(function () {
+            Grassroots.initAccountActivation();
+        });
+    </script>
 }
 
 <hgroup>
@@ -35,20 +40,23 @@
         </p>    
     </div>
 
-    @using(Html.BeginForm("SendAuthorizationNote", "Account")) {
-        @Html.ValidationSummary(true, "We were unable to send your email. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })    
-        <fieldset>
-            <legend>Account activation</legend>
-            <dl>
-                <dt>@Html.LabelFor(m => m.Email)</dt>
-                <dd>
-                    @Html.TextBoxFor(m => m.Email)
-                    @Html.ValidationMessageFor(m => m.Email, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-            </dl>
-            <div>
-                @Html.UiSubmit("Send Activation Email")
-            </div>
-        </fieldset>
-    }
+    <p><a href="#" class="show-activation-form" title="Click here if you didn't receive your activation email">Click here if you didn't receive your activation email</a></p>
+    <div class="resend-activation">
+        @using(Html.BeginForm("SendAuthorizationNote", "Account")) {
+            @Html.ValidationSummary(true, "We were unable to send your email. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })    
+            <fieldset>
+                <legend>Account activation</legend>
+                <dl>
+                    <dt>@Html.LabelFor(m => m.Email)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.Email)
+                        @Html.ValidationMessageFor(m => m.Email, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                </dl>
+                <div>
+                    @Html.UiSubmit("Send Activation Email")
+                </div>
+            </fieldset>
+        }
+    </div>
 </section>

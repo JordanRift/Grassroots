@@ -188,6 +188,12 @@ var Grassroots = (function() {
 
                 return true;
             });
+        },
+        initAccountActivation: function() {
+            $(".show-activation-form").click(function() {
+                $(".resend-activation").slideDown();
+                return false;
+            });
         }
     };
 })();
