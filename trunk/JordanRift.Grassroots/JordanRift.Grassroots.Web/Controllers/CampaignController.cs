@@ -14,6 +14,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -75,7 +76,8 @@ namespace JordanRift.Grassroots.Web.Controllers
             var activeCauseTemplates = causeTemplateRepository.FindActiveCauseTemplates();
             var viewModel = new GetStartedModel
                                 {
-                                    CampaignType = (int) CampaignType.Unknown
+                                    CampaignType = (int) CampaignType.Unknown,
+                                    CauseTemplates = new List<CauseTemplateDetailsModel>()
                                 };
 
             foreach (var causeTemplate in activeCauseTemplates)
