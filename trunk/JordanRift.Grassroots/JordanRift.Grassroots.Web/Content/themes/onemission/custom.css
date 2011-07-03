@@ -247,6 +247,10 @@ fieldset,
     fieldset, fieldset.column {
         margin: 20px 10px 0px;
     }
+    
+    fieldset {
+        margin-left: 0px;
+    }
             
         .validation-summary-errors {
             margin-bottom: 40px;
@@ -321,6 +325,17 @@ fieldset,
 			.get-started .campaign-types .selected span {
 				color: #CCFF99;
 			}
+			
+.notification {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	background: url("images/ui-bg_inset-soft_20_ffd6a0_1x100.png") repeat-x scroll 50% 50% #FFFF9D;
+	border: 1px solid #B68E68;
+	color: #333;
+	background-position: left bottom;
+}
 			
 /* OM Footer Style */
 
