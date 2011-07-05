@@ -391,6 +391,11 @@ header h1 a {
   *display: inline;
   margin: 0px 10px;
 }
+#main .campaign-summary > .user-description {
+  float: none;
+  clear: both;
+  padding: 20px 0px;
+}
 #main .share-campaign {
   margin: 20px 0px 0px;
   min-height: 278px;
