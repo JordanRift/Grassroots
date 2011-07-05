@@ -42,11 +42,12 @@
                 </dd>
                 <dt>@Html.LabelFor(m => m.UrlSlug)</dt>
                 <dd>
+                    <span class="meta">@Url.ToPublicUrl(Url.Action("Index", new { controller = "Campaign", slug = "", area = "" }))/</span>
                     @Html.TextBoxFor(m => m.UrlSlug)
                     @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </dd>
                 @if (Model.AmountIsConfigurable) { 
-                <dt> @Model.GoalName cost around @Model.DefaultAmount.ToString("C"). Now set your goal and LETS GO!</dt>
+                <dt><p>@Model.GoalName cost around @Model.DefaultAmount.ToString("C"). Now set your goal and LETS GO!</p></dt>
                 <dd>
                     @Html.TextBoxFor(m => m.Amount)
                     @Html.ValidationMessageFor(m => m.Amount, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
@@ -54,6 +55,7 @@
                 }
             </dl>
         </fieldset>
+        <p>By clicking "Create" you are agreeing to our @Html.ActionLink("Terms & Conditions", "Terms", new { controller = "Home", area = "" }, new { title = "Terms & Conditions" })</p>
         <div>
             @Html.UiSubmit("Create")
             @Html.ActionLink("Cancel", "Index", new { controller = "Home", area = "" }, new { title = "Cancel", @class = "cancel" })

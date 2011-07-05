@@ -101,7 +101,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        //[HttpPost]
         public ActionResult Create(GetStartedModel model)
         {
             var viewModel = TempData["CampaignDetailsModel"] as CampaignCreateModel ?? new CampaignCreateModel();
@@ -160,13 +160,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                     campaign.StartDate = DateTime.Now;
                     campaign.EndDate = DateTime.Now.AddDays(causeTemplate.DefaultTimespanInDays);
-                    campaign.Description = "You should type your campaign description in here...";
-
-                    // TODO: Save image to disk and set path in campaign object (~/Content/UserContent/campaign/{campaignID}.jpg)
-                    if (string.IsNullOrEmpty(campaign.ImagePath))
-                    {
-                        campaign.ImagePath = EntityConstants.DEFAULT_CAMPAIGN_IMAGE_PATH;
-                    }
+                    campaign.Description = "You should say something about your campaign here...";
 
                     organization.Campaigns.Add(campaign);
                     causeTemplate.Campaigns.Add(campaign);
