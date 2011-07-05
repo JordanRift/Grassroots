@@ -34,6 +34,11 @@
                     @Html.TextBoxFor(m => m.GoalName)
 					@Html.ValidationMessageFor(m => m.GoalName, null, new { @class = "ui-state-error ui-corner-all" })
 				</dd>
+                <dt>@Html.LabelFor(m => m.CallToAction)</dt>
+				<dd>
+                    @Html.TextBoxFor(m => m.CallToAction)
+					@Html.ValidationMessageFor(m => m.CallToAction, null, new { @class = "ui-state-error ui-corner-all" })
+				</dd>
 				<dt>@Html.LabelFor(m => m.Active)</dt>
 				<dd>
                     @Html.EditorFor(m => m.Active)

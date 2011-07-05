@@ -4,6 +4,7 @@ CREATE TABLE `gr_causetemplate` (
   `Name` varchar(100) NOT NULL DEFAULT '''''',
   `ActionVerb` varchar(50) NOT NULL DEFAULT '''''',
   `GoalName` varchar(50) NOT NULL DEFAULT '''''',
+  `CallToAction` varchar(300) DEFAULT '''''',
   `Active` bit(1) DEFAULT b'0',
   `AmountIsConfigurable` bit(1) DEFAULT b'0',
   `DefaultAmount` decimal(7,2) NOT NULL DEFAULT '0.00',

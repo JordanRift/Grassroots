@@ -36,6 +36,10 @@ namespace JordanRift.Grassroots.Web.Models
 		[DisplayName( "Goal Name" )]
 		public string GoalName { get; set; }
 
+        [Required]
+        [DisplayName("Call To Action")]
+        public string CallToAction { get; set; }
+
 		[Required]
 		public bool Active { get; set; }
 

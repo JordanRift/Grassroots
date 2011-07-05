@@ -320,6 +320,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			causeTemplate.Name = model.Name;
 			causeTemplate.ActionVerb = model.ActionVerb;
 			causeTemplate.Active = model.Active;
+		    causeTemplate.CallToAction = model.CallToAction;
 			causeTemplate.AmountIsConfigurable = model.AmountIsConfigurable;
 			causeTemplate.DefaultAmount = model.DefaultAmount;
 			causeTemplate.DefaultTimespanInDays = model.DefaultTimespanInDays;

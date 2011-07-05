@@ -31,6 +31,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public string Name { get; set; }
         public string ActionVerb { get; set; }
         public string GoalName { get; set; }
+        public string CallToAction { get; set; }
         public bool Active { get; set; }
         public bool AmountIsConfigurable { get; set; }
         public decimal DefaultAmount { get; set; }
