@@ -202,6 +202,12 @@ namespace JordanRift.Grassroots
                 "UserProfile/Reactivate",
                 new { controller = "UserProfile", action = "Reactivate" }
             );
+
+            routes.MapRoute(
+                "UserProfileEdit",
+                "UserProfile/Edit",
+                new { controller = "UserProfile", action = "Edit", id = UrlParameter.Optional }
+            );
             
             routes.MapRoute(
                 "UserProfileIndex",

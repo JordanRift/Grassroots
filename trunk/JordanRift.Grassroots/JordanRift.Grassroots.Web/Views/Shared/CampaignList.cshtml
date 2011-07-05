@@ -17,12 +17,6 @@
 }
 @if (Model != null && Model.Count() > 0) {
 <table class="campaign-list grid">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Currently Active?</th>
-        </tr>
-    </thead>
     <tbody>
         @foreach(var campaign in Model) {
             var cssClass = campaign.IsActive ? "active" : "closed";

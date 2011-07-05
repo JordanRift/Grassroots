@@ -49,6 +49,14 @@ namespace JordanRift.Grassroots.Web.Models
         public string DescriptionHtml { get; set; }
 
         [AllowHtml]
+        [Display(Name = "Navigation (Optional HTML)")]
+        public string NavigationHtml { get; set; }
+        
+        [AllowHtml]
+        [Display(Name = "Home Page Content (Optional HTML)")]
+        public string HomePageHtml { get; set; }
+
+        [AllowHtml]
         [Display(Name = "Footer Content (HTML")]
         public string FooterHtml { get; set; }
 

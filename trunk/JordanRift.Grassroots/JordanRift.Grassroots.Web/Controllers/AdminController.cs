@@ -101,6 +101,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 		    organization.FiscalYearStartDay = model.FiscalYearStartDay;
 		    organization.SummaryHtml = model.SummaryHtml;
 		    organization.DescriptionHtml = model.DescriptionHtml;
+		    organization.NavigationHtml = model.NavigationHtml;
+		    organization.HomePageHtml = model.HomePageHtml;
 		    organization.FooterHtml = model.FooterHtml;
 		    organization.PaymentGatewayApiUrl = model.PaymentGatewayApiUrl ?? "";
 			organization.PaymentGatewayApiKey = model.PaymentGatewayApiKey ?? "";

@@ -153,6 +153,16 @@
                         @Html.TextAreaFor(m => m.DescriptionHtml)
                         @Html.ValidationMessageFor(m => m.DescriptionHtml, null, new { @class = "ui-state-error ui-corner-all" })
                     </dd>
+                    <dt>@Html.LabelFor(m => m.NavigationHtml)</dt>
+                    <dd>
+                        @Html.TextAreaFor(m => m.NavigationHtml)
+                        @Html.ValidationMessageFor(m => m.NavigationHtml, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.HomePageHtml)</dt>
+                    <dd>
+                        @Html.TextAreaFor(m => m.HomePageHtml)
+                        @Html.ValidationMessageFor(m => m.HomePageHtml, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
                     <dt>@Html.LabelFor(m => m.FooterHtml)</dt>
                     <dd>
                         @Html.TextAreaFor(m => m.FooterHtml)

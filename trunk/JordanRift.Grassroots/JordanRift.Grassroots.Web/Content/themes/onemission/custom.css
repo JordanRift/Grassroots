@@ -233,7 +233,8 @@ textarea.ui-state-hover,
 fieldset,
 #main .get-started .campaign-types li,
 #main .get-started .projects .selected,
-#main .get-started .campaign-types .selected  {
+#main .get-started .campaign-types .selected,
+#main .campaign-history  {
 	border-radius: 10px;
 	-mox-border-radius: 10px;
 	-webkit-border-radius: 10px;
@@ -243,6 +244,10 @@ fieldset,
 	background: #000 url(images/panel-bg.jpg) repeat-x;
 	position: relative;
 }
+
+    #main .campaign-history {
+        padding: 30px;
+    }
 
     fieldset, fieldset.column {
         margin: 20px 10px 0px;
@@ -331,7 +336,11 @@ dd > .meta {
     color: #777;
     font-style: italic;
 }
-			
+
+.pad-bottom {
+    margin-bottom: 20px;
+}
+		
 .notification {
 	border-radius: 5px;
 	-moz-border-radius: 5px;

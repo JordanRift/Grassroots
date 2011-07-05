@@ -56,6 +56,19 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
+        public ActionResult MainNavigation()
+        {
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+
+            if (!string.IsNullOrEmpty(organization.NavigationHtml))
+            {
+                return Content(organization.NavigationHtml);
+            }
+
+            return View("MainNavigation");
+        }
+
+        [ChildActionOnly]
         [OutputCache(Duration = 60, VaryByParam = "none")]
         public ActionResult ProgressBar()
         {

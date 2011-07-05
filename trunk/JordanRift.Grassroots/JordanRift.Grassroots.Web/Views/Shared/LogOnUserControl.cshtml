@@ -15,10 +15,11 @@
     //
 }
 @if (Request.IsAuthenticated) {
-        <text>Howdy</text> <strong>@Html.ActionLink(User.Identity.Name, "Index", new { controller = "UserProfile", id = "" }, new { title = "User Profile" })</strong><text>! | </text>
-        @Html.ActionLink("Log Off", "LogOff", "Account")
+        <strong>@Html.ActionLink("My Profile", "Index", new { controller = "UserProfile", id = "" }, new { title = "User Profile" })</strong><text> | </text>
+        @Html.ActionLink("Account Settings", "Edit", new { controller = "UserProfile", area = "" }, new { title = "Account Settings" })<text> | </text>
+        @Html.ActionLink("Log Out", "LogOff", "Account")
 }
 else
 {
-        @Html.ActionLink("Log On", "LogOn", "Account")
+        @Html.ActionLink("Log In", "LogOn", "Account")
 }
