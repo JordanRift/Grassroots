@@ -53,6 +53,17 @@
                     @Html.ValidationMessageFor(model => model.Gender, null, new { @class = "ui-state-error ui-corner-all" })
                 </dd>
             </dl>
+
+            <ul>
+                <li>@Html.ActionLink("Change Password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change Password" })</li>
+                @if (Model.Active)  { 
+                <li>@Html.ActionLink("Deactivate Account", "DeactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Deactivate Account" })</li>
+                }
+                else {
+                <li>@Html.ActionLink("Activate Account", "ReactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Activate Account" })</li>
+                }
+            </ul>
+
         </fieldset>
         <fieldset class="column">
             <legend>Contact Info</legend>

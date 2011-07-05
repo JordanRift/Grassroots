@@ -293,6 +293,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             viewModel.Campaigns = userProfile.Campaigns
                      .Select(Mapper.Map<Campaign, CampaignDetailsModel>)
                      .OrderByDescending(c => c.EndDate).ToList();
+            viewModel.ActiveCampaignCount = userProfile.Campaigns.Where(c => c.IsActive).Count();
             viewModel.ImagePath = userProfile.GetProfileImagePath(ProfileImageSize.Full);
             viewModel.DollarsRaised = userProfile.CalculateTotalDonations();
             viewModel.DollarsGiven = userProfile.CalculateTotalDonationsGiven();

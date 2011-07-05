@@ -4,6 +4,8 @@ CREATE TABLE `gr_organization` (
   `Tagline` varchar(150) NOT NULL DEFAULT '''''',
   `SummaryHtml` varchar(1000) DEFAULT '''''''''',
   `DescriptionHtml` varchar(8000) DEFAULT '''''''''',
+  `NavigationHtml` text CHARACTER SET latin1,
+  `HomePageHtml` text CHARACTER SET latin1,
   `FooterHtml` varchar(8000) DEFAULT NULL,
   `ContactPhone` varchar(20) NOT NULL DEFAULT '''''',
   `ContactEmail` varchar(30) NOT NULL DEFAULT '''''',

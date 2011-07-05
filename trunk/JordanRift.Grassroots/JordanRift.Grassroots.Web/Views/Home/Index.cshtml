@@ -21,7 +21,7 @@
     <div class="dashboard">
         @Html.Action("ProgressBar", new { controller = "Home" })
         <aside class="donate">
-            @Html.ActionLink("Donate Now", "Index", new { controller = "Donate" }, new { title = "Donate", @class = "ui-button ui-corner-all" })
+            @Html.ActionLink("Get Started", "GetStarted", new { controller = "Campaign" }, new { title = "Get Started", @class = "ui-button ui-corner-all" })
         </aside>
         @Html.Action("Stats", new { controller = "Home" })
     </div>
@@ -38,6 +38,11 @@
             </ul>
         </div>
     </div>
+    @if (!string.IsNullOrEmpty(Model.HomePageHtml)) {
+    <div class="home-page-content">
+        @Html.Raw(Model.HomePageHtml)
+    </div>
+    }
     <div class="feeds">
         @Html.Action("TwitterFeed", new { controller = "Home" })
         @Html.Action("BlogRssFeed", new { controller = "Home" })

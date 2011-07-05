@@ -47,7 +47,6 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
         }
 
-        [OutputCache(Duration = 30, VaryByParam = "urlSlug")]
         public ActionResult Index(string slug = "")
         {
             using (new UnitOfWorkScope())

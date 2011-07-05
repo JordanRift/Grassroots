@@ -50,64 +50,29 @@
             </ul>
             <div class="break"></div>
             <div class="campaigns">
-                <h4>Want to get involved? @Html.ActionLink("Click here", "GetStarted", new { controller = "Campaign", area = "" }, new { title = "Click here" }) to get started.</h4>
-                @if (Model.Campaigns.Count > 0) { 
-                <h3>@Model.FirstName's Recent Campaigns</h3>
-                @Html.Partial("CampaignList", Model.Campaigns);
+                @if (Model.ActiveCampaignCount == 0) {
+                @Html.ActionLink("Launch A New Campaign", "GetStarted", new { controller = "Campaign" }, new { title = "Launch A Campaign", @class = "ui-button ui-corner-all pad-bottom" })
+                }
+                @if (Model.Campaigns.Count > 0)
+                { 
+                <div class="campaign-history">
+                <h3>My Campaign History</h3>
+                @Html.Partial("CampaignList", Model.Campaigns)
+                </div>
                 }
             </div>
 
-            @if (Model.CurrentUserIsOwner) { 
+            @if (Model.CurrentUserIsOwner)
+            { 
             <aside class="private-info">
-                <table class="profile-info">
-		            <tbody>
-                        <tr>
-                            <td colspan="2"><h3>@Model.Role</h3></td>
-                        </tr>
-                        <tr>
-                            <td class="heading">Name</td>
-                            <td>@Model.FirstName @Model.LastName</td>
-                        </tr>
-		                <tr>
-			                <td class="heading">Email</td>
-			                <td><a href="mailto:@Model.Email" title="@Model.Email">@Model.Email</a></td>
-		                </tr>
-		                <tr>
-			                <td class="heading">Phone</td>
-			                <td>@Model.PrimaryPhone</td>
-		                </tr>
-		                <tr>
-			                <td class="heading">Address</td>
-			                <td>@Model.AddressLine1<br />
-				                @if ( @Model.AddressLine2 != null && @Model.AddressLine2 != string.Empty ) {
-	   				                @Model.AddressLine2<br />
-				                }
-				                @Model.City, @Model.State @Model.ZipCode</td>
-		                </tr>
-		                <tr>
-			                <td class="heading">Age</td>
-			                <td>@Model.Age</td>
-		                </tr>
-                        <tr>
-			                <td class="heading">Last Visit</td>
-			                <td><span title='@String.Format( "{0:MM/dd/yy h:mm tt}", Model.LastVisit )'>@Model.LastVisit.RelativeDate()</span></td>
-		                </tr>
-		            </tbody>
-	            </table>
                 <h3>Account Settings</h3>
                 <ul class="tasks">
-                    <li>@Html.ActionLink("Edit Details", "Edit", new { Area = "", id = Model.UserProfileID }, new { Title = "Edit Details" })</li>
-			        @if (Model.FacebookID == null || Model.FacebookID == "") {
+			        @if (Model.FacebookID == null || Model.FacebookID == "")
+           {
 			        <li>@Html.ActionLink("Link to Facebook", "Connect", new { controller = "Facebook", area = "" }, new { title = "Link to Facebook" })</li>
-                    }
-                    <li>@Html.ActionLink("Change Password", "ChangePassword", new { Controller = "Account", Area = "" }, new { Title = "Change Password" })</li>
-                    @if (Model.Active)  { 
-                    <li>@Html.ActionLink("Deactivate Account", "DeactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Deactivate Account" })</li>
-                    }
-                    else {
-                    <li>@Html.ActionLink("Activate Account", "ReactivateAccount", new { Controller = "UserProfile", Area = "" }, new { Title = "Activate Account" })</li>
-                    }
-                    @if (User.IsInRole("Administrator")) {
+           }
+                    @if (User.IsInRole("Administrator"))
+                    {
                     <li>@Html.ActionLink("Admin Dashboard", "Index", new { Controller = "Admin", Area = "" }, new { Title = "Admin Dashboard" })</li>
                     }
                 </ul>

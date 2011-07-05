@@ -95,23 +95,10 @@ namespace JordanRift.Grassroots.Web.Models
         [Editable(false)]
         public decimal DollarsGiven { get; set; }
 
-        //[Editable( false )]
-        //public decimal TotalRaised { get; set; }
-
-        //[Editable( false )]
-        //public decimal TotalHoursServed { get; set; }
-
-        //[Editable( false )]
-        //public int TotalDonationsMade { get; set; }
-
-        //[Editable( false )]
-        //public decimal TotalDonationsGiven { get; set; }
-
-        //[Editable( false )]
-        //public int TotalNumberCampaignsDonatedTo { get; set; }
-
         [Editable(false)]
         public DateTime LastVisit { get; set; }
+
+        public int ActiveCampaignCount { get; set; }
 
 		public List<CampaignDetailsModel> Campaigns { get; set; }
 

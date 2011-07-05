@@ -32,6 +32,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public string Tagline { get; set; }
         public string SummaryHtml { get; set; }
         public string DescriptionHtml { get; set; }
+        public string NavigationHtml { get; set; }
+        public string HomePageHtml { get; set; }
         public string FooterHtml { get; set; }
         public string ContactPhone { get; set; }
         public string ContactEmail { get; set; }
