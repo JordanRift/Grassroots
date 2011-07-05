@@ -89,6 +89,10 @@ p {
   margin: 0px 20px;
   padding: 20px 28px;
 }
+#main > div, #main > section {
+  float: none;
+  clear: both;
+}
 #main h1 {
   font-size: 48px;
 }
@@ -246,6 +250,15 @@ header h1 a {
   display: block;
   height: 100px;
 }
+#main .stats > li.first, .get-started .projects li:first-child {
+  margin-left: 0px !important;
+}
+#main .stats > li.last {
+  margin-right: 0px !important;
+}
+.get-started .projects li:last-child {
+  margin-right: 0px !important;
+}
 .stats > li, .get-started .projects li {
   display: block;
   float: left;
@@ -260,12 +273,6 @@ header h1 a {
   max-height: 100px;
   overflow: hidden;
   padding-top: 0px;
-}
-.stats > .first, .get-started .projects li:first-child {
-  margin-left: 0px;
-}
-.stats > .last, .get-started .projects li:last-child {
-  margin-right: 0px;
 }
 .stats > li span {
   font-size: 32px;
