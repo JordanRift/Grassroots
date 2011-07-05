@@ -24,16 +24,15 @@
 			@Html.Raw(Model.VideoEmbedHtml)
 		</div>
 		<div class="body">
-			<h2>In @Model.FirstName's Words...</h2>
-			<p>@Model.Description</p>
+            <h2>@Model.CallToAction</h2>
+            <div class="buttons">
+                @Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
+                @if ( !Model.CurrentUserIsOwner ) {
+				@Html.ActionLink( "I want my own campaign", "GetStarted", new { Controller = "Campaign", Area = "" }, new { Title = "Click here go start your own campaign", @class = "ui-button ui-corner-all" } )
+			    }
+            </div>
 			<div>@Html.Raw( Model.InstructionsOpenHtml )</div>
             <div class="share">
-                <div class="buttons">
-                    @Html.ActionLink("Donate Now", "Index", new { controller = "Donate", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
-                    @if ( !Model.CurrentUserIsOwner ) {
-				    @Html.ActionLink( "I want my own campaign", "GetStarted", new { Controller = "Campaign", Area = "" }, new { Title = "Click here go start your own campaign", @class = "ui-button ui-corner-all" } )
-			        }
-                </div>
 			    <ul class="@socialClassName">
 				    <li>@Html.Partial("TweetButton")</li>
                     <li>@Html.Partial("FacebookLikeButton")</li>
@@ -44,5 +43,9 @@
 			    </ul>
 		    </div>
 		</div>
+        <div class="user-description">
+            <h2>In @Model.FirstName's Words...</h2>
+			<p>@Model.Description</p>
+        </div>
 		<div class="break"></div>
 	</section>

@@ -327,6 +327,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             model.CauseTempalteImagePath = causeTemplate.ImagePath;
             model.CauseTemplateBeforeImagePath = causeTemplate.BeforeImagePath;
             model.CauseTemplateAfterImagePath = causeTemplate.AfterImagePath;
+            model.CallToAction = causeTemplate.CallToAction;
             model.VideoEmbedHtml = causeTemplate.VideoEmbedHtml;
 			model.InstructionsOpenHtml = causeTemplate.InstructionsOpenHtml;
 			model.InstructionsClosedHtml = causeTemplate.InstructionsClosedHtml;

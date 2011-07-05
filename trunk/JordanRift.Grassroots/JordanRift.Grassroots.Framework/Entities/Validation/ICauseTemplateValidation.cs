@@ -27,6 +27,9 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
         [Display(Name = "Goal Name")]
         string GoalName { get; set; }
 
+        [Required]
+        string CallToAction { get; set; }
+
         [Display(Name = "Is Amount configurable by the user?")]
         bool AmountIsConfigurable { get; set; }
 
