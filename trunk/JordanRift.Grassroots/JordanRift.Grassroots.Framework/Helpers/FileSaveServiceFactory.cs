@@ -13,28 +13,51 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.Linq;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Services;
 
 namespace JordanRift.Grassroots.Framework.Helpers
 {
-    public static class FileSaveServiceFactory
+    public class FileSaveServiceFactory
     {
-        public static IFileSaveService GetFileSaveService()
+        private static IEnumerable<IFileSaveService> services;
+
+        public FileStorageType StorageMode { get; set; }
+
+        private IFileSaveService FileStorageImplementation
         {
-			var className = typeof( IFileSaveService ).ToString().Split( new[] { '.' } ).LastOrDefault();
+            get { return services.Where(s => s.StorageMode == this.StorageMode).First(); }
+        }
 
-            if (string.IsNullOrEmpty(className))
+        static FileSaveServiceFactory()
+        {
+            AggregateCatalog catalog = new AggregateCatalog();
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(IFileSaveService).Assembly));
+            CompositionContainer container = new CompositionContainer(catalog);
+            services = container.GetExportedValues<IFileSaveService>();
+        }
+
+        public FileSaveServiceFactory()
+        {
+            var config = ConfigurationManager.AppSettings["FileStorageType"];
+
+            if (config != null)
             {
-                throw new InvalidOperationException();
+                StorageMode = (FileStorageType) Enum.Parse(typeof (FileStorageType), config);
             }
+            else
+            {
+                StorageMode = FileStorageType.FileSystem;
+            }
+        }
 
-            var setting = ConfigurationManager.AppSettings[className];
-            var settingArray = setting.Split(new[] { ',' });
-            var classPath = settingArray[0].Trim();
-            var assemblyName = settingArray[1].Trim();
-			return (IFileSaveService)Activator.CreateInstance( assemblyName, classPath ).Unwrap();
+        public IFileSaveService GetService()
+        {
+            return FileStorageImplementation;
         }
     }
 }

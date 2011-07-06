@@ -15,6 +15,7 @@
 
 using System.Collections.Generic;
 using System.Web;
+using JordanRift.Grassroots.Framework.Entities;
 
 namespace JordanRift.Grassroots.Framework.Services
 {
@@ -42,6 +43,7 @@ namespace JordanRift.Grassroots.Framework.Services
 		/// </summary>
 		/// <param name="fileList"></param>
 		void SaveFiles( List<FileUpload> fileList );
+        FileStorageType StorageMode { get; }
 	}
 
 	/// <summary>
