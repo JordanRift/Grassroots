@@ -361,12 +361,12 @@ header h1 a {
   width: 350px;
 }
 #main .campaign-summary .share ul {
-  width: 225px;
+  width: 300px;
   padding-top: 20px;
   margin: 10px auto 0px;
 }
 #main .campaign-summary .share .email {
-  width: 300px;
+  width: 375px;
 }
 .campaign-summary .share .email li {
   width: 75px;
@@ -382,11 +382,12 @@ header h1 a {
   margin: 0px auto;
   height: auto;
 }
-#main .campaign-summary .share .buttons {
+#main .campaign-summary .buttons {
   width: 350px;
   text-align: center;
+  padding: 10px 0px;
 }
-#main .campaign-summary .share .buttons a {
+#main .campaign-summary .buttons a {
   display: inline-block;
   *display: inline;
   margin: 0px 10px;
