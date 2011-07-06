@@ -127,7 +127,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
             if (!CauseTemplate.TimespanIsConfigurable && timeInDays.Days != CauseTemplate.DefaultTimespanInDays)
             {
-                yield return new ValidationResult(string.Format("'End Date' must be {0} days after 'Start Date'.", CauseTemplate.DefaultTimespanInDays), 
+                yield return new ValidationResult(string.Format("'End Date' must be {0} days after 'Start Date', but is {1} days.", 
+                    CauseTemplate.DefaultTimespanInDays, timeInDays.Days), 
                     new[] {"StartDate", "EndDate"});
             }
 

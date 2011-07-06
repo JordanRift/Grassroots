@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -148,10 +149,10 @@ namespace JordanRift.Grassroots.Web.Controllers
                     var organization = userProfile.Organization;
                     var causeTemplate = organization.CauseTemplates.FirstOrDefault(t => t.CauseTemplateID == model.CauseTemplateID);
 
-                    if (model.Amount.HasValue && causeTemplate.AmountIsConfigurable)
+                    if (!string.IsNullOrEmpty(model.AmountString) && causeTemplate.AmountIsConfigurable)
                     {
                         // TODO: Check to make sure amount entered is not greater than cause template max amount
-                        campaign.GoalAmount = model.Amount.Value;
+                        campaign.GoalAmount = decimal.Parse(model.AmountString);
                     }
                     else
                     {
