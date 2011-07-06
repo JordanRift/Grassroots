@@ -13,28 +13,41 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Configuration;
+using System.Collections.Generic;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
+using JordanRift.Grassroots.Framework.Entities;
 
 namespace JordanRift.Grassroots.Framework.Helpers
 {
-    public static class CacheFactory
+    public class CacheFactory
     {
-        public static ICache GetCache()
+        private static IEnumerable<ICache> caches;
+        
+        public CacheType StorageMode { get; set; }
+
+        private ICache CachingImplementation
         {
-            var className = typeof (ICache).ToString().Split(new[] { '.' }).LastOrDefault();
+            get { return caches.Where(c => c.Type == StorageMode).First(); }
+        }
 
-            if (string.IsNullOrEmpty(className))
-            {
-                throw new InvalidOperationException();
-            }
+        static CacheFactory()
+        {
+            AggregateCatalog catalog = new AggregateCatalog();
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(ICache).Assembly));
+            CompositionContainer container = new CompositionContainer(catalog);
+            caches = container.GetExportedValues<ICache>();
+        }
 
-            var setting = ConfigurationManager.AppSettings[className];
-            var settingArray = setting.Split(new[] { ',' });
-            var classPath = settingArray[0].Trim();
-            var assemblyName = settingArray[1].Trim();
-            return (ICache) Activator.CreateInstance(assemblyName, classPath).Unwrap();
+        public CacheFactory()
+        {
+            // TODO: Read in setting from config file.
+            StorageMode = CacheType.HttpContext;
+        }
+
+        public ICache GetCache()
+        {
+            return CachingImplementation;
         }
     }
 }

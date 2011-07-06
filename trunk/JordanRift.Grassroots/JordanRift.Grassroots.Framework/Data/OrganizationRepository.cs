@@ -26,7 +26,8 @@ namespace JordanRift.Grassroots.Framework.Data
 
         public OrganizationRepository()
         {
-            cache = CacheFactory.GetCache();
+            var cacheFactory = new CacheFactory();
+            cache = cacheFactory.GetCache();
         }
 
         public Organization GetOrganizationByID(int id)
@@ -36,7 +37,7 @@ namespace JordanRift.Grassroots.Framework.Data
 
         public Organization GetDefaultOrganization(bool readOnly = true)
         {
-            if (readOnly && cache.Any(i => i.Key == DEFAULT_ORG_CACHE_KEY))
+            if (readOnly && cache.Get(DEFAULT_ORG_CACHE_KEY) != null)
             {
                 return cache.Get(DEFAULT_ORG_CACHE_KEY) as Organization;
             }

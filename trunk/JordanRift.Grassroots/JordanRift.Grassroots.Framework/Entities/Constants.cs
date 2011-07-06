@@ -15,6 +15,14 @@
 
 namespace JordanRift.Grassroots.Framework.Entities
 {
+    public enum CacheType
+    {
+        HttpContext,
+        InMemory,
+        MemCached,
+        Null
+    }
+
     public enum DataType
     {
         STRING = 1,

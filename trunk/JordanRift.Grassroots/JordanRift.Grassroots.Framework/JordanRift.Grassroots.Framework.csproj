@@ -69,6 +69,7 @@
       <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -116,8 +117,10 @@
     <Compile Include="Entities\Validation\NotEqualToAttribute.cs" />
     <Compile Include="Helpers\CacheFactory.cs" />
     <Compile Include="Helpers\FileSaveServiceFactory.cs" />
+    <Compile Include="Helpers\HttpContextCache.cs" />
     <Compile Include="Helpers\ModelHelpers.cs" />
     <Compile Include="Helpers\ICache.cs" />
+    <Compile Include="Helpers\NullCache.cs" />
     <Compile Include="Helpers\RepositoryFactory.cs" />
     <Compile Include="Helpers\InMemoryCache.cs" />
     <Compile Include="Helpers\SingletonCache.cs" />

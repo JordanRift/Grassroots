@@ -110,7 +110,6 @@
     <Compile Include="Fakes\MockFormsAuthenticationService.cs" />
     <Compile Include="Fakes\MockHttpContext.cs" />
     <Compile Include="Fakes\MockMembershipService.cs" />
-    <Compile Include="Fakes\NullCache.cs" />
     <Compile Include="Helpers\EntityHelpers.cs" />
     <Compile Include="Helpers\TestHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
