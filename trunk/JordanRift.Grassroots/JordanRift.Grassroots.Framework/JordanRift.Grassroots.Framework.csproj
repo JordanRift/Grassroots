@@ -117,6 +117,7 @@
     <Compile Include="Entities\Validation\ICauseNoteValidation.cs" />
     <Compile Include="Entities\Validation\NotEqualToAttribute.cs" />
     <Compile Include="Helpers\CacheFactory.cs" />
+    <Compile Include="Helpers\ElmahHandleErrorAttribute.cs" />
     <Compile Include="Helpers\FileSaveServiceFactory.cs" />
     <Compile Include="Helpers\HttpContextCache.cs" />
     <Compile Include="Helpers\ModelHelpers.cs" />

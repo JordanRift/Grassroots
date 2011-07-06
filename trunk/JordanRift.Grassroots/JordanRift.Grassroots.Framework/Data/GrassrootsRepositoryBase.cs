@@ -16,6 +16,7 @@
 using System;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using System.Text;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Helpers;
 
@@ -53,14 +54,20 @@ namespace JordanRift.Grassroots.Framework.Data
             }
             catch (DbEntityValidationException ex)
             {
+                var errors = new StringBuilder();
+                errors.AppendLine("DB Entity Validation Exceptions -- \n");
+
                 foreach (var error in ex.EntityValidationErrors)
                 {
                     foreach (var e in error.ValidationErrors)
                     {
-                        Trace.TraceInformation("Property: {0} Error: {1}", e.PropertyName, e.ErrorMessage);
+                        var message = string.Format("Property: {0} Error: {1}", e.PropertyName, e.ErrorMessage);
+                        Trace.TraceInformation(message);
+                        errors.AppendLine(message);
                     }
                 }
 
+                Logger.LogError(new Exception(errors.ToString()));
                 throw;
             }
         }
