@@ -14,13 +14,21 @@
 //
 
 using System;
+using System.ComponentModel.Composition;
 using System.Linq;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
+    [Export(typeof(IUserRepository))]
     public class UserRepository : GrassrootsRepositoryBase, IUserRepository
     {
+        public UserRepository()
+        {
+            Priority = PriorityType.Low;
+        }
+
         public User GetUserByName(string name)
         {
             return ObjectContext.Users.FirstOrDefault(u => u.Username.Equals(name, StringComparison.CurrentCultureIgnoreCase));

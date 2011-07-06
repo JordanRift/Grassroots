@@ -13,8 +13,10 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
+using System.Configuration;
 using System.Linq;
 using JordanRift.Grassroots.Framework.Entities;
 
@@ -41,8 +43,16 @@ namespace JordanRift.Grassroots.Framework.Helpers
 
         public CacheFactory()
         {
-            // TODO: Read in setting from config file.
-            StorageMode = CacheType.HttpContext;
+            var config = ConfigurationManager.AppSettings["CacheType"];
+
+            if (config != null)
+            {
+                StorageMode = (CacheType)Enum.Parse(typeof(CacheType), config);
+            }
+            else
+            {
+                StorageMode = CacheType.HttpContext;
+            }
         }
 
         public ICache GetCache()

@@ -15,13 +15,21 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
+    [Export(typeof(IUserProfileRepository))]
     public class UserProfileRepository : GrassrootsRepositoryBase, IUserProfileRepository
     {
+        public UserProfileRepository()
+        {
+            Priority = PriorityType.Low;
+        }
+
         public UserProfile GetUserProfileByID(int id)
         {
             return ObjectContext.UserProfiles.FirstOrDefault(p => p.UserProfileID == id);

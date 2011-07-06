@@ -44,16 +44,21 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void SetUp()
         {
             organizationRepository = new FakeOrganizationRepository();
-            ((FakeOrganizationRepository)organizationRepository).SetUpRepository();
             campaignRepository = new FakeCampaignRepository();
-            ((FakeCampaignRepository)campaignRepository).SetUpRepository();
             userProfileRepository = new FakeUserProfileRepository();
-            ((FakeUserProfileRepository)userProfileRepository).SetUpRepository();
-            var fakeUserRepository = new FakeUserRepository();
-            fakeUserRepository.SetUpRepository();
             Mapper.CreateMap<Payment, CampaignDonor>();
             Mapper.CreateMap<Payment, DonationDetailsModel>();
         }
+
+        [TearDown]
+        public void TearDown()
+        {
+            FakeUserProfileRepository.Reset();
+            FakeCampaignRepository.Reset();
+            FakeOrganizationRepository.Reset();
+            FakeUserRepository.Reset();
+        }
+
 
         [Test]
         public void Index_Should_Return_View()

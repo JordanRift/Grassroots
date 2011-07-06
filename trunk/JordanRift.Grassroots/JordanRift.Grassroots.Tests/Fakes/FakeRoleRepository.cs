@@ -13,20 +13,27 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Tests.Fakes
 {
-    [Obsolete("This class will be obsolete in future versions in favor of using Rhino Mocks. See DonateControllerTests for example of new pattern.")]
+    [Export(typeof(IRoleRepository))]
     class FakeRoleRepository : IRoleRepository
     {
         private static List<Role> roles;
+        public PriorityType Priority { get; set; }
 
-        public void SetUpRepository()
+        static FakeRoleRepository()
+        {
+            SetUp();
+        }
+
+        private static void SetUp()
         {
             roles = new List<Role>();
             for (int i = 0; i < 5; i++)
@@ -38,6 +45,16 @@ namespace JordanRift.Grassroots.Tests.Fakes
                     Description = string.Format("this is role number {0}", i),
                 });
             }
+        }
+
+        public FakeRoleRepository()
+        {
+            Priority = PriorityType.High;
+        }
+
+        public static void Reset()
+        {
+            SetUp();
         }
 
         public IQueryable<Role> FindAllRoles()

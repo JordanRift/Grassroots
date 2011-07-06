@@ -15,19 +15,27 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Tests.Helpers;
 
 namespace JordanRift.Grassroots.Tests.Fakes
 {
-    [Obsolete("This class will be obsolete in future versions in favor of using Rhino Mocks. See DonateControllerTests for example of new pattern.")]
+    [Export(typeof(ICampaignRepository))]
     public class FakeCampaignRepository : ICampaignRepository
     {
         private static IList<Campaign> campaigns;
+        public PriorityType Priority { get; set; }
 
-        public void SetUpRepository()
+        static FakeCampaignRepository()
+        {
+            SetUp();
+        }
+
+        private static void SetUp()
         {
             campaigns = new List<Campaign>();
 
@@ -40,6 +48,16 @@ namespace JordanRift.Grassroots.Tests.Fakes
             }
 
             campaigns.First().UrlSlug = "MyCampaign";
+        }
+
+        public FakeCampaignRepository()
+        {
+            Priority = PriorityType.High;
+        }
+
+        public static void Reset()
+        {
+            SetUp();
         }
 
 		public IQueryable<Campaign> FindAllCampaigns()

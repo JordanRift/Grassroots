@@ -32,7 +32,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Models
 		public void SetUp()
 		{
 			repository = new FakeCauseTemplateRepository();
-            ((FakeCauseTemplateRepository)repository).SetUpRepository();
+            //((FakeCauseTemplateRepository)repository).SetUpRepository();
 		    causeTemplate = EntityHelpers.GetValidCauseTemplate();
 		}
 

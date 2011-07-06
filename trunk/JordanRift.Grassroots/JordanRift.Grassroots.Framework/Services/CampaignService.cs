@@ -24,7 +24,9 @@ namespace JordanRift.Grassroots.Framework.Services
 
         public CampaignService()
         {
-            campaignRepository = RepositoryFactory.GetRepository<ICampaignRepository>();
+            var repositoryFactory = new RepositoryFactory<ICampaignRepository>();
+            campaignRepository = repositoryFactory.GetRepository();
+            //campaignRepository = RepositoryFactory.GetRepository<ICampaignRepository>();
         }
 
         public CampaignService(ICampaignRepository campaignRepository)

@@ -14,18 +14,17 @@
 //
 
 using System.Linq;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
-    public interface IUserRepository
+    public interface IUserRepository : IPriority
     {
         IQueryable<User> FindAllUsers();
         User GetUserByName(string name);
         void Add(User user);
         void Delete(User user);
         void Save();
-        //IQueryable<User> FindUsersByEmail(string email);
-        //IQueryable<User> FindUsersByName(string username);
     }
 }

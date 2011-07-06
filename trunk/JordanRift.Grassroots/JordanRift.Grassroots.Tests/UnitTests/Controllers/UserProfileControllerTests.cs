@@ -17,7 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Routing;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Tests.Helpers;
@@ -45,11 +44,16 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             userProfile = EntityHelpers.GetValidUserProfile();
             repository = new FakeUserProfileRepository();
-            ((FakeUserProfileRepository)repository).SetUpRepository();
             repository.Add(userProfile);
             mocks = new MockRepository();
             controller = GetUserProfileController(userProfile.UserProfileID);
             Mapper.CreateMap<UserProfile, UserProfileDetailsModel>();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            FakeUserProfileRepository.Reset();
         }
 
         [Test]

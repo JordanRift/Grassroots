@@ -33,8 +33,11 @@ namespace JordanRift.Grassroots.Framework.Services
 
         public GrassrootsMembershipService()
         {
-            userProfileRepository = RepositoryFactory.GetRepository<IUserProfileRepository>();
-            userRepository = RepositoryFactory.GetRepository<IUserRepository>();
+            var userProfileRepositoryFactory = new RepositoryFactory<IUserProfileRepository>();
+            userProfileRepository = userProfileRepositoryFactory.GetRepository();
+
+            var userRepositoryFactory = new RepositoryFactory<IUserRepository>();
+            userRepository = userRepositoryFactory.GetRepository();
         }
 
         public bool ChangePassword(string username, string oldPassword, string newPassword)

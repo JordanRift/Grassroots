@@ -25,7 +25,9 @@ namespace JordanRift.Grassroots.Framework.Services
 
         public UserProfileService()
         {
-            userProfileRepository = RepositoryFactory.GetRepository<IUserProfileRepository>();
+            var repositoryFactory = new RepositoryFactory<IUserProfileRepository>();
+            userProfileRepository = repositoryFactory.GetRepository();
+            //userProfileRepository = RepositoryFactory.GetRepository<IUserProfileRepository>();
         }
 
         public UserProfileService(IUserProfileRepository userProfileRepository)

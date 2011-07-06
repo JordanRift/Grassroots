@@ -48,16 +48,21 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Providers
 		public void SetUp()
 		{
 			organizationRepository = new FakeOrganizationRepository();
-			( (FakeOrganizationRepository)organizationRepository ).SetUpRepository();
 			roleRepository = new FakeRoleRepository();
-            ((FakeRoleRepository)roleRepository).SetUpRepository();
 			userProfileRepository = new FakeUserProfileRepository();
-            ((FakeUserProfileRepository)userProfileRepository).SetUpRepository();
 			userRepository = new FakeUserRepository();
-			( (FakeUserRepository)userRepository ).SetUpRepository();
 
 			roleProvider = new GrassrootsRoleProvider();
 		}
+
+        [TearDown]
+        public void TearDown()
+        {
+            FakeOrganizationRepository.Reset();
+            FakeRoleRepository.Reset();
+            FakeUserProfileRepository.Reset();
+            FakeUserRepository.Reset();
+        }
 
 		[Test]
 		public void CreateRole_Should_Add_Role_To_RoleRepository()

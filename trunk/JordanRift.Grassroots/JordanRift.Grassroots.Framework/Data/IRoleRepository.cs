@@ -14,11 +14,12 @@
 //
 
 using System.Linq;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
-    public interface IRoleRepository
+    public interface IRoleRepository : IPriority
     {
         IQueryable<Role> FindAllRoles();
         Role GetRoleByID(int id);
