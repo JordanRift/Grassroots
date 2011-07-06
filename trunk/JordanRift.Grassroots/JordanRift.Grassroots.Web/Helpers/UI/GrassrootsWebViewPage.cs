@@ -72,7 +72,8 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
 
         protected GrassrootsWebViewPage()
         {
-            organizationRepository = RepositoryFactory.GetRepository<IOrganizationRepository>();
+            var repositoryFactory = new RepositoryFactory<IOrganizationRepository>();
+            organizationRepository = repositoryFactory.GetRepository();
             organization = organizationRepository.GetDefaultOrganization(readOnly: true);
         }
     }
