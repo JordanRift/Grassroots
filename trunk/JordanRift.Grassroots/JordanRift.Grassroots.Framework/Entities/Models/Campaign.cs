@@ -125,7 +125,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
             TimeSpan timeInDays = (EndDate - StartDate);
 
-            if (!CauseTemplate.TimespanIsConfigurable && timeInDays.Days != CauseTemplate.DefaultTimespanInDays)
+            if (!CauseTemplate.TimespanIsConfigurable && timeInDays.Days > CauseTemplate.DefaultTimespanInDays)
             {
                 yield return new ValidationResult(string.Format("'End Date' must be {0} days after 'Start Date'.", CauseTemplate.DefaultTimespanInDays), 
                     new[] {"StartDate", "EndDate"});
