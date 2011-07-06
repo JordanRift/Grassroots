@@ -21,6 +21,7 @@ using System.IO;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
+using JordanRift.Grassroots.Framework.Entities;
 
 namespace JordanRift.Grassroots.Framework.Services
 {
@@ -55,6 +56,8 @@ namespace JordanRift.Grassroots.Framework.Services
 	/// </summary>
 	public class S3FileSaveService : IFileSaveService
 	{
+        public FileStorageType StorageMode { get { return FileStorageType.S3; } }
+
 		public void SaveFiles( List<FileUpload> fileList )
 		{
 			NameValueCollection appConfig = ConfigurationManager.AppSettings;

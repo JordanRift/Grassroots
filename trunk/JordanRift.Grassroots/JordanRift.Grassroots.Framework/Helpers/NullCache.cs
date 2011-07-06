@@ -13,17 +13,35 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.ComponentModel.Composition;
 using JordanRift.Grassroots.Framework.Entities;
-using JordanRift.Grassroots.Framework.Entities.Models;
 
-namespace JordanRift.Grassroots.Framework.Data
+namespace JordanRift.Grassroots.Framework.Helpers
 {
-    public interface IOrganizationRepository : IPriority
+    [Export(typeof(ICache))]
+    public class NullCache : ICache
     {
-        Organization GetOrganizationByID(int id);
-        Organization GetDefaultOrganization(bool readOnly = true);
-        void Add(Organization organization);
-        void Delete(Organization organization);
-        void Save();
+        public CacheType Type
+        {
+            get { return CacheType.Null; }
+        }
+
+        public object Get(string key)
+        {
+            return null;
+        }
+
+        public void Add(string key, object value)
+        {
+        }
+
+        public void Remove(string key)
+        {
+        }
+
+        //public bool Any(Func<KeyValuePair<string, object>, bool> predicate)
+        //{
+        //    return false;
+        //}
     }
 }

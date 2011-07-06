@@ -31,7 +31,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Models
         public void SetUp()
         {
             repository = new FakeOrganizationRepository();
-            ((FakeOrganizationRepository)repository).SetUpRepository();
+            //((FakeOrganizationRepository)repository).SetUpRepository();
             organization = EntityHelpers.GetValidOrganization();
         }
 

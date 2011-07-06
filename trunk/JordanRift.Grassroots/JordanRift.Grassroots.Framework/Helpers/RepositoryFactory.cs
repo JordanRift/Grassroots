@@ -14,16 +14,58 @@
 //
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.Linq;
+using JordanRift.Grassroots.Framework.Entities;
 
 namespace JordanRift.Grassroots.Framework.Helpers
 {
-    public static class RepositoryFactory
+    public class RepositoryFactory<TRepository>
     {
-        public static T GetRepository<T>()
+        private readonly IEnumerable<TRepository> repositories;
+
+        private TRepository RepositoryImplementation
         {
-            var className = typeof (T).ToString().Split(new[] { '.' }).LastOrDefault();
+            get
+            {
+                try
+                {
+                    return repositories.OrderByDescending(r => ((IPriority)r).Priority).First();
+                }
+                catch
+                {
+                    return repositories.First();
+                }
+            }
+        }
+
+        public RepositoryFactory()
+        {
+            AggregateCatalog catalog = new AggregateCatalog();
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(TRepository).Assembly));
+            CompositionContainer container = new CompositionContainer(catalog);
+            repositories = container.GetExportedValues<TRepository>();
+        }
+
+        public TRepository GetRepository()
+        {
+            bool isTest;
+            var setting = ConfigurationManager.AppSettings["RepositoryTestMode"];
+            bool.TryParse(setting, out isTest);
+
+            if (isTest)
+            {
+                return LoadFromConfig();
+            }
+
+            return RepositoryImplementation;
+        }
+
+        private static TRepository LoadFromConfig()
+        {
+            var className = typeof(TRepository).ToString().Split(new[] { '.' }).LastOrDefault();
 
             if (string.IsNullOrEmpty(className))
             {
@@ -34,7 +76,7 @@ namespace JordanRift.Grassroots.Framework.Helpers
             var settingArray = setting.Split(new[] { ',' });
             var classPath = settingArray[0].Trim();
             var assemblyName = settingArray[1].Trim();
-            return (T) Activator.CreateInstance(assemblyName, classPath).Unwrap();
+            return (TRepository) Activator.CreateInstance(assemblyName, classPath).Unwrap();
         }
     }
 }

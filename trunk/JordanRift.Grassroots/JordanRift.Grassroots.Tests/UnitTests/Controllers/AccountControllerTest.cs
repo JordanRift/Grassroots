@@ -384,9 +384,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         private AccountController GetAccountController()
         {
             var fakeOrganizationRepository = new FakeOrganizationRepository();
-            fakeOrganizationRepository.SetUpRepository();
             userProfileRepository = new FakeUserProfileRepository();
-            ((FakeUserProfileRepository)userProfileRepository).SetUpRepository();
 
             var mocks = new MockRepository();
             var fakeEmailService = mocks.DynamicMock<IAccountMailer>();

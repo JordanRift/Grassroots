@@ -19,7 +19,6 @@ using System.Web;
 
 namespace JordanRift.Grassroots.Tests.Fakes
 {
-    [Obsolete("This class will be obsolete in future versions in favor of using Rhino Mocks. See DonateControllerTests for example of new pattern.")]
     public class MockHttpContext : HttpContextBase
     {
         private readonly IPrincipal _user = new GenericPrincipal(new GenericIdentity("goodEmail"), null /* roles */);

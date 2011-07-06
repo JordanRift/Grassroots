@@ -14,17 +14,38 @@
 //
 
 using System;
-using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.Web;
 using JordanRift.Grassroots.Framework.Entities;
 
 namespace JordanRift.Grassroots.Framework.Helpers
 {
-    public interface ICache
+    [Export(typeof(ICache))]
+    class HttpContextCache : ICache
     {
-        CacheType Type { get; }
-        object Get(string key);
-        void Add(string key, object value);
-        void Remove(string key);
-        //bool Any(Func<KeyValuePair<string, object>, bool> predicate);
+        public CacheType Type
+        {
+            get { return CacheType.HttpContext; }
+        }
+
+        public object Get(string key)
+        {
+            return HttpContext.Current.Cache.Get(key);
+        }
+
+        public void Add(string key, object value)
+        {
+            HttpContext.Current.Cache.Insert(key, value);
+        }
+
+        public void Remove(string key)
+        {
+            HttpContext.Current.Cache.Remove(key);
+        }
+
+        //public bool Any(Func<KeyValuePair<string, object>, bool> predicate)
+        //{
+            
+        //}
     }
 }

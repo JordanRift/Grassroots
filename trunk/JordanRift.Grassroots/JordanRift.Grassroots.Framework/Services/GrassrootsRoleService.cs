@@ -30,9 +30,14 @@ namespace JordanRift.Grassroots.Framework.Services
 
 		public GrassrootsRoleService()
 		{
-			userProfileRepository = RepositoryFactory.GetRepository<IUserProfileRepository>();
-			userRepository = RepositoryFactory.GetRepository<IUserRepository>();
-			roleRepository = RepositoryFactory.GetRepository<IRoleRepository>();
+		    var userProfileRepositoryFactory = new RepositoryFactory<IUserProfileRepository>();
+		    userProfileRepository = userProfileRepositoryFactory.GetRepository();
+
+		    var userRepositoryFactory = new RepositoryFactory<IUserRepository>();
+		    userRepository = userRepositoryFactory.GetRepository();
+
+		    var roleRepositoryFactory = new RepositoryFactory<IRoleRepository>();
+		    roleRepository = roleRepositoryFactory.GetRepository();
 		}
 
 		public bool IsUserInRole( string username, string roleName )
@@ -47,7 +52,7 @@ namespace JordanRift.Grassroots.Framework.Services
 
 		public string[] GetRolesForUser( string username )
 		{
-			if ( username == null || username == "" )
+			if ( string.IsNullOrEmpty(username) )
 			{
 				throw new ProviderException( "User name cannot be empty or null." );
 			}

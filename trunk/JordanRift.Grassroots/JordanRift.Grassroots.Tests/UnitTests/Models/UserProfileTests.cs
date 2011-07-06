@@ -33,8 +33,13 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Models
         public void SetUp()
         {
             repository = new FakeUserProfileRepository();
-            ((FakeUserProfileRepository)repository).SetUpRepository();
             userProfile = EntityHelpers.GetValidUserProfile();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            FakeUserProfileRepository.Reset();
         }
 
         [Test]

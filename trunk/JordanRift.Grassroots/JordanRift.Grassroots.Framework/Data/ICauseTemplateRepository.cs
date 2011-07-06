@@ -13,12 +13,13 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using System.Linq;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
-    public interface ICauseTemplateRepository
+    public interface ICauseTemplateRepository : IPriority
     {
 		IQueryable<CauseTemplate> FindAllCauseTemplates();
 		IQueryable<CauseTemplate> FindActiveCauseTemplates();

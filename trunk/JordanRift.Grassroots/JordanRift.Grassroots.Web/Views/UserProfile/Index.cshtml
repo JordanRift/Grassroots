@@ -17,6 +17,8 @@
     //
     
     ViewBag.Title = string.Format("{0}'s Profile", Model.FirstName);
+    var isConnectedToFacebook = !string.IsNullOrEmpty(Model.FacebookID);
+    var isAdministrator = User.IsInRole("Administrator");
 }
 
     <hgroup>
@@ -62,17 +64,14 @@
                 }
             </div>
 
-            @if (Model.CurrentUserIsOwner)
-            { 
+            @if (Model.CurrentUserIsOwner && (!isConnectedToFacebook || isAdministrator)) { 
             <aside class="private-info">
                 <h3>Account Settings</h3>
                 <ul class="tasks">
-			        @if (Model.FacebookID == null || Model.FacebookID == "")
-           {
+			        @if (!isConnectedToFacebook) {
 			        <li>@Html.ActionLink("Link to Facebook", "Connect", new { controller = "Facebook", area = "" }, new { title = "Link to Facebook" })</li>
-           }
-                    @if (User.IsInRole("Administrator"))
-                    {
+                    }
+                    @if (isAdministrator) {
                     <li>@Html.ActionLink("Admin Dashboard", "Index", new { Controller = "Admin", Area = "" }, new { Title = "Admin Dashboard" })</li>
                     }
                 </ul>

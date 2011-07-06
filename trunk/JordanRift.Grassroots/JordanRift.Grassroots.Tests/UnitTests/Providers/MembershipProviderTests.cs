@@ -42,13 +42,16 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Providers
         [SetUp]
         public void SetUp()
         {
-            userRepository = new FakeUserRepository();
-            ((FakeUserRepository) userRepository).SetUpRepository();
-            userProfileRepository = new FakeUserProfileRepository();
-            ((FakeUserProfileRepository) userProfileRepository).SetUpRepository();
             membershipProvider = new GrassrootsMembershipProvider();
             userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Users = new List<User>();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            FakeUserProfileRepository.Reset();
+            FakeUserRepository.Reset();
         }
 
         [Test]
@@ -332,6 +335,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Providers
 
         private void ArrangeMembershipProviderCreateTest()
         {
+            userRepository = new FakeUserRepository();
+            userProfileRepository = new FakeUserProfileRepository();
             userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = EMAIL;
             userProfile.Users = new List<User>();
@@ -340,6 +345,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Providers
 
         private void ArrangeModelsForTest()
         {
+            userRepository = new FakeUserRepository();
+            userProfileRepository = new FakeUserProfileRepository();
             userProfile.Email = EMAIL;
             userProfileRepository.Add(userProfile);
             userProfileRepository.Save();

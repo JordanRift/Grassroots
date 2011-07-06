@@ -33,7 +33,7 @@
         
         @RenderSection("DocumentHead", required: false)
 
-        @if (!string.IsNullOrEmpty(@AnalyticsTrackingCode)) {
+        @if (!string.IsNullOrEmpty(AnalyticsTrackingCode)) {
         <script type="text/javascript">
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', '@AnalyticsTrackingCode']);
@@ -58,7 +58,12 @@
                     @Html.Partial("LogOnUserControl")
                 </section>
                 <nav>
+                    @if (!string.IsNullOrEmpty(NavigationHtml)) {
+                    @Html.Raw(NavigationHtml)
+                    }
+                    else {
                     @Html.Partial("MainNavigation")
+                    }
                 </nav>
             </header>
             <section id="main">

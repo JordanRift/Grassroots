@@ -16,11 +16,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
+using JordanRift.Grassroots.Framework.Entities;
 
 namespace JordanRift.Grassroots.Framework.Services
 {
 	public class LocalFileSaveService : IFileSaveService
 	{
+        public FileStorageType StorageMode { get { return FileStorageType.FileSystem; } }
+
 		/// <summary>
 		/// Saves each file in the FileUpload to the local "Content\\UserContent\\" folder
 		/// and will set the IsErrors on each FileUpload if it is not possible to

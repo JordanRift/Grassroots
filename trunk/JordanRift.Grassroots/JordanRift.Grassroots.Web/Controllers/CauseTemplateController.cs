@@ -289,7 +289,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 			}
 
 			// Get the configured IFileSaveService from the factory
-			IFileSaveService fileSaveService = FileSaveServiceFactory.GetFileSaveService();
+		    var factory = new FileSaveServiceFactory();
+		    IFileSaveService fileSaveService = factory.GetService();
 			fileSaveService.SaveFiles( fileUploadList );
 
 			// Post process files to set the new file name (URL) to the campaign's image

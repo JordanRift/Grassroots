@@ -15,14 +15,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Runtime.Caching;
+using JordanRift.Grassroots.Framework.Entities;
 
 namespace JordanRift.Grassroots.Framework.Helpers
 {
     /// <summary>
     /// Facade/wrapper for singleton cache implementation
     /// </summary>
+    [Export(typeof(ICache))]
     public sealed class InMemoryCache : ICache
     {
         private readonly SingletonCache instance;
@@ -30,6 +33,11 @@ namespace JordanRift.Grassroots.Framework.Helpers
         public InMemoryCache()
         {
             instance = SingletonCache.Instance;
+        }
+
+        public CacheType Type
+        {
+            get { return CacheType.InMemory; }
         }
 
         public object Get(string key)
@@ -48,9 +56,9 @@ namespace JordanRift.Grassroots.Framework.Helpers
             instance.Cache.Remove(key);
         }
 
-        public bool Any(Func<KeyValuePair<string, object>, bool> predicate)
-        {
-            return instance.Cache.Any(predicate);
-        }
+        //public bool Any(Func<KeyValuePair<string, object>, bool> predicate)
+        //{
+        //    return instance.Cache.Any(predicate);
+        //}
     }
 }

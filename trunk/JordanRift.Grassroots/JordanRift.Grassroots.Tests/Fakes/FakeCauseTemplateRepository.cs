@@ -13,22 +13,29 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Tests.Helpers;
 
 namespace JordanRift.Grassroots.Tests.Fakes
 {
-    [Obsolete("This class will be obsolete in future versions in favor of using Rhino Mocks. See DonateControllerTests for example of new pattern.")]
+    [Export(typeof(ICauseTemplateRepository))]
 	public class FakeCauseTemplateRepository : ICauseTemplateRepository
 	{
 		private static IList<CauseTemplate> causeTemplates;
+        public PriorityType Priority { get; set; }
 
-		public void SetUpRepository()
+		static FakeCauseTemplateRepository()
 		{
+		    SetUp();
+		}
+
+        private static void SetUp()
+        {
             causeTemplates = new List<CauseTemplate>();
 
             for (int i = 0; i < 5; i++)
@@ -38,7 +45,17 @@ namespace JordanRift.Grassroots.Tests.Fakes
                 causeTemplate.Name = causeTemplate.Name + " " + i;
                 causeTemplates.Add(causeTemplate);
             }
-		}
+        }
+
+        public FakeCauseTemplateRepository()
+        {
+            Priority = PriorityType.High;
+        }
+
+        public static void Reset()
+        {
+            SetUp();
+        }
 
 		public IQueryable<CauseTemplate> FindAllCauseTemplates()
 		{

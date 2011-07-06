@@ -14,13 +14,20 @@
 //
 
 using System;
+using System.ComponentModel.Composition;
 using System.Linq;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
+    [Export(typeof(ICauseRepository))]
     public class CauseRepository : GrassrootsRepositoryBase, ICauseRepository
     {
+        public CauseRepository()
+        {
+            Priority = PriorityType.Low;
+        }
 
 		public IQueryable<Cause> FindAllCauses()
 		{

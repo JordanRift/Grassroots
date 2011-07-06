@@ -13,21 +13,28 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Tests.Helpers;
 
 namespace JordanRift.Grassroots.Tests.Fakes
 {
-    [Obsolete("This class will be obsolete in future versions in favor of using Rhino Mocks. See DonateControllerTests for example of new pattern.")]
+    [Export(typeof(IUserRepository))]
     public class FakeUserRepository : IUserRepository
     {
         private static List<User> users;
+        public PriorityType Priority { get; set; }
 
-        public void SetUpRepository()
+        static FakeUserRepository()
+        {
+            SetUp();
+        }
+
+        private static void SetUp()
         {
             users = new List<User>();
 
@@ -37,6 +44,16 @@ namespace JordanRift.Grassroots.Tests.Fakes
                 user.Username += i.ToString();
                 users.Add(user);
             }
+        }
+
+        public FakeUserRepository()
+        {
+            Priority = PriorityType.High;
+        }
+
+        public static void Reset()
+        {
+            SetUp();
         }
 
         public User GetUserByName(string name)

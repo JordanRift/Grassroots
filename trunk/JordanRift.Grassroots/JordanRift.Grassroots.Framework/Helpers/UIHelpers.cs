@@ -32,7 +32,8 @@ namespace JordanRift.Grassroots.Framework.Helpers
                 if (CauseTemplateDictionary == null)
                 {
                     CauseTemplateDictionary = new Dictionary<string, string>();
-                    var repository = RepositoryFactory.GetRepository<IOrganizationRepository>();
+                    var repositoryFactory = new RepositoryFactory<IOrganizationRepository>();
+                    var repository = repositoryFactory.GetRepository();
                     var organization = repository.GetDefaultOrganization(readOnly: true);
 
                     foreach (var ct in organization.CauseTemplates)

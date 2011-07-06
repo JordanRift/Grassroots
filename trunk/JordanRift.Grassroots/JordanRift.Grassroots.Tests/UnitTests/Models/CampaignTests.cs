@@ -34,7 +34,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Models
 		public void SetUp()
 		{
 		    repository = new FakeCampaignRepository();
-            ((FakeCampaignRepository)repository).SetUpRepository();
+            //((FakeCampaignRepository)repository).SetUpRepository();
             campaign = EntityHelpers.GetValidCampaign();
 		    causeTemplate = EntityHelpers.GetValidCauseTemplate();
 

@@ -19,7 +19,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JordanRift.Grassroots.Tests.Fakes
 {
-    [Obsolete("This class will be obsolete in future versions in favor of using Rhino Mocks. See DonateControllerTests for example of new pattern.")]
     public class MockFormsAuthenticationService : IFormsAuthenticationService
     {
         public bool SignIn_WasCalled;

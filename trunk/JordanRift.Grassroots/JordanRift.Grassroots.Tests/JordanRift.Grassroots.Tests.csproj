@@ -74,6 +74,7 @@
       <HintPath>..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -110,7 +111,6 @@
     <Compile Include="Fakes\MockFormsAuthenticationService.cs" />
     <Compile Include="Fakes\MockHttpContext.cs" />
     <Compile Include="Fakes\MockMembershipService.cs" />
-    <Compile Include="Fakes\NullCache.cs" />
     <Compile Include="Helpers\EntityHelpers.cs" />
     <Compile Include="Helpers\TestHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -153,7 +153,12 @@
       <Name>JordanRift.Grassroots.Web</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

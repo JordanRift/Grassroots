@@ -46,6 +46,14 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Mapper.CreateMap<Campaign, CampaignCreateModel>();
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            FakeCampaignRepository.Reset();
+            FakeCauseTemplateRepository.Reset();
+            FakeUserProfileRepository.Reset();
+        }
+
         [Test]
         public void Index_Should_Return_NotFound_If_Campaign_Not_Found()
         {
@@ -275,17 +283,13 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         private CampaignController GetCampaignController()
         {
             var organizationRepository = new FakeOrganizationRepository();
-            organizationRepository.SetUpRepository();
             var organization = organizationRepository.GetDefaultOrganization(readOnly: false);
             var causeTemplate = EntityHelpers.GetValidCauseTemplate();
             causeTemplate.CauseTemplateID = 1;
             organization.CauseTemplates = new List<CauseTemplate> { causeTemplate };
             campaignRepository = new FakeCampaignRepository();
-            ((FakeCampaignRepository)campaignRepository).SetUpRepository();
             causeTemplateRepository = new FakeCauseTemplateRepository();
-            ((FakeCauseTemplateRepository)causeTemplateRepository).SetUpRepository();
             userProfileRepository = new FakeUserProfileRepository();
-            ((FakeUserProfileRepository)userProfileRepository).SetUpRepository();
             var mocks = new MockRepository();
             var mailer = mocks.DynamicMock<ICampaignMailer>();
             MailerBase.IsTestModeEnabled = true;

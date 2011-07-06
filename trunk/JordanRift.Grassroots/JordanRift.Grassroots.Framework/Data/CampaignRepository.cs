@@ -14,13 +14,21 @@
 //
 
 using System;
+using System.ComponentModel.Composition;
 using System.Linq;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
+    [Export(typeof(ICampaignRepository))]
     public class CampaignRepository : GrassrootsRepositoryBase, ICampaignRepository
     {
+        public CampaignRepository()
+        {
+            Priority = PriorityType.Low;
+        }
+
 		public IQueryable<Campaign> FindAllCampaigns()
 		{
             return ObjectContext.Campaigns;

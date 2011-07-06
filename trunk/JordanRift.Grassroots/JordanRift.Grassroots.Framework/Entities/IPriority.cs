@@ -13,30 +13,10 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using JordanRift.Grassroots.Framework.Helpers;
-
-namespace JordanRift.Grassroots.Tests.Fakes
+namespace JordanRift.Grassroots.Framework.Entities
 {
-    public class NullCache : ICache
+    public interface IPriority
     {
-        public object Get(string key)
-        {
-            return null;
-        }
-
-        public void Add(string key, object value)
-        {
-        }
-
-        public void Remove(string key)
-        {
-        }
-
-        public bool Any(Func<KeyValuePair<string, object>, bool> predicate)
-        {
-            return false;
-        }
+        PriorityType Priority { get; set; }
     }
 }

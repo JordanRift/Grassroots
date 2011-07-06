@@ -56,6 +56,11 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
             get { return organization.PublicServicesPageUrl; }
         }
 
+        public string NavigationHtml
+        {
+            get { return organization.NavigationHtml; }
+        }
+
         public string FooterHtml
         {
             get { return organization.FooterHtml; }
@@ -72,7 +77,8 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
 
         protected GrassrootsWebViewPage()
         {
-            organizationRepository = RepositoryFactory.GetRepository<IOrganizationRepository>();
+            var repositoryFactory = new RepositoryFactory<IOrganizationRepository>();
+            organizationRepository = repositoryFactory.GetRepository();
             organization = organizationRepository.GetDefaultOrganization(readOnly: true);
         }
     }

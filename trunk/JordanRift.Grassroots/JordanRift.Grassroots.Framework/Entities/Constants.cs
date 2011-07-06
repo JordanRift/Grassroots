@@ -15,6 +15,29 @@
 
 namespace JordanRift.Grassroots.Framework.Entities
 {
+    public enum CacheType
+    {
+        HttpContext,
+        InMemory,
+        //MemCached,
+        Null
+    }
+
+    public enum FileStorageType
+    {
+        FileSystem,
+        Azure,
+        Database,
+        S3
+    }
+
+    public enum PriorityType
+    {
+        Low = 0,
+        Medium = 1,
+        High = 2
+    }
+
     public enum DataType
     {
         STRING = 1,

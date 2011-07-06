@@ -31,7 +31,8 @@ namespace JordanRift.Grassroots.Web.Controllers
             {
                 if (organizationRepository == null)
                 {
-                    organizationRepository = RepositoryFactory.GetRepository<IOrganizationRepository>();
+                    var repositoryFactory = new RepositoryFactory<IOrganizationRepository>();
+                    organizationRepository = repositoryFactory.GetRepository();
                 }
 
                 return organizationRepository;

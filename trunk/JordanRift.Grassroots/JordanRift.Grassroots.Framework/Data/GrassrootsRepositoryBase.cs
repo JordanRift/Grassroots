@@ -16,6 +16,7 @@
 using System;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Framework.Data
@@ -41,6 +42,8 @@ namespace JordanRift.Grassroots.Framework.Data
                 return objectContext;
             }
         }
+
+        public PriorityType Priority { get; set; }
 
         public virtual void Save()
         {

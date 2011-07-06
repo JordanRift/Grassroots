@@ -13,12 +13,15 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.ComponentModel.Composition;
 using System.Linq;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
+    [Export(typeof(IOrganizationRepository))]
     public class OrganizationRepository : GrassrootsRepositoryBase, IOrganizationRepository
     {
         private const string DEFAULT_ORG_CACHE_KEY = "Grassroots.DefaultOrganization";
@@ -26,7 +29,9 @@ namespace JordanRift.Grassroots.Framework.Data
 
         public OrganizationRepository()
         {
-            cache = CacheFactory.GetCache();
+            var cacheFactory = new CacheFactory();
+            cache = cacheFactory.GetCache();
+            Priority = PriorityType.Low;
         }
 
         public Organization GetOrganizationByID(int id)
@@ -36,7 +41,7 @@ namespace JordanRift.Grassroots.Framework.Data
 
         public Organization GetDefaultOrganization(bool readOnly = true)
         {
-            if (readOnly && cache.Any(i => i.Key == DEFAULT_ORG_CACHE_KEY))
+            if (readOnly && cache.Get(DEFAULT_ORG_CACHE_KEY) != null)
             {
                 return cache.Get(DEFAULT_ORG_CACHE_KEY) as Organization;
             }

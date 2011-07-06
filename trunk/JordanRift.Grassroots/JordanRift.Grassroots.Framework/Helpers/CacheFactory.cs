@@ -14,27 +14,50 @@
 //
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.Linq;
+using JordanRift.Grassroots.Framework.Entities;
 
 namespace JordanRift.Grassroots.Framework.Helpers
 {
-    public static class CacheFactory
+    public class CacheFactory
     {
-        public static ICache GetCache()
+        private static IEnumerable<ICache> caches;
+        
+        public CacheType StorageMode { get; set; }
+
+        private ICache CachingImplementation
         {
-            var className = typeof (ICache).ToString().Split(new[] { '.' }).LastOrDefault();
+            get { return caches.Where(c => c.Type == StorageMode).First(); }
+        }
 
-            if (string.IsNullOrEmpty(className))
+        static CacheFactory()
+        {
+            AggregateCatalog catalog = new AggregateCatalog();
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(ICache).Assembly));
+            CompositionContainer container = new CompositionContainer(catalog);
+            caches = container.GetExportedValues<ICache>();
+        }
+
+        public CacheFactory()
+        {
+            var config = ConfigurationManager.AppSettings["CacheType"];
+
+            if (config != null)
             {
-                throw new InvalidOperationException();
+                StorageMode = (CacheType)Enum.Parse(typeof(CacheType), config);
             }
+            else
+            {
+                StorageMode = CacheType.HttpContext;
+            }
+        }
 
-            var setting = ConfigurationManager.AppSettings[className];
-            var settingArray = setting.Split(new[] { ',' });
-            var classPath = settingArray[0].Trim();
-            var assemblyName = settingArray[1].Trim();
-            return (ICache) Activator.CreateInstance(assemblyName, classPath).Unwrap();
+        public ICache GetCache()
+        {
+            return CachingImplementation;
         }
     }
 }

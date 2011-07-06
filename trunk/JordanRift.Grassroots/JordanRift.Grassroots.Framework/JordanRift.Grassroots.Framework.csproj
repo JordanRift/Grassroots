@@ -69,6 +69,7 @@
       <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -108,6 +109,7 @@
     <Compile Include="Entities\BlogPost.cs" />
     <Compile Include="Entities\ICanCalculate.cs" />
     <Compile Include="Entities\IPaymentProviderFactory.cs" />
+    <Compile Include="Entities\IPriority.cs" />
     <Compile Include="Entities\Models\CauseNote.cs" />
     <Compile Include="Entities\Models\Recipient.cs" />
     <Compile Include="Entities\Models\Region.cs" />
@@ -116,8 +118,10 @@
     <Compile Include="Entities\Validation\NotEqualToAttribute.cs" />
     <Compile Include="Helpers\CacheFactory.cs" />
     <Compile Include="Helpers\FileSaveServiceFactory.cs" />
+    <Compile Include="Helpers\HttpContextCache.cs" />
     <Compile Include="Helpers\ModelHelpers.cs" />
     <Compile Include="Helpers\ICache.cs" />
+    <Compile Include="Helpers\NullCache.cs" />
     <Compile Include="Helpers\RepositoryFactory.cs" />
     <Compile Include="Helpers\InMemoryCache.cs" />
     <Compile Include="Helpers\SingletonCache.cs" />
@@ -191,6 +195,7 @@
   <ItemGroup>
     <Content Include="grassroots.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

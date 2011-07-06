@@ -14,11 +14,12 @@
 //
 
 using System.Collections.Generic;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
-    public interface IUserProfileRepository
+    public interface IUserProfileRepository : IPriority
     {
         UserProfile GetUserProfileByID(int id);
         UserProfile GetUserProfileByFacebookID(string facebookID);

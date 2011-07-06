@@ -27,25 +27,25 @@ namespace JordanRift.Grassroots.Web.Controllers
     {
         private readonly ITwitterService twitterService;
         private readonly IBlogService blogService;
+        private readonly Organization organization;
 
         public HomeController(ITwitterService twitterService, IBlogService blogService)
         {
             this.twitterService = twitterService;
             this.blogService = blogService;
+            organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
             Mapper.CreateMap<Organization, OrganizationDetailsModel>();
             Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
         }
 
         public ActionResult Index()
         {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
             var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             return View("Index", model);
         }
 
         public ActionResult About()
         {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
             var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             return View(model);
         }
@@ -56,24 +56,10 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult MainNavigation()
-        {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-
-            if (!string.IsNullOrEmpty(organization.NavigationHtml))
-            {
-                return Content(organization.NavigationHtml);
-            }
-
-            return View("MainNavigation");
-        }
-
-        [ChildActionOnly]
         [OutputCache(Duration = 60, VaryByParam = "none")]
         public ActionResult ProgressBar()
         {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-			decimal total;
+            decimal total;
 			decimal totalGoal;
 			string goalName = "Total";
 			if ( organization.YtdGoal.HasValue && organization.YtdGoal > 0 )
@@ -109,7 +95,6 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 150, VaryByParam = "none")]
         public ActionResult Stats()
         {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
             var causes = organization.GetCompletedCauses();
             var model = new OrganizationStatsModel()
                             {
@@ -131,7 +116,6 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 600, VaryByParam = "none")]
         public ActionResult TwitterFeed()
         {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
             var twitterName = organization.TwitterName;
 
             if (!string.IsNullOrEmpty(twitterName))
@@ -147,8 +131,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 300, VaryByParam = "none")]
         public ActionResult BlogRssFeed()
         {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            var blogUrl = organization.BlogRssUrl;
+           var blogUrl = organization.BlogRssUrl;
 
             if (!string.IsNullOrEmpty(blogUrl))
             {
@@ -163,7 +146,6 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult ThemeCss()
         {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
             var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             return View(model);
         }
