@@ -56,6 +56,11 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
             get { return organization.PublicServicesPageUrl; }
         }
 
+        public string NavigationHtml
+        {
+            get { return organization.NavigationHtml; }
+        }
+
         public string FooterHtml
         {
             get { return organization.FooterHtml; }

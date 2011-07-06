@@ -56,17 +56,6 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult MainNavigation()
-        {
-            if (!string.IsNullOrEmpty(organization.NavigationHtml))
-            {
-                return Content("<p>Hello World</p>");
-            }
-
-            return View("MainNavigation");
-        }
-
-        [ChildActionOnly]
         [OutputCache(Duration = 60, VaryByParam = "none")]
         public ActionResult ProgressBar()
         {
