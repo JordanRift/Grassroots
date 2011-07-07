@@ -70,13 +70,6 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         [NotMapped]
         public CampaignService CampaignService { get; set; }
 
-        /// <summary>
-        /// ICampaignRepository instance for UrlSlug validation. Can be set manually or via Ninject and DependencyResolver
-        /// </summary>
-        //[Inject]
-        //[NotMapped]
-        //public ICampaignRepository CampaignRepository { get; set; }
-
         public Campaign()
         {
             LoadDefaultSettings();
