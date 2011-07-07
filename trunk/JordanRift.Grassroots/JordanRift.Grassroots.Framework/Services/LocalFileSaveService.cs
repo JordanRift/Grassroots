@@ -14,12 +14,14 @@
 //
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.IO;
 using System.Web;
 using JordanRift.Grassroots.Framework.Entities;
 
 namespace JordanRift.Grassroots.Framework.Services
 {
+    [Export(typeof(IFileSaveService))]
 	public class LocalFileSaveService : IFileSaveService
 	{
         public FileStorageType StorageMode { get { return FileStorageType.FileSystem; } }

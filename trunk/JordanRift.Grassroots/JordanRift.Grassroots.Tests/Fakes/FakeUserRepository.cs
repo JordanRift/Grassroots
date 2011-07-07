@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -88,6 +89,10 @@ namespace JordanRift.Grassroots.Tests.Fakes
         public IQueryable<User> FindAllUsers()
         {
             return users.AsQueryable();
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

@@ -13,13 +13,14 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Collections.Generic;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
-    public interface IUserProfileRepository : IPriority
+    public interface IUserProfileRepository : IPriority, IDisposable
     {
         UserProfile GetUserProfileByID(int id);
         UserProfile GetUserProfileByFacebookID(string facebookID);

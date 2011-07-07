@@ -47,6 +47,12 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
         }
 
+        ~DonateController()
+        {
+            campaignRepository.Dispose();
+            userProfileRepository.Dispose();
+        }
+
         public ActionResult Index(string slug = "")
         {
             using (new UnitOfWorkScope())

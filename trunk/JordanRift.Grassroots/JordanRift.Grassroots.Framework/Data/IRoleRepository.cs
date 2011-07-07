@@ -13,13 +13,14 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Linq;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
-    public interface IRoleRepository : IPriority
+    public interface IRoleRepository : IPriority, IDisposable
     {
         IQueryable<Role> FindAllRoles();
         Role GetRoleByID(int id);

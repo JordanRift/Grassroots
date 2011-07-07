@@ -44,6 +44,11 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<FacebookRegisterModel, RegisterModel>();
         }
 
+        ~FacebookController()
+        {
+            userProfileRepository.Dispose();
+        }
+
         /// <summary>
         /// Creates OAuth client and sends request with needed permissions to Facebook.
         /// </summary>

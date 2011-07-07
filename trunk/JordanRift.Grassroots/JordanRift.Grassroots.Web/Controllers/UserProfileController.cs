@@ -45,6 +45,12 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
 		}
 
+        ~UserProfileController()
+        {
+            userProfileRepository.Dispose();
+            causeRepository.Dispose();
+        }
+
 		[Authorize]
 		public ActionResult Index(int id = -1)
 		{
