@@ -42,6 +42,12 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<Recipient, RecipientDetailsModel>();
         }
 
+        ~CauseTemplateController()
+        {
+            causeTemplateRepository.Dispose();
+            causeRepository.Dispose();
+        }
+
         [OutputCache(Duration = 150, VaryByParam = "none")]
         public ActionResult Index()
         {

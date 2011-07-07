@@ -56,6 +56,13 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<CampaignCreateModel, Campaign>();
         }
 
+        ~CampaignController()
+        {
+            campaignRepository.Dispose();
+            causeTemplateRepository.Dispose();
+            userProfileRepository.Dispose();
+        }
+
         public ActionResult Index(string slug = "")
         {
             var campaign = campaignRepository.GetCampaignByUrlSlug(slug);

@@ -49,6 +49,11 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<UserProfile, RegisterModel>();
         }
 
+        ~AccountController()
+        {
+            userProfileRepository.Dispose();
+        }
+
         protected override void Initialize(RequestContext requestContext)
         {
             if (FormsService == null)

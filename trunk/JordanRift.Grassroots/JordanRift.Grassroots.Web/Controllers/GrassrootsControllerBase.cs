@@ -41,6 +41,11 @@ namespace JordanRift.Grassroots.Web.Controllers
             set { organizationRepository = value; }
         }
 
+        ~GrassrootsControllerBase()
+        {
+            organizationRepository.Dispose();
+        }
+
         //public Organization GetOrganization(bool readOnly = true)
         //{
         //    get
