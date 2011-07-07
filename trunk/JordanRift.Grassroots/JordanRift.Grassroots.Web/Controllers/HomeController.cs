@@ -27,7 +27,7 @@ namespace JordanRift.Grassroots.Web.Controllers
     {
         private readonly ITwitterService twitterService;
         private readonly IBlogService blogService;
-        private readonly Organization organization;
+        private Organization organization;
 
         public HomeController(ITwitterService twitterService, IBlogService blogService)
         {
@@ -62,7 +62,11 @@ namespace JordanRift.Grassroots.Web.Controllers
             decimal total;
 			decimal totalGoal;
 			string goalName = "Total";
-			if ( organization.YtdGoal.HasValue && organization.YtdGoal > 0 )
+            
+            // Grab fresh data from the db, rather than cached collection...
+            organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+			
+            if ( organization.YtdGoal.HasValue && organization.YtdGoal > 0 )
 			{
 				total = organization.CalculateTotalDonationsYTD();
 				totalGoal = organization.YtdGoal.Value;

@@ -270,7 +270,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 120, VaryByParam = "id")]
+        [OutputCache(Duration = 60, VaryByParam = "id")]
         public ActionResult ProgressBar(int id)
         {
             var campaign = campaignRepository.GetCampaignByID(id);
@@ -281,7 +281,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 
             var total = campaign.CalculateTotalDonations();
-            var percent = (int) ((total / campaign.GoalAmount) * 100);
+            var percent = total > campaign.GoalAmount ? 100 : (int) ((total / campaign.GoalAmount) * 100);
             var model = new ProgressBarModel
                             {
                                 Amount = total,

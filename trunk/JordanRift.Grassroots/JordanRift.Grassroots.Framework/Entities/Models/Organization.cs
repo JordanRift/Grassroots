@@ -19,6 +19,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using JordanRift.Grassroots.Framework.Entities.Validation;
+using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
@@ -108,8 +109,9 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
             {
                 return OrganizationSettings.FirstOrDefault(s => s.Name == key);
             }
-            catch (ObjectDisposedException)
+            catch (ObjectDisposedException ex)
             {
+                Logger.LogError(ex);
                 return null;
             }
         }
@@ -131,7 +133,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
                                                        select c.Amount).Sum());
                 }
             }
-            catch (ObjectDisposedException) { }
+            catch (ObjectDisposedException ex) { Logger.LogError(ex); }
 
             return total;
         }
@@ -153,7 +155,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 														 select c.Amount ).Sum() );
 				}
 			}
-			catch ( ObjectDisposedException ) { }
+			catch ( ObjectDisposedException ex ) { Logger.LogError(ex); }
 
 			return total;
 		}
@@ -170,11 +172,10 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 			{
 				if ( Campaigns != null )
 				{
-					total = ( from c in Campaigns
-							  select c.GoalAmount ).Sum();
+				    total = Campaigns.Sum(c => c.GoalAmount);
 				}
 			}
-			catch ( ObjectDisposedException ) { }
+			catch ( ObjectDisposedException ex ) { Logger.LogError(ex); }
 
 			return total;
 		}
@@ -195,7 +196,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
                             .Count();
                 }
             }
-            catch (ObjectDisposedException) { }
+            catch (ObjectDisposedException ex) { Logger.LogError(ex); }
 
             return total;
         }
@@ -208,8 +209,9 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
                        where c.IsCompleted //&& c.Active
                        select c;
             }
-            catch (ObjectDisposedException)
+            catch (ObjectDisposedException ex)
             {
+                Logger.LogError(ex);
                 return new List<Cause>();
             }
         }
