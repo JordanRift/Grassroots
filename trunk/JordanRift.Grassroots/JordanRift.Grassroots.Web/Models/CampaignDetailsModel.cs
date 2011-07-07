@@ -40,6 +40,9 @@ namespace JordanRift.Grassroots.Web.Models
         public string Description { get; set; }
         
         [Required]
+        [DataType(DataType.Currency)]
+        [RegularExpression(@"^\d+(\.\d{2})?$", ErrorMessage = "Please enter a valid amount.")]
+        [Range(300.00, 30000.00, ErrorMessage = "Amount must be between $300.00 and $30,000.00.")]
         public decimal GoalAmount { get; set; }
         
         [Editable(false)]

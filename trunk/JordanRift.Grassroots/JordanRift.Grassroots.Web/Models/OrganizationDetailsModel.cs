@@ -40,10 +40,12 @@ namespace JordanRift.Grassroots.Web.Models
         [Range(1, 31)]
         public int? FiscalYearStartDay { get; set; }
 
+        [Required]
         [AllowHtml]
         [Display(Name = "Summary (HTML)")]
         public string SummaryHtml { get; set; }
 
+        [Required]
         [AllowHtml]
         [Display(Name = "Description (HTML)")]
         public string DescriptionHtml { get; set; }
@@ -108,6 +110,7 @@ namespace JordanRift.Grassroots.Web.Models
         [Required]
 		public string PaymentGatewayApiSecret { get; set; }
 
+        [Required]
         [AllowHtml]
 		[DisplayName( "Video Embed (HTML)" )]
 		public string VideoEmbedHtml { get; set; }
