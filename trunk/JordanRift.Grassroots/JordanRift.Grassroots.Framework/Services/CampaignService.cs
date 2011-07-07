@@ -25,8 +25,12 @@ namespace JordanRift.Grassroots.Framework.Services
         public CampaignService()
         {
             var repositoryFactory = new RepositoryFactory<ICampaignRepository>();
-            campaignRepository = repositoryFactory.GetRepository();
-            //campaignRepository = RepositoryFactory.GetRepository<ICampaignRepository>();
+            campaignRepository = repositoryFactory.GetRepository();;
+        }
+
+        ~CampaignService()
+        {
+            campaignRepository.Dispose();
         }
 
         public CampaignService(ICampaignRepository campaignRepository)
@@ -36,20 +40,23 @@ namespace JordanRift.Grassroots.Framework.Services
 
         public bool IsUnique(string urlSlug, int id)
         {
-            var result = true;
-            var campaignWithSameSlug = campaignRepository.GetCampaignByUrlSlug(urlSlug);
-
-            if (id <= 0 && campaignWithSameSlug != null)  // Case: New Campaign
+            using (campaignRepository)
             {
-                result = false;
-            }
-            else if (campaignWithSameSlug != null && campaignWithSameSlug.CampaignID != id)  // Case: UrlSlug Change
-            {
-                result = false;
-            }
+                var result = true;
+                var campaignWithSameSlug = campaignRepository.GetCampaignByUrlSlug(urlSlug);
 
-            // Case: Saving without changing UrlSlug
-            return result;
+                if (id <= 0 && campaignWithSameSlug != null) // Case: New Campaign
+                {
+                    result = false;
+                }
+                else if (campaignWithSameSlug != null && campaignWithSameSlug.CampaignID != id) // Case: UrlSlug Change
+                {
+                    result = false;
+                }
+
+                // Case: Saving without changing UrlSlug
+                return result;
+            }
         }
     }
 }

@@ -64,37 +64,45 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         public ActionResult Index(string slug = "")
         {
-            var campaign = campaignRepository.GetCampaignByUrlSlug(slug);
-
-            if (slug == null || campaign == null)
+            using (campaignRepository)
             {
-                return HttpNotFound("The Campaign you are looking for could not be found");
-            }
+                var campaign = campaignRepository.GetCampaignByUrlSlug(slug);
 
-            ViewBag.EmailBlastModel = MapEmailBlast(campaign);
-            var viewModel = MapDetailsModel(campaign);
-            return View("Details", viewModel);
+                if (slug == null || campaign == null)
+                {
+                    return HttpNotFound("The Campaign you are looking for could not be found");
+                }
+
+                ViewBag.EmailBlastModel = MapEmailBlast(campaign);
+                var viewModel = MapDetailsModel(campaign);
+                return View("Details", viewModel);
+            }
         }
         
         [Authorize]
         [OutputCache(Duration = 150, VaryByParam = "none")]
         public ActionResult GetStarted()
         {
-            var activeCauseTemplates = causeTemplateRepository.FindActiveCauseTemplates();
-            var viewModel = new GetStartedModel
-                                {
-                                    CampaignType = (int) CampaignType.Unknown,
-                                    CauseTemplates = new List<CauseTemplateDetailsModel>()
-                                };
+            GetStartedModel viewModel;
 
-            foreach (var causeTemplate in activeCauseTemplates)
+            using (causeTemplateRepository)
             {
-                viewModel.CauseTemplates.Add(new CauseTemplateDetailsModel
-                                                 {
-                                                     CauseTemplateID = causeTemplate.CauseTemplateID,
-                                                     Name = causeTemplate.Name,
-                                                     ImagePath = causeTemplate.ImagePath
-                                                 });
+                var activeCauseTemplates = causeTemplateRepository.FindActiveCauseTemplates();
+                viewModel = new GetStartedModel
+                                    {
+                                        CampaignType = (int) CampaignType.Unknown,
+                                        CauseTemplates = new List<CauseTemplateDetailsModel>()
+                                    };
+
+                foreach (var causeTemplate in activeCauseTemplates)
+                {
+                    viewModel.CauseTemplates.Add(new CauseTemplateDetailsModel
+                                                     {
+                                                         CauseTemplateID = causeTemplate.CauseTemplateID,
+                                                         Name = causeTemplate.Name,
+                                                         ImagePath = causeTemplate.ImagePath
+                                                     });
+                }
             }
 
             var defaultCauseTemplate = viewModel.CauseTemplates.FirstOrDefault();
@@ -108,26 +116,29 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [Authorize]
-        //[HttpPost]
         public ActionResult Create(GetStartedModel model)
         {
             var viewModel = TempData["CampaignDetailsModel"] as CampaignCreateModel ?? new CampaignCreateModel();
 
             if (model.CauseTemplateID != -1)
             {
-                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-                var causeTemplate = organization.CauseTemplates.FirstOrDefault(ct => ct.CauseTemplateID == model.CauseTemplateID);
+                using (OrganizationRepository)
+                {
+                    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+                    var causeTemplate =
+                        organization.CauseTemplates.FirstOrDefault(ct => ct.CauseTemplateID == model.CauseTemplateID);
 
-                if (causeTemplate != null)
-                {
-                    viewModel.AmountIsConfigurable = causeTemplate.AmountIsConfigurable;
-                    viewModel.DefaultAmount = causeTemplate.DefaultAmount;
-                    viewModel.GoalName = causeTemplate.GoalName;
-                    viewModel.CauseTemplateID = causeTemplate.CauseTemplateID;
-                }
-                else
-                {
-                    return RedirectToAction("GetStarted");
+                    if (causeTemplate != null)
+                    {
+                        viewModel.AmountIsConfigurable = causeTemplate.AmountIsConfigurable;
+                        viewModel.DefaultAmount = causeTemplate.DefaultAmount;
+                        viewModel.GoalName = causeTemplate.GoalName;
+                        viewModel.CauseTemplateID = causeTemplate.CauseTemplateID;
+                    }
+                    else
+                    {
+                        return RedirectToAction("GetStarted");
+                    }
                 }
             }
 
@@ -157,7 +168,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                     if (!string.IsNullOrEmpty(model.AmountString) && causeTemplate.AmountIsConfigurable)
                     {
-                        // TODO: Check to make sure amount entered is not greater than cause template max amount
                         campaign.GoalAmount = decimal.Parse(model.AmountString);
                     }
                     else
@@ -186,83 +196,89 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize]
         public ActionResult Edit(string slug = "")
         {
-            var campaign = campaignRepository.GetCampaignByUrlSlug(slug);
-
-            if (campaign == null)
+            using (campaignRepository)
             {
-                return HttpNotFound("The Campaign you are looking for could not be found");
+                var campaign = campaignRepository.GetCampaignByUrlSlug(slug);
+
+                if (campaign == null)
+                {
+                    return HttpNotFound("The Campaign you are looking for could not be found");
+                }
+
+                var userProfile = campaign.UserProfile;
+
+                if (User.Identity.Name.ToLower() != userProfile.Email.ToLower())
+                {
+                    TempData["ErrorMessage"] = "Sorry, you don't have permission to edit this Campaign.";
+                    return RedirectToAction("Index", new { slug = campaign.UrlSlug });
+                }
+
+                var viewModel = MapDetailsModel(campaign);
+                ViewBag.EmailBlastModel = MapEmailBlast(campaign);
+                return View("Edit", viewModel);
             }
-
-            var userProfile = campaign.UserProfile;
-
-            if (User.Identity.Name.ToLower() != userProfile.Email.ToLower())
-            {
-                TempData["ErrorMessage"] = "Sorry, you don't have permission to edit this Campaign.";
-                return RedirectToAction("Index", new { slug = campaign.UrlSlug });
-            }
-
-            //var viewModel = TempData["CampaignDetailsModel"] == null ? 
-            //    TempData["CampaignDetailsModel"] as CampaignDetailsModel : 
-            //    MapDetailsModel(campaign);
-            var viewModel = MapDetailsModel(campaign);
-            ViewBag.EmailBlastModel = MapEmailBlast(campaign);
-            return View("Edit", viewModel);
         }
 
         [Authorize]
         [HttpPost]
         public ActionResult Update(CampaignDetailsModel model, int id = -1)
         {
-            var campaign = campaignRepository.GetCampaignByID(id);
-
-            if (campaign == null)
+            using (campaignRepository)
             {
-                return HttpNotFound("The Campaign you are looking for could not be found.");
+                var campaign = campaignRepository.GetCampaignByID(id);
+
+                if (campaign == null)
+                {
+                    return HttpNotFound("The Campaign you are looking for could not be found.");
+                }
+
+                var userProfile = campaign.UserProfile;
+
+                if (User.Identity.Name.ToLower() != userProfile.Email.ToLower())
+                {
+                    TempData["ErrorMessage"] = "Sorry, you don't have permission to edit this Campaign.";
+                    return RedirectToAction("Index", new { slug = campaign.UrlSlug });
+                }
+
+                if (ModelState.IsValid)
+                {
+                    MapCampaign(campaign, model);
+                    campaignRepository.Save();
+                    return RedirectToAction("Index", new { slug = campaign.UrlSlug });
+                }
+
+                TempData["CampaignDetailsModel"] = model;
+                return RedirectToAction("Edit", new { slug = campaign.UrlSlug });
             }
-
-            var userProfile = campaign.UserProfile;
-
-            if (User.Identity.Name.ToLower() != userProfile.Email.ToLower())
-            {
-                TempData["ErrorMessage"] = "Sorry, you don't have permission to edit this Campaign.";
-                return RedirectToAction("Index", new { slug = campaign.UrlSlug });
-            }
-
-            if (ModelState.IsValid)
-            {
-                MapCampaign(campaign, model);
-                campaignRepository.Save();
-                return RedirectToAction("Index", new { slug = campaign.UrlSlug });
-            }
-
-            TempData["CampaignDetailsModel"] = model;
-            return RedirectToAction("Edit", new { slug = campaign.UrlSlug });
         }
 
         [Authorize]
         [HttpPost]
         public ActionResult SendEmail(CampaignEmailBlastModel model)
         {
-            var campaign = campaignRepository.GetCampaignByUrlSlug(model.UrlSlug);
-
-            if (campaign != null)
+            using (campaignRepository)
             {
-                var userProfile = campaign.UserProfile;
+                var campaign = campaignRepository.GetCampaignByUrlSlug(model.UrlSlug);
 
-                // Only allow email to send if the campaign owner is currently logged in
-                if (User.Identity.Name.ToLower() == userProfile.Email.ToLower())
+                if (campaign != null)
                 {
-                    if (ModelState.IsValid)
+                    var userProfile = campaign.UserProfile;
+
+                    // Only allow email to send if the campaign owner is currently logged in
+                    if (User.Identity.Name.Equals(userProfile.Email, StringComparison.CurrentCultureIgnoreCase))
                     {
-                        model.Url = Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = model.UrlSlug }));
-                        campaignMailer.CampaignEmailBlast(model).SendAsync();
-                        return Json(new { success = "true" });
+                        if (ModelState.IsValid)
+                        {
+                            model.Url = Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = model.UrlSlug }));
+                            campaignMailer.CampaignEmailBlast(model).SendAsync();
+                            return Json(new { success = "true" });
+                        }
                     }
-                }
-                else
-                {
-                    // If not, return 403 status code
-                    Response.StatusCode = (int) HttpStatusCode.Forbidden;
+                    else
+                    {
+                        // If not, return 403 status code
+                        Response.StatusCode = (int) HttpStatusCode.Forbidden;
+                    }
                 }
             }
 
@@ -270,25 +286,30 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 60, VaryByParam = "id")]
+        [OutputCache(Duration = 120, VaryByParam = "id")]
         public ActionResult ProgressBar(int id)
         {
-            var campaign = campaignRepository.GetCampaignByID(id);
+            ProgressBarModel model;
 
-            if (campaign == null)
+            using (campaignRepository)
             {
-                return HttpNotFound("The campaign you are looking for could not be found.");
-            }
+                var campaign = campaignRepository.GetCampaignByID(id);
 
-            var total = campaign.CalculateTotalDonations();
-            var percent = total > campaign.GoalAmount ? 100 : (int) ((total / campaign.GoalAmount) * 100);
-            var model = new ProgressBarModel
+                if (campaign == null)
+                {
+                    return HttpNotFound("The campaign you are looking for could not be found.");
+                }
+
+                var total = campaign.CalculateTotalDonations();
+                var percent = total > campaign.GoalAmount ? 100 : (int) ((total / campaign.GoalAmount) * 100);
+                model = new ProgressBarModel
                             {
                                 Amount = total,
                                 GoalAmount = campaign.GoalAmount,
                                 Percent = percent,
                                 GoalName = "Raised so far"
                             };
+            }
 
             return View("ProgressBar", model);
         }

@@ -74,7 +74,10 @@ namespace JordanRift.Grassroots.Framework.Data
 
         public void Dispose()
         {
-            objectContext.Dispose();
+            if (objectContext != null)
+            {
+                objectContext.Dispose();
+            }
         }
     }
 }

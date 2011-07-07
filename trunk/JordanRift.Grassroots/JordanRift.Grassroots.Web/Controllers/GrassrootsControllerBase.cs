@@ -15,7 +15,6 @@
 
 using System.Web.Mvc;
 using JordanRift.Grassroots.Framework.Data;
-using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Web.Controllers
@@ -23,7 +22,6 @@ namespace JordanRift.Grassroots.Web.Controllers
     public abstract class GrassrootsControllerBase : Controller
     {
         private IOrganizationRepository organizationRepository;
-        private Organization organization;
 
         public IOrganizationRepository OrganizationRepository 
         { 
@@ -45,20 +43,5 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             organizationRepository.Dispose();
         }
-
-        //public Organization GetOrganization(bool readOnly = true)
-        //{
-        //    get
-        //    {
-        //        if (organization == null)
-        //        {
-        //            organization = OrganizationRepository.GetDefaultOrganization();
-        //        }
-
-        //        return organization;
-        //    }
-
-        //    set { organization = value; }
-        //}
     }
 }

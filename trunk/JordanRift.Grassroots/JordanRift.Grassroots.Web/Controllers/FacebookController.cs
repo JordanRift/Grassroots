@@ -81,20 +81,24 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                     FacebookClient fbClient = new FacebookClient(accessToken);
                     dynamic me = fbClient.Get("me");
-                    var userProfile = userProfileRepository.GetUserProfileByFacebookID(me.id);
 
-                    if (userProfile == null)
+                    using (userProfileRepository)
                     {
-                        TempData["UserFeedback"] = "We can't find you in our system. Please sign in or register to create your account.";
-                        return RedirectToAction("Register", "Account");
-                    }
+                        var userProfile = userProfileRepository.GetUserProfileByFacebookID(me.id);
 
-                    if (!userProfile.IsActivated)
-                    {
-                        return RedirectToAction("AwaitingActivation", "Account");
-                    }
+                        if (userProfile == null)
+                        {
+                            TempData["UserFeedback"] = "We can't find you in our system. Please sign in or register to create your account.";
+                            return RedirectToAction("Register", "Account");
+                        }
 
-                    FormsAuthentication.SetAuthCookie(userProfile.Email, false);
+                        if (!userProfile.IsActivated)
+                        {
+                            return RedirectToAction("AwaitingActivation", "Account");
+                        }
+
+                        FormsAuthentication.SetAuthCookie(userProfile.Email, false);
+                    }
 
                     if (Url.IsLocalUrl(state))
                     {
@@ -153,17 +157,21 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                     FacebookClient fbClient = new FacebookClient(accessToken);
                     dynamic me = fbClient.Get("me");
-                    var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
-                    if (userProfile != null && string.IsNullOrEmpty(userProfile.FacebookID))
+                    using (userProfileRepository)
                     {
-                        userProfile.FacebookID = me.id;
-                        userProfileRepository.Save();
-                        success = true;
+                        var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
-                        if (Url.IsLocalUrl(state))
+                        if (userProfile != null && string.IsNullOrEmpty(userProfile.FacebookID))
                         {
-                            return Redirect(state);
+                            userProfile.FacebookID = me.id;
+                            userProfileRepository.Save();
+                            success = true;
+
+                            if (Url.IsLocalUrl(state))
+                            {
+                                return Redirect(state);
+                            }
                         }
                     }
                 }

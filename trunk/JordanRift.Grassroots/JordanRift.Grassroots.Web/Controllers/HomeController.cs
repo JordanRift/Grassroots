@@ -56,49 +56,53 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 60, VaryByParam = "none")]
+        [OutputCache(Duration = 120, VaryByParam = "none")]
         public ActionResult ProgressBar()
         {
             decimal total;
 			decimal totalGoal;
 			string goalName = "Total";
-            
-            // Grab fresh data from the db, rather than cached collection...
-            organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
-			
-            if ( organization.YtdGoal.HasValue && organization.YtdGoal > 0 )
-			{
-				total = organization.CalculateTotalDonationsYTD();
-				totalGoal = organization.YtdGoal.Value;
-				goalName = "Total YTD";
-			}
-			else
-			{
-	            total = organization.CalculateTotalDonations();
-				totalGoal = organization.CalculateGoalTotal();
-			}
 
-			var percent = 0;
-			if ( totalGoal > 0 )
-			{
-				percent = ( total > totalGoal ) ? 100 : (int)( ( total / totalGoal ) * 100 );
-			}
+            using (OrganizationRepository)
+            {
+                // Grab fresh data from the db, rather than cached collection...
+                organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 
-            var model = new ProgressBarModel
-                            {
-                                Amount = total,
-								GoalAmount = totalGoal,
-                                Percent = percent,
-								GoalName = goalName
-                            };
+                if (organization.YtdGoal.HasValue && organization.YtdGoal > 0)
+                {
+                    total = organization.CalculateTotalDonationsYTD();
+                    totalGoal = organization.YtdGoal.Value;
+                    goalName = "Total YTD";
+                }
+                else
+                {
+                    total = organization.CalculateTotalDonations();
+                    totalGoal = organization.CalculateGoalTotal();
+                }
 
-            return View("ProgressBar", model);
+                var percent = 0;
+                if (totalGoal > 0)
+                {
+                    percent = (total > totalGoal) ? 100 : (int) ((total / totalGoal) * 100);
+                }
+
+                var model = new ProgressBarModel
+                                {
+                                    Amount = total,
+                                    GoalAmount = totalGoal,
+                                    Percent = percent,
+                                    GoalName = goalName
+                                };
+
+                return View("ProgressBar", model);
+            }
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 150, VaryByParam = "none")]
+        [OutputCache(Duration = 120, VaryByParam = "none")]
         public ActionResult Stats()
         {
+            organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
             var causes = organization.GetCompletedCauses();
             var model = new OrganizationStatsModel()
                             {
