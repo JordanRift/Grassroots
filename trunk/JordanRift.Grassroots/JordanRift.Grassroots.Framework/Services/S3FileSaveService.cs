@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel.Composition;
 using System.Configuration;
 using System.IO;
 using Amazon.S3;
@@ -54,6 +55,7 @@ namespace JordanRift.Grassroots.Framework.Services
 	///         ]
 	///       }
 	/// </summary>
+    [Export(typeof(IFileSaveService))]
 	public class S3FileSaveService : IFileSaveService
 	{
         public FileStorageType StorageMode { get { return FileStorageType.S3; } }
