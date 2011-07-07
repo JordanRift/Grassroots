@@ -51,45 +51,54 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 150, VaryByParam = "none")]
         public ActionResult Index()
         {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            var templates = organization.CauseTemplates.Where(t => t.Active);
-
-            if (templates.Count() == 1)
+            using (OrganizationRepository)
             {
-                var templateModel = MapCauseTemplateDetails(templates.First());
-                return View("Details", templateModel);
-            }
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+                var templates = organization.CauseTemplates.Where(t => t.Active);
 
-            var model = templates.Where(t => t.Active).Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
-            return View(model);
+                if (templates.Count() == 1)
+                {
+                    var templateModel = MapCauseTemplateDetails(templates.First());
+                    return View("Details", templateModel);
+                }
+
+                var model = templates.Where(t => t.Active).Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
+                return View(model);
+            }
         }
 
         [OutputCache(Duration = 150, VaryByParam = "id")]
         public ActionResult Details(int id = -1)
         {
-            var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
-
-            if (causeTemplate == null)
+            using (causeTemplateRepository)
             {
-                return HttpNotFound("The project type you are looking for could not be found.");
-            }
+                var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
 
-            var model = MapCauseTemplateDetails(causeTemplate);
-            return View(model);
+                if (causeTemplate == null)
+                {
+                    return HttpNotFound("The project type you are looking for could not be found.");
+                }
+
+                var model = MapCauseTemplateDetails(causeTemplate);
+                return View(model);
+            }
         }
 
         [OutputCache(Duration = 150, VaryByParam = "id")]
         public ActionResult Search(int id = -1)
         {
-            var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
-
-            if (causeTemplate == null)
+            using (causeTemplateRepository)
             {
-                return HttpNotFound("The project type you are looking for could not be found.");
-            }
+                var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
 
-            var model = MapCauseTemplateDetails(causeTemplate, shouldMapCauses: true);
-            return View(model);
+                if (causeTemplate == null)
+                {
+                    return HttpNotFound("The project type you are looking for could not be found.");
+                }
+
+                var model = MapCauseTemplateDetails(causeTemplate, shouldMapCauses: true);
+                return View(model);
+            }
         }
 
         [OutputCache(Duration = 150, VaryByParam = "id;referenceNumber")]
@@ -102,22 +111,25 @@ namespace JordanRift.Grassroots.Web.Controllers
                 isValid = false;
             }
 
-            var cause = causeRepository.GetCauseByCauseTemplateIdAndReferenceNumber(id, referenceNumber);
-
-            if (cause == null)
+            using (causeRepository)
             {
-                isValid = false;
-            }
+                var cause = causeRepository.GetCauseByCauseTemplateIdAndReferenceNumber(id, referenceNumber);
 
-            if (!isValid)
-            {
-                TempData["ErrorMessage"] = "The project you are looking for was not found. Please try your search again.";
-                var causeTemplateID = id;
-                return RedirectToAction("Search", new { id = causeTemplateID });
-            }
+                if (cause == null)
+                {
+                    isValid = false;
+                }
 
-            var model = MapCauseDetails(cause);
-            return View(model);
+                if (!isValid)
+                {
+                    TempData["ErrorMessage"] = "The project you are looking for was not found. Please try your search again.";
+                    var causeTemplateID = id;
+                    return RedirectToAction("Search", new { id = causeTemplateID });
+                }
+
+                var model = MapCauseDetails(cause);
+                return View(model);
+            }
         }
 
 		#region Administrative Actions
@@ -125,25 +137,14 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		public ActionResult List()
 		{
-			var organization = OrganizationRepository.GetDefaultOrganization( readOnly: true );
-			var templates = organization.CauseTemplates;
-			var model = templates.Select( Mapper.Map<CauseTemplate, CauseTemplateDetailsModel> ).ToList();
-			return View( model );
+            using (OrganizationRepository)
+            {
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+                var templates = organization.CauseTemplates;
+                var model = templates.Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
+                return View(model);
+            }
 		}
-
-		//public JsonResult LoadCauseTemplateList(int page = 1, int rows = 10)
-		//{
-		//    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-		//    var theTotal = organization.CauseTemplates.Count;
-		//    //var pageNumber = page;
-		//    var templates = organization.CauseTemplates.Skip((page - 1) * rows).Take(rows);
-
-		//    return Json(new {
-		//        rows = templates,
-		//        totalrows = theTotal,
-		//        totals = templates
-		//    }, JsonRequestBehavior.AllowGet);
-		//}
 
 		[Authorize( Roles = "Administrator" )] 
 		public ActionResult Create()
@@ -161,41 +162,47 @@ namespace JordanRift.Grassroots.Web.Controllers
 				return RedirectToAction( "Create" );
 			}
 
-			var organization = OrganizationRepository.GetDefaultOrganization( readOnly: false );
-			var causeTemplate = Mapper.Map<CauseTemplateDetailsModel, CauseTemplate>( model );
-			organization.CauseTemplates.Add( causeTemplate );
-			OrganizationRepository.Save();
+            using (OrganizationRepository)
+            {
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+                var causeTemplate = Mapper.Map<CauseTemplateDetailsModel, CauseTemplate>(model);
+                organization.CauseTemplates.Add(causeTemplate);
+                OrganizationRepository.Save();
+            }
 
-			return RedirectToAction( "List" );
+		    return RedirectToAction( "List" );
 		}
 
 		[Authorize( Roles = "Administrator" )] 
 		public ActionResult Edit( int id )
 		{
-			var organization = OrganizationRepository.GetDefaultOrganization( readOnly: true );
-			var causeTemplate = organization.CauseTemplates.FirstOrDefault( c => c.CauseTemplateID == id );
+            using (OrganizationRepository)
+            {
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+                var causeTemplate = organization.CauseTemplates.FirstOrDefault(c => c.CauseTemplateID == id);
 
-			if ( causeTemplate != null )
-			{
-				CauseTemplateDetailsModel viewModel;
+                if (causeTemplate != null)
+                {
+                    CauseTemplateDetailsModel viewModel;
 
-				if ( TempData["CauseTemplateErrors"] != null )
-				{
-					foreach ( var error in (List<FileUpload>)TempData["CauseTemplateErrors"] )
-					{
-						ModelState.AddModelError( string.Empty, string.Format( "{0}: {1}", error.File.FileName, error.ErrorMessage ) );
-					}
-					viewModel = TempData["CauseTemplateDetailsModel"] as CauseTemplateDetailsModel;
-				}
-				else
-				{
-					viewModel = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>( causeTemplate );
-				}
+                    if (TempData["CauseTemplateErrors"] != null)
+                    {
+                        foreach (var error in (List<FileUpload>) TempData["CauseTemplateErrors"])
+                        {
+                            ModelState.AddModelError(string.Empty, string.Format("{0}: {1}", error.File.FileName, error.ErrorMessage));
+                        }
+                        viewModel = TempData["CauseTemplateDetailsModel"] as CauseTemplateDetailsModel;
+                    }
+                    else
+                    {
+                        viewModel = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
+                    }
 
-				return View( viewModel );
-			}
+                    return View(viewModel);
+                }
+            }
 
-			return HttpNotFound( "The project template could not be found." );
+		    return HttpNotFound( "The project template could not be found." );
 		}
 
 
@@ -203,36 +210,39 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[Authorize( Roles = "Administrator" )] 
 		public ActionResult Update( CauseTemplateDetailsModel model )
 		{
-			var organization = OrganizationRepository.GetDefaultOrganization( readOnly: false );
-			var causeTemplate = organization.CauseTemplates.FirstOrDefault( c => c.CauseTemplateID == model.CauseTemplateID );
+            using (OrganizationRepository)
+            {
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+                var causeTemplate = organization.CauseTemplates.FirstOrDefault(c => c.CauseTemplateID == model.CauseTemplateID);
 
-			if ( causeTemplate == null )
-			{
-				return HttpNotFound( "The project template could not be found." );
-			}
+                if (causeTemplate == null)
+                {
+                    return HttpNotFound("The project template could not be found.");
+                }
 
-			if ( !ModelState.IsValid )
-			{
-				TempData["CauseTemplateDetailsModel"] = model;
-				return RedirectToAction( "Edit", new { id = model.CauseTemplateID } );
-			}
+                if (!ModelState.IsValid)
+                {
+                    TempData["CauseTemplateDetailsModel"] = model;
+                    return RedirectToAction("Edit", new { id = model.CauseTemplateID });
+                }
 
-			MapCauseTemplate( causeTemplate, model );
+                MapCauseTemplate(causeTemplate, model);
 
-			// Now save any new images and associate the new image names (URL) with the causeTemplate.
-			var results = SaveFiles( causeTemplate );
-			var fileErrors = results.Where( r => r.IsError == true ).ToList<FileUpload>();
-			if ( fileErrors.Count() > 0 )
-			{
-				TempData["CauseTemplateErrors"] = fileErrors;
-				TempData["CauseTemplateDetailsModel"] = model;
-				return RedirectToAction( "Edit", new { id = model.CauseTemplateID } );
-			}
+                // Now save any new images and associate the new image names (URL) with the causeTemplate.
+                var results = SaveFiles(causeTemplate);
+                var fileErrors = results.Where(r => r.IsError).ToList();
+                if (fileErrors.Count() > 0)
+                {
+                    TempData["CauseTemplateErrors"] = fileErrors;
+                    TempData["CauseTemplateDetailsModel"] = model;
+                    return RedirectToAction("Edit", new { id = model.CauseTemplateID });
+                }
 
-			OrganizationRepository.Save();
-            TempData["UserFeedback"] = "Your changes have been saved. Please allow a few minutes for them to take effect.";
+                OrganizationRepository.Save();
+            }
 
-			return RedirectToAction( "List" );
+		    TempData["UserFeedback"] = "Your changes have been saved. Please allow a few minutes for them to take effect.";
+            return RedirectToAction( "List" );
 		}
 
 		/// <summary>

@@ -23,7 +23,6 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
 {
     public abstract class GrassrootsWebViewPage<TModel> : WebViewPage<TModel>
     {
-        private readonly IOrganizationRepository organizationRepository;
         private readonly Organization organization;
 
         public string OrganizationName
@@ -78,8 +77,11 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
         protected GrassrootsWebViewPage()
         {
             var repositoryFactory = new RepositoryFactory<IOrganizationRepository>();
-            organizationRepository = repositoryFactory.GetRepository();
-            organization = organizationRepository.GetDefaultOrganization(readOnly: true);
+
+            using (var organizationRepository = repositoryFactory.GetRepository())
+            {
+                organization = organizationRepository.GetDefaultOrganization(readOnly: true);
+            }
         }
     }
 }

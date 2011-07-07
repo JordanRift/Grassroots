@@ -27,25 +27,37 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<Organization, OrganizationDetailsModel>();
         }
 
+        [OutputCache(Duration = 60, VaryByParam = "aspxerrorpath")]
         public ActionResult Index()
         {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
-            return View("Error", model);
+            using (OrganizationRepository)
+            {
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+                var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+                return View("Error", model);
+            }
         }
 
+        [OutputCache(Duration = 60, VaryByParam = "aspxerrorpath")]
         public ActionResult NotFound()
         {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
-            return View("404", model);
+            using (OrganizationRepository)
+            {
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+                var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+                return View("404", model);
+            }
         }
 
+        [OutputCache(Duration = 60, VaryByParam = "aspxerrorpath")]
         public ActionResult Forbidden()
         {
-            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
-            return View("403", model);
+            using (OrganizationRepository)
+            {
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+                var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+                return View("403", model);
+            }
         }
     }
 }

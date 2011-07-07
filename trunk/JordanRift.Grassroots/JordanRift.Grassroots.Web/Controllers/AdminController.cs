@@ -12,20 +12,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
-using System;
-using System.Collections.Generic;
-using System.Web;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Linq;
 using System.Web.Mvc;
-
 using AutoMapper;
 using JordanRift.Grassroots.Web.Models;
 using JordanRift.Grassroots.Framework.Entities.Models;
-
-using JordanRift.Grassroots.Framework.Services;
-using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
@@ -51,42 +41,48 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		public ActionResult EditOrganization()
 		{
-			// Perhaps someday we'll pull this from the route?
-			var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            using (OrganizationRepository)
+            {
+                // Perhaps someday we'll pull this from the route?
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
 
-			if ( organization != null )
-			{
-				OrganizationDetailsModel viewModel;
+                if (organization != null)
+                {
+                    OrganizationDetailsModel viewModel;
 
-				if ( TempData["OrganizationEditModel"] != null )
-				{
-					viewModel = TempData["OrganizationEditModel"] as OrganizationDetailsModel;
-				}
-				else
-				{
-					viewModel = Mapper.Map<Organization, OrganizationDetailsModel>( organization );
-				}
+                    if (TempData["OrganizationEditModel"] != null)
+                    {
+                        viewModel = TempData["OrganizationEditModel"] as OrganizationDetailsModel;
+                    }
+                    else
+                    {
+                        viewModel = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+                    }
 
-				return View( viewModel );
-			}
+                    return View(viewModel);
+                }
+            }
 
-			return HttpNotFound( "The organization could not be found." );
+		    return HttpNotFound( "The organization could not be found." );
 		}
 
 		[HttpPost]
 		public ActionResult UpdateOrganization( OrganizationDetailsModel model )
 		{
-			var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+            using (OrganizationRepository)
+            {
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 
-			if ( ModelState.IsValid )
-			{
-				MapOrganization( organization, model );
-				OrganizationRepository.Save();
-			    TempData["UserFeedback"] = "Your changes have been saved. Please allow a few minutes for them to take effect.";
-				return RedirectToAction( "Index", "Admin" );
-			}
+                if (ModelState.IsValid)
+                {
+                    MapOrganization(organization, model);
+                    OrganizationRepository.Save();
+                    TempData["UserFeedback"] = "Your changes have been saved. Please allow a few minutes for them to take effect.";
+                    return RedirectToAction("Index", "Admin");
+                }
+            }
 
-			TempData["OrganizationEditModel"] = model;
+		    TempData["OrganizationEditModel"] = model;
 			return RedirectToAction( "EditOrganization", "Admin" );
 		}
 

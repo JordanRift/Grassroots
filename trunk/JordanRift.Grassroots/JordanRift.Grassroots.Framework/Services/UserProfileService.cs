@@ -27,7 +27,11 @@ namespace JordanRift.Grassroots.Framework.Services
         {
             var repositoryFactory = new RepositoryFactory<IUserProfileRepository>();
             userProfileRepository = repositoryFactory.GetRepository();
-            //userProfileRepository = RepositoryFactory.GetRepository<IUserProfileRepository>();
+        }
+
+        ~UserProfileService()
+        {
+            userProfileRepository.Dispose();
         }
 
         public UserProfileService(IUserProfileRepository userProfileRepository)
@@ -37,20 +41,23 @@ namespace JordanRift.Grassroots.Framework.Services
 
         public bool IsUnique(string email, int id)
         {
-            var result = true;
-            var usersWithSameEmail = userProfileRepository.FindUserProfileByEmail(email).ToList();
-
-            if (id <= 0 && usersWithSameEmail.Count > 0)  // Case: New User
+            using (userProfileRepository)
             {
-                result = false;
-            }
-            else if (usersWithSameEmail.Count > 0 && usersWithSameEmail.Any(u => u.UserProfileID != id))  // Case: Email Change
-            {
-                result = false;
-            }
+                var result = true;
+                var usersWithSameEmail = userProfileRepository.FindUserProfileByEmail(email).ToList();
 
-            // Case: Saving without changing email
-            return result;
+                if (id <= 0 && usersWithSameEmail.Count > 0)  // Case: New User
+                {
+                    result = false;
+                }
+                else if (usersWithSameEmail.Count > 0 && usersWithSameEmail.Any(u => u.UserProfileID != id))  // Case: Email Change
+                {
+                    result = false;
+                }
+
+                // Case: Saving without changing email
+                return result;
+            }
         }
     }
 }

@@ -54,41 +54,47 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[Authorize]
 		public ActionResult Index(int id = -1)
 		{
-		    var userProfile = id != -1 
-                ? userProfileRepository.GetUserProfileByID(id) 
-                : userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
-			
-			if (userProfile != null)
-			{
-			    var viewModel = MapUserProfileDetails(userProfile);
-				return View(viewModel);
-			}
+            using (userProfileRepository)
+            {
+                var userProfile = id != -1
+                    ? userProfileRepository.GetUserProfileByID(id)
+                    : userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
-			return HttpNotFound("The User Profile you are looking for could not be found.");
+                if (userProfile != null)
+                {
+                    var viewModel = MapUserProfileDetails(userProfile);
+                    return View(viewModel);
+                }
+            }
+
+		    return HttpNotFound("The User Profile you are looking for could not be found.");
 		}
 
 		[Authorize]
 		public ActionResult Edit()
 		{
-			var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+            using (userProfileRepository)
+            {
+                var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
-			if (userProfile != null)
-			{
-				UserProfileDetailsModel viewModel;
+                if (userProfile != null)
+                {
+                    UserProfileDetailsModel viewModel;
 
-				if (TempData["UserProfileDetailsModel"] != null)
-				{
-					viewModel = TempData["UserProfileDetailsModel"] as UserProfileDetailsModel;
-				}
-				else
-				{
-					viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
-				}
+                    if (TempData["UserProfileDetailsModel"] != null)
+                    {
+                        viewModel = TempData["UserProfileDetailsModel"] as UserProfileDetailsModel;
+                    }
+                    else
+                    {
+                        viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
+                    }
 
-				return View(viewModel);
-			}
+                    return View(viewModel);
+                }
+            }
 
-			return HttpNotFound("The User Profile you are looking for could not be found.");
+		    return HttpNotFound("The User Profile you are looking for could not be found.");
 		}
 
 		[HttpPost]
@@ -119,11 +125,14 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize]
         public ActionResult DeactivateAccount()
         {
-            var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
-
-            if (userProfile == null)
+            using (userProfileRepository)
             {
-                return HttpNotFound("The User Profile you are looking for could not be found.");
+                var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+
+                if (userProfile == null)
+                {
+                    return HttpNotFound("The User Profile you are looking for could not be found.");
+                }
             }
 
             return View();
@@ -133,30 +142,33 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[HttpPost]
 		public ActionResult Deactivate()
 		{
-			var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+            using (userProfileRepository)
+            {
+                var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
-			if (userProfile == null)
-			{
-				return HttpNotFound("The User Profile you are looking for could not be found.");
-			}
+                if (userProfile == null)
+                {
+                    return HttpNotFound("The User Profile you are looking for could not be found.");
+                }
 
-			userProfile.Active = false;
-		    var organization = userProfile.Organization;
-			
-			foreach (var user in userProfile.Users)
-			{
-				user.IsActive = false;
-			}
+                userProfile.Active = false;
+                var organization = userProfile.Organization;
 
-			userProfileRepository.Save();
-			mailer.TaxInfo(new DeactivateModel
-			                   {
-                                   Email = userProfile.Email,
-                                   FirstName = userProfile.FirstName,
-			                       FacebookUrl = organization.FacebookPageUrl,
-                                   TwitterUrl = string.Format("http://twitter.com/{0}", organization.TwitterName.Replace("@", "")),
-                                   BlogUrl= organization.BlogRssUrl
-			                   }).SendAsync();
+                foreach (var user in userProfile.Users)
+                {
+                    user.IsActive = false;
+                }
+
+                userProfileRepository.Save();
+                mailer.TaxInfo(new DeactivateModel
+                                   {
+                                       Email = userProfile.Email,
+                                       FirstName = userProfile.FirstName,
+                                       FacebookUrl = organization.FacebookPageUrl,
+                                       TwitterUrl = string.Format("http://twitter.com/{0}", organization.TwitterName.Replace("@", "")),
+                                       BlogUrl = organization.BlogRssUrl
+                                   }).SendAsync();
+            }
 
             TempData["UserFeedback"] = "Welcome back! We're glad you're with us again!";
 			return RedirectToAction("LogOff", "Account");
@@ -165,11 +177,14 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize]
         public ActionResult ReactivateAccount()
         {
-            var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
-
-            if (userProfile == null)
+            using (userProfileRepository)
             {
-                return HttpNotFound("The User Profile you are looking for could not be found.");
+                var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+
+                if (userProfile == null)
+                {
+                    return HttpNotFound("The User Profile you are looking for could not be found.");
+                }
             }
 
             return View();
@@ -179,24 +194,28 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[HttpPost]
 		public ActionResult Reactivate()
 		{
-			var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+            using (userProfileRepository)
+            {
+                var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
-			if (userProfile == null)
-			{
-				return HttpNotFound("The User Profile you are looking for could not be found.");
-			}
+                if (userProfile == null)
+                {
+                    return HttpNotFound("The User Profile you are looking for could not be found.");
+                }
 
-			userProfile.Active = true;
+                userProfile.Active = true;
 
-			foreach (var user in userProfile.Users)
-			{
-				user.IsActive = true;
-			}
+                foreach (var user in userProfile.Users)
+                {
+                    user.IsActive = true;
+                }
 
-			userProfileRepository.Save();
-			var mailerModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
-			mailer.WelcomeBack(mailerModel).SendAsync();
-			TempData["UserFeedback"] = "Welcome back! We're glad you're with us again!";
+                userProfileRepository.Save();
+                var mailerModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
+                mailer.WelcomeBack(mailerModel).SendAsync();
+            }
+
+		    TempData["UserFeedback"] = "Welcome back! We're glad you're with us again!";
 			return RedirectToAction("Index");
 		}
 
@@ -207,48 +226,53 @@ namespace JordanRift.Grassroots.Web.Controllers
 		/// <returns></returns>
 		public ActionResult Projects( int id = -1 )
 		{
-			var userProfile = id != -1 
-                ? userProfileRepository.GetUserProfileByID( id ) 
-                : userProfileRepository.FindUserProfileByEmail( User.Identity.Name ).FirstOrDefault();
+            using (userProfileRepository)
+            {
+                var userProfile = id != -1
+                    ? userProfileRepository.GetUserProfileByID(id)
+                    : userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
-			if ( userProfile != null )
-			{
-				var causes = causeRepository.FindCausesByUserProfileID( userProfile.UserProfileID );
-				//var model = causes.Select( Mapper.Map<Cause, CauseDetailsModel> ).ToList();
-			    var model = new UserProfileProjectsModel
-			                    {
-                                    UserProfileID = userProfile.UserProfileID,
-                                    FirstName = userProfile.FirstName,
-                                    Causes = causes.Select(Mapper.Map<Cause, CauseDetailsModel>)
-			                    };
+                if (userProfile != null)
+                {
+                    var causes = causeRepository.FindCausesByUserProfileID(userProfile.UserProfileID);
+                    var model = new UserProfileProjectsModel
+                                    {
+                                        UserProfileID = userProfile.UserProfileID,
+                                        FirstName = userProfile.FirstName,
+                                        Causes = causes.Select(Mapper.Map<Cause, CauseDetailsModel>)
+                                    };
 
-				return View("Projects", model);
-			}
+                    return View("Projects", model);
+                }
+            }
 
-			return HttpNotFound( "The person you are looking for could not be found." );
+		    return HttpNotFound( "The person you are looking for could not be found." );
 		}
 
         public ActionResult Raised(int id = -1)
         {
-            var userProfile = id != -1
-                ? userProfileRepository.GetUserProfileByID(id)
-                : userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
-
-            if (userProfile != null)
+            using (userProfileRepository)
             {
-                var donations = from c in userProfile.Campaigns
-                                from d in c.CampaignDonors
-                                select d;
+                var userProfile = id != -1
+                    ? userProfileRepository.GetUserProfileByID(id)
+                    : userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
-                var model = new UserProfileRaisedModel
-                                {
-                                    UserProfileID = userProfile.UserProfileID,
-                                    FirstName = userProfile.FirstName,
-                                    DollarsRaised = userProfile.CalculateTotalDonations(),
-                                    Donations = MapDonations(donations)
-                                };
+                if (userProfile != null)
+                {
+                    var donations = from c in userProfile.Campaigns
+                                    from d in c.CampaignDonors
+                                    select d;
 
-                return View(model);
+                    var model = new UserProfileRaisedModel
+                                    {
+                                        UserProfileID = userProfile.UserProfileID,
+                                        FirstName = userProfile.FirstName,
+                                        DollarsRaised = userProfile.CalculateTotalDonations(),
+                                        Donations = MapDonations(donations)
+                                    };
+
+                    return View(model);
+                }
             }
 
             return HttpNotFound("The person you are looking for could not be found.");
@@ -256,21 +280,24 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         public ActionResult Given(int id = -1)
         {
-            var userProfile = id != -1
-                ? userProfileRepository.GetUserProfileByID(id)
-                : userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
-
-            if (userProfile != null)
+            using (userProfileRepository)
             {
-                var model = new UserProfileRaisedModel
-                                {
-                                    UserProfileID = userProfile.UserProfileID,
-                                    FirstName = userProfile.FirstName,
-                                    DollarsRaised = userProfile.CalculateTotalDonations(),
-                                    Donations = MapDonations(userProfile.CampaignDonors)
-                                };
+                var userProfile = id != -1
+                    ? userProfileRepository.GetUserProfileByID(id)
+                    : userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
 
-                return View(model);
+                if (userProfile != null)
+                {
+                    var model = new UserProfileRaisedModel
+                                    {
+                                        UserProfileID = userProfile.UserProfileID,
+                                        FirstName = userProfile.FirstName,
+                                        DollarsRaised = userProfile.CalculateTotalDonations(),
+                                        Donations = MapDonations(userProfile.CampaignDonors)
+                                    };
+
+                    return View(model);
+                }
             }
 
             return HttpNotFound("The person you are looking for could not be found.");
