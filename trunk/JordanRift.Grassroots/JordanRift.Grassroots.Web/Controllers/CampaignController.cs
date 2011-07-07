@@ -15,7 +15,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -168,6 +167,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                     campaign.StartDate = DateTime.Now;
                     campaign.EndDate = DateTime.Now.AddDays(causeTemplate.DefaultTimespanInDays);
+                    campaign.ImagePath = string.Empty;  // TODO: Refactor to either accept a file upload or remove field from db
                     campaign.Description = "You should say something about your campaign here...";
 
                     organization.Campaigns.Add(campaign);
