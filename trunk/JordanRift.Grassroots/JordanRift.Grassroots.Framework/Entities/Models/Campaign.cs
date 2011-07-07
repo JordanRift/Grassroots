@@ -123,7 +123,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
                     new[] { "GoalAmount" });
             }
 
-            TimeSpan timeInDays = (EndDate - StartDate);
+            // Access Date only to avoid issues with time zones
+            TimeSpan timeInDays = (EndDate.Date - StartDate.Date);
 
             if (!CauseTemplate.TimespanIsConfigurable && timeInDays.Days != CauseTemplate.DefaultTimespanInDays)
             {
