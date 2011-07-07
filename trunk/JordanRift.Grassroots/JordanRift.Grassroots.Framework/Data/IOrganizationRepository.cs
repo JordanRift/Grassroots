@@ -13,12 +13,13 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
-    public interface IOrganizationRepository : IPriority
+    public interface IOrganizationRepository : IPriority, IDisposable
     {
         Organization GetOrganizationByID(int id);
         Organization GetDefaultOrganization(bool readOnly = true);

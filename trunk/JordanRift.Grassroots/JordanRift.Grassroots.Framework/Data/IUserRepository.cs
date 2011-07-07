@@ -13,13 +13,14 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Linq;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
-    public interface IUserRepository : IPriority
+    public interface IUserRepository : IPriority, IDisposable
     {
         IQueryable<User> FindAllUsers();
         User GetUserByName(string name);

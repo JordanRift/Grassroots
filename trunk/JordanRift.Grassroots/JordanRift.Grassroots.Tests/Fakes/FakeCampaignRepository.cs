@@ -113,5 +113,9 @@ namespace JordanRift.Grassroots.Tests.Fakes
         public void Save()
         {
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

@@ -22,7 +22,7 @@ using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
-    public abstract class GrassrootsRepositoryBase
+    public abstract class GrassrootsRepositoryBase : IDisposable
     {
         private GrassrootsContext objectContext;
 
@@ -70,6 +70,11 @@ namespace JordanRift.Grassroots.Framework.Data
                 Logger.LogError(new Exception(errors.ToString()));
                 throw;
             }
+        }
+
+        public void Dispose()
+        {
+            objectContext.Dispose();
         }
     }
 }
