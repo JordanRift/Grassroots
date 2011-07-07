@@ -19,6 +19,41 @@
     ViewBag.Title = string.Format("{0}'s Profile", Model.FirstName);
     var isConnectedToFacebook = !string.IsNullOrEmpty(Model.FacebookID);
     var isAdministrator = User.IsInRole("Administrator");
+    var shouldDisplaySidebar = Model.CurrentUserIsOwner && (!isConnectedToFacebook || isAdministrator);
+    var campaignHistoryClass = shouldDisplaySidebar ? "campaigns" : "campaigns wide";
+}
+
+@section DocumentHead {
+    @if (Model.CurrentUserIsOwner) {
+    <link href="@Url.Content("~/Content/jquery.wijmo-open.1.2.0.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/jquery.wijmo-complete.1.2.0.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jQuery.tmpl.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.13.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.wijmo-open.1.2.0.min.js")" type="text/javascript"></script>
+    <script type="text/x-jquery-tmpl" id="tooltip-template">
+        <div class="tooltip-instructions">
+            @if (string.IsNullOrEmpty(Model.FacebookID)) { 
+            <p class="fb">@Html.ActionLink("Connect", "Connect", new { controller = "Facebook", area = "" }, new { title = "Connect", @class = "fb-connect" }) your account to Facebook.</p>
+            <br /><text>- or -</text>
+            <p>Claim your email address on <a href="http://en.gravatar.com/" title="Gravatar" target="_blank">Gravatar</a>.</p>
+            }
+            else {
+            <p>Change your <a href="http://www.facebook.com" title="Facebook" target="_blank">Facebook</a> profile picture.</p>
+            }
+        </div>
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $(".user-image-info").wijtooltip({
+                hideDelay: 3000,
+                title: "How do I change my picture?",
+                content: function () {
+                    return $("#tooltip-template").tmpl();
+                }
+            });
+        });
+    </script>
+    }
 }
 
     <hgroup>
@@ -51,12 +86,14 @@
                 </li>
             </ul>
             <div class="break"></div>
-            <div class="campaigns">
+            @if (Model.CurrentUserIsOwner) {
+            <div><a href="#" onclick="return false;" title="How do I change my picture?" class="user-image-info ui-button ui-corner-all">How do I change my picture?</a></div>
+            }
+            <div class="@campaignHistoryClass">
                 @if (Model.ActiveCampaignCount == 0) {
                 @Html.ActionLink("Launch A New Campaign", "GetStarted", new { controller = "Campaign" }, new { title = "Launch A Campaign", @class = "ui-button ui-corner-all pad-bottom" })
                 }
-                @if (Model.Campaigns.Count > 0)
-                { 
+                @if (Model.Campaigns.Count > 0) { 
                 <div class="campaign-history">
                 <h3>My Campaign History</h3>
                 @Html.Partial("CampaignList", Model.Campaigns)
@@ -64,12 +101,12 @@
                 }
             </div>
 
-            @if (Model.CurrentUserIsOwner && (!isConnectedToFacebook || isAdministrator)) { 
+            @if (shouldDisplaySidebar) { 
             <aside class="private-info">
                 <h3>Account Settings</h3>
                 <ul class="tasks">
 			        @if (!isConnectedToFacebook) {
-			        <li>@Html.ActionLink("Link to Facebook", "Connect", new { controller = "Facebook", area = "" }, new { title = "Link to Facebook" })</li>
+			        <li>@Html.ActionLink("Connect to Facebook", "Connect", new { controller = "Facebook", area = "" }, new { title = "Connect to Facebook", @class = "fb-connect" })</li>
                     }
                     @if (isAdministrator) {
                     <li>@Html.ActionLink("Admin Dashboard", "Index", new { Controller = "Admin", Area = "" }, new { Title = "Admin Dashboard" })</li>
