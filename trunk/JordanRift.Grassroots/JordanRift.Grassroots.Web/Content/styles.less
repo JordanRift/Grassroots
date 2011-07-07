@@ -204,6 +204,7 @@ p {
 				.stats > li,
 				#main .get-started .projects li {
 					width: 196px;
+					position: relative;
 				}
 
 				.stats > .user-image {
@@ -1087,12 +1088,28 @@ form fieldset > p.tip {
 }
 
 .field-validation-error {
-    display: block;
-	position: absolute;
+    display: inline-block;
+	*display: inline
+	position: relative;
 	padding: 5px;
 	font-size: 12px;
+	margin-left: 10px;
+}
+
+.column .field-validation-error {
+    display: block;
+	position: absolute;
 	top: 0px;
 	left: 210px;
+}
+
+.column .textarea > .field-validation-error {
+	display: block;
+	position: relative;
+	margin: 10px 0px;
+	width: 300px;
+	top: auto;
+	left: auto;
 }
 
 .account-maintenance {
@@ -1100,12 +1117,18 @@ form fieldset > p.tip {
 	padding-top: 30px;
 }
 
-#campaign-edit-form .field-validation-error {
-	display: inline;
-	left: 0px;
-	margin-left: 10px;
-	position: relative;
+#campaign-edit-form .stats > li .field-validation-error {
+	display: block;
+	position: absolute;
+	font-size: 12px;
+	top: 70px;
+	margin: 0px 5px;
+	width: 172px;
 }
+
+	#campaign-edit-form .stats > li .field-validation-error span {
+		font-size: 12px;
+	}
 
 .field-validation-valid {
     display: none;

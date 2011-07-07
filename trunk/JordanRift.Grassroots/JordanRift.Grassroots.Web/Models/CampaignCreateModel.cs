@@ -26,7 +26,7 @@ namespace JordanRift.Grassroots.Web.Models
         
         [Required]
         [Display(Name = "Friendly URL")]
-        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Please enter only alpha-numeric characters.")]
+        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Please enter only letters and numbers (no spaces or special characters).")]
         [StringLength(30, MinimumLength = 5, ErrorMessage = "Campaign URL must be between 5 and 30 characters in length.")]
         [Remote("CheckUrlSlug", "Validation", ErrorMessage = "That friendly URL is already in use. Please try another one.")]
         public string UrlSlug { get; set; }
@@ -40,7 +40,7 @@ namespace JordanRift.Grassroots.Web.Models
         [Display(Name = "Amount")]
         [DataType(DataType.Currency)]
         [RegularExpression(@"^\d+(\.\d{2})?$", ErrorMessage = "Please enter a valid amount.")]
-        [Range(100.00, 100000.00, ErrorMessage = "Amount must be between $100.00 and $100,000.00.")]
+        [Range(300.00, 30000.00, ErrorMessage = "Amount must be between $300.00 and $30,000.00.")]
         public string AmountString { get; set; }
     }
 }

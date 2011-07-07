@@ -153,6 +153,11 @@ a:hover {
 					color: #f1f1f1;
 					font-family: Georgia, "Times New Roman";
 				}
+				
+				#campaign-edit-form .stats > li .field-validation-error span {
+				    color: #222;
+				    font-family: Helvetica, Arial, Sans-Serif;
+				}
 
 #progressbar {
     border: 1px solid #333;
