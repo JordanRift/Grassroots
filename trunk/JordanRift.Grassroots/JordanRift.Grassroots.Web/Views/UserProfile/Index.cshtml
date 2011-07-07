@@ -33,8 +33,11 @@
             @if (string.IsNullOrEmpty(Model.FacebookID)) { 
             <p class="fb">@Html.ActionLink("Connect", "Connect", new { controller = "Facebook", area = "" }, new { title = "Connect", @class = "fb-connect" }) your account to Facebook.</p>
             <br /><text>- or -</text>
+            <p>Claim your email address on <a href="http://en.gravatar.com/" title="Gravatar" target="_blank">Gravatar</a>.</p>
             }
-            <p>Claim your email address on <a href="http://en.gravatar.com/" target="_blank">Gravatar</a>.</p>
+            else {
+            <p>Change your <a href="http://www.facebook.com" title="Facebook" target="_blank">Facebook</a> profile picture.</p>
+            }
         </div>
     </script>
     <script type="text/javascript">
