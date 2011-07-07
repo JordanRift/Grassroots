@@ -346,7 +346,15 @@ dd > .meta {
 .pad-bottom {
     margin-bottom: 20px;
 }
-		
+
+.wijmo-wijtooltip .wijmo-wijtooltip-title {
+	color: #999 !important;
+}
+
+.tooltip-instructions a {
+    color: #CCFF99;
+}
+	
 .notification {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
