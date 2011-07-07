@@ -189,6 +189,12 @@ header section.user-info {
 #main .user-profile .private-info > h3 {
   color: #495a5a;
 }
+.wijmo-wijtooltip .wijmo-wijtooltip-title {
+  color: #8ccc8e;
+}
+.tooltip-instructions a {
+  color: #cbe86b;
+}
 #main table tbody tr {
   border-top: 1px dotted #cccccc;
 }
