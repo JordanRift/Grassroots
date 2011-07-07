@@ -15,7 +15,7 @@
     // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
     //
     
-    ViewBag.Title = "ThankYou";
+    ViewBag.Title = "Thank You!";
     ViewBag.UrlToLike = Url.Action("Index", "Campaign", new { slug = Model.UrlSlug }, Request.Url != null ? Request.Url.Scheme : "https");
     var linkText = string.Format("Back to {0}", Model.Title);
 }
