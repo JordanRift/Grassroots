@@ -128,6 +128,13 @@ p {
   margin-top: 5px;
   position: relative;
 }
+#progress > h3 {
+  display: inline;
+}
+.progressbar-info {
+  font-size: 12px;
+  padding-left: 10px;
+}
 .progress-indicator {
   position: absolute;
   border-left: 1px solid #495a5a;
@@ -531,7 +538,7 @@ header h1 a {
 }
 .public-info > div > .user-image-info {
   font-size: 10px;
-  margin: 5px 0px 0px 20px;
+  margin: 5px 0px 0px 43px;
 }
 .tooltip-instructions {
   font-size: 12px;
@@ -580,6 +587,10 @@ header h1 a {
 .user-profile .private-info ul > li {
   font-weight: bold;
   padding: 3px 0px;
+  display: block;
+  float: none;
+  clear: both;
+  height: 25px;
 }
 #main .project-types li {
   display: block;
