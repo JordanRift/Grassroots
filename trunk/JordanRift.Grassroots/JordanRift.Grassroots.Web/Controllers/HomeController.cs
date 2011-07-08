@@ -91,7 +91,8 @@ namespace JordanRift.Grassroots.Web.Controllers
                                     Amount = total,
                                     GoalAmount = totalGoal,
                                     Percent = percent,
-                                    GoalName = goalName
+                                    GoalName = goalName,
+                                    DisplayTooltip = true
                                 };
 
                 return View("ProgressBar", model);

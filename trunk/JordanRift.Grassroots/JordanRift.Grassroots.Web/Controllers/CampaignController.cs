@@ -307,7 +307,8 @@ namespace JordanRift.Grassroots.Web.Controllers
                                 Amount = total,
                                 GoalAmount = campaign.GoalAmount,
                                 Percent = percent,
-                                GoalName = "Raised so far"
+                                GoalName = "Raised so far",
+                                DisplayTooltip = false
                             };
             }
 

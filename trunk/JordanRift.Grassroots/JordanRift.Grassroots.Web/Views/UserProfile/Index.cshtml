@@ -21,6 +21,7 @@
     var isAdministrator = User.IsInRole("Administrator");
     var shouldDisplaySidebar = Model.CurrentUserIsOwner && (!isConnectedToFacebook || isAdministrator);
     var campaignHistoryClass = shouldDisplaySidebar ? "campaigns" : "campaigns wide";
+    var ownerName = Model.CurrentUserIsOwner ? "My" : string.Format("{0}'s", Model.FirstName);
 }
 
 @section DocumentHead {
@@ -46,7 +47,6 @@
         $(function () {
             $(".user-image-info").wijtooltip({
                 hideDelay: 3000,
-                title: "How do I change my picture?",
                 content: function () {
                     return $("#tooltip-template").tmpl();
                 }
@@ -87,7 +87,7 @@
             </ul>
             <div class="break"></div>
             @if (Model.CurrentUserIsOwner) {
-            <div><a href="#" onclick="return false;" title="How do I change my picture?" class="user-image-info ui-button ui-corner-all">How do I change my picture?</a></div>
+            <div><a href="#" onclick="javascript:return false;" title="Change My Image" class="user-image-info ui-button ui-corner-all">Change My Image</a></div>
             }
             <div class="@campaignHistoryClass">
                 @if (Model.ActiveCampaignCount == 0) {
@@ -95,7 +95,7 @@
                 }
                 @if (Model.Campaigns.Count > 0) { 
                 <div class="campaign-history">
-                <h3>My Campaign History</h3>
+                <h3>@ownerName Campaign History</h3>
                 @Html.Partial("CampaignList", Model.Campaigns)
                 </div>
                 }
