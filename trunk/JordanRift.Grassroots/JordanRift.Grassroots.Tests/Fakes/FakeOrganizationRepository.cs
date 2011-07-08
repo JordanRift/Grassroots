@@ -27,7 +27,7 @@ namespace JordanRift.Grassroots.Tests.Fakes
     [Export(typeof(IOrganizationRepository))]
     public class FakeOrganizationRepository : IOrganizationRepository
     {
-        private static IList<Organization> organizations;
+        private static IList<OrganizationBase> organizations;
         public PriorityType Priority { get; set; }
 
         static FakeOrganizationRepository()
@@ -37,7 +37,7 @@ namespace JordanRift.Grassroots.Tests.Fakes
 
         private static void SetUp()
         {
-            organizations = new List<Organization>();
+            organizations = new List<OrganizationBase>();
 
             for (int i = 0; i < 1; i++)
             {
@@ -58,21 +58,26 @@ namespace JordanRift.Grassroots.Tests.Fakes
             SetUp();
         }
 
-        private static void AddSettings(Organization org)
+        public static void Clear()
+        {
+            organizations = new List<OrganizationBase>();
+        }
+
+        private static void AddSettings(OrganizationBase org)
         {
             for (int i = 0; i < 5; i++)
             {
                 org.OrganizationSettings.Add(new OrganizationSetting(
-                    string.Format("setting{0}", i), "this is the value", DataType.STRING));
+                    string.Format("setting{0}", i), "this is the value", DataType.String));
             }
         }
 
-        public Organization GetOrganizationByID(int id)
+        public OrganizationBase GetOrganizationByID(int id)
         {
             return organizations.FirstOrDefault(o => o.OrganizationID == id);
         }
 
-        public Organization GetDefaultOrganization(bool readOnly = true)
+        public OrganizationBase GetDefaultOrganization(bool readOnly = true)
         {
             return organizations.FirstOrDefault();
         }
@@ -86,6 +91,10 @@ namespace JordanRift.Grassroots.Tests.Fakes
         public void Delete(Organization organization)
         {
             organizations.Remove(organization);
+        }
+
+        public void DeleteSetting(OrganizationSetting organizationSetting)
+        {
         }
 
         public void Save()

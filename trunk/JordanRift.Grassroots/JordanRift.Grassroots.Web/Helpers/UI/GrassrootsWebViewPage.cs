@@ -23,7 +23,7 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
 {
     public abstract class GrassrootsWebViewPage<TModel> : WebViewPage<TModel>
     {
-        private readonly Organization organization;
+        private readonly OrganizationBase organization;
 
         public string OrganizationName
         {
@@ -63,6 +63,15 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
         public string FooterHtml
         {
             get { return organization.FooterHtml; }
+        }
+
+        public string DonationInstructionsHtml
+        {
+            get
+            {
+                var setting = organization.GetSetting(OrgSettingKeys.DONATE_INSTRUCTIONS_HTML);
+                return setting != null ? setting.Value : null;
+            }
         }
 
         public string AnalyticsTrackingCode

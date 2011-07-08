@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Web.Mvc;
@@ -121,5 +122,7 @@ namespace JordanRift.Grassroots.Web.Models
         [Required]
         [DisplayName("Theme Name")]
         public string ThemeName { get; set; }
+
+        public List<OrganizationSettingModel> OrganizationSettings { get; set; }
 	}
 }

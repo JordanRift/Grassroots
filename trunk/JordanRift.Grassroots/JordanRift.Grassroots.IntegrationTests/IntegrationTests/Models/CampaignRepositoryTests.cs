@@ -179,7 +179,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
 
         private void ArrangeCampaignTest()
         {
-            organization = EntityHelpers.GetValidOrganization();
+            organization = EntityHelpers.GetValidOrganization() as Organization;
             organization.UserProfiles = new List<UserProfile>();
             organization.CauseTemplates = new List<CauseTemplate>();
             organization.Campaigns = new List<Campaign>();

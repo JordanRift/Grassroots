@@ -164,7 +164,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
 
         private void ArrangeCauseTest()
         {
-            organization = EntityHelpers.GetValidOrganization();
+            organization = EntityHelpers.GetValidOrganization() as Organization;
 			organization.UserProfiles = new List<UserProfile>();
             organization.CauseTemplates = new List<CauseTemplate>();
             organization.Causes = new List<Cause>();

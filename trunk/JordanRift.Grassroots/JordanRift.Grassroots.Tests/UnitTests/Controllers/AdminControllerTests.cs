@@ -23,7 +23,6 @@ using JordanRift.Grassroots.Tests.Helpers;
 using JordanRift.Grassroots.Web.Controllers;
 using JordanRift.Grassroots.Web.Models;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 {
@@ -36,15 +35,19 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [SetUp]
         public void SetUp()
         {
-            Mapper.CreateMap<Organization, OrganizationDetailsModel>();
+            Mapper.CreateMap<OrganizationBase, OrganizationDetailsModel>();
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            FakeOrganizationRepository.Reset();
+        }
 
        [Test]
         public void Index_Should_Return_View()
         {
-            var mocks = new MockRepository();
-            SetUpAdminController(mocks);
+            SetUpAdminController();
             var result = controller.Index();
             Assert.IsInstanceOf(typeof(ViewResult), result);
         }
@@ -52,20 +55,15 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void EditOrganization_Should_Return_View_When_Organization_Found()
         {
-            var mocks = new MockRepository();
-            SetUpAdminController(mocks);
-            mocks.ReplayAll();
+            SetUpAdminController();
             var result = controller.EditOrganization();
             Assert.IsInstanceOf(typeof(ViewResult), result);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void EditOrganization_Should_Return_NotFound_When_Organization_Not_Found()
         {
-            var mocks = new MockRepository();
-            SetUpAdminController(mocks, false);
-            mocks.ReplayAll();
+            SetUpAdminController(false);
             var result = controller.EditOrganization();
             Assert.IsInstanceOf(typeof(HttpNotFoundResult), result);
         }
@@ -74,37 +72,35 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void UpdateOrganization_Should_Redirect_To_Index_When_Successful()
         {
             var organization = EntityHelpers.GetValidOrganization();
-            var viewModel = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
-            var mocks = new MockRepository();
-            SetUpAdminController(mocks, repoReadOnly: false);
-            mocks.ReplayAll();
+            var viewModel = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
+            SetUpAdminController(repoReadOnly: false);
             var result = controller.UpdateOrganization(viewModel);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             var actionName = ((RedirectToRouteResult) result).RouteValues["Action"];
             Assert.AreEqual("Index", actionName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void UpdateOrganization_Should_Redirect_To_EditOrganization_When_ModelState_Is_Invalid()
         {
             var organization = EntityHelpers.GetValidOrganization();
-            var viewModel = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
-            var mocks = new MockRepository();
-            SetUpAdminController(mocks);
+            var viewModel = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
+            SetUpAdminController();
             controller.ModelState.AddModelError("", "Uh oh...");
-            mocks.ReplayAll();
             var result = controller.UpdateOrganization(viewModel);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             var actionName = ((RedirectToRouteResult) result).RouteValues["Action"];
             Assert.AreEqual("EditOrganization", actionName);
         }
 
-        private void SetUpAdminController(MockRepository mocks, bool shouldFindOrganization = true, bool repoReadOnly = true)
+        private void SetUpAdminController(bool shouldFindOrganization = true, bool repoReadOnly = true)
         {
-            organizationRepository = mocks.DynamicMock<IOrganizationRepository>();
-            Expect.Call(organizationRepository.GetDefaultOrganization(readOnly: repoReadOnly))
-                .Return(shouldFindOrganization ? EntityHelpers.GetValidOrganization() : null);
+            organizationRepository = new FakeOrganizationRepository();
+
+            if (!shouldFindOrganization)
+            {
+                FakeOrganizationRepository.Clear();
+            }
 
             controller = new AdminController
                              {

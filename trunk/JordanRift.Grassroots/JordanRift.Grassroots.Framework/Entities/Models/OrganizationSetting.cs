@@ -42,7 +42,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         {
             Name = string.Empty;
             Value = string.Empty;
-            Type = Entities.DataType.STRING;
+            Type = Entities.DataType.String;
         }
 
         public OrganizationSetting(string name, string value, DataType dataType)

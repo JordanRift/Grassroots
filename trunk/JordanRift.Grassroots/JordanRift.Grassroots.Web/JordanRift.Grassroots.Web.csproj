@@ -182,12 +182,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\GetStartedModel.cs" />
+    <Compile Include="Models\ModelBinders\OrganizationDetailsModelBinder.cs" />
     <Compile Include="Models\ModelBinders\PaymentModelBinder.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\OrganizationDetailsModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\OrganizationSettingModel.cs" />
     <Compile Include="Models\OrganizationStatsModel.cs" />
     <Compile Include="Models\PasswordResetModel.cs" />
     <Compile Include="Models\ProgressBarModel.cs">
@@ -562,6 +564,8 @@
     <Content Include="Content\themes\onemission\League_Gothic-webfont.eot" />
     <Content Include="Content\themes\onemission\League_Gothic-webfont.ttf" />
     <Content Include="Content\themes\onemission\League_Gothic-webfont.woff" />
+    <Content Include="Views\Shared\EditorTemplates\DataType.cshtml" />
+    <Content Include="Views\Admin\OrganizationSettingEditList.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

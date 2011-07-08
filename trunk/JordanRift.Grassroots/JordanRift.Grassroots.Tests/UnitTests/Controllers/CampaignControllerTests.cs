@@ -112,7 +112,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var causeTemplate = EntityHelpers.GetValidCauseTemplate();
             causeTemplate.Campaigns = new List<Campaign>();
             organization.CauseTemplates = new List<CauseTemplate> { causeTemplate };
-            userProfile.Organization = organization;
+            userProfile.Organization = organization as Organization;
             userProfileRepository.Add(userProfile);
             var result = controller.CreateCampaign(viewModel);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);

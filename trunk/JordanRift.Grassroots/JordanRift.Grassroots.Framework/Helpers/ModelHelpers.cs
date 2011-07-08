@@ -15,12 +15,31 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Helpers
 {
     public static class ModelHelpers
     {
+        public static List<string> GetOrgSettingKeys()
+        {
+            var keys = new List<string>();
+
+            var fields = typeof(OrgSettingKeys).GetFields(BindingFlags.Public | BindingFlags.Static);
+
+            foreach (var field in fields)
+            {
+                if (field.IsLiteral)
+                {
+                    keys.Add(field.GetValue(null).ToString());
+                }
+            }
+
+            return keys;
+        }
+
         /// <summary>
         /// Returns a string describing the nature of the collectin of causes passed in.
         /// </summary>

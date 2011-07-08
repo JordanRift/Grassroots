@@ -40,10 +40,10 @@ namespace JordanRift.Grassroots.Framework.Entities
 
     public enum DataType
     {
-        STRING = 1,
-        INT = 2,
-        DECIMAL = 3,
-        BOOLEAN = 4
+        String = 1,
+        Integer = 2,
+        Decimal = 3,
+        Boolean = 4
     }
 
     public enum PaymentGatewayType
@@ -108,5 +108,12 @@ namespace JordanRift.Grassroots.Framework.Entities
     public static class OrgSettingKeys
     {
         public const string ANALYTICS_TRACKING_CODE = "AnalyticsTrackingCode";
+        public const string DONATE_INSTRUCTIONS_HTML = "DonateInstructionsHtml";
+        public const string CUSTOM_NAVIGATION_HTML = "CustomNavigationHtml";
+        public const string CUSTOM_HOME_PAGE_HTML = "CustomHomePageHtml";
+        public const string CUSTOM_FOOTER_HTML = "CustomFooterHtml";
+        public const string PUBLIC_WEBSITE_URL = "PublicWebsiteUrl";
+        public const string PUBLIC_ABOUT_PAGE_URL = "PublicAboutPageUrl";
+        public const string PUBLIC_SERVICES_PAGE_URL = "PublicServicesPageUrl";
     }
 }

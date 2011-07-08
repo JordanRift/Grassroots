@@ -21,6 +21,7 @@ using JordanRift.Grassroots.Framework.Helpers;
 using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Web.Helpers;
 using JordanRift.Grassroots.Web.Mailers;
+using JordanRift.Grassroots.Web.Models;
 using JordanRift.Grassroots.Web.Models.ModelBinders;
 using Ninject;
 
@@ -90,6 +91,7 @@ namespace JordanRift.Grassroots
 
             // Custom ModelBinders
             ModelBinders.Binders[typeof(Payment)] = new PaymentModelBinder();
+            ModelBinders.Binders[typeof(OrganizationDetailsModel)] = new OrganizationDetailsModelBinder();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
         }

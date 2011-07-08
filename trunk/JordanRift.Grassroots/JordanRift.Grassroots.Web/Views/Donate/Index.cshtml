@@ -155,6 +155,11 @@
 			    </dd>
             </dl>
 		</fieldset>
+        if (!string.IsNullOrEmpty(DonationInstructionsHtml)) { 
+        <aside>
+            @Html.Raw(DonationInstructionsHtml)
+        </aside>
+         }
 		<div>
             @Html.UiSubmit("Submit")
             @if (campaign != null) {
