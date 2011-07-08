@@ -33,7 +33,14 @@
         <tbody>
             @foreach (var i in Model) { 
             <tr>
-                <td>@i.FirstName @i.LastName</td>
+                <td>
+                @if (i.UserProfileID.HasValue) { 
+                    @Html.ActionLink(string.Format("{0} {1}", i.FirstName, i.LastName), "Index", new { controller = "UserProfile", area = "", id = i.UserProfileID.Value }, new { title = string.Format("{0} {1}'s Profile", i.FirstName, i.LastName) })
+                }
+                else {
+                    @i.FirstName @i.LastName
+                }
+                </td>
                 <td>@i.Amount.ToString("C")</td>
                 <td>@i.DonationDate.ToShortDateString()</td>
                  <td>@i.Comments</td>
