@@ -27,7 +27,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 	{
 		public AdminController()
 		{
-			Mapper.CreateMap<Organization, OrganizationDetailsModel>();
+			Mapper.CreateMap<OrganizationBase, OrganizationDetailsModel>();
 		    Mapper.CreateMap<OrganizationSetting, OrganizationSettingModel>();
 		}
 
@@ -88,7 +88,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			return RedirectToAction( "EditOrganization", "Admin" );
 		}
 
-	    private void MapOrganizationSettings(Organization organization, IEnumerable<OrganizationSettingModel> settings)
+	    private void MapOrganizationSettings(OrganizationBase organization, IEnumerable<OrganizationSettingModel> settings)
 	    {
             foreach (var setting in settings)
             {
@@ -96,7 +96,14 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 if (orgSetting != null)
                 {
-                    orgSetting.Value = setting.Value;
+                    if (!string.IsNullOrEmpty(setting.Value))
+                    {
+                        orgSetting.Value = setting.Value;
+                    }
+                    else
+                    {
+                        OrganizationRepository.DeleteSetting(orgSetting);
+                    }
                 }
                 else
                 {
@@ -114,7 +121,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 	    }
 
-	    private static void MapOrganizationUpdate( Organization organization, OrganizationDetailsModel model )
+	    private static void MapOrganizationUpdate( OrganizationBase organization, OrganizationDetailsModel model )
 		{
 			organization.Name = model.Name;
 		    organization.Tagline = model.Tagline;
@@ -142,9 +149,9 @@ namespace JordanRift.Grassroots.Web.Controllers
 		    organization.ThemeName = model.ThemeName;
 		}
 
-        private static OrganizationDetailsModel MapOrganizationDetails(Organization organization)
+        private static OrganizationDetailsModel MapOrganizationDetails(OrganizationBase organization)
         {
-            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+            var model = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
             model.OrganizationSettings = new List<OrganizationSettingModel>();
             var keys = ModelHelpers.GetOrgSettingKeys();
 

@@ -29,6 +29,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
 		                   Name = "House Cause",
 		                   ActionVerb = "build",
 		                   GoalName = "house",
+                           CallToAction = "Build me a house",
 		                   Active = true,
 		                   AmountIsConfigurable = false,
 		                   DefaultAmount = 4000.00m,
@@ -70,7 +71,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
 		               };
 		}
 
-        public static Organization GetValidOrganization()
+        public static OrganizationBase GetValidOrganization()
         {
             var org = new Organization
                           {

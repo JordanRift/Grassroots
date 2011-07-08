@@ -96,7 +96,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
 
         private void ArrangeRoleTest()
         {
-            organization = EntityHelpers.GetValidOrganization();
+            organization = EntityHelpers.GetValidOrganization() as Organization;
             organization.Roles = new List<Role>();
             organizationRepository.Add(organization);
             organizationRepository.Save();

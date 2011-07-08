@@ -15,6 +15,7 @@
 
 using System.ComponentModel.Composition;
 using System.Linq;
+using AutoMapper;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
@@ -32,25 +33,27 @@ namespace JordanRift.Grassroots.Framework.Data
             var cacheFactory = new CacheFactory();
             cache = cacheFactory.GetCache();
             Priority = PriorityType.Low;
+            Mapper.CreateMap<Organization, OrganizationBase>();
         }
 
-        public Organization GetOrganizationByID(int id)
+        public OrganizationBase GetOrganizationByID(int id)
         {
             return ObjectContext.Organizations.FirstOrDefault(o => o.OrganizationID == id);
         }
 
-        public Organization GetDefaultOrganization(bool readOnly = true)
+        public OrganizationBase GetDefaultOrganization(bool readOnly = true)
         {
             if (readOnly && cache.Get(DEFAULT_ORG_CACHE_KEY) != null)
             {
-                return cache.Get(DEFAULT_ORG_CACHE_KEY) as Organization;
+                return cache.Get(DEFAULT_ORG_CACHE_KEY) as OrganizationBase;
             }
 
             var organization = ObjectContext.Organizations.FirstOrDefault();
 
             if (organization != null && readOnly)
             {
-                cache.Add(DEFAULT_ORG_CACHE_KEY, organization);
+                var cachedOrg = Mapper.Map<Organization, OrganizationBase>(organization);
+                cache.Add(DEFAULT_ORG_CACHE_KEY, cachedOrg);
             }
 
             return organization;
@@ -64,6 +67,11 @@ namespace JordanRift.Grassroots.Framework.Data
         public void Delete(Organization organization)
         {
             ObjectContext.Organizations.Remove(organization);
+        }
+
+        public void DeleteSetting(OrganizationSetting organizationSetting)
+        {
+            ObjectContext.OrganizationSettings.Remove(organizationSetting);
         }
 
         void IOrganizationRepository.Save()

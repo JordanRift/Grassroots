@@ -140,7 +140,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
 
         private void ArrangeUserProfileTest()
         {
-            organization = EntityHelpers.GetValidOrganization();
+            organization = EntityHelpers.GetValidOrganization() as Organization;
             organization.Roles = new List<Role>();
             organization.UserProfiles = new List<UserProfile>();
             organizationRepository.Add(organization);

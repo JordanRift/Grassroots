@@ -123,7 +123,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
 
         private void ArrangeCauseTemplateTest()
         {
-            organization = EntityHelpers.GetValidOrganization();
+            organization = EntityHelpers.GetValidOrganization() as Organization;
             organization.CauseTemplates = new List<CauseTemplate>();
             organizationRepository.Add(organization);
             organizationRepository.Save();

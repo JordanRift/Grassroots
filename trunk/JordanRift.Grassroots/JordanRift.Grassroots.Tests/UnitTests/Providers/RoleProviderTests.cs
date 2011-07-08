@@ -262,7 +262,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Providers
 		/// </summary>
 		private void ArrangeModelsForTest()
 		{
-			Organization org = organizationRepository.GetDefaultOrganization();
+			OrganizationBase org = organizationRepository.GetDefaultOrganization();
 			org.Roles = new List<Role>();
 
 			//----------------

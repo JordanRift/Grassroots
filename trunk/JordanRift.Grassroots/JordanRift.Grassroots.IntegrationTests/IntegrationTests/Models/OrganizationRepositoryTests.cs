@@ -54,7 +54,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
                 ArrangeOrganizationTest();
                 var id = organization.OrganizationID;
                 organization = null;
-                organization = repository.GetOrganizationByID(id);
+                organization = repository.GetOrganizationByID(id) as Organization;
                 Assert.IsNotNull(organization);
                 Assert.AreEqual(organization.OrganizationID, id);
             }
@@ -94,7 +94,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
                 var id = organization.OrganizationID;
                 repository.Delete(organization);
                 repository.Save();
-                organization = repository.GetOrganizationByID(id);
+                organization = repository.GetOrganizationByID(id) as Organization;
                 Assert.IsNull(organization);
             }
         }
@@ -112,7 +112,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
 
         private void ArrangeOrganizationTest()
         {
-            organization = EntityHelpers.GetValidOrganization();
+            organization = EntityHelpers.GetValidOrganization() as Organization;
             organization.OrganizationSettings = new List<OrganizationSetting>();
             repository.Add(organization);
             repository.Save();

@@ -27,28 +27,27 @@ namespace JordanRift.Grassroots.Web.Controllers
     {
         private readonly ITwitterService twitterService;
         private readonly IBlogService blogService;
-        private Organization organization;
+        private readonly OrganizationBase organization;
 
         public HomeController(ITwitterService twitterService, IBlogService blogService)
         {
             this.twitterService = twitterService;
             this.blogService = blogService;
             organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            Mapper.CreateMap<Organization, OrganizationDetailsModel>();
+            Mapper.CreateMap<OrganizationBase, OrganizationDetailsModel>();
             Mapper.CreateMap<OrganizationSetting, OrganizationSettingModel>();
             Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
         }
 
         public ActionResult Index()
         {
-            OrganizationDetailsModel model;
-            model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+            var model = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
             return View("Index", model);
         }
 
         public ActionResult About()
         {
-            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+            var model = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
             return View(model);
         }
 
@@ -62,13 +61,11 @@ namespace JordanRift.Grassroots.Web.Controllers
         public ActionResult ProgressBar()
         {
             decimal total;
-			decimal totalGoal;
-			string goalName = "Total";
+            string goalName = "Total";
 
             using (OrganizationRepository)
             {
-                // Grab fresh data from the db, rather than cached collection...
-                organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+                decimal totalGoal;
 
                 if (organization.YtdGoal.HasValue && organization.YtdGoal > 0)
                 {
@@ -105,7 +102,6 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 120, VaryByParam = "none")]
         public ActionResult Stats()
         {
-            organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
             var causes = organization.GetCompletedCauses();
             var model = new OrganizationStatsModel()
                             {
@@ -157,8 +153,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 120, VaryByParam = "none")]
         public ActionResult ThemeCss()
         {
-            organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
-            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+            var model = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
             return View(model);
         }
     }

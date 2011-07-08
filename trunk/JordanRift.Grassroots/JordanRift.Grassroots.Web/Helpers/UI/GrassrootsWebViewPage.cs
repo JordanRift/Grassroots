@@ -23,7 +23,7 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
 {
     public abstract class GrassrootsWebViewPage<TModel> : WebViewPage<TModel>
     {
-        private readonly Organization organization;
+        private readonly OrganizationBase organization;
 
         public string OrganizationName
         {
