@@ -103,6 +103,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 120, VaryByParam = "none")]
         public ActionResult Stats()
         {
+            organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
             var causes = organization.GetCompletedCauses();
             var model = new OrganizationStatsModel()
                             {
