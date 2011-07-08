@@ -27,7 +27,7 @@ namespace JordanRift.Grassroots.Web.Controllers
     {
         private readonly ITwitterService twitterService;
         private readonly IBlogService blogService;
-        private readonly OrganizationBase organization;
+        private OrganizationBase organization;
 
         public HomeController(ITwitterService twitterService, IBlogService blogService)
         {
@@ -66,6 +66,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             using (OrganizationRepository)
             {
                 decimal totalGoal;
+                organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 
                 if (organization.YtdGoal.HasValue && organization.YtdGoal > 0)
                 {
