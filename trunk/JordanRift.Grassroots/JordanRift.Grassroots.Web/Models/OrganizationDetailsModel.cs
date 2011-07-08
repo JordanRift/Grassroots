@@ -51,18 +51,6 @@ namespace JordanRift.Grassroots.Web.Models
         [Display(Name = "Description (HTML)")]
         public string DescriptionHtml { get; set; }
 
-        [AllowHtml]
-        [Display(Name = "Navigation (Optional HTML)")]
-        public string NavigationHtml { get; set; }
-        
-        [AllowHtml]
-        [Display(Name = "Home Page Content (Optional HTML)")]
-        public string HomePageHtml { get; set; }
-
-        [AllowHtml]
-        [Display(Name = "Footer Content (HTML")]
-        public string FooterHtml { get; set; }
-
 		[Required]
 		[RegularExpression( @"^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$",
 			ErrorMessage = "Please enter a valid phone number: (xxx) xxx-xxxx" )]
@@ -81,15 +69,6 @@ namespace JordanRift.Grassroots.Web.Models
 
 		[DisplayName( "Organization's Twitter Username" )]
 		public string TwitterName { get; set; }
-		
-        [DisplayName("Public Website Home Page")]
-		public string PublicWebsiteUrl { get; set; }
-
-		[DisplayName("Public About Page")]
-		public string PublicAboutPageUrl { get; set; }
-
-        [DisplayName("Public Services Page")]
-        public string PublicServicesPageUrl { get; set; }
 
         [DisplayName("Organization's Facebook Page")]
         public string FacebookPageUrl { get; set; }

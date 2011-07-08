@@ -41,21 +41,6 @@
                         @Html.TextBoxFor(m => m.Tagline)
                         @Html.ValidationMessageFor(m => m.Tagline, null, new { @class = "ui-state-error ui-corner-all" })
                     </dd>
-					<dt>@Html.LabelFor(m => m.PublicWebsiteUrl)</dt>
-                    <dd>
-                        @Html.TextBoxFor( m => m.PublicWebsiteUrl )
-                        @Html.ValidationMessageFor(m => m.PublicWebsiteUrl, null, new { @class = "ui-state-error ui-corner-all" })
-                    </dd>
-					<dt>@Html.LabelFor(m => m.PublicAboutPageUrl)</dt>
-                    <dd>
-                        @Html.TextBoxFor( m => m.PublicAboutPageUrl )
-                        @Html.ValidationMessageFor(m => m.PublicAboutPageUrl, null, new { @class = "ui-state-error ui-corner-all" })
-                    </dd>
-                    <dt>@Html.LabelFor(m => m.PublicServicesPageUrl)</dt>
-                    <dd>
-                        @Html.TextBoxFor(m => m.PublicServicesPageUrl)
-                        @Html.ValidationMessageFor(m => m.PublicServicesPageUrl, null, new { @class = "ui-state-error ui-corner-all" })
-                    </dd>
                     <dt>@Html.LabelFor(m => m.ContactEmail)</dt>
                     <dd>
                         @Html.TextBoxFor(m => m.ContactEmail)
@@ -152,21 +137,6 @@
                     <dd class="textarea">
                         @Html.ValidationMessageFor(m => m.DescriptionHtml, null, new { @class = "ui-state-error ui-corner-all" })
                         @Html.TextAreaFor(m => m.DescriptionHtml)
-                    </dd>
-                    <dt>@Html.LabelFor(m => m.NavigationHtml)</dt>
-                    <dd class="textarea">
-                        @Html.ValidationMessageFor(m => m.NavigationHtml, null, new { @class = "ui-state-error ui-corner-all" })
-                        @Html.TextAreaFor(m => m.NavigationHtml)
-                    </dd>
-                    <dt>@Html.LabelFor(m => m.HomePageHtml)</dt>
-                    <dd class="textarea">
-                        @Html.ValidationMessageFor(m => m.HomePageHtml, null, new { @class = "ui-state-error ui-corner-all" })
-                        @Html.TextAreaFor(m => m.HomePageHtml)
-                    </dd>
-                    <dt>@Html.LabelFor(m => m.FooterHtml)</dt>
-                    <dd class="textarea">
-                        @Html.ValidationMessageFor(m => m.FooterHtml, null, new { @class = "ui-state-error ui-corner-all" })
-                        @Html.TextAreaFor(m => m.FooterHtml)
                     </dd>
                 </dl>
             </fieldset>
