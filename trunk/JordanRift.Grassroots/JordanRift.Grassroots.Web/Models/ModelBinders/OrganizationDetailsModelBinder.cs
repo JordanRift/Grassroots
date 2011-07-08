@@ -26,7 +26,6 @@ namespace JordanRift.Grassroots.Web.Models.ModelBinders
         protected override void BindProperty(ControllerContext controllerContext, ModelBindingContext bindingContext, PropertyDescriptor propertyDescriptor)
         {
             var model = bindingContext.Model as OrganizationDetailsModel;
-            controllerContext.Controller.ValidateRequest = false;
 
             if (model != null)
             {
@@ -43,7 +42,7 @@ namespace JordanRift.Grassroots.Web.Models.ModelBinders
             base.BindProperty(controllerContext, bindingContext, propertyDescriptor);
         }
 
-        private void BindSettings(OrganizationDetailsModel model, ControllerContext controllerContext)
+        private static void BindSettings(OrganizationDetailsModel model, ControllerContext controllerContext)
         {
             var request = controllerContext.HttpContext.Request.Unvalidated();
             var keys = ModelHelpers.GetOrgSettingKeys();

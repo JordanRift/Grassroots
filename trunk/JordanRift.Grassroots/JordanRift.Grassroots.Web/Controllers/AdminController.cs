@@ -67,7 +67,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 		}
 
 		[HttpPost]
-        [ValidateInput(false)]
 		public ActionResult UpdateOrganization( OrganizationDetailsModel model )
 		{
             using (OrganizationRepository)
