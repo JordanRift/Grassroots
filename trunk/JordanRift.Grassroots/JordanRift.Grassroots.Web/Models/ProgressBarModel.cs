@@ -21,5 +21,6 @@ namespace JordanRift.Grassroots.Web.Models
         public decimal Amount { get; set; }
         public decimal GoalAmount { get; set; }
         public string GoalName { get; set; }
+        public bool DisplayTooltip { get; set; }
     }
 }

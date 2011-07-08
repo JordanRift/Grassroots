@@ -14,7 +14,7 @@
     // You should have received a copy of the GNU General Public License
     // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
     //
-    
+
     Layout = null;
 }
 
@@ -23,8 +23,29 @@
         setTimeout("Grassroots.progressbar();", 1500);
     });
 </script>
+@if (Model.DisplayTooltip) {
+<link href="@Url.Content("~/Content/jquery.wijmo-open.1.2.0.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/jquery.wijmo-complete.1.2.0.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jQuery.tmpl.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.13.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.wijmo-open.1.2.0.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".progressbar-info").wijtooltip({
+            hideDelay: 3000,
+            title: "What does this progress bar mean?",
+            content: function () {
+                return "It's a representation of the overall progress<br />of all of our currently active campaigns.";
+            }
+        });
+    });
+</script>
+}
 <div id="progress">
     <h3><span class="label">@Model.GoalName:</span> @Model.Amount.ToString("C0")</h3>
+    @if (Model.DisplayTooltip) {
+    <a href="#" class="progressbar-info meta" onclick="javascript:return false;" title="What does this progress bar mean?">What does this progress bar mean?</a>
+    }
     <div id="progressbar" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100">
         <div class="ui-progressbar-value ui-widget-header ui-corner-left" style="width: @Model.Percent%;"></div>
     </div>
