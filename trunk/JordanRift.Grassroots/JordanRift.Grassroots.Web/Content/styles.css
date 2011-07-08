@@ -354,6 +354,7 @@ header h1 a {
   height: 20px;
 }
 .campaign-header > a > img {
+  border: 1px;
   float: left;
 }
 .url > .wijmo-wijtextbox {
