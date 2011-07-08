@@ -42,27 +42,56 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
 
         public string PublicWebsiteUrl
         {
-            get { return organization.PublicWebsiteUrl; }
+            get
+            {
+                var setting = organization.GetSetting(OrgSettingKeys.PUBLIC_WEBSITE_URL);
+                return setting != null ? setting.Value : null;
+            }
         }
 
         public string PublicAboutPageUrl
         {
-            get { return organization.PublicAboutPageUrl; }
+            get
+            {
+                var setting = organization.GetSetting(OrgSettingKeys.PUBLIC_ABOUT_PAGE_URL);
+                return setting != null ? setting.Value : null;
+            }
         }
 
         public string PublicServicesPageUrl
         {
-            get { return organization.PublicServicesPageUrl; }
+            get
+            {
+                var setting = organization.GetSetting(OrgSettingKeys.PUBLIC_SERVICES_PAGE_URL);
+                return setting != null ? setting.Value : null;
+            }
         }
 
         public string NavigationHtml
         {
-            get { return organization.NavigationHtml; }
+            get
+            {
+                var setting = organization.GetSetting(OrgSettingKeys.CUSTOM_NAVIGATION_HTML);
+                return setting != null ? setting.Value : null;
+            }
         }
 
         public string FooterHtml
         {
-            get { return organization.FooterHtml; }
+            get
+            {
+                var setting = organization.GetSetting(OrgSettingKeys.CUSTOM_FOOTER_HTML);
+                return setting != null ? setting.Value : null;
+            }
+        }
+
+        public string HomePageHtml
+        {
+            get
+            {
+                var setting = organization.GetSetting(OrgSettingKeys.CUSTOM_HOME_PAGE_HTML);
+                return setting != null ? setting.Value : null;
+            }
         }
 
         public string DonationInstructionsHtml
