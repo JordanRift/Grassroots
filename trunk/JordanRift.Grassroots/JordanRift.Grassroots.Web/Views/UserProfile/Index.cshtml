@@ -21,6 +21,7 @@
     var isAdministrator = User.IsInRole("Administrator");
     var shouldDisplaySidebar = Model.CurrentUserIsOwner && (!isConnectedToFacebook || isAdministrator);
     var campaignHistoryClass = shouldDisplaySidebar ? "campaigns" : "campaigns wide";
+    var ownerName = Model.CurrentUserIsOwner ? "My" : string.Format("{0}'s", Model.FirstName);
 }
 
 @section DocumentHead {
@@ -95,7 +96,7 @@
                 }
                 @if (Model.Campaigns.Count > 0) { 
                 <div class="campaign-history">
-                <h3>My Campaign History</h3>
+                <h3>@ownerName Campaign History</h3>
                 @Html.Partial("CampaignList", Model.Campaigns)
                 </div>
                 }
