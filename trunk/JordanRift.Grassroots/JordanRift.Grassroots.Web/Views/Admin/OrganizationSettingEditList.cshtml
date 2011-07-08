@@ -1,0 +1,35 @@
+﻿@model IEnumerable<JordanRift.Grassroots.Web.Models.OrganizationSettingModel>
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
+    Layout = null;
+}
+
+@if (Model.Count() > 0) {
+<section class="organization-settings">
+    <fieldset>
+        <legend>Advanced Settings</legend>
+        <dl>
+        @foreach (var setting in Model) { 
+            <dt><label for="setting_@setting.Name">@setting.Name</label></dt>
+            <dd class="textarea">
+                @Html.TextArea(string.Format("setting_{0}", setting.Name), setting.Value, new { id = string.Format("setting_{0}", setting.Name) })
+            </dd>
+        }
+        </dl>
+    </fieldset>
+</section>
+    }

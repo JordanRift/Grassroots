@@ -117,7 +117,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
             repository.Add(organization);
             repository.Save();
 
-            organizationSetting = new OrganizationSetting("the_key", "the_value", DataType.STRING);
+            organizationSetting = new OrganizationSetting("the_key", "the_value", DataType.String);
             organization.OrganizationSettings.Add(organizationSetting);
             repository.Save();
         }

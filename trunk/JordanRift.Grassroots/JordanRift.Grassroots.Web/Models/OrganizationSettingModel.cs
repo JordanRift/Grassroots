@@ -16,19 +16,17 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace JordanRift.Grassroots.Framework.Entities.Validation
+namespace JordanRift.Grassroots.Web.Models
 {
-    public interface IOrganizationSettingValidation
+    public class OrganizationSettingModel
     {
-        [Required(ErrorMessage = "Please enter an Organization Setting Name.")]
-        string Name { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-        [Required(ErrorMessage = "Please enter an Organization Setting Value.")]
         [AllowHtml]
-        [MaxLength]
-        string Value { get; set; }
+        public string Value { get; set; }
 
-        [Required(ErrorMessage = "Please enter an Organization Setting Data Type.")]
-        int DataType { get; set; }
+        [UIHint("DataType")]
+        public int? DataType { get; set; }
     }
 }

@@ -63,7 +63,7 @@ namespace JordanRift.Grassroots.Tests.Fakes
             for (int i = 0; i < 5; i++)
             {
                 org.OrganizationSettings.Add(new OrganizationSetting(
-                    string.Format("setting{0}", i), "this is the value", DataType.STRING));
+                    string.Format("setting{0}", i), "this is the value", DataType.String));
             }
         }
 

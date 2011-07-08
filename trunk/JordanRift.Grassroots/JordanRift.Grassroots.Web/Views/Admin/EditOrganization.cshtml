@@ -171,6 +171,7 @@
                 </dl>
             </fieldset>
         </section>
+        @Html.Partial("OrganizationSettingEditList", Model.OrganizationSettings)
         <div>
             @Html.UiSubmit("Save")
             @Html.ActionLink("Cancel", "Index", new { controller = "Admin", area = "" }, new { title = "Cancel", @class = "cancel" })

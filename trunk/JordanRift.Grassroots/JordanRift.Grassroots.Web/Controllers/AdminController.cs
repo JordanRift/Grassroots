@@ -12,8 +12,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
+using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
+using JordanRift.Grassroots.Framework.Entities;
+using JordanRift.Grassroots.Framework.Helpers;
 using JordanRift.Grassroots.Web.Models;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
@@ -25,10 +28,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		public AdminController()
 		{
 			Mapper.CreateMap<Organization, OrganizationDetailsModel>();
-			Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
-			Mapper.CreateMap<CauseTemplateDetailsModel, CauseTemplate>();
-		    Mapper.CreateMap<Cause, CauseDetailsModel>();
-		    Mapper.CreateMap<Recipient, RecipientDetailsModel>();
+		    Mapper.CreateMap<OrganizationSetting, OrganizationSettingModel>();
 		}
 
 		//
@@ -44,7 +44,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             using (OrganizationRepository)
             {
                 // Perhaps someday we'll pull this from the route?
-                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 
                 if (organization != null)
                 {
@@ -56,7 +56,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     }
                     else
                     {
-                        viewModel = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+                        viewModel = MapOrganizationDetails(organization);
                     }
 
                     return View(viewModel);
@@ -67,6 +67,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		}
 
 		[HttpPost]
+        [ValidateInput(false)]
 		public ActionResult UpdateOrganization( OrganizationDetailsModel model )
 		{
             using (OrganizationRepository)
@@ -75,7 +76,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    MapOrganization(organization, model);
+                    MapOrganizationUpdate(organization, model);
+                    MapOrganizationSettings(organization, model.OrganizationSettings);
                     OrganizationRepository.Save();
                     TempData["UserFeedback"] = "Your changes have been saved. Please allow a few minutes for them to take effect.";
                     return RedirectToAction("Index", "Admin");
@@ -86,7 +88,33 @@ namespace JordanRift.Grassroots.Web.Controllers
 			return RedirectToAction( "EditOrganization", "Admin" );
 		}
 
-		private static void MapOrganization( Organization organization, OrganizationDetailsModel model )
+	    private void MapOrganizationSettings(Organization organization, IEnumerable<OrganizationSettingModel> settings)
+	    {
+            foreach (var setting in settings)
+            {
+                var orgSetting = organization.GetSetting(setting.Name);
+
+                if (orgSetting != null)
+                {
+                    orgSetting.Value = setting.Value;
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(setting.Value))
+                    {
+                        organization.OrganizationSettings.Add(new OrganizationSetting
+                                                                  {
+                                                                      Name = setting.Name,
+                                                                      Value = setting.Value,
+                                                                      DataType = (int) DataType.String
+                                                                  });
+                    }
+                }
+                
+            }
+	    }
+
+	    private static void MapOrganizationUpdate( Organization organization, OrganizationDetailsModel model )
 		{
 			organization.Name = model.Name;
 		    organization.Tagline = model.Tagline;
@@ -113,5 +141,35 @@ namespace JordanRift.Grassroots.Web.Controllers
 			organization.VideoEmbedHtml = model.VideoEmbedHtml;
 		    organization.ThemeName = model.ThemeName;
 		}
+
+        private static OrganizationDetailsModel MapOrganizationDetails(Organization organization)
+        {
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+            model.OrganizationSettings = new List<OrganizationSettingModel>();
+            var keys = ModelHelpers.GetOrgSettingKeys();
+
+            foreach (var key in keys)
+            {
+                var setting = organization.GetSetting(key);
+                OrganizationSettingModel settingModel;
+                
+                if (setting != null)
+                {
+                    settingModel = Mapper.Map<OrganizationSetting, OrganizationSettingModel>(setting);
+                }
+                else
+                {
+                    settingModel = new OrganizationSettingModel
+                                       {
+                                           DataType = (int) DataType.String,
+                                           Name = key
+                                       };
+                }
+                
+                model.OrganizationSettings.Add(settingModel);
+            }
+
+            return model;
+        }
 	}
 }

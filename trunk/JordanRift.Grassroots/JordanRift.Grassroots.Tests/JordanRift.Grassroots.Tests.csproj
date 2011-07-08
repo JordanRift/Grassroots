@@ -125,6 +125,7 @@
     <Compile Include="UnitTests\Controllers\DonateControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\HomeControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\UserProfileControllerTests.cs" />
+    <Compile Include="UnitTests\Helpers\ModelHelpersTests.cs" />
     <Compile Include="UnitTests\Models\CampaignTests.cs" />
     <Compile Include="UnitTests\Models\CauseTemplateTest.cs" />
     <Compile Include="Fakes\FakeCauseTemplateRepository.cs" />

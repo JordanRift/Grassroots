@@ -35,12 +35,14 @@ namespace JordanRift.Grassroots.Web.Controllers
             this.blogService = blogService;
             organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
             Mapper.CreateMap<Organization, OrganizationDetailsModel>();
+            Mapper.CreateMap<OrganizationSetting, OrganizationSettingModel>();
             Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
         }
 
         public ActionResult Index()
         {
-            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
+            OrganizationDetailsModel model;
+            model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             return View("Index", model);
         }
 
@@ -152,9 +154,10 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [ChildActionOnly]
-        [OutputCache(Duration = 30, VaryByParam = "none")]
+        [OutputCache(Duration = 120, VaryByParam = "none")]
         public ActionResult ThemeCss()
         {
+            organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
             var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             return View(model);
         }
