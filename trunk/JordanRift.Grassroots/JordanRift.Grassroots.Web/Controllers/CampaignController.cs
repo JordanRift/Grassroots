@@ -349,6 +349,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             var causeTemplate = campaign.CauseTemplate;
             model.FirstName = userProfile.FirstName;
             model.LastName = userProfile.LastName;
+            model.UserProfileID = userProfile.UserProfileID;
 			model.UserImagePath = userProfile.ImagePath;
             model.AmountIsConfigurable = causeTemplate.AmountIsConfigurable;
             model.TimespanIsConfigurable = causeTemplate.TimespanIsConfigurable;

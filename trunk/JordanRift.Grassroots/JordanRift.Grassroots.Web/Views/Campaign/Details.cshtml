@@ -27,7 +27,9 @@
     @Html.Partial("UIForm")
 }
 	<section class="campaign-header">
-		<img src="@Model.UserImagePath" title="@Model.FirstName @Model.LastName" alt="@Model.FirstName @Model.LastName"/>
+		<a href="@Url.Action("Index", new { controller = "UserProfile", area = "", id = Model.UserProfileID })" title="@Model.FirstName @Model.LastName's Profile">
+            <img src="@Model.UserImagePath" alt="@Model.FirstName @Model.LastName"/>
+        </a>
         @if (Model.CurrentUserIsOwner) { 
         <div class="edit">
             @Html.ActionLink("Edit this campaign", "Edit", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })

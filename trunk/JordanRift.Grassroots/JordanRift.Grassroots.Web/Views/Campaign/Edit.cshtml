@@ -28,10 +28,11 @@
 }
 
     <div id="campaign-edit-form">
-        @using (Html.BeginForm("Update", "Campaign", new { area = "", id = Model.CampaignID }))
-        {
+        @using (Html.BeginForm("Update", "Campaign", new { area = "", id = Model.CampaignID })) {
             <section class="campaign-header">
-		        <img src="@Model.UserImagePath" title="@Model.FirstName @Model.LastName" alt="@Model.FirstName @Model.LastName"/>
+		        <a href="@Url.Action("Index", new { controller = "UserProfile", area = "", id = Model.UserProfileID })" title="@Model.FirstName @Model.LastName's Profile">
+                    <img src="@Model.UserImagePath" alt="@Model.FirstName @Model.LastName"/>
+                </a>
                 <span class="edit">
                     @Html.UiSubmit("Submit Changes")
                     @Html.ActionLink("Cancel", "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Cancel", @class = "cancel" })

@@ -16,7 +16,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 using JordanRift.Grassroots.Framework.Entities.Validation;
 
 namespace JordanRift.Grassroots.Web.Models
@@ -69,6 +68,7 @@ namespace JordanRift.Grassroots.Web.Models
         // User Profile Details
         //
 
+        public int UserProfileID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 		public string UserImagePath { get; set; }
