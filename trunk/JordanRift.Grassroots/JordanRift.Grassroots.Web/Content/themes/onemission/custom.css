@@ -392,22 +392,17 @@ dd > .meta {
 			display: block;
 			float: left;
 			height: 80px;
-			width: 197px;
+			width: 196px;
 			border-right: 1px dotted #444444;
 			text-align: center;
 			position: relative;
 		}
 		
 		aside.copyright {
-		    border-left: 1px dotted #444;
+		    border-left: none;
 		    border-right: none;
 		    text-align: right;
 		    margin-top: 10px
-		}
-
-		#footer > ul > li:last-child
-		{
-			border-right: none;
 		}
 		
 		#footer #copy
