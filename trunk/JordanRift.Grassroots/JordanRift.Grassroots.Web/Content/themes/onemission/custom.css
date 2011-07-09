@@ -689,15 +689,15 @@ dd > .meta {
 		
 /* Donate sidebar css */
 
-#main aside,
-#main aside .sidebar
+#main .donate-form aside,
+#main .donate-form aside .sidebar
 {
 	width: 130px;
 	float: right;
 	padding: 10px;
 }
 	
-	#main .sidebar p
+	#main .donate-form .sidebar p
 	{
 		font-size: 10pt;
 		padding: 10px 0px 10px 10px;
