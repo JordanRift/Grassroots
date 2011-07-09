@@ -236,10 +236,11 @@
     <Content Include="Content\themes\onemission\images\100-percent-hover.gif" />
     <Content Include="Content\themes\onemission\images\100-percent.gif" />
     <Content Include="Content\themes\onemission\images\admin-handle.png" />
+    <Content Include="Content\themes\onemission\images\after.jpg" />
     <Content Include="Content\themes\onemission\images\banner-shadow.png" />
     <Content Include="Content\themes\onemission\images\banner.png" />
     <Content Include="Content\themes\onemission\images\barrio.jpg" />
-    <Content Include="Content\themes\onemission\images\birthday-hover.png" />
+    <Content Include="Content\themes\onemission\images\before.jpg" />
     <Content Include="Content\themes\onemission\images\birthday.png" />
     <Content Include="Content\themes\onemission\images\blogger-hover.gif" />
     <Content Include="Content\themes\onemission\images\blogger.gif" />
@@ -260,7 +261,6 @@
     <Content Include="Content\themes\onemission\images\facebook-hover.gif" />
     <Content Include="Content\themes\onemission\images\facebook.gif" />
     <Content Include="Content\themes\onemission\images\glow.png" />
-    <Content Include="Content\themes\onemission\images\groups-hover.png" />
     <Content Include="Content\themes\onemission\images\groups.png" />
     <Content Include="Content\themes\onemission\images\health-orig.jpg" />
     <Content Include="Content\themes\onemission\images\health.jpg" />
@@ -277,7 +277,7 @@
     <Content Include="Content\themes\onemission\images\money-go.gif" />
     <Content Include="Content\themes\onemission\images\news-hover.gif" />
     <Content Include="Content\themes\onemission\images\news.gif" />
-    <Content Include="Content\themes\onemission\images\other-hover.png" />
+    <Content Include="Content\themes\onemission\images\one.png" />
     <Content Include="Content\themes\onemission\images\other.png" />
     <Content Include="Content\themes\onemission\images\panel-bg.jpg" />
     <Content Include="Content\themes\onemission\images\pano-new.jpg" />
@@ -291,11 +291,12 @@
     <Content Include="Content\themes\onemission\images\sort-up.png" />
     <Content Include="Content\themes\onemission\images\sort.png" />
     <Content Include="Content\themes\onemission\images\spiritual.jpg" />
-    <Content Include="Content\themes\onemission\images\sports-hover.png" />
     <Content Include="Content\themes\onemission\images\sports.png" />
+    <Content Include="Content\themes\onemission\images\three.png" />
     <Content Include="Content\themes\onemission\images\trip.png" />
     <Content Include="Content\themes\onemission\images\twitter-hover.gif" />
     <Content Include="Content\themes\onemission\images\twitter.gif" />
+    <Content Include="Content\themes\onemission\images\two.png" />
     <Content Include="Content\themes\onemission\images\ui-bg_diagonals-medium_20_222222_40x40.png" />
     <Content Include="Content\themes\onemission\images\ui-bg_diagonals-medium_25_000000_40x40.png" />
     <Content Include="Content\themes\onemission\images\ui-bg_flat_30_cccccc_40x100.png" />
