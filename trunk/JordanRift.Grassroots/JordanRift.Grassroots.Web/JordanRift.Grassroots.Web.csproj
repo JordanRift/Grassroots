@@ -329,6 +329,7 @@
     <Content Include="Content\themes\onemission\jquery-ui-1.8.11.custom.css" />
     <Content Include="Content\themes\onemission\League_Gothic-webfont.svg" />
     <Content Include="Content\themes\onemission\SIL Open Font License 1.1.txt" />
+    <Content Include="favicon.ico" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\grassroots.core.js" />
     <Content Include="Scripts\jquery-1.5.2-vsdoc.js" />
