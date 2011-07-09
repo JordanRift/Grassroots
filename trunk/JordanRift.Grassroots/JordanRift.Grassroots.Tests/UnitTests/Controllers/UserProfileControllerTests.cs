@@ -275,6 +275,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 
         private UserProfileController GetUserProfileController(int userProfileID = -1)
         {
+            // triggering build
             var causeRepository = mocks.DynamicMock<ICauseRepository>();
             Expect.Call(causeRepository.FindCausesByUserProfileID(userProfileID)).Return(new List<Cause>().AsQueryable());
             var mailer = mocks.DynamicMock<IUserProfileMailer>();
