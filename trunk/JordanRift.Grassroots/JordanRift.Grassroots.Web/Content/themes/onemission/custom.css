@@ -177,7 +177,33 @@ a:hover {
 #main .dashboard > .donate {
     margin-top: 59px;
 }
-    
+
+#main .info .before-after {
+	display: block;
+	width: auto;
+	clear: both;
+	float: none;
+	height: 120px;
+}
+
+	#main .info .before-after > li {
+		display: block;
+		float: left;
+		width: 200px;
+		text-align: center;
+	}
+
+		#main .info .before-after > li > label {
+			display: block;
+			text-align: center;
+			color: #777;
+		}
+
+		#main .info .before-after > li > img {
+			display: block;
+			margin: 5px auto 0px;
+		}
+
 a.ui-button,
 .links a,
 .button-style {
