@@ -271,6 +271,10 @@ fieldset,
     background: #444;
 }
 
+.get-started .campaign-types {
+    padding-top: 0px;
+}
+
 #main .get-started .projects > p,
 #main .get-started .campaign-types > p {
 	font-weight: bold;
@@ -293,38 +297,43 @@ fieldset,
 
 	.get-started .campaign-types li {
 		color: #444;
+		height: 300px;
 	}
+	
+	    .get-started .campaign-types li a {
+			height: 240px;
+		}
 
 		.get-started .campaign-types #birthday a {
+			background: url(images/birthday.png) no-repeat center -220px;
+		}
+		
+		.get-started .campaign-types #birthday.selected a {
 			background: url(images/birthday.png) no-repeat center 80px;
 		}
 
-		.get-started .campaign-types #birthday.selected a {
-			background: url(images/birthday-hover.png) no-repeat center 80px;
-		}
-
 		.get-started .campaign-types #sports a {
+			background: url(images/sports.png) no-repeat center -220px;
+		}
+		
+		.get-started .campaign-types #sports.selected a {
 			background: url(images/sports.png) no-repeat center 80px;
 		}
 
-		.get-started .campaign-types #sports.selected a {
-			background: url(images/sports-hover.png) no-repeat center 80px;
-		}
-
 		.get-started .campaign-types #groups a {
+			background: url(images/groups.png) no-repeat center -220px;
+		}
+		
+		.get-started .campaign-types #groups.selected a {
 			background: url(images/groups.png) no-repeat center 80px;
 		}
 
-		.get-started .campaign-types #groups.selected a {
-			background: url(images/groups-hover.png) no-repeat center 80px;
-		}
-
 		.get-started .campaign-types #other a {
-			background: url(images/other.png) no-repeat center 80px;
+			background: url(images/other.png) no-repeat center -220px;
 		}
-
+		
 		.get-started .campaign-types #other.selected a {
-			background: url(images/other-hover.png) no-repeat center 80px;
+			background: url(images/other.png) no-repeat center 80px;
 		}
 
 			.get-started .campaign-types li strong,
@@ -677,3 +686,154 @@ dd > .meta {
 			background: url('images/contact-bottom.png') no-repeat;
 			bottom: 0px;
 		}
+		
+/* Donate sidebar css */
+
+#main aside,
+#main aside .sidebar
+{
+	width: 130px;
+	float: right;
+	padding: 10px;
+}
+	
+	#main .sidebar p
+	{
+		font-size: 10pt;
+		padding: 10px 0px 10px 10px;
+		width: 150px
+	}
+	
+#main ul.buttons
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+	#main ul.buttons li
+	{
+		list-style: none !important;
+		margin: 0px;
+		padding: 10px 0px;
+	}
+
+		#mail-donation
+		{
+			height: 43px;
+			width: 139px;
+			display: block;
+			text-indent: -9000px;
+			background: url(images/mail-donation.gif) no-repeat;
+		}
+	
+		#mail-donation:hover
+		{
+			background: url(images/mail-donation-hover.gif) no-repeat;
+		}
+	
+		#one-hundred-percent
+		{
+			height: 43px;
+			width: 277px;
+			display: block;
+			text-indent: -9000px;
+			background: url(images/100-percent.gif) no-repeat;
+		}
+	
+		#one-hundred-percent:hover
+		{
+			background: url(images/100-percent-hover.gif) no-repeat;
+		}
+		
+		ul.buttons li
+		{
+			position: relative;
+		}
+		
+		ul.buttons .bubble
+		{
+			width: 277px;
+			margin: 0px;
+			padding: 0px;
+			position: absolute;
+			bottom: 51px;
+			z-index: 15;
+			display: none;
+		}
+		
+			.bubble > div
+			{
+				position: relative;
+			}
+		
+			.bubble .top
+			{
+				width: 277px;
+				height: 13px;
+				background: url(images/bubble-top.png) no-repeat;
+			}
+			
+			.bubble .content
+			{
+				background: #f1f1f1;
+				color: #444444;
+				width: 217px;
+				height: auto;
+				font-family: Georgia, "Times New Roman";
+				line-height: normal;
+				padding: 0px 30px;
+			}
+			
+				.bubble > .content > .close,
+				.bubble > .content > .close:hover
+				{
+					display: block;
+					height: 20px;
+					width: 20px;
+					position: absolute;
+					top: 0px;
+					right: 10px;
+					text-indent: 1000px;
+					overflow: hidden;
+					background: #f1f1f1 url(images/close.png) no-repeat;
+					text-decoration: none;
+				}
+				
+				#main .bubble > .content > h1
+				{
+					display: block;
+					font-size: 26px;
+					font-family: 'LeagueGothicRegular', Impact, Arial, Helvetica;
+					color: #4d603a !important;
+					padding: 5px 0px 10px 0px;
+				}
+			
+				aside .sidebar .bubble .content a
+				{
+					color: #77553b;
+					text-decoration: none;
+				}
+				
+				aside .sidebar .bubble .content a:hover
+				{
+					text-decoration: underline;
+				}
+			
+			.bubble .bottom
+			{
+				width: 277px;
+				height: 29px;
+				background: url(images/bubble-bottom.png) no-repeat;
+			}
+			
+#main .donate-form .column {
+    width: 270px;
+}
+
+#main .donate-form .column .field-validation-error {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 190px;
+    margin: 10px 0px 0px;
+}
