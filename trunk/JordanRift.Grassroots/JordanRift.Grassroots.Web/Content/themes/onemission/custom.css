@@ -130,7 +130,8 @@ a:hover {
         }
     
             .stats > li,
-			#main .get-started .projects li {
+			#main .get-started .projects li,
+			.steps > li {
 				border-radius: 10px;
 				-mox-border-radius: 10px;
 				-webkit-border-radius: 10px;
@@ -862,4 +863,43 @@ dd > .meta {
     left: auto;
     width: 190px;
     margin: 10px 0px 0px;
+}
+
+/* Custom home page content */
+
+.steps > li {
+    float: left;
+    margin: 20px;
+    padding: 0px;
+    width: 272px;
+    height: 190px
+}
+
+    .steps > li > p {
+        padding: 30px 30px 30px 70px;
+        display: block;
+    }
+
+.steps > .one {
+    margin-left: 0px;
+}
+
+    .steps > .one > p {
+        background: url(images/one.png) no-repeat 10px 10px;
+    }
+
+    .steps > .two > p {
+        background: url(images/two.png) no-repeat 10px 10px;
+    }
+
+.steps > .three {
+    margin-right: 0px;
+}
+
+    .steps > .three > p {
+        background: url(images/three.png) no-repeat 10px 10px;
+    }
+    
+.how-it-works {
+    float: right;
 }
