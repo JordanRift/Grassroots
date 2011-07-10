@@ -118,9 +118,11 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 
             var campaign = EntityHelpers.GetValidCampaign();
             var userProfile = EntityHelpers.GetValidUserProfile();
+            var organization = EntityHelpers.GetValidOrganization();
             campaign.UserProfile = userProfile;
             campaign.Title = "General";
             campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = (Organization) organization;
             campaignRepository.Add(campaign);
             
             SetUpController(mocks, payment);
@@ -141,9 +143,11 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 
             var campaign = EntityHelpers.GetValidCampaign();
             var userProfile = EntityHelpers.GetValidUserProfile();
+            var organization = EntityHelpers.GetValidOrganization();
             campaign.UserProfile = userProfile;
             campaign.UrlSlug = "goodCampaign";
             campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = (Organization)organization;
             campaignRepository.Add(campaign);
 
             SetUpController(mocks, payment);
@@ -164,9 +168,11 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 
             var campaign = EntityHelpers.GetValidCampaign();
             var userProfile = EntityHelpers.GetValidUserProfile();
+            var organization = EntityHelpers.GetValidOrganization();
             campaign.UserProfile = userProfile;
             campaign.Title = "General";
             campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = (Organization)organization;
             campaignRepository.Add(campaign);
 
             //var userProfile = EntityHelpers.GetValidUserProfile();
@@ -191,12 +197,13 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 
             var campaign = EntityHelpers.GetValidCampaign();
             var userProfile = EntityHelpers.GetValidUserProfile();
+            var organization = EntityHelpers.GetValidOrganization();
             campaign.UserProfile = userProfile;
             campaign.UrlSlug = "goodCampaign";
             campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = (Organization)organization;
             campaignRepository.Add(campaign);
 
-            //var userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
             userProfileRepository.Add(userProfile);
 
