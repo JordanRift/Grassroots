@@ -31,12 +31,14 @@
 			<div>
                 @Html.Raw( Model.InstructionsOpenHtml )
             </div>
+            <div class="buttons">
+                @Html.ActionLink("I want my own page", "GetStarted", new { controller = "Campaign", area = "" }, new { title = "I want my own page", @class = "ui-button ui-corner-all" })
+            </div>
             <div class="share">
 			    <ul class="@socialClassName">
 				    <li>@Html.Partial("TweetButton")</li>
                     <li>@Html.Partial("FacebookLikeButton")</li>
                     <li>@Html.Partial("PlusOneButton")</li>
-                    <li class="get-started-button">@Html.ActionLink("I want my own page", "GetStarted", new { controller = "Campaign", area = "" }, new { title = "I want my own page" })</li>
 			    @if (Model.CurrentUserIsOwner) {
 				    <li class="email-button"><a href="#" id="email-blast" title="Email your friends"><img src="@Url.Content("~/Content/images/icon_email.gif")" alt="Email your friends" height="30" width="30" /></a></li>
 			    }

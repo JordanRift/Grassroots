@@ -38,6 +38,10 @@
         </div>
         <div class="break"></div>
     </section>
+    <section class="project-description">
+        @Html.Raw(Model.DescriptionHtml)
+        <div class="break"></div>
+    </section>
     <section class="project-details">
         <aside>
             <ul class="social">
@@ -63,11 +67,7 @@
         </div>
         <div class="break"></div>
     </section>
-    <section class="project-description">
-        @Html.Raw(Model.DescriptionHtml)
-        <div class="break"></div>
-    </section>
-
+    
 @section DocumentBottom {
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 }

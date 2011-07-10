@@ -115,5 +115,6 @@ namespace JordanRift.Grassroots.Framework.Entities
         public const string PUBLIC_WEBSITE_URL = "PublicWebsiteUrl";
         public const string PUBLIC_ABOUT_PAGE_URL = "PublicAboutPageUrl";
         public const string PUBLIC_SERVICES_PAGE_URL = "PublicServicesPageUrl";
+        public const string DONATION_NOTIFICATION_ADDRESS = "DonationNotificationAddress";
     }
 }

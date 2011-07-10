@@ -41,6 +41,12 @@ namespace JordanRift.Grassroots.Web.Mailers
 		{
 		    var mailMessage = new MailMessage { Subject = "Thank you for your generosity!" };
 			mailMessage.To.Add(model.Email);
+
+            if (!string.IsNullOrEmpty(model.DonorNotificationEmail))
+            {
+                mailMessage.Bcc.Add(model.DonorNotificationEmail);
+            }
+
             ViewData = new ViewDataDictionary(model);
 			PopulateBody(mailMessage, viewName: "UserDonation");
 			return mailMessage;

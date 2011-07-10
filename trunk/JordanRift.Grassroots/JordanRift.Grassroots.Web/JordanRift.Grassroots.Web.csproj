@@ -263,6 +263,7 @@
     <Content Include="Content\themes\onemission\images\groups.png" />
     <Content Include="Content\themes\onemission\images\health-orig.jpg" />
     <Content Include="Content\themes\onemission\images\health.jpg" />
+    <Content Include="Content\themes\onemission\images\house-build.jpg" />
     <Content Include="Content\themes\onemission\images\house-new.png" />
     <Content Include="Content\themes\onemission\images\house.png" />
     <Content Include="Content\themes\onemission\images\jason-tina.jpg" />

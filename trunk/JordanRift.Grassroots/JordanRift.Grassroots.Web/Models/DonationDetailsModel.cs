@@ -53,5 +53,11 @@ namespace JordanRift.Grassroots.Web.Models
         //
 
         public string PaymentType { get; set; }
+
+        //
+        // Organization fields
+        //
+
+        public string DonorNotificationEmail { get; set; }
     }
 }

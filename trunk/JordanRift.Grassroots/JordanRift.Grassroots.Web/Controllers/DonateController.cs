@@ -207,6 +207,15 @@ namespace JordanRift.Grassroots.Web.Controllers
             mailerModel.Title = campaign.Title;
             mailerModel.UrlSlug = campaign.UrlSlug;
             mailerModel.PaymentType = payment.PaymentType == PaymentType.CC ? "Credit/Debit Card" : "Electronic Check";
+
+            var organization = campaign.Organization;
+            var bcc = organization.GetSetting(OrgSettingKeys.DONATION_NOTIFICATION_ADDRESS);
+
+            if (bcc != null)
+            {
+                mailerModel.DonorNotificationEmail = bcc.Value;
+            }
+
             donateMailer.UserDonation(mailerModel).SendAsync();
 
             // Send notification to campaign owner
