@@ -401,6 +401,10 @@ dd > .meta {
 	color: #333;
 	background-position: left bottom;
 }
+
+hgroup.thanks > h3 {
+    display: none;
+}
 			
 /* OM Footer Style */
 
