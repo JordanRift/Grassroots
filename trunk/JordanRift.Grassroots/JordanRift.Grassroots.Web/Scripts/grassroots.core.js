@@ -40,6 +40,7 @@ var Grassroots = (function() {
             $("#main fieldset").addClass("ui-widget").addClass("ui-corner-all");
             $("#main button, #main input:submit, #main input:button}").button();
             $("#main :input[type='text'], #main textarea, #main input[type='password'], #main input[type='email']").wijtextbox();
+            $("#campaign-email-form :input[type='text'], #campaign-email-form textarea, #campaign-email-form input[type='password'], #campaign-email-form input[type='email']").wijtextbox();
             $("#main select").wijdropdown();
             $("#main :input[type='radio']").wijradio();
             $("#main :input[type='checkbox']").wijcheckbox();
