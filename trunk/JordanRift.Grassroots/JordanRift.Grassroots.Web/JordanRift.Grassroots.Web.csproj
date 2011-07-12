@@ -282,6 +282,7 @@
     <Content Include="Content\themes\onemission\images\panel-bg.jpg" />
     <Content Include="Content\themes\onemission\images\pano-new.jpg" />
     <Content Include="Content\themes\onemission\images\pano.jpg" />
+    <Content Include="Content\themes\onemission\images\pie-chart.png" />
     <Content Include="Content\themes\onemission\images\profile-bottom.png" />
     <Content Include="Content\themes\onemission\images\profile-top.png" />
     <Content Include="Content\themes\onemission\images\slide-down.png" />
