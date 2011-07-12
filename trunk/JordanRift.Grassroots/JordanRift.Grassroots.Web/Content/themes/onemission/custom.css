@@ -873,6 +873,13 @@ hgroup.thanks > h3 {
     margin: 10px 0px 0px;
 }
 
+#campaign-email-form .field-validation-error {
+    position: absolute;
+    width: 230px;
+    top: 0px;
+    right: 0px;
+}
+
 /* Custom home page content */
 
 .steps > li {
