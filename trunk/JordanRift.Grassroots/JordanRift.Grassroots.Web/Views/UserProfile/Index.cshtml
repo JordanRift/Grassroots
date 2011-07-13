@@ -90,7 +90,7 @@
             <div><a href="#" onclick="javascript:return false;" title="Change My Image" class="user-image-info ui-button ui-corner-all">Change My Image</a></div>
             }
             <div class="@campaignHistoryClass">
-                @if (Model.ActiveCampaignCount == 0) {
+                @if (Model.ActiveCampaignCount == 0 && Model.CurrentUserIsOwner) {
                 @Html.ActionLink("Launch A New Campaign", "GetStarted", new { controller = "Campaign" }, new { title = "Launch A Campaign", @class = "ui-button ui-corner-all pad-bottom" })
                 }
                 @if (Model.Campaigns.Count > 0) { 
