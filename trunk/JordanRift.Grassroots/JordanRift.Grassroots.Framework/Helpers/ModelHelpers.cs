@@ -13,21 +13,21 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Helpers
 {
     public static class ModelHelpers
     {
-        public static List<string> GetOrgSettingKeys()
+        public static List<string> GetKeys(Type type)
         {
             var keys = new List<string>();
 
-            var fields = typeof(OrgSettingKeys).GetFields(BindingFlags.Public | BindingFlags.Static);
+            var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
 
             foreach (var field in fields)
             {

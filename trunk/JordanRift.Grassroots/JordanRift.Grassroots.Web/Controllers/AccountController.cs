@@ -135,7 +135,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             {
                 MembershipCreateStatus status;
                 UserProfile userProfile;
-                OrganizationBase organization;
+                Organization organization;
 
                 using (new UnitOfWorkScope())
                 using (var transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -382,7 +382,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                        };
         }
 
-        private static WelcomeModel MapWelcomeModel(UserProfile userProfile, OrganizationBase organization)
+        private static WelcomeModel MapWelcomeModel(UserProfile userProfile, Organization organization)
         {
             return new WelcomeModel
                        {
@@ -393,7 +393,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                        };
         }
 
-        private AuthorizeModel MapAuthorizeModel(UserProfile userProfile, OrganizationBase organization)
+        private AuthorizeModel MapAuthorizeModel(UserProfile userProfile, Organization organization)
         {
             return new AuthorizeModel
                        {

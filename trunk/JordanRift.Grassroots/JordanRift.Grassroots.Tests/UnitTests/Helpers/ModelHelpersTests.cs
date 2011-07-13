@@ -25,63 +25,63 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Helpers
         [Test]
         public void GetOrgSettingKeys_Should_Return_List_Of_Known_Org_Setting_Keys()
         {
-            var result = ModelHelpers.GetOrgSettingKeys();
+            var result = ModelHelpers.GetKeys(typeof(OrgSettingKeys));
             Assert.IsNotEmpty(result);
         }
 
         [Test]
         public void GetOrgSettingKeys_Should_Load_AnalyticsCode_Setting_Key()
         {
-            var result = ModelHelpers.GetOrgSettingKeys();
+            var result = ModelHelpers.GetKeys(typeof(OrgSettingKeys));
             Assert.Contains(OrgSettingKeys.ANALYTICS_TRACKING_CODE, result);
         }
 
         [Test]
         public void GetOrgSettingKeys_Should_Load_DonateInstructionsHtml_Setting_Key()
         {
-            var result = ModelHelpers.GetOrgSettingKeys();
+            var result = ModelHelpers.GetKeys(typeof(OrgSettingKeys));
             Assert.Contains(OrgSettingKeys.DONATE_INSTRUCTIONS_HTML, result);
         }
 
         [Test]
         public void GetOrgSettingKeys_Should_Load_CustomNavigationHtml_Setting_Key()
         {
-            var result = ModelHelpers.GetOrgSettingKeys();
+            var result = ModelHelpers.GetKeys(typeof(OrgSettingKeys));
             Assert.Contains(OrgSettingKeys.CUSTOM_NAVIGATION_HTML, result);
         }
 
         [Test]
         public void GetOrgSettingKeys_Should_Load_CustomHomePageHtml_Setting_Key()
         {
-            var result = ModelHelpers.GetOrgSettingKeys();
+            var result = ModelHelpers.GetKeys(typeof(OrgSettingKeys));
             Assert.Contains(OrgSettingKeys.CUSTOM_HOME_PAGE_HTML, result);
         }
 
         [Test]
         public void GetOrgSettingKeys_Should_Load_CustomFooterHtml_Setting_Key()
         {
-            var result = ModelHelpers.GetOrgSettingKeys();
+            var result = ModelHelpers.GetKeys(typeof(OrgSettingKeys));
             Assert.Contains(OrgSettingKeys.CUSTOM_FOOTER_HTML, result);
         }
 
         [Test]
         public void GetOrgSettingKeys_Should_Load_PublicWebsiteUrl_Setting_Key()
         {
-            var result = ModelHelpers.GetOrgSettingKeys();
+            var result = ModelHelpers.GetKeys(typeof(OrgSettingKeys));
             Assert.Contains(OrgSettingKeys.PUBLIC_WEBSITE_URL, result);
         }
 
         [Test]
         public void GetOrgSettingKeys_Should_Load_PublicAboutPageUrl_Setting_Key()
         {
-            var result = ModelHelpers.GetOrgSettingKeys();
+            var result = ModelHelpers.GetKeys(typeof(OrgSettingKeys));
             Assert.Contains(OrgSettingKeys.PUBLIC_ABOUT_PAGE_URL, result);
         }
 
         [Test]
         public void GetOrgSettingKeys_Should_Load_PublicServicesPageUrl_Setting_Key()
         {
-            var result = ModelHelpers.GetOrgSettingKeys();
+            var result = ModelHelpers.GetKeys(typeof(OrgSettingKeys));
             Assert.Contains(OrgSettingKeys.PUBLIC_SERVICES_PAGE_URL, result);
         }
     }

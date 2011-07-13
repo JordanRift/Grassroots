@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Helpers;
 
 namespace JordanRift.Grassroots.Web.Models.ModelBinders
@@ -45,7 +46,7 @@ namespace JordanRift.Grassroots.Web.Models.ModelBinders
         private static void BindSettings(OrganizationDetailsModel model, ControllerContext controllerContext)
         {
             var request = controllerContext.HttpContext.Request.Unvalidated();
-            var keys = ModelHelpers.GetOrgSettingKeys();
+            var keys = ModelHelpers.GetKeys(typeof(OrgSettingKeys));
             model.OrganizationSettings = new List<OrganizationSettingModel>();
 
             foreach (var key in keys)

@@ -24,7 +24,7 @@ namespace JordanRift.Grassroots.Web.Controllers
     {
         public ErrorController()
         {
-            Mapper.CreateMap<OrganizationBase, OrganizationDetailsModel>();
+            Mapper.CreateMap<Organization, OrganizationDetailsModel>();
         }
 
         [OutputCache(Duration = 60, VaryByParam = "aspxerrorpath")]
@@ -33,7 +33,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             using (OrganizationRepository)
             {
                 var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-                var model = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
+                var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
                 return View("Error", model);
             }
         }
@@ -44,7 +44,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             using (OrganizationRepository)
             {
                 var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-                var model = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
+                var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
                 return View("404", model);
             }
         }
@@ -55,7 +55,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             using (OrganizationRepository)
             {
                 var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-                var model = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
+                var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
                 return View("403", model);
             }
         }

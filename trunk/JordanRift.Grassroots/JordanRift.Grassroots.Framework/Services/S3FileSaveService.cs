@@ -69,7 +69,7 @@ namespace JordanRift.Grassroots.Framework.Services
 
 			if ( accessKeyID == null || secretAccessKey == null || s3BucketName == null )
 			{
-				throw new ConfigurationException( "One or more keys (AWSAccessKey, AWSSecretKey, and/or AWSBucketName) missing from web.config." );
+				throw new ConfigurationErrorsException( "One or more keys (AWSAccessKey, AWSSecretKey, and/or AWSBucketName) missing from web.config." );
 			}
 
 			// This is used to delete old items.

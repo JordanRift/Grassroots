@@ -27,27 +27,27 @@ namespace JordanRift.Grassroots.Web.Controllers
     {
         private readonly ITwitterService twitterService;
         private readonly IBlogService blogService;
-        private OrganizationBase organization;
+        private Organization organization;
 
         public HomeController(ITwitterService twitterService, IBlogService blogService)
         {
             this.twitterService = twitterService;
             this.blogService = blogService;
             organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-            Mapper.CreateMap<OrganizationBase, OrganizationDetailsModel>();
+            Mapper.CreateMap<Organization, OrganizationDetailsModel>();
             Mapper.CreateMap<OrganizationSetting, OrganizationSettingModel>();
             Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
         }
 
         public ActionResult Index()
         {
-            var model = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             return View("Index", model);
         }
 
         public ActionResult About()
         {
-            var model = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             return View(model);
         }
 
@@ -66,7 +66,6 @@ namespace JordanRift.Grassroots.Web.Controllers
             using (OrganizationRepository)
             {
                 decimal totalGoal;
-                organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 
                 if (organization.YtdGoal.HasValue && organization.YtdGoal > 0)
                 {
@@ -103,7 +102,6 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 120, VaryByParam = "none")]
         public ActionResult Stats()
         {
-            organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
             var causes = organization.GetCompletedCauses();
             var model = new OrganizationStatsModel()
                             {
@@ -155,7 +153,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 120, VaryByParam = "none")]
         public ActionResult ThemeCss()
         {
-            var model = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
+            var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             return View(model);
         }
     }
