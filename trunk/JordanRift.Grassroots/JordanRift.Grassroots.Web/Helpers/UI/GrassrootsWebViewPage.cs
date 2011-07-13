@@ -14,112 +14,30 @@
 //
 
 using System.Web.Mvc;
-using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities;
-using JordanRift.Grassroots.Framework.Entities.Models;
-using JordanRift.Grassroots.Framework.Helpers;
+using JordanRift.Grassroots.Framework.Services;
 
 namespace JordanRift.Grassroots.Web.Helpers.UI
 {
     public abstract class GrassrootsWebViewPage<TModel> : WebViewPage<TModel>
     {
-        private readonly OrganizationBase organization;
+        private readonly CacheManager cacheManager;
 
-        public string OrganizationName
-        {
-            get { return organization.Name; }
-        }
-
-        public string OrganizationTagline
-        {
-            get { return organization.Tagline; }
-        }
-
-        public string ContactEmail
-        {
-            get { return organization.ContactEmail; }
-        }
-
-        public string PublicWebsiteUrl
-        {
-            get
-            {
-                var setting = organization.GetSetting(OrgSettingKeys.PUBLIC_WEBSITE_URL);
-                return setting != null ? setting.Value : null;
-            }
-        }
-
-        public string PublicAboutPageUrl
-        {
-            get
-            {
-                var setting = organization.GetSetting(OrgSettingKeys.PUBLIC_ABOUT_PAGE_URL);
-                return setting != null ? setting.Value : null;
-            }
-        }
-
-        public string PublicServicesPageUrl
-        {
-            get
-            {
-                var setting = organization.GetSetting(OrgSettingKeys.PUBLIC_SERVICES_PAGE_URL);
-                return setting != null ? setting.Value : null;
-            }
-        }
-
-        public string NavigationHtml
-        {
-            get
-            {
-                var setting = organization.GetSetting(OrgSettingKeys.CUSTOM_NAVIGATION_HTML);
-                return setting != null ? setting.Value : null;
-            }
-        }
-
-        public string FooterHtml
-        {
-            get
-            {
-                var setting = organization.GetSetting(OrgSettingKeys.CUSTOM_FOOTER_HTML);
-                return setting != null ? setting.Value : null;
-            }
-        }
-
-        public string HomePageHtml
-        {
-            get
-            {
-                var setting = organization.GetSetting(OrgSettingKeys.CUSTOM_HOME_PAGE_HTML);
-                return setting != null ? setting.Value : null;
-            }
-        }
-
-        public string DonationInstructionsHtml
-        {
-            get
-            {
-                var setting = organization.GetSetting(OrgSettingKeys.DONATE_INSTRUCTIONS_HTML);
-                return setting != null ? setting.Value : null;
-            }
-        }
-
-        public string AnalyticsTrackingCode
-        {
-            get
-            {
-                var setting = organization.GetSetting(OrgSettingKeys.ANALYTICS_TRACKING_CODE);
-                return setting != null ? setting.Value : null;
-            }
-        }
+        public string OrganizationName { get { return cacheManager.Get<string>(CacheKeys.ORG_NAME); } }
+        public string OrganizationTagline { get { return cacheManager.Get<string>(CacheKeys.ORG_TAGLINE); } }
+        public string ContactEmail { get { return cacheManager.Get<string>(CacheKeys.ORG_EMAIL); } }
+        public string PublicWebsiteUrl { get { return cacheManager.Get<string>(CacheKeys.ORG_WEB_URL); } }
+        public string PublicAboutPageUrl { get { return cacheManager.Get<string>(CacheKeys.ORG_ABOUT_URL); } }
+        public string PublicServicesPageUrl { get { return cacheManager.Get<string>(CacheKeys.ORG_SERVICES_URL); } }
+        public string NavigationHtml { get { return cacheManager.Get<string>(CacheKeys.ORG_NAV_HTML); } }
+        public string FooterHtml { get { return cacheManager.Get<string>(CacheKeys.ORG_FOOTER_HTML); } }
+        public string HomePageHtml { get { return cacheManager.Get<string>(CacheKeys.ORG_HOME_PAGE_HTML); } }
+        public string DonationInstructionsHtml { get { return cacheManager.Get<string>(CacheKeys.ORG_DONATE_HTML); } }
+        public string AnalyticsTrackingCode { get { return cacheManager.Get<string>(CacheKeys.ORG_ANALYTICS_CODE); } }
 
         protected GrassrootsWebViewPage()
         {
-            var repositoryFactory = new RepositoryFactory<IOrganizationRepository>();
-
-            using (var organizationRepository = repositoryFactory.GetRepository())
-            {
-                organization = organizationRepository.GetDefaultOrganization(readOnly: true);
-            }
+            cacheManager = new CacheManager();
         }
     }
 }

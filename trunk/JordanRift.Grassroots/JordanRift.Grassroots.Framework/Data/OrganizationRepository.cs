@@ -13,12 +13,13 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.ComponentModel.Composition;
+using System.Data;
 using System.Linq;
-using AutoMapper;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
-using JordanRift.Grassroots.Framework.Helpers;
+using JordanRift.Grassroots.Framework.Services;
 
 namespace JordanRift.Grassroots.Framework.Data
 {
@@ -26,34 +27,46 @@ namespace JordanRift.Grassroots.Framework.Data
     public class OrganizationRepository : GrassrootsRepositoryBase, IOrganizationRepository
     {
         private const string DEFAULT_ORG_CACHE_KEY = "Grassroots.DefaultOrganization";
-        private ICache cache;
+        private readonly CacheManager cacheManager;
 
         public OrganizationRepository()
         {
-            var cacheFactory = new CacheFactory();
-            cache = cacheFactory.GetCache();
             Priority = PriorityType.Low;
-            Mapper.CreateMap<Organization, OrganizationBase>();
+            cacheManager = new CacheManager();
         }
 
-        public OrganizationBase GetOrganizationByID(int id)
+        public Organization GetOrganizationByID(int id)
         {
             return ObjectContext.Organizations.FirstOrDefault(o => o.OrganizationID == id);
         }
 
-        public OrganizationBase GetDefaultOrganization(bool readOnly = true)
+        public Organization GetDefaultOrganization(bool readOnly = true)
         {
-            if (readOnly && cache.Get(DEFAULT_ORG_CACHE_KEY) != null)
+            Organization organization;
+
+            if (cacheManager.Exists(DEFAULT_ORG_CACHE_KEY))
             {
-                return cache.Get(DEFAULT_ORG_CACHE_KEY) as OrganizationBase;
+                organization = cacheManager.Get<Organization>(DEFAULT_ORG_CACHE_KEY);
+
+                if (ObjectContext.Entry(organization).State == EntityState.Detached)
+                {
+                    try
+                    {
+                        ObjectContext.Organizations.Attach(organization);
+                        ObjectContext.Entry(organization).State = EntityState.Unchanged;
+                    }
+                    catch (InvalidOperationException) { }
+                }
+
+                return organization;
             }
 
-            var organization = ObjectContext.Organizations.FirstOrDefault();
+            organization = ObjectContext.Organizations.FirstOrDefault();
 
-            if (organization != null && readOnly)
+            if (organization != null)
             {
-                var cachedOrg = Mapper.Map<Organization, OrganizationBase>(organization);
-                cache.Add(DEFAULT_ORG_CACHE_KEY, cachedOrg);
+                cacheManager.Add(DEFAULT_ORG_CACHE_KEY, organization);
+                ObjectContext.Entry(organization).State = EntityState.Detached;
             }
 
             return organization;
@@ -77,12 +90,7 @@ namespace JordanRift.Grassroots.Framework.Data
         void IOrganizationRepository.Save()
         {
             base.Save();
-            ClearCache();
-        }
-
-        private void ClearCache()
-        {
-            cache.Remove(DEFAULT_ORG_CACHE_KEY);
+            cacheManager.Remove(DEFAULT_ORG_CACHE_KEY, removingOrganization: true);
         }
     }
 }

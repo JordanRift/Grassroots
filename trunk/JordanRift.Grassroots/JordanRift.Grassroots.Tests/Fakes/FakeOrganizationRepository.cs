@@ -13,7 +13,6 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -27,7 +26,7 @@ namespace JordanRift.Grassroots.Tests.Fakes
     [Export(typeof(IOrganizationRepository))]
     public class FakeOrganizationRepository : IOrganizationRepository
     {
-        private static IList<OrganizationBase> organizations;
+        private static IList<Organization> organizations;
         public PriorityType Priority { get; set; }
 
         static FakeOrganizationRepository()
@@ -37,7 +36,7 @@ namespace JordanRift.Grassroots.Tests.Fakes
 
         private static void SetUp()
         {
-            organizations = new List<OrganizationBase>();
+            organizations = new List<Organization>();
 
             for (int i = 0; i < 1; i++)
             {
@@ -60,10 +59,10 @@ namespace JordanRift.Grassroots.Tests.Fakes
 
         public static void Clear()
         {
-            organizations = new List<OrganizationBase>();
+            organizations = new List<Organization>();
         }
 
-        private static void AddSettings(OrganizationBase org)
+        private static void AddSettings(Organization org)
         {
             for (int i = 0; i < 5; i++)
             {
@@ -72,12 +71,12 @@ namespace JordanRift.Grassroots.Tests.Fakes
             }
         }
 
-        public OrganizationBase GetOrganizationByID(int id)
+        public Organization GetOrganizationByID(int id)
         {
             return organizations.FirstOrDefault(o => o.OrganizationID == id);
         }
 
-        public OrganizationBase GetDefaultOrganization(bool readOnly = true)
+        public Organization GetDefaultOrganization(bool readOnly = true)
         {
             return organizations.FirstOrDefault();
         }

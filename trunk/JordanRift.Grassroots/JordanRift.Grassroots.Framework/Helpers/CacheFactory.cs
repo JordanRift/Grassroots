@@ -24,7 +24,7 @@ namespace JordanRift.Grassroots.Framework.Helpers
 {
     public class CacheFactory
     {
-        private static IEnumerable<ICache> caches;
+        private static readonly IEnumerable<ICache> caches;
         
         public CacheType StorageMode { get; set; }
 
@@ -51,7 +51,7 @@ namespace JordanRift.Grassroots.Framework.Helpers
             }
             else
             {
-                StorageMode = CacheType.HttpContext;
+                StorageMode = CacheType.Http;
             }
         }
 

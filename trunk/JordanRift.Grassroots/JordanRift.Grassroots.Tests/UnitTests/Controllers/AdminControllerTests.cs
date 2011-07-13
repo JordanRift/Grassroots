@@ -35,7 +35,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [SetUp]
         public void SetUp()
         {
-            Mapper.CreateMap<OrganizationBase, OrganizationDetailsModel>();
+            Mapper.CreateMap<Organization, OrganizationDetailsModel>();
         }
 
         [TearDown]
@@ -72,7 +72,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void UpdateOrganization_Should_Redirect_To_Index_When_Successful()
         {
             var organization = EntityHelpers.GetValidOrganization();
-            var viewModel = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
+            var viewModel = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             SetUpAdminController(repoReadOnly: false);
             var result = controller.UpdateOrganization(viewModel);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
@@ -84,7 +84,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void UpdateOrganization_Should_Redirect_To_EditOrganization_When_ModelState_Is_Invalid()
         {
             var organization = EntityHelpers.GetValidOrganization();
-            var viewModel = Mapper.Map<OrganizationBase, OrganizationDetailsModel>(organization);
+            var viewModel = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             SetUpAdminController();
             controller.ModelState.AddModelError("", "Uh oh...");
             var result = controller.UpdateOrganization(viewModel);

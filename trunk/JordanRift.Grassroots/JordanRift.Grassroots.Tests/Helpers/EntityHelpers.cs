@@ -71,7 +71,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
 		               };
 		}
 
-        public static OrganizationBase GetValidOrganization()
+        public static Organization GetValidOrganization()
         {
             var org = new Organization
                           {

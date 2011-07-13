@@ -14,6 +14,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Web;
 using JordanRift.Grassroots.Framework.Entities;
@@ -21,21 +22,21 @@ using JordanRift.Grassroots.Framework.Entities;
 namespace JordanRift.Grassroots.Framework.Helpers
 {
     [Export(typeof(ICache))]
-    class HttpContextCache : ICache
+    class HttpCache : ICache
     {
         public CacheType Type
         {
-            get { return CacheType.HttpContext; }
+            get { return CacheType.Http; }
         }
 
         public object Get(string key)
         {
-            return HttpContext.Current.Cache.Get(key);
+            return HttpRuntime.Cache.Get(key);
         }
 
         public void Add(string key, object value)
         {
-            HttpContext.Current.Cache.Insert(key, value);
+            HttpRuntime.Cache.Insert(key, value);
         }
 
         public void Remove(string key)
@@ -43,9 +44,9 @@ namespace JordanRift.Grassroots.Framework.Helpers
             HttpContext.Current.Cache.Remove(key);
         }
 
-        //public bool Any(Func<KeyValuePair<string, object>, bool> predicate)
-        //{
-            
-        //}
+        public bool Exists(string key)
+        {
+            return HttpRuntime.Cache.Get(key) != null;
+        }
     }
 }

@@ -39,9 +39,9 @@ namespace JordanRift.Grassroots.Framework.Helpers
         {
         }
 
-        //public bool Any(Func<KeyValuePair<string, object>, bool> predicate)
-        //{
-        //    return false;
-        //}
+        public bool Exists(string key)
+        {
+            return false;
+        }
     }
 }

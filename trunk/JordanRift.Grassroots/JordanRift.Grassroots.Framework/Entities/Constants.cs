@@ -17,7 +17,7 @@ namespace JordanRift.Grassroots.Framework.Entities
 {
     public enum CacheType
     {
-        HttpContext,
+        Http,
         InMemory,
         //MemCached,
         Null
@@ -103,6 +103,21 @@ namespace JordanRift.Grassroots.Framework.Entities
         public const string CAMPAIGN_REPOSITORY = "ICampaignRepositoryType";
         public const string USER_REPOSITORY = "IUserRepositoryType";
         public const string MEMBERSHIP_PROVIDER_NAME = "GrassrootsMembershipProvider";
+    }
+
+    public static class CacheKeys
+    {
+        public const string ORG_NAME = "Organization.Name";
+        public const string ORG_TAGLINE = "Organization.Tagline";
+        public const string ORG_EMAIL = "Organization.ContactEmail";
+        public const string ORG_WEB_URL = "Organization.PublicWebsiteUrl";
+        public const string ORG_ABOUT_URL = "Organization.PublicAboutPageUrl";
+        public const string ORG_SERVICES_URL = "Organization.PublicServicesPageUrl";
+        public const string ORG_NAV_HTML = "Organization.NavigationHtml";
+        public const string ORG_HOME_PAGE_HTML = "Organization.HomePageHtml";
+        public const string ORG_DONATE_HTML = "Organization.DonationInstructionsHtml";
+        public const string ORG_FOOTER_HTML = "Organization.FooterHtml";
+        public const string ORG_ANALYTICS_CODE = "Organization.AnalyticsTrackingCode";
     }
 
     public static class OrgSettingKeys

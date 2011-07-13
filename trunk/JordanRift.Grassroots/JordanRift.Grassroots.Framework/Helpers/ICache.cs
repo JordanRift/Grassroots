@@ -13,8 +13,6 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
 using JordanRift.Grassroots.Framework.Entities;
 
 namespace JordanRift.Grassroots.Framework.Helpers
@@ -25,6 +23,6 @@ namespace JordanRift.Grassroots.Framework.Helpers
         object Get(string key);
         void Add(string key, object value);
         void Remove(string key);
-        //bool Any(Func<KeyValuePair<string, object>, bool> predicate);
+        bool Exists(string key);
     }
 }

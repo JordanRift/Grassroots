@@ -25,13 +25,12 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Models
     public class OrganizationTests
     {
         private IOrganizationRepository repository;
-        private OrganizationBase organization;
+        private Organization organization;
 
         [SetUp]
         public void SetUp()
         {
             repository = new FakeOrganizationRepository();
-            //((FakeOrganizationRepository)repository).SetUpRepository();
             organization = EntityHelpers.GetValidOrganization();
         }
 
@@ -40,7 +39,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Models
         {
             var org = repository.GetDefaultOrganization();
             Assert.IsNotNull(org);
-            Assert.IsInstanceOf(typeof(OrganizationBase), org);
+            Assert.IsInstanceOf(typeof(Organization), org);
         }
 
         [Test]
