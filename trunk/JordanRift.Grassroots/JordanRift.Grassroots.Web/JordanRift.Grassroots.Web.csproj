@@ -234,6 +234,7 @@
     <Content Include="Content\themes\onemission\images\100-percent-header.gif" />
     <Content Include="Content\themes\onemission\images\100-percent-hover.gif" />
     <Content Include="Content\themes\onemission\images\100-percent.gif" />
+    <Content Include="Content\themes\onemission\images\100-percent.png" />
     <Content Include="Content\themes\onemission\images\admin-handle.png" />
     <Content Include="Content\themes\onemission\images\after.jpg" />
     <Content Include="Content\themes\onemission\images\banner-shadow.png" />
@@ -246,8 +247,11 @@
     <Content Include="Content\themes\onemission\images\bubble-bottom.png" />
     <Content Include="Content\themes\onemission\images\bubble-top.png" />
     <Content Include="Content\themes\onemission\images\bullet.png" />
+    <Content Include="Content\themes\onemission\images\cal.png" />
     <Content Include="Content\themes\onemission\images\calendar.png" />
     <Content Include="Content\themes\onemission\images\close.png" />
+    <Content Include="Content\themes\onemission\images\closed.png" />
+    <Content Include="Content\themes\onemission\images\computer.png" />
     <Content Include="Content\themes\onemission\images\contact-bottom.png" />
     <Content Include="Content\themes\onemission\images\contact-hover.gif" />
     <Content Include="Content\themes\onemission\images\contact-top.png" />
@@ -259,7 +263,9 @@
     <Content Include="Content\themes\onemission\images\education.jpg" />
     <Content Include="Content\themes\onemission\images\facebook-hover.gif" />
     <Content Include="Content\themes\onemission\images\facebook.gif" />
+    <Content Include="Content\themes\onemission\images\finish.png" />
     <Content Include="Content\themes\onemission\images\glow.png" />
+    <Content Include="Content\themes\onemission\images\gps.png" />
     <Content Include="Content\themes\onemission\images\groups.png" />
     <Content Include="Content\themes\onemission\images\health-orig.jpg" />
     <Content Include="Content\themes\onemission\images\health.jpg" />
@@ -274,6 +280,7 @@
     <Content Include="Content\themes\onemission\images\mail-donation.gif" />
     <Content Include="Content\themes\onemission\images\medical-orig.jpg" />
     <Content Include="Content\themes\onemission\images\medical.jpg" />
+    <Content Include="Content\themes\onemission\images\merge.png" />
     <Content Include="Content\themes\onemission\images\money-go.gif" />
     <Content Include="Content\themes\onemission\images\news-hover.gif" />
     <Content Include="Content\themes\onemission\images\news.gif" />
