@@ -44,7 +44,7 @@ namespace JordanRift.Grassroots.Framework.Data
         {
             Organization organization;
 
-            if (cacheManager.Exists(DEFAULT_ORG_CACHE_KEY))
+            if (readOnly && cacheManager.Exists(DEFAULT_ORG_CACHE_KEY))
             {
                 organization = cacheManager.Get<Organization>(DEFAULT_ORG_CACHE_KEY);
 
@@ -63,7 +63,7 @@ namespace JordanRift.Grassroots.Framework.Data
 
             organization = ObjectContext.Organizations.FirstOrDefault();
 
-            if (organization != null)
+            if (organization != null && readOnly)
             {
                 cacheManager.Add(DEFAULT_ORG_CACHE_KEY, organization);
                 ObjectContext.Entry(organization).State = EntityState.Detached;
