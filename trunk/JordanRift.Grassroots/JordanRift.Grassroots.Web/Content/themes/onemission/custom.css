@@ -263,6 +263,12 @@ textarea.wijmo-wijtextbox {
     background-position: center top !important;
 }
 
+input[type='text'].ui-state-default,
+input[type='password'].ui-state-default,
+textarea.ui-state-default {
+    color: #bbb;
+}
+
 #main .summary,
 #main .share-campaign,
 #main .donations,
