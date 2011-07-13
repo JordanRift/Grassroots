@@ -21,8 +21,8 @@ namespace JordanRift.Grassroots.Framework.Data
 {
     public interface IOrganizationRepository : IPriority, IDisposable
     {
-        OrganizationBase GetOrganizationByID(int id);
-        OrganizationBase GetDefaultOrganization(bool readOnly = true);
+        Organization GetOrganizationByID(int id);
+        Organization GetDefaultOrganization(bool readOnly = true);
         void Add(Organization organization);
         void Delete(Organization organization);
         void DeleteSetting(OrganizationSetting organizationSetting);
