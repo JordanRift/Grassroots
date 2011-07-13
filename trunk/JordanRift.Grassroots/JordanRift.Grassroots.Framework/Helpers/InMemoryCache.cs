@@ -14,7 +14,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Runtime.Caching;
@@ -56,9 +55,9 @@ namespace JordanRift.Grassroots.Framework.Helpers
             instance.Cache.Remove(key);
         }
 
-        //public bool Any(Func<KeyValuePair<string, object>, bool> predicate)
-        //{
-        //    return instance.Cache.Any(predicate);
-        //}
+        public bool Exists(string key)
+        {
+            return instance.Cache.Any(i => i.Key == key);
+        }
     }
 }

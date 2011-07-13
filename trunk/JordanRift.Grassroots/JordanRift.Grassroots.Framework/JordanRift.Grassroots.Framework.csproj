@@ -114,7 +114,6 @@
     <Compile Include="Entities\IPaymentProviderFactory.cs" />
     <Compile Include="Entities\IPriority.cs" />
     <Compile Include="Entities\Models\CauseNote.cs" />
-    <Compile Include="Entities\Models\OrganizationBase.cs" />
     <Compile Include="Entities\Models\Recipient.cs" />
     <Compile Include="Entities\Models\Region.cs" />
     <Compile Include="Entities\Tweet.cs" />
@@ -123,7 +122,7 @@
     <Compile Include="Helpers\CacheFactory.cs" />
     <Compile Include="Helpers\ElmahHandleErrorAttribute.cs" />
     <Compile Include="Helpers\FileSaveServiceFactory.cs" />
-    <Compile Include="Helpers\HttpContextCache.cs" />
+    <Compile Include="Helpers\HttpCache.cs" />
     <Compile Include="Helpers\ModelHelpers.cs" />
     <Compile Include="Helpers\ICache.cs" />
     <Compile Include="Helpers\NullCache.cs" />
@@ -131,6 +130,7 @@
     <Compile Include="Helpers\InMemoryCache.cs" />
     <Compile Include="Helpers\SingletonCache.cs" />
     <Compile Include="Services\BlogService.cs" />
+    <Compile Include="Services\CacheManager.cs" />
     <Compile Include="Services\CampaignService.cs" />
     <Compile Include="Services\GrassrootsMembershipService.cs" />
     <Compile Include="Entities\Models\Campaign.cs" />
