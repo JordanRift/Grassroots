@@ -25,6 +25,26 @@ var Grassroots = (function() {
         }
     }
 
+    function _initPlaceholders() {
+        $("input[type='text'], input[type='email']").each(function() {
+            if ($(this).attr("placeholder") != "") {
+                $(this).val($(this).attr("placeholder"));
+            }
+        });
+
+        $("input[type='text'], input[type='email']").blur(function() {
+            if ($(this).attr("placeholder") != "" && ($(this).val() == $(this).attr("placeholder") || $(this).val() == "")) {
+                $(this).val($(this).attr("placeholder"));
+            }
+        });
+
+        $("input[type='text'], input[type='email']").focus(function() {
+            if ($(this).val() == $(this).attr("placeholder")) {
+                $(this).val("");
+            }
+        });
+    }
+
     return {
         progressbar: function () {
             var $progressbar = $(".ui-progressbar-value");
@@ -44,6 +64,11 @@ var Grassroots = (function() {
             $("#main select").wijdropdown();
             $("#main :input[type='radio']").wijradio();
             $("#main :input[type='checkbox']").wijcheckbox();
+
+            if (!Modernizr.input.placeholder) {
+                // If HTML5 placeholders aren't supported, use JS placeholders.
+                _initPlaceholders();
+            }
         },
         gridui: function (cols) {
             $(".grid").wijgrid({
