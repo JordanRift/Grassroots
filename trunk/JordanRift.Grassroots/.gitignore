@@ -11,3 +11,5 @@
 /_ReSharper.Azure/
 /*.sln.docstates
 /*.5.1.ReSharper.user
+/TestResults/
+/*.psess

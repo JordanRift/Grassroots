@@ -192,17 +192,22 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
         public IEnumerable<Cause> GetCompletedCauses()
         {
-            try
+            if (Causes != null)
             {
-                return from c in Causes
-                       where c.IsCompleted //&& c.Active
-                       select c;
+                try
+                {
+                    return from c in Causes
+                           where c.IsCompleted //&& c.Active
+                           select c;
+                }
+                catch (ObjectDisposedException ex)
+                {
+                    Logger.LogError(ex);
+                    return new List<Cause>();
+                }
             }
-            catch (ObjectDisposedException ex)
-            {
-                Logger.LogError(ex);
-                return new List<Cause>();
-            }
+
+            return new List<Cause>();
         }
 
         public Organization()
