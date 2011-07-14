@@ -31,7 +31,6 @@ using Rhino.Mocks;
 
 namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 {
-    // triggering appharbor build
     [TestFixture]
     public class UserProfileControllerTests
     {
