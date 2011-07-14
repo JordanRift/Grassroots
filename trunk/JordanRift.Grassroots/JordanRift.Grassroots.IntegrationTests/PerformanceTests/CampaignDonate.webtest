@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebTest Name="CampaignDonate" Id="a6a60c2e-996b-4fe1-9f49-8e702182cd33" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="" StopOnError="False" RecordedResultFile="WebTest1.2bcdfdd5-baa1-4cbb-90e2-6c712e6e1caa.rec.webtestresult">
+  <Items>
+    <Comment CommentText="Make sure to only do this once per load test to avoid duplicate transaction errors." />
+    <Request Method="GET" Version="1.1" Url="http://projectgrassroots.com/campaigns/howdy" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" />
+    <Request Method="GET" Version="1.1" Url="http://projectgrassroots.com/Donate/howdy" ThinkTime="94" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" />
+    <Request Method="POST" Version="1.1" Url="http://projectgrassroots.com/Donate/ProcessDonation" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="http://projectgrassroots.com/Donate/ThankYou" ReportingName="">
+      <QueryStringParameters>
+        <QueryStringParameter Name="slug" Value="howdy" RecordedValue="howdy" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+      <FormPostHttpBody>
+        <FormPostParameter Name="Amount" Value="20.00" RecordedValue="20.00" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="PaymentType" Value="CC" RecordedValue="CC" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="AccountNumber" Value="4111111111111111" RecordedValue="4111111111111111" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Expiration.Month" Value="4" RecordedValue="4" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Expiration.Year" Value="2013" RecordedValue="2013" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Cid" Value="789" RecordedValue="789" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="RoutingNumber" Value="" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="BankName" Value="" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="CheckType" Value="Checking" RecordedValue="Checking" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="CheckNumber" Value="" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Comments" Value="Happy Birthday" RecordedValue="Happy Birthday" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="FirstName" Value="Load" RecordedValue="Load" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="LastName" Value="Tester" RecordedValue="Tester" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Email" Value="howdy@jordanrift.com" RecordedValue="howdy@jordanrift.com" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="PrimaryPhone" Value="602-555-7412" RecordedValue="602-555-7412" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="AddressLine1" Value="123 Their St" RecordedValue="123 Their St" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="AddressLine2" Value="" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="City" Value="Cityplace" RecordedValue="Cityplace" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="State" Value="AK" RecordedValue="AK" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="ZipCode" Value="72546" RecordedValue="72546" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="GET" Version="1.1" Url="http://projectgrassroots.com/Campaigns/howdy" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" />
+  </Items>
+  <ValidationRules>
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleResponseTimeGoal, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response Time Goal" Description="Validates that the response time for the request is less than or equal to the response time goal as specified on the request.  Response time goals of zero will be ignored." Level="Low" ExectuionOrder="AfterDependents">
+      <RuleParameters>
+        <RuleParameter Name="Tolerance" Value="0" />
+      </RuleParameters>
+    </ValidationRule>
+  </ValidationRules>
+</WebTest>

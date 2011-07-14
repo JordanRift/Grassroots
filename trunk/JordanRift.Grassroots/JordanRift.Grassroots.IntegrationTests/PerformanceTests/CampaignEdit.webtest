@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebTest Name="CampaignEdit" Id="70e160fa-359c-47d7-92f9-17acf9af1312" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="" StopOnError="False" RecordedResultFile="WebTest1.de82e51b-2476-48ca-8261-afda9484bf41.rec.webtestresult">
+  <Items>
+    <Request Method="GET" Version="1.1" Url="http://projectgrassroots.com/Campaigns/howdy" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" />
+    <Request Method="GET" Version="1.1" Url="http://projectgrassroots.com/Account/LogOn" ThinkTime="11" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" />
+    <Request Method="POST" Version="1.1" Url="http://projectgrassroots.com/Account/AuthenticateUser" ThinkTime="5" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="http://projectgrassroots.com/UserProfile" ReportingName="">
+      <FormPostHttpBody>
+        <FormPostParameter Name="Email" Value="howdy@jordanrift.com" RecordedValue="howdy@jordanrift.com" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Password" Value="secret" RecordedValue="secret" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="RememberMe" Value="true" RecordedValue="true" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="RememberMe" Value="false" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="GET" Version="1.1" Url="http://projectgrassroots.com/Campaign/Edit/howdy" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" />
+    <Request Method="POST" Version="1.1" Url="http://projectgrassroots.com/Campaign/Update" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="http://projectgrassroots.com/Campaigns/howdy" ReportingName="">
+      <QueryStringParameters>
+        <QueryStringParameter Name="id" Value="7" RecordedValue="7" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+      <FormPostHttpBody>
+        <FormPostParameter Name="Url" Value="" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="CampaignID" Value="7" RecordedValue="7" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Title" Value="Howdy Doody" RecordedValue="Howdy Doody" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="GoalAmount" Value="5100.00" RecordedValue="5100.00" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="StartDate" Value="7/14/2011 10:30:25 PM" RecordedValue="7/14/2011 10:30:25 PM" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="EndDate" Value="10/12/2011 10:30:25 PM" RecordedValue="10/12/2011 10:30:25 PM" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Description" Value="I like pie" RecordedValue="I like pie" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="GET" Version="1.1" Url="http://projectgrassroots.com/Account/LogOff" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="http://projectgrassroots.com/" ReportingName="" />
+  </Items>
+  <ValidationRules>
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleResponseTimeGoal, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response Time Goal" Description="Validates that the response time for the request is less than or equal to the response time goal as specified on the request.  Response time goals of zero will be ignored." Level="Low" ExectuionOrder="AfterDependents">
+      <RuleParameters>
+        <RuleParameter Name="Tolerance" Value="0" />
+      </RuleParameters>
+    </ValidationRule>
+  </ValidationRules>
+</WebTest>
