@@ -43,7 +43,7 @@
                 <dt>@Html.LabelFor(m => m.UrlSlug)</dt>
                 <dd class="url-slug">
                     <span class="meta">@Url.ToPublicUrl(Url.Action("Index", new { controller = "Campaign", slug = "", area = "" }))/</span>
-                    @Html.TextBoxFor(m => m.UrlSlug)
+                    @Html.TextBoxFor(m => m.UrlSlug, new { placeholder = "ex: JonnyAppleseed" })
                     @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </dd>
                 @if (Model.AmountIsConfigurable) { 

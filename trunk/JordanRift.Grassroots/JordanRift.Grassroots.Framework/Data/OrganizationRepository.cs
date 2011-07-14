@@ -48,10 +48,14 @@ namespace JordanRift.Grassroots.Framework.Data
             {
                 organization = cacheManager.Get<Organization>(DEFAULT_ORG_CACHE_KEY);
 
+                // If the organization is not being tracked by the current db context...
                 if (ObjectContext.Entry(organization).State == EntityState.Detached)
                 {
                     try
                     {
+                        // Try to attach it. Must be wrapped in try/catch as there are some limited
+                        // circumstances where the EntityState will return Detached, yet will be
+                        // associated with a db context.
                         ObjectContext.Organizations.Attach(organization);
                         ObjectContext.Entry(organization).State = EntityState.Unchanged;
                     }
@@ -65,6 +69,7 @@ namespace JordanRift.Grassroots.Framework.Data
 
             if (organization != null && readOnly)
             {
+                // Cache the organization, then detach it from the current db context.
                 cacheManager.Add(DEFAULT_ORG_CACHE_KEY, organization);
                 ObjectContext.Entry(organization).State = EntityState.Detached;
             }

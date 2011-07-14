@@ -21,11 +21,11 @@ namespace JordanRift.Grassroots.Web.Models
     public class CampaignCreateModel
     {
         [Required]
-        [Display(Name = "Campaign Name")]
+        [Display(Name = "Give your campaign a name")]
         public string Title { get; set; }
         
         [Required]
-        [Display(Name = "Friendly URL")]
+        [Display(Name = "Friendly URL (letters & numbers only)")]
         [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Please enter only letters and numbers (no spaces or special characters).")]
         [StringLength(30, MinimumLength = 5, ErrorMessage = "Campaign URL must be between 5 and 30 characters in length.")]
         [Remote("CheckUrlSlug", "Validation", ErrorMessage = "That friendly URL is already in use. Please try another one.")]
@@ -37,7 +37,7 @@ namespace JordanRift.Grassroots.Web.Models
         public decimal DefaultAmount { get; set; }
         public string GoalName { get; set; }
         
-        [Display(Name = "Amount")]
+        [Display(Name = "Amount (between $300 & $30,000)")]
         [DataType(DataType.Currency)]
         [RegularExpression(@"^\d+(\.\d{2})?$", ErrorMessage = "Please enter a valid amount.")]
         [Range(300.00, 30000.00, ErrorMessage = "Amount must be between $300.00 and $30,000.00.")]
