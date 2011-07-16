@@ -142,7 +142,6 @@ namespace JordanRift.Grassroots.Web.Controllers
                 {
                     // This should ensure best compatiblity through a variety of SQL database environments 
                     // (e.g. - SQL Server, MySQL, SQL Azure).
-
                     userProfile = Mapper.Map<RegisterModel, UserProfile>(model);
                     organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 
@@ -354,6 +353,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 if (userProfile == null)
                 {
+                    TempData["UserFeedback"] = "Are you sure you have an account here?";
                     return RedirectToAction("Register");
                 }
 
