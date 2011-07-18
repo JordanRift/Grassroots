@@ -175,10 +175,9 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[Authorize( Roles = "Administrator" )] 
 		public ActionResult Edit( int id )
 		{
-            using (OrganizationRepository)
+            using (causeTemplateRepository)
             {
-                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
-                var causeTemplate = organization.CauseTemplates.FirstOrDefault(c => c.CauseTemplateID == id);
+                var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
 
                 if (causeTemplate != null)
                 {
@@ -209,10 +208,9 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[Authorize( Roles = "Administrator" )] 
 		public ActionResult Update( CauseTemplateDetailsModel model )
 		{
-            using (OrganizationRepository)
+            using (causeTemplateRepository)
             {
-                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
-                var causeTemplate = organization.CauseTemplates.FirstOrDefault(c => c.CauseTemplateID == model.CauseTemplateID);
+                var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(model.CauseTemplateID);
 
                 if (causeTemplate == null)
                 {

@@ -15,11 +15,13 @@
 
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Tests.Fakes;
 using JordanRift.Grassroots.Tests.Helpers;
 using JordanRift.Grassroots.Web.Controllers;
+using JordanRift.Grassroots.Web.Models;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -40,6 +42,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             mocks = new MockRepository();
             controller = GetController();
+            Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
         }
 
         [TearDown]
@@ -122,6 +125,72 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void List_Should_Return_View()
+        {
+            var result = controller.List();
+            Assert.IsInstanceOf(typeof(ViewResult), result);
+        }
+
+        [Test]
+        public void Create_Should_Return_View()
+        {
+            var result = controller.Create();
+            Assert.IsInstanceOf(typeof(ViewResult), result);
+        }
+
+        [Test]
+        public void New_Should_Return_Redirect_If_ModelState_Is_Invalid()
+        {
+            controller.ModelState.AddModelError("", "Uh oh");
+            var result = controller.New(new CauseTemplateDetailsModel());
+            Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
+            var model = controller.TempData["CauseTemplateCreateModel"];
+            Assert.IsNotNull(model);
+        }
+
+        [Test]
+        public void New_Should_Return_Redirect_If_CauseTemlate_Created()
+        {
+            var causeTemplate = EntityHelpers.GetValidCauseTemplate();
+            var model = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
+            var result = controller.New(model);
+            Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
+            var responseModel = controller.TempData["CauseTemplateCreateModel"];
+            Assert.IsNull(responseModel);
+        }
+
+        [Test]
+        public void Edit_Should_Return_NotFound_If_CauseTemplate_Not_Found()
+        {
+            var result = controller.Edit(-1);
+            Assert.IsInstanceOf(typeof(HttpNotFoundResult), result);
+        }
+
+        [Test]
+        public void Edit_Should_Return_View_If_CauseTemplate_Found()
+        {
+            var result = controller.Edit(1);
+            Assert.IsInstanceOf(typeof(ViewResult), result);
+        }
+
+        [Test]
+        public void Update_Should_Return_NotFound_If_CauseTemplate_Not_Found()
+        {
+            var result = controller.Update(new CauseTemplateDetailsModel { CauseTemplateID = -1 });
+            Assert.IsInstanceOf(typeof(HttpNotFoundResult), result);
+        }
+
+        [Test]
+        public void Update_Should_Return_Redirect_If_ModelState_Is_Invalid()
+        {
+            controller.ModelState.AddModelError("", "Uh oh");
+            var result = controller.Update(new CauseTemplateDetailsModel { CauseTemplateID = 1 });
+            Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
+            var model = controller.TempData["CauseTemplateDetailsModel"];
+            Assert.IsNotNull(model);
+        }
+        
         private CauseTemplateController GetController(bool isAuthenticated = false)
         {
             organizationRepository = new FakeOrganizationRepository();
