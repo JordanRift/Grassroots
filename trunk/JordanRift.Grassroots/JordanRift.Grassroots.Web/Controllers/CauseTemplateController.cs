@@ -63,7 +63,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 }
 
                 var model = templates.Where(t => t.Active).Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
-                return View(model);
+                return View("Index", model);
             }
         }
 
@@ -133,7 +133,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		#region Administrative Actions
 
-
+        [Authorize(Roles = "Administrator")]
 		public ActionResult List()
 		{
             using (OrganizationRepository)
@@ -145,7 +145,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 		}
 
-		[Authorize( Roles = "Administrator" )] 
+		[Authorize( Roles = "Administrator" )]
 		public ActionResult Create()
 		{
 			return View();
