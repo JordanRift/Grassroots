@@ -91,9 +91,23 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
+        public void GetStarted_Should_Return_View()
+        {
+            var result = controller.GetStarted();
+            Assert.IsInstanceOf(typeof(ViewResult), result);
+        }
+
+        [Test]
+        public void Create_Should_Return_Redirect_If_CauseTemplate_Not_Found()
+        {
+            var result = controller.Create(new GetStartedModel { CampaignType = 1, CauseTemplateID = -2 });
+            Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
+        }
+
+        [Test]
         public void Create_Should_Return_Create_View()
         {
-            var result = controller.Create(new GetStartedModel{ CampaignType = 1, CauseTemplateID = 1 });
+            var result = controller.Create(new GetStartedModel { CampaignType = 1, CauseTemplateID = 1 });
             Assert.IsInstanceOf(typeof(ViewResult), result);
             var viewName = ((ViewResult) result).ViewName;
             Assert.AreEqual("Create", viewName);

@@ -125,8 +125,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 using (OrganizationRepository)
                 {
                     var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-                    var causeTemplate =
-                        organization.CauseTemplates.FirstOrDefault(ct => ct.CauseTemplateID == model.CauseTemplateID);
+                    var causeTemplate = organization.CauseTemplates.FirstOrDefault(ct => ct.CauseTemplateID == model.CauseTemplateID);
 
                     if (causeTemplate != null)
                     {
