@@ -122,6 +122,7 @@
     <Compile Include="UnitTests\Controllers\AccountControllerTest.cs" />
     <Compile Include="UnitTests\Controllers\AdminControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\CampaignControllerTests.cs" />
+    <Compile Include="UnitTests\Controllers\CauseTemplateControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\DonateControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\HomeControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\UserProfileControllerTests.cs" />
