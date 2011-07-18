@@ -29,6 +29,7 @@
 </hgroup>
 <div id="log-on-form">
     @using (Html.BeginForm("AuthenticateUser", "Account", new { returnUrl = ViewBag.ReturnUrl })) {
+        @Html.ValidationSummary(false, "Login was unsuccessful. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
         <fieldset class="column">
             <legend>Connect with Facebook...</legend>
             <p>Already have your Facebook account connected to @OrganizationName? Click the link below to sign in.</p>
@@ -36,7 +37,6 @@
         </fieldset>
         <fieldset class="column">
             <legend>... Or do it the old-fashioned way.</legend>
-                @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
                 <div>
                     <dl>
                         <dt>@Html.LabelFor(m => m.Email)</dt>
