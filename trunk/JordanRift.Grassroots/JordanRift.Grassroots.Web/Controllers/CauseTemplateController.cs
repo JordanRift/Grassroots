@@ -249,7 +249,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		/// </summary>
 		/// <param name="causeTemplate"></param>
 		/// <returns></returns>
-		private List<FileUpload> SaveFiles( CauseTemplate causeTemplate )
+		private IEnumerable<FileUpload> SaveFiles( CauseTemplate causeTemplate )
 		{
 			// the regex for a valid image
 			Regex imageFilenameRegex = new Regex( @"(.*?)\.(jpg|jpeg|png|gif)$", RegexOptions.IgnoreCase );

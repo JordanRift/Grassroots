@@ -35,6 +35,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         private IUserProfileRepository userProfileRepository;
         private UserProfile userProfile;
         private AccountController controller;
+        private MockRepository mocks;
 
         [SetUp]
         public void SetUp()
@@ -370,7 +371,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void AwaitingActivation_Returns_Redirect_When_User_Is_Logged_In()
         {
-            TestHelpers.MockHttpContext(controller, isAuthenticated: true);
+            TestHelpers.MockHttpContext(controller, mocks, isAuthenticated: true);
             userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
             userProfileRepository.Add(userProfile);
@@ -446,10 +447,10 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var fakeOrganizationRepository = new FakeOrganizationRepository();
             userProfileRepository = new FakeUserProfileRepository();
 
-            var mocks = new MockRepository();
+            mocks = new MockRepository();
             var fakeEmailService = mocks.DynamicMock<IAccountMailer>();
             MailerBase.IsTestModeEnabled = true;
-            AccountController controller = new AccountController(userProfileRepository, fakeEmailService)
+            AccountController c = new AccountController(userProfileRepository, fakeEmailService)
                                                {
                                                    FormsService = new MockFormsAuthenticationService(),
                                                    MembershipService = new MockMembershipService(),
@@ -457,8 +458,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                                                };
 
             
-            TestHelpers.MockHttpContext(controller);
-            return controller;
+            TestHelpers.MockHttpContext(c, mocks, postFiles: false);
+            return c;
         }
     }
 }

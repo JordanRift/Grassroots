@@ -110,19 +110,15 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void CauseDetails_Should_Return_Redirect_If_Cause_Not_Found()
         {
-            mocks.ReplayAll();
             var result = controller.CauseDetails();
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CauseDetails_Should_Return_View_If_Cause_Found()
         {
-            mocks.ReplayAll();
             var result = controller.CauseDetails(1, "abc");
             Assert.IsInstanceOf(typeof(ViewResult), result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -190,11 +186,30 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var model = controller.TempData["CauseTemplateDetailsModel"];
             Assert.IsNotNull(model);
         }
+
+        [Test]
+        public void Update_Should_Return_Redirect_If_Successful()
+        {
+            var causeTemplate = EntityHelpers.GetValidCauseTemplate();
+            causeTemplateRepository.Add(causeTemplate);
+            var model = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
+            var result = controller.Update(model);
+            Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
+            var message = controller.TempData["UserFeedback"];
+            Assert.AreEqual("Your changes have been saved. Please allow a few minutes for them to take effect.", message);
+        }
         
-        private CauseTemplateController GetController(bool isAuthenticated = false)
+        /// TODO: Dig a little deeper into the SaveFiles method to test some more use cases...
+        /// * What if a single upload fails
+        /// * What if 1 of 3 fails
+        /// * What if 3 of 3 fails
+        /// * etc...
+
+        private CauseTemplateController GetController(bool isAuthenticated = false, bool postFiles = true)
         {
             organizationRepository = new FakeOrganizationRepository();
             causeTemplateRepository = new FakeCauseTemplateRepository();
+            
             causeRepository = mocks.DynamicMock<ICauseRepository>();
             Expect.Call(causeRepository.GetCauseByCauseTemplateIdAndReferenceNumber(-1, "")).IgnoreArguments()
                 .Return(EntityHelpers.GetValidCause());
@@ -203,7 +218,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             organization = organizationRepository.GetDefaultOrganization();
             organization.CauseTemplates = new List<CauseTemplate> { EntityHelpers.GetValidCauseTemplate() };
 
-            TestHelpers.MockHttpContext(causeTemplateController);
+            TestHelpers.MockHttpContext(causeTemplateController, mocks, isAuthenticated, postFiles);
             return causeTemplateController;
         }
     }
