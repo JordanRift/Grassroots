@@ -63,7 +63,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 }
 
                 var model = templates.Where(t => t.Active).Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
-                return View(model);
+                return View("Index", model);
             }
         }
 
@@ -133,7 +133,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		#region Administrative Actions
 
-
+        [Authorize(Roles = "Administrator")]
 		public ActionResult List()
 		{
             using (OrganizationRepository)
@@ -145,7 +145,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 		}
 
-		[Authorize( Roles = "Administrator" )] 
+		[Authorize( Roles = "Administrator" )]
 		public ActionResult Create()
 		{
 			return View();
@@ -175,10 +175,9 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[Authorize( Roles = "Administrator" )] 
 		public ActionResult Edit( int id )
 		{
-            using (OrganizationRepository)
+            using (causeTemplateRepository)
             {
-                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
-                var causeTemplate = organization.CauseTemplates.FirstOrDefault(c => c.CauseTemplateID == id);
+                var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
 
                 if (causeTemplate != null)
                 {
@@ -209,10 +208,9 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[Authorize( Roles = "Administrator" )] 
 		public ActionResult Update( CauseTemplateDetailsModel model )
 		{
-            using (OrganizationRepository)
+            using (causeTemplateRepository)
             {
-                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
-                var causeTemplate = organization.CauseTemplates.FirstOrDefault(c => c.CauseTemplateID == model.CauseTemplateID);
+                var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(model.CauseTemplateID);
 
                 if (causeTemplate == null)
                 {
@@ -251,7 +249,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		/// </summary>
 		/// <param name="causeTemplate"></param>
 		/// <returns></returns>
-		private List<FileUpload> SaveFiles( CauseTemplate causeTemplate )
+		private IEnumerable<FileUpload> SaveFiles( CauseTemplate causeTemplate )
 		{
 			// the regex for a valid image
 			Regex imageFilenameRegex = new Regex( @"(.*?)\.(jpg|jpeg|png|gif)$", RegexOptions.IgnoreCase );

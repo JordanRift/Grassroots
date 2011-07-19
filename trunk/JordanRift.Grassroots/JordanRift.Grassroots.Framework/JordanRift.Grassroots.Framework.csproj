@@ -183,6 +183,7 @@
     <Compile Include="Services\IGravatarService.cs" />
     <Compile Include="Services\ITwitterService.cs" />
     <Compile Include="Services\LocalFileSaveService.cs" />
+    <Compile Include="Services\NullFileSaveService.cs" />
     <Compile Include="Services\S3FileSaveService.cs" />
     <Compile Include="Services\TwitterService.cs" />
     <Compile Include="Services\UserProfileService.cs" />

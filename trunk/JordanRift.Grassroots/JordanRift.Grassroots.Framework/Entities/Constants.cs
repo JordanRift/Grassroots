@@ -28,7 +28,8 @@ namespace JordanRift.Grassroots.Framework.Entities
         FileSystem,
         Azure,
         Database,
-        S3
+        S3,
+        Null
     }
 
     public enum PriorityType

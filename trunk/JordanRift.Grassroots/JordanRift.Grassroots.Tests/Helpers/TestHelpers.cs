@@ -14,6 +14,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Security.Principal;
 using System.Web;
@@ -53,22 +54,36 @@ namespace JordanRift.Grassroots.Tests.Helpers
             return form;
         }
 
-        public static void MockHttpContext(Controller controller, bool isAuthenticated = true)
+        public static void MockHttpContext(Controller controller, MockRepository mocks, bool isAuthenticated = true, bool postFiles = false)
         {
             // Mocking http request so MVC UrlHelper class will function normally under test
             // http://blog.muonlab.com/2010/02/22/how-to-use-mvcs-urlhelper-in-your-tests-with-rhinomocks/
             var routes = new RouteCollection();
             MvcApplication.RegisterRoutes(routes);
 
-            var mockRequest = MockRepository.GenerateStub<HttpRequestBase>();
+            var mockRequest = mocks.Stub<HttpRequestBase>();
+            mockRequest.Stub(x => x.IsSecureConnection).Return(false);
+            mockRequest.Stub(x => x.IsLocal).Return(false);
             mockRequest.Stub(x => x.ApplicationPath).Return("/");
             mockRequest.Stub(x => x.Url).Return(new Uri("http://localhost/a", UriKind.Absolute));
             mockRequest.Stub(x => x.ServerVariables).Return(new NameValueCollection());
 
-            var mockResponse = MockRepository.GenerateStub<HttpResponseBase>();
+            if (postFiles)
+            {
+                var postedFile = mocks.Stub<HttpPostedFileBase>();
+                var postedFilesKeyCollection = mocks.Stub<HttpFileCollectionBase>();
+                var fakeFileKeys = new List<string> { "file" };
+                mockRequest.Stub(req => req.Files).Return(postedFilesKeyCollection);
+                postedFilesKeyCollection.Stub(keys => keys.GetEnumerator()).Return(fakeFileKeys.GetEnumerator());
+                postedFilesKeyCollection.Stub(keys => keys["file"]).Return(postedFile);
+                postedFile.Stub(file => file.ContentLength).Return(8192);
+                postedFile.Stub(file => file.FileName).Return("foo.jpg");
+            }
+
+            var mockResponse = mocks.Stub<HttpResponseBase>();
             mockResponse.Stub(x => x.ApplyAppPathModifier(Arg<string>.Is.Anything)).Return(null).WhenCalled(x => x.ReturnValue = x.Arguments[0]);
 
-            var mockContext = MockRepository.GenerateStub<HttpContextBase>();
+            var mockContext = mocks.Stub<HttpContextBase>();
             mockContext.Stub(x => x.Request).Return(mockRequest);
             mockContext.Stub(x => x.Response).Return(mockResponse);
 
@@ -79,6 +94,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
 
             controller.ControllerContext = new ControllerContext(mockContext, new RouteData(), controller);
             controller.Url = new UrlHelper(new RequestContext(mockContext, new RouteData()), routes);
+            mocks.ReplayAll();
         }
     }
 }

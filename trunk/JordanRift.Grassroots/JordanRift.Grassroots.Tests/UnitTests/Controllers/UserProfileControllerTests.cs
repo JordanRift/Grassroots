@@ -61,7 +61,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             userProfile.Email = "goodEmail";
             userProfile.Campaigns = new List<Campaign>();
-            mocks.ReplayAll();
+            //mocks.ReplayAll();
             var result = controller.Index();
             Assert.IsInstanceOf(typeof(ViewResult), result);
             mocks.VerifyAll();
@@ -277,10 +277,13 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             var causeRepository = mocks.DynamicMock<ICauseRepository>();
             Expect.Call(causeRepository.FindCausesByUserProfileID(userProfileID)).Return(new List<Cause>().AsQueryable());
+            
             var mailer = mocks.DynamicMock<IUserProfileMailer>();
+            //mocks.ReplayAll();
+
             MailerBase.IsTestModeEnabled = true;
             var upc = new UserProfileController(repository, causeRepository, mailer);
-            TestHelpers.MockHttpContext(upc);
+            TestHelpers.MockHttpContext(upc, mocks);
             return upc;
         }
     }

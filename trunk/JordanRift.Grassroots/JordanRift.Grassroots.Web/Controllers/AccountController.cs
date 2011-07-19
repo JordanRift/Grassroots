@@ -72,6 +72,17 @@ namespace JordanRift.Grassroots.Web.Controllers
         public ActionResult LogOn(string returnUrl = "")
         {
             var viewModel = TempData["LogOnModel"] as LogOnModel ?? new LogOnModel();
+
+            if (TempData["ModelErrors"] != null)
+            {
+                var modelErrors = TempData["ModelErrors"] as List<string>;
+
+                foreach (var error in modelErrors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             return View(viewModel);
         }
@@ -108,7 +119,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     return RedirectToAction("Index", "UserProfile");
                 }
 
-                ModelState.AddModelError("", "The username or password you provided are incorrect.");
+                TempData["ModelErrors"] = new List<string> { "The username or password you provided are incorrect." };
             }
 
             TempData["LogOnModel"] = model;
@@ -142,7 +153,6 @@ namespace JordanRift.Grassroots.Web.Controllers
                 {
                     // This should ensure best compatiblity through a variety of SQL database environments 
                     // (e.g. - SQL Server, MySQL, SQL Azure).
-
                     userProfile = Mapper.Map<RegisterModel, UserProfile>(model);
                     organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 
@@ -354,6 +364,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 if (userProfile == null)
                 {
+                    TempData["UserFeedback"] = "Are you sure you have an account here?";
                     return RedirectToAction("Register");
                 }
 

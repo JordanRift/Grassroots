@@ -190,5 +190,21 @@ namespace JordanRift.Grassroots.Tests.Helpers
                            Description = "System Administrator"
                        };
         }
+
+        public static Cause GetValidCause()
+        {
+            return new Cause
+                       {
+                           CauseID = 1,
+                           DateCompleted = DateTime.Now.AddDays(-7),
+                           Active = true,
+                           ImagePath = "",
+                           BeforeImagePath = "",
+                           AfterImagePath = "",
+                           Campaigns = new List<Campaign>(),
+                           CauseNotes = new List<CauseNote>(),
+                           Recipients = new List<Recipient>()
+                       };
+        }
     }
 }

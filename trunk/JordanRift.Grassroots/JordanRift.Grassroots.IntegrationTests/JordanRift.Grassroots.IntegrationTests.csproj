@@ -81,7 +81,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
+    <None Include="LoadTests\GeneralUse.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
+    <None Include="PerformanceTests\LogInLogOut.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="PerformanceTests\SiteBrowsing.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="PerformanceTests\DonateTest.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="PerformanceTests\CampaignBrowse.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="PerformanceTests\CampaignDonate.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="PerformanceTests\CampaignEdit.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JordanRift.Grassroots.Framework\JordanRift.Grassroots.Framework.csproj">
@@ -93,10 +114,7 @@
       <Name>JordanRift.Grassroots.Tests</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="LoadTests\" />
-    <Folder Include="PerformanceTests\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
