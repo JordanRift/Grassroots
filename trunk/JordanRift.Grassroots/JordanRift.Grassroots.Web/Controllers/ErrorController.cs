@@ -25,6 +25,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         public ErrorController()
         {
             Mapper.CreateMap<Organization, OrganizationDetailsModel>();
+            Mapper.CreateMap<OrganizationSetting, OrganizationSettingModel>();
         }
 
         [OutputCache(Duration = 60, VaryByParam = "aspxerrorpath")]
