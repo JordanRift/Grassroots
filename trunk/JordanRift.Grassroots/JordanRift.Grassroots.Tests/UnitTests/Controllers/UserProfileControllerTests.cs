@@ -218,6 +218,22 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             controller.Update(viewModel);
             Assert.AreEqual(userProfile.ZipCode, viewModel.ZipCode);
         }
+        
+        [Test]
+        public void DeactivateAccount_Should_Return_Not_Found_If_Email_Not_Found()
+        {
+            userProfile.Email = "badEmail";
+            var result = controller.DeactivateAccount();
+            Assert.IsInstanceOf(typeof(HttpNotFoundResult), result);
+        }
+
+        [Test]
+        public void DeactivateAccount_Should_Return_View_If_Email_Found()
+        {
+            userProfile.Email = "goodEmail";
+            var result = controller.DeactivateAccount();
+            Assert.IsInstanceOf(typeof(ViewResult), result);
+        }
 
         [Test]
         public void Deactivate_Should_Redirect_To_LogOff_If_Successful()
@@ -245,6 +261,22 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             var result = controller.Deactivate();
             Assert.IsInstanceOf(typeof(HttpNotFoundResult), result);
+        }
+
+        [Test]
+        public void ReactivateAccount_Should_Return_Not_Found_If_Email_Not_Found()
+        {
+            userProfile.Email = "badEmail";
+            var result = controller.ReactivateAccount();
+            Assert.IsInstanceOf(typeof(HttpNotFoundResult), result);
+        }
+
+        [Test]
+        public void ReactivateAccount_Should_Return_View_If_Email_Found()
+        {
+            userProfile.Email = "goodEmail";
+            var result = controller.ReactivateAccount();
+            Assert.IsInstanceOf(typeof(ViewResult), result);
         }
 
         [Test]
