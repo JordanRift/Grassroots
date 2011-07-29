@@ -288,6 +288,22 @@ fieldset,
 	position: relative;
 }
 
+#main .url {
+    border-radius: 10px;
+	-mox-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	-ms-border-radius: 10px;
+	border: 1px solid #333333;
+	background: url(images/panel-bg.jpg) repeat-x;
+	height: 150px;
+}
+
+    #main .url > h2 {
+        font-size: 18px;
+        color: #FFD6A0;
+    }
+
     #main .campaign-history {
         padding: 30px;
     }
@@ -883,6 +899,10 @@ hgroup.thanks > h3 {
     left: auto;
     width: 190px;
     margin: 10px 0px 0px;
+}
+
+.campaign-summary {
+    font-size: 16px;
 }
 
 #campaign-email-form .field-validation-error {

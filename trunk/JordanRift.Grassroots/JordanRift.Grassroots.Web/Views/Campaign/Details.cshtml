@@ -21,6 +21,7 @@
 	var daysRemaining = ( DateTime.Now < Model.EndDate ) ? (Model.EndDate - DateTime.Now).Days : 0;
     var total = Model.Donations.Sum(d => d.Amount);
     var emailBlastModel = ViewBag.EmailBlastModel as CampaignEmailBlastModel;
+    var socialClassName = Model.CurrentUserIsOwner ? "email" : "social-networks";
 }
 
 @section DocumentHead {
@@ -36,7 +37,18 @@
         </div>
         }
 		<div class="url">
+            <h2>Share this page with your friends</h2>
 			@Html.TextBox("Url", Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = Model.UrlSlug })))
+            <div class="share">
+			    <ul class="@socialClassName">
+				    <li>@Html.Partial("TweetButton")</li>
+                    <li>@Html.Partial("FacebookLikeButton")</li>
+                    <li>@Html.Partial("PlusOneButton")</li>
+			    @if (Model.CurrentUserIsOwner) {
+				    <li class="email-button"><a href="#" id="email-blast" title="Email your friends"><img src="@Url.Content("~/Content/images/email.png")" alt="Email your friends" /></a></li>
+			    }
+			    </ul>
+		    </div>
         </div>
 	</section>
     <hgroup class="campaign">

@@ -37,9 +37,17 @@
                     @Html.UiSubmit("Submit Changes")
                     @Html.ActionLink("Cancel", "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Cancel", @class = "cancel" })
                 </span>
-		        <div class="url">
-			        @Html.TextBox("Url", Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = Model.UrlSlug })))
-                </div>
+                <div class="url">
+                <h2>Share this page with your friends</h2>
+			    @Html.TextBox("Url", Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = Model.UrlSlug })))
+                <div class="share">
+			        <ul class="social-networks">
+				        <li>@Html.Partial("TweetButton")</li>
+                        <li>@Html.Partial("FacebookLikeButton")</li>
+                        <li>@Html.Partial("PlusOneButton")</li>
+			        </ul>
+		        </div>
+            </div>
 	        </section>
             <hgroup class="campaign">
                 <h1>@Model.Title</h1>
