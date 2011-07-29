@@ -116,7 +116,7 @@ var Grassroots = (function() {
                 height: 460,
                 width: 520,
                 modal: true,
-                title: "Email your friends",
+                title: "Email this page to your friends",
                 closeText: "",
                 buttons: {
                     "Send email": function () {

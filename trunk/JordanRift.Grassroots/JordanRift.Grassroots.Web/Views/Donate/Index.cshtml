@@ -15,11 +15,10 @@
     // You should have received a copy of the GNU General Public License
     // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
     //
-    
-	ViewBag.Title = "Donate to " + @OrganizationName;
+
+    ViewBag.Title = "Donate to " + OrganizationName;
     var campaign = ViewBag.Campaign as CampaignDetailsModel;
     var urlSlug = campaign != null ? campaign.UrlSlug : string.Empty;
-    var title = campaign != null ? campaign.Title : "our general fund";
 }
 
 @section DocumentHead 
@@ -33,15 +32,19 @@
 }
 <hgroup>
     <h1>Make a Donation</h1>
-    <h3>This donation will be applied toward @title.</h3>
+    @if (campaign != null) { 
+    <h3>This donation will be applied toward @campaign.Title.</h3>
+    }
 </hgroup>
  
- @if (campaign != null) { 
+ @if (campaign != null)
+ { 
 @Html.Action("ProgressBar", new { controller = "Campaign", id = campaign.CampaignID })
  }
 
 <div class="donate-form">
-	@using (Html.BeginForm("ProcessDonation", "Donate", new { Area = "", slug = urlSlug })) {
+	@using (Html.BeginForm("ProcessDonation", "Donate", new { Area = "", slug = urlSlug }))
+ {
 		@Html.ValidationSummary(false, "Unable to process your payment. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
 		<fieldset class="column">
             <legend>Payment Information</legend>
@@ -155,11 +158,12 @@
 			    </dd>
             </dl>
 		</fieldset>
-        if (!string.IsNullOrEmpty(DonationInstructionsHtml)) { 
+     if (!string.IsNullOrEmpty(DonationInstructionsHtml))
+     { 
         <aside>
             @Html.Raw(DonationInstructionsHtml)
         </aside>
-         }
+     }
 		<div>
             @Html.UiSubmit("Submit")
             @if (campaign != null) {

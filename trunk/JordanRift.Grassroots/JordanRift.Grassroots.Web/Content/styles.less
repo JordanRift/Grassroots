@@ -291,7 +291,7 @@ p {
 			}
 
 				.org-summary > .social,
-				.campaign-summary .share,
+				.url .share,
 				.thanks .share ul {
 					display: block;
 					position: relative;
@@ -300,12 +300,16 @@ p {
 					width: 225px;
 				}
 
+				.url .share {
+					width: 400px;
+				}
+
 				.thanks .share ul {
 					margin: 20px 0px;
 				}
 
 					.org-summary > .social > li,
-					.campaign-summary .share li,
+					.url .share li,
 					.thanks .share li {
 						display: block;
 						float: left;
@@ -450,7 +454,13 @@ p {
 				padding: 15px 0px;
 				float: right;
 				height: 20px;
+				text-align: center;
+				width: 400px;
 			}
+
+				.url > h3 {
+					padding-bottom: 5px;
+				}
 
 				.campaign-header > a > img {
 					border: 1px;
@@ -471,23 +481,22 @@ p {
 			width: 350px;
 		}
 
-			#main .campaign-summary .share ul {
+			#main .url .share ul {
 				width: 225px;
-				padding-top: 20px;
-				margin: 10px auto 0px; 
+				margin: 0px auto; 
 			}
 
-			#main .campaign-summary .share .email {
+			#main .url .share .email {
 				width: 300px;
 			}
 
-				.campaign-summary .share .email li {
+				.url .share .email li {
 					width: 75px;
 					display: block;
 					float: left;
 				}
 
-					.campaign-summary .email li a {
+					.url .email li a {
 						display: block;
 						width: 50px;
 						margin: 0px auto;
@@ -500,7 +509,7 @@ p {
 				padding: 10px 0px;
 			}
 
-				#main .campaign-summary .buttons a {
+				#main .url .buttons a {
 					display: inline-block;
 					*display: inline;
 					margin: 0px 10px;

@@ -15,8 +15,6 @@
 	// You should have received a copy of the GNU General Public License
 	// along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 	//
-
-    var socialClassName = Model.CurrentUserIsOwner ? "email" : "social-networks";
 }
 
 	<section class="summary campaign-summary">
@@ -34,16 +32,6 @@
             <div class="buttons">
                 @Html.ActionLink("I want my own page", "GetStarted", new { controller = "Campaign", area = "" }, new { title = "I want my own page", @class = "ui-button ui-corner-all" })
             </div>
-            <div class="share">
-			    <ul class="@socialClassName">
-				    <li>@Html.Partial("TweetButton")</li>
-                    <li>@Html.Partial("FacebookLikeButton")</li>
-                    <li>@Html.Partial("PlusOneButton")</li>
-			    @if (Model.CurrentUserIsOwner) {
-				    <li class="email-button"><a href="#" id="email-blast" title="Email your friends"><img src="@Url.Content("~/Content/images/email.png")" alt="Email your friends" /></a></li>
-			    }
-			    </ul>
-		    </div>
 		</div>
         <div class="user-description">
             <h2>In @Model.FirstName's Words...</h2>

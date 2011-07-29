@@ -47,10 +47,11 @@
                     @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </dd>
                 @if (Model.AmountIsConfigurable) { 
-                <dt><p>@Model.GoalName cost around @Model.DefaultAmount.ToString("C"). Now set your goal and LET'S GO!</p></dt>
+                <dt><p>@Model.GoalName cost around @Model.DefaultAmount.ToString("C"). We encourage all campaigners try funding one.</p></dt>
                 <dd class="currency">
-                    <span class="meta">$ </span>@Html.TextBoxFor(m => m.AmountString, new { placeholder = "ex: 3000.00" })
+                    <span class="meta">$ </span>@Html.TextBoxFor(m => m.AmountString, new { placeholder = Model.DefaultAmount.ToString() })
                     @Html.ValidationMessageFor(m => m.AmountString, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
+                    <p>Now set your goal and LET'S GO!</p>
                 </dd>
                 }
             </dl>

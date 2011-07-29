@@ -235,7 +235,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     return RedirectToAction("Edit", new { id = model.CauseTemplateID });
                 }
 
-                OrganizationRepository.Save();
+                causeTemplateRepository.Save();
             }
 
 		    TempData["UserFeedback"] = "Your changes have been saved. Please allow a few minutes for them to take effect.";
