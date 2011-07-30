@@ -45,7 +45,11 @@ namespace JordanRift.Grassroots.Framework.Helpers
             SaveAllChangesAtScopeEnd = saveAllChangesAtScopeEnd;
             objectContext = new GrassrootsContext();
             isDisposed = false;
-            Thread.BeginThreadAffinity();
+
+            // TODO: Come up with cleaner solution to partial trust security policy issues around setting Thread Affinity
+            try { Thread.BeginThreadAffinity(); }
+            catch { }
+            
             currentScope = this;
         }
 
@@ -54,7 +58,10 @@ namespace JordanRift.Grassroots.Framework.Helpers
             if (!isDisposed)
             {
                 currentScope = null;
-                Thread.EndThreadAffinity();
+                
+                // TODO: Come up with cleaner solution to partial trust security policy issues around setting Thread Affinity
+                try { Thread.EndThreadAffinity(); }
+                catch { }
                 
                 if (SaveAllChangesAtScopeEnd)
                 {
