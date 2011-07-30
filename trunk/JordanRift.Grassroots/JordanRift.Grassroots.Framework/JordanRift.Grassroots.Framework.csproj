@@ -123,6 +123,7 @@
     <Compile Include="Helpers\ElmahHandleErrorAttribute.cs" />
     <Compile Include="Helpers\FileSaveServiceFactory.cs" />
     <Compile Include="Helpers\HttpCache.cs" />
+    <Compile Include="Helpers\LoadBalancedRequireHttpsAttribute.cs" />
     <Compile Include="Helpers\ModelHelpers.cs" />
     <Compile Include="Helpers\ICache.cs" />
     <Compile Include="Helpers\NullCache.cs" />
