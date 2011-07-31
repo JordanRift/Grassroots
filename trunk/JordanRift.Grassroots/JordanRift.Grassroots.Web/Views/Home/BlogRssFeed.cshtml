@@ -19,7 +19,8 @@
 }
 
 <div class="blog-post column">
-    <h2><a href="@Model.Url" title="@Model.Title" target="_blank">@Model.Title</a></h2>
+    <h2>From the @OrganizationName Blog</h2>
+    <p><strong><a href="@Model.Url" title="@Model.Title" target="_blank">@Model.Title</a></strong></p>
     <span class="meta">@Model.PostDate.ToString("MMMM dd")</span>
     @Html.Raw(Model.Summary)
     <a href="@Model.Url" title="Read more..." target="_blank">Read more...</a>

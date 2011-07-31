@@ -950,3 +950,19 @@ hgroup.thanks > h3 {
 .how-it-works {
     float: right;
 }
+
+/* about page */
+
+.about-page .how-it-works {
+    width: 900px;
+    height: 1200px;
+    margin: 0px auto;
+    padding: 0px;
+    background: url(images/about-page.png) no-repeat;
+}
+
+.about-page > ul > li {
+    display: inline-block;
+    *display: inline;
+    margin-right: 10px;
+}
