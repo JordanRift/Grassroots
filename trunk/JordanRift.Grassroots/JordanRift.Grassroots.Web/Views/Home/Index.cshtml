@@ -43,11 +43,16 @@
         @Html.Raw(HomePageHtml)
     </div>
     }
+    @if (!string.IsNullOrEmpty(Model.TwitterName) || !string.IsNullOrEmpty(Model.BlogRssUrl)) {
     <div class="feeds">
+        @if (!string.IsNullOrEmpty(Model.TwitterName)) {
         @Html.Action("TwitterFeed", new { controller = "Home" })
-        @Html.Action("BlogRssFeed", new { controller = "Home" })
+        }
+        @if (!string.IsNullOrEmpty(Model.BlogRssUrl)) {
+            @Html.Action("BlogRssFeed", new { controller = "Home" })
+        }
     </div>
-
+    }
 @section DocumentBottom {
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 }
