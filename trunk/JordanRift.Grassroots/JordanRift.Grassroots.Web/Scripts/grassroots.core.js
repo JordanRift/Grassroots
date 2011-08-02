@@ -1,4 +1,5 @@
 ﻿/// <reference path="jquery-1.5.2-vsdoc.js" />
+/// <reference path="modernizr-1.7.js" />
 
 //
 // Grassroots is free software: you can redistribute it and/or modify
@@ -77,7 +78,7 @@ var Grassroots = (function() {
                 culture: "en",
                 allowPaging: true,
                 ensureColumnsPxWidth: true,
-                columns: cols,
+                columns: cols
             });
         },
         initPayment: function () {
@@ -136,7 +137,7 @@ var Grassroots = (function() {
                                 type: "POST",
                                 contentType: "application/json",
                                 dataType: "json",
-                                data: jsonData,
+                                data: jsonData
                             })
                             .success(function(result) {
                                 $(".notification").empty();
@@ -168,13 +169,13 @@ var Grassroots = (function() {
 
                     // Reset jquery validation
                     $(".ui-state-error")
-                            .removeClass("field-validation-error")
-                            .addClass("field-validation-valid");
+                        .removeClass("field-validation-error")
+                        .addClass("field-validation-valid");
                 }
             });
         },
         tweet: function (str) {
-            mywindow = window.open('http://twitter.com/share?url=' + str, "Tweet_widow", "channelmode=no,directories=no,location=no,menubar=no,scrollbars=no,toolbar=no,status=no,width=500,height=375,left=300,top=200");
+            var mywindow = window.open('http://twitter.com/share?url=' + str, "Tweet_widow", "channelmode=no,directories=no,location=no,menubar=no,scrollbars=no,toolbar=no,status=no,width=500,height=375,left=300,top=200");
             mywindow.focus();
         },
         getTweetCount: function(url) {

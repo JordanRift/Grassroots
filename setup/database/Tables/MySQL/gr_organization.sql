@@ -15,7 +15,7 @@ CREATE TABLE `gr_organization` (
   `PaymentGatewayApiSecret` varchar(100) NOT NULL DEFAULT '''''',
   `FacebookPageUrl` varchar(200) NOT NULL DEFAULT '''''''''',
   `VideoEmbedHtml` varchar(1000) NOT NULL DEFAULT '''''',
-  `TwitterName` varchar(50) NOT NULL DEFAULT '''''',
+  `TwitterName` varchar(50) DEFAULT '''''''''',
   `BlogRssUrl` varchar(250) DEFAULT '''''',
   `ThemeName` varchar(50) NOT NULL DEFAULT '''''',
   PRIMARY KEY (`OrganizationID`)
