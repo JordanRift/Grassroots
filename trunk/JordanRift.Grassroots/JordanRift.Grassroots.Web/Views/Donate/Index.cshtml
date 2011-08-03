@@ -37,14 +37,13 @@
     }
 </hgroup>
  
- @if (campaign != null)
- { 
+ @if (campaign != null) { 
 @Html.Action("ProgressBar", new { controller = "Campaign", id = campaign.CampaignID })
  }
 
 <div class="donate-form">
-	@using (Html.BeginForm("ProcessDonation", "Donate", new { Area = "", slug = urlSlug }))
- {
+    <p>@OrganizationName is a registered 501c3. Contributions are tax deductible to the fullest extent of the law.</p>
+	@using (Html.BeginForm("ProcessDonation", "Donate", new { Area = "", slug = urlSlug })) {
 		@Html.ValidationSummary(false, "Unable to process your payment. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
 		<fieldset class="column">
             <legend>Payment Information</legend>
