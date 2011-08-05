@@ -236,7 +236,9 @@
     <Content Include="Content\themes\onemission\images\100-percent-hover.gif" />
     <Content Include="Content\themes\onemission\images\100-percent.gif" />
     <Content Include="Content\themes\onemission\images\100-percent.png" />
-    <Content Include="Content\themes\onemission\images\about-page.png" />
+    <Content Include="Content\themes\onemission\images\about-row-1.png" />
+    <Content Include="Content\themes\onemission\images\about-row-2.png" />
+    <Content Include="Content\themes\onemission\images\about-row-3.png" />
     <Content Include="Content\themes\onemission\images\admin-handle.png" />
     <Content Include="Content\themes\onemission\images\after.jpg" />
     <Content Include="Content\themes\onemission\images\banner-shadow.png" />

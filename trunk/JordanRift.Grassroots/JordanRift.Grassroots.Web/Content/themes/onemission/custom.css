@@ -277,7 +277,8 @@ fieldset,
 #main .get-started .campaign-types li,
 #main .get-started .projects .selected,
 #main .get-started .campaign-types .selected,
-#main .campaign-history  {
+#main .campaign-history,
+.panel  {
 	border-radius: 10px;
 	-mox-border-radius: 10px;
 	-webkit-border-radius: 10px;
