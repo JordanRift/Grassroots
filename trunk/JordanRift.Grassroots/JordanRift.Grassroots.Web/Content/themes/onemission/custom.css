@@ -957,7 +957,7 @@ hgroup.thanks > h3 {
 .about-page > div {
     width: 900px;
     margin: 0px auto 20px;
-    padding: 0px;
+    padding: 20px 0px;
 }
 
 .about-page > .panel > .how-it-works-1 {
