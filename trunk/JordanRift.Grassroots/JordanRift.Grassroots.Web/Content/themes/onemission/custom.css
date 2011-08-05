@@ -954,12 +954,25 @@ hgroup.thanks > h3 {
 
 /* about page */
 
-.about-page .how-it-works {
+.about-page > div {
     width: 900px;
-    height: 1200px;
-    margin: 0px auto;
+    margin: 0px auto 20px;
     padding: 0px;
-    background: url(images/about-page.png) no-repeat;
+}
+
+.about-page > .how-it-works-1 {
+    background: url(images/about-row-1.png) no-repeat;
+    height: 444px;
+}
+
+.about-page > .how-it-works-2 {
+    background: url(images/about-row-2.png) no-repeat;
+    height: 383px;
+}
+
+.about-page > .how-it-works-3 {
+    background: url(images/about-row-3.png) no-repeat;
+    height: 381px;
 }
 
 .about-page > ul > li {
