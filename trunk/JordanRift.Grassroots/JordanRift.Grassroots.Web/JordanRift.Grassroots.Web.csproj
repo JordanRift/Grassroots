@@ -208,6 +208,7 @@
   <ItemGroup>
     <Content Include="Content\images\avatar.jpg" />
     <Content Include="Content\images\campaign.png" />
+    <Content Include="Content\images\delicious.png" />
     <Content Include="Content\images\email.png" />
     <Content Include="Content\images\fb-connect.png" />
     <Content Include="Content\images\fb-login.jpg" />
