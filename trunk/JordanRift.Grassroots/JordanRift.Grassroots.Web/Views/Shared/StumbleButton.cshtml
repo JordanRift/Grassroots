@@ -13,17 +13,16 @@
     // You should have received a copy of the GNU General Public License
     // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
     //
-    
+
     Layout = null;
-    var urlToLike = ViewBag.UrlToLike ?? Url.Abs(@Request.RawUrl);
+    var urlToLike = ViewBag.UrlToLike ?? "";
 }
 
-<div class="twitter-vertical">
-    <div class="count"><a href="http://twitter.com/search?q=@urlToLike">0</a></div>
-    <a rel="nofollow" href="javascript:Grassroots.tweet('@urlToLike')" class="tweet">Tweet</a>
-    <script type="text/javascript">
-        $(function () {
-            Grassroots.getTweetCount("@urlToLike");
-        });
-    </script>
+<div class="stumble-vertical">
+@if (!string.IsNullOrEmpty(urlToLike)) {
+    <script src="http://www.stumbleupon.com/hostedbadge.php?s=5&r=@urlToLike"></script>
+}
+else {
+    <script src="http://www.stumbleupon.com/hostedbadge.php?s=5"></script>
+}
 </div>
