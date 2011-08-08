@@ -581,6 +581,8 @@
     <Content Include="Content\themes\onemission\League_Gothic-webfont.woff" />
     <Content Include="Views\Shared\EditorTemplates\DataType.cshtml" />
     <Content Include="Views\Admin\OrganizationSettingEditList.cshtml" />
+    <Content Include="Views\Shared\StumbleButton.cshtml" />
+    <Content Include="Views\Shared\DeliciousButton.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
