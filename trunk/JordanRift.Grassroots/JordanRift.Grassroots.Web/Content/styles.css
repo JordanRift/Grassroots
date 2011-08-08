@@ -235,6 +235,9 @@ header h1 a {
   margin: 20px auto;
   width: 225px;
 }
+.org-summary > .social {
+  width: 375px;
+}
 .url .share {
   width: 400px;
 }
@@ -1031,6 +1034,30 @@ div.check-box {
 #main .plus-one-vertical, #main .fb-like-vertical, #main .twitter-vertical {
   margin: 0px auto;
   padding: 0px 5px;
+}
+#main .delicious-vertical, #main .stumble-vertical {
+  width: 50px;
+  margin: 0px auto;
+}
+.delicious-vertical > .icon {
+  background: url(images/delicious.png) no-repeat;
+  width: 50px;
+  height: 39px;
+}
+.delicious-vertical > a {
+  font-size: 9px;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  color: #5897d4;
+  padding: 3px 0px;
+  margin: 3px 0px 0px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -khtml-border-radius: 2px;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
 }
 #main .plus-one-vertical {
   width: 50px;
