@@ -359,11 +359,11 @@ fieldset,
 		}
 
 		.get-started .campaign-types #birthday a {
-			background: url(images/birthday.png) no-repeat center -220px;
+			background: url(images/special-occasion.png) no-repeat center -220px;
 		}
 		
 		.get-started .campaign-types #birthday.selected a {
-			background: url(images/birthday.png) no-repeat center 80px;
+			background: url(images/special-occasion.png) no-repeat center 80px;
 		}
 
 		.get-started .campaign-types #sports a {
