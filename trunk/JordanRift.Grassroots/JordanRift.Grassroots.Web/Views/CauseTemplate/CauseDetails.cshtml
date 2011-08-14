@@ -20,7 +20,6 @@
 
 <hgroup>
     <h1>@Model.Name</h1>
-    <h3>Project Details</h3>
 </hgroup>
 <section class="cause-details">
     <span class="reference-number">Reference ID: @Model.ReferenceNumber</span>
@@ -71,8 +70,8 @@
                 <iframe width="425" height="253" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://www.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=@Model.Latitude,@Model.Longitude&amp;ll=@Model.Latitude,@Model.Longitude&spn=0.29351,0.639438&output=embed&z=14"></iframe>
             </div>
             <ul>
-                <li><strong>Latitude:</strong> @Model.Latitude</li>
-                <li><strong>Longitude:</strong> @Model.Longitude</li>
+                <li><strong>Latitude:</strong> @Model.Latitude.ToString("F5")</li>
+                <li><strong>Longitude:</strong> @Model.Longitude.ToString("F5")</li>
             </ul>
         </div>
         <div class="break"></div>
