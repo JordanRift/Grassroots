@@ -733,21 +733,22 @@ header h1 a {
   display: block;
   float: left;
   margin-right: 20px;
+  width: 450px;
 }
 .recipients > ul {
   display: block;
   float: left;
-  width: 720px;
+  width: 430px;
 }
 .recipients > ul > li {
   display: block;
-  width: 350px;
+  width: 215px;
   float: left;
   text-align: center;
   padding-bottom: 20px;
 }
 .recipients li > p {
-  font-size: 18px;
+  font-size: 17px;
 }
 .recpients li > span {
   font-size: 16px;
@@ -797,6 +798,7 @@ header h1 a {
 }
 .media > .map > ul {
   display: block;
+  text-align: center;
 }
 .media > .map li {
   display: inline;
