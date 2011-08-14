@@ -246,7 +246,6 @@
     <Content Include="Content\themes\onemission\images\banner.png" />
     <Content Include="Content\themes\onemission\images\barrio.jpg" />
     <Content Include="Content\themes\onemission\images\before.jpg" />
-    <Content Include="Content\themes\onemission\images\birthday.png" />
     <Content Include="Content\themes\onemission\images\blogger-hover.gif" />
     <Content Include="Content\themes\onemission\images\blogger.gif" />
     <Content Include="Content\themes\onemission\images\bubble-bottom.png" />
@@ -303,6 +302,7 @@
     <Content Include="Content\themes\onemission\images\sort-down.png" />
     <Content Include="Content\themes\onemission\images\sort-up.png" />
     <Content Include="Content\themes\onemission\images\sort.png" />
+    <Content Include="Content\themes\onemission\images\special-occasion.png" />
     <Content Include="Content\themes\onemission\images\spiritual.jpg" />
     <Content Include="Content\themes\onemission\images\sports.png" />
     <Content Include="Content\themes\onemission\images\three.png" />
