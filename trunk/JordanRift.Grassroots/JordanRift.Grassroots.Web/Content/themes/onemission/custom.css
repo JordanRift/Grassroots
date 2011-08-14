@@ -290,6 +290,15 @@ fieldset,
 	position: relative;
 }
 
+#main .recipients > ul {
+    width: 390px;
+    padding: 20px;
+}
+
+    .recipients > ul > li {
+        width: 195px;
+    }
+
 #main .url {
     border-radius: 10px;
 	-mox-border-radius: 10px;
