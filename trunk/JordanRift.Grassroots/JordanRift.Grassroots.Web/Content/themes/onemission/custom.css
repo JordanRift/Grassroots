@@ -415,7 +415,8 @@ fieldset,
 	}
 
 dd > .meta,
-dt > .meta {
+dt > .meta,
+#main .reference-number {
     font-size: 12px;
     color: #777;
     font-style: italic;
