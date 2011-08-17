@@ -48,18 +48,17 @@ a:hover {
 		float: none;
 		height: 260px;
 		z-index: 3;
-		width: 900px;
 		margin: 0px auto;
 	}
 
         header > hgroup > h1 {
 	        display: block;
-	        margin: 75px 0px 0px 40px;
+	        margin: 168px 0px 0px 40px;
 	        width: 254px;
-	        height: 190px;
+	        height: 50px;
 	        float: left;
 	        position: relative;
-	        background: url(images/logo.png) no-repeat;
+	        background: url(images/web-logo.png) no-repeat;
 	        text-indent: -2000px;
 	        overflow: hidden;
         }
@@ -92,7 +91,7 @@ a:hover {
 				    font-family: 'LeagueGothicRegular', Impact, Arial, sans-serif;
 				    font-size: 26px;
 				    text-transform: uppercase;
-				    padding: 15px 20px 10px 20px;
+				    padding: 15px 20px 10px;
 				    display: block;
 		        }
 		    
