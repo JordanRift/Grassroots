@@ -338,6 +338,7 @@
     <Content Include="Content\themes\onemission\images\ui-icons_ff0000_256x240.png" />
     <Content Include="Content\themes\onemission\images\ui-icons_ffd6a0_256x240.png" />
     <Content Include="Content\themes\onemission\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\onemission\images\web-logo.png" />
     <Content Include="Content\themes\onemission\images\youtube-hover.gif" />
     <Content Include="Content\themes\onemission\images\youtube.gif" />
     <Content Include="Content\themes\onemission\jquery-ui-1.8.11.custom.css" />
