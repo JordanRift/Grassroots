@@ -34,10 +34,11 @@ namespace JordanRift.Grassroots
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            // Require https globally, use custom filter to play nicely with load balanced cloud servers
+            filters.Add(new LoadBalancedRequireHttpsAttribute());
+
             filters.Add(new ElmahHandleErrorAttribute());
             filters.Add(new HandleErrorAttribute());
-            // Require https globally
-            //filters.Add(new RequireHttpsAttribute()); 
         }
 
         public static void RegisterRoutes(RouteCollection routes)

@@ -182,7 +182,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 TempData["UserFeedback"] = "Sorry, we were not able to connect with your Facebook account. Please try again.";
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "UserProfile");
         }
 
         /// <summary>

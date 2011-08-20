@@ -14,7 +14,7 @@
     <AssemblyName>JordanRift.Grassroots.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -217,7 +217,6 @@
     <Content Include="Content\images\tweetn.png" />
     <Content Include="Content\jquery.wijmo-complete.1.2.0.css" />
     <Content Include="Content\jquery.wijmo-open.1.2.0.css" />
-    <Content Include="Content\styles.css" />
     <Content Include="Content\themes\grassroots-theme\images\banner-top.png" />
     <Content Include="Content\themes\grassroots-theme\images\birthday-hover.png" />
     <Content Include="Content\themes\grassroots-theme\images\birthday.png" />
@@ -599,9 +598,9 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1369</DevelopmentServerPort>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>44300</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>https://localhost:44300/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
