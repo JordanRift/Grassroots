@@ -136,7 +136,7 @@ namespace JordanRift.Grassroots.Framework.Entities
                                      { "x_type", "AUTH_CAPTURE" },
                                      { "x_method", payment.PaymentType.ToString() },
                                      { "x_amount", payment.Amount.ToString() },
-                                     { "x_description", payment.Notes },
+                                     { "x_description", payment.ToString() },
                                      { "x_first_name", payment.FirstName },
                                      { "x_last_name", payment.LastName },
                                      { "x_address", payment.AddressLine1 },

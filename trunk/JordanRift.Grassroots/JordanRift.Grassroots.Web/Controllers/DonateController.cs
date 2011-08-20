@@ -110,6 +110,12 @@ namespace JordanRift.Grassroots.Web.Controllers
                         TempData["UserFeedback"] = "Sorry, this campaign is inactive and can no longer receive donations.";
                         return RedirectToAction("Index", "Campaign", new { slug = urlSlug });
                     }
+                    else  // We know it's OK to process campaign donation. Add campaign info to Payment to pass through to payment gateway for reconciliation.
+                    {
+                        var userProfile = campaign.UserProfile;
+                        model.Notes = string.Format("Apply payment to {0} Campaign owned by {1} {2}", campaign.Title,
+                                                    userProfile.FirstName, userProfile.LastName);
+                    }
 
                     var provider = GetPaymentProvider();
                     var result = provider.Process(model);

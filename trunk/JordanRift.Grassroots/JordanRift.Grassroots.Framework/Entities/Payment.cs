@@ -108,8 +108,8 @@ namespace JordanRift.Grassroots.Framework.Entities
 
         public override string ToString()
         {
-            return string.Format("Donation from {0} {1} of {2}, Email: {3}, Phone: {4}, Address: {5} {6}, {7} {8}",
-                    FirstName, LastName, Amount, Email, PrimaryPhone, AddressLine1, City, State, ZipCode);
+            return string.Format("Donation from {0} {1} of {2}, Email: {3}, Phone: {4}, Address: {5} {6}, {7} {8}, Notes: {9}",
+                    FirstName, LastName, Amount, Email, PrimaryPhone, AddressLine1, City, State, ZipCode, Notes);
         }
     }
 }
