@@ -26,12 +26,18 @@
         });
     </script>
 }
-
+@if (!string.IsNullOrEmpty(CampaignUnavailableHtml)) {
+<div class="get-started">
+    @Html.Raw(CampaignUnavailableHtml)
+</div>
+}
+else {
 <hgroup>
     <h1>Get Started</h1>
     <h3>Tell us about the campaign you are starting...</h3>
 </hgroup>
 <div class="get-started">
+    
     @using (Html.BeginForm("Create", "Campaign")) {
         @Html.HiddenFor(m => m.CauseTemplateID)
         @Html.HiddenFor(m => m.CampaignType)
@@ -85,4 +91,5 @@
             @Html.ActionLink("Cancel", "Index", new { controller = "Home", area = "" }, new { title = "Cancel", @class = "cancel" })
         </div>
     }
-</div>
+</div>        
+}
