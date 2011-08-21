@@ -457,6 +457,7 @@ header h1 a {
 .share-campaign > .closed-instructions {
   float: left;
   padding-left: 20px;
+  width: 620px;
 }
 #main .summary {
   min-height: 323px;
