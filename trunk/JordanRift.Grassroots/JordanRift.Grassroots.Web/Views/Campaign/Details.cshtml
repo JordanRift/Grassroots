@@ -38,7 +38,7 @@
         }
 		<div class="url">
             <h2>Share this page with your friends</h2>
-            <span class="url">@Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = Model.UrlSlug }))</span>
+            <span>@Url.ToPublicUrl(Url.Action("Index", "Campaign", new { slug = Model.UrlSlug }))</span>
             <div class="share">
 			    <ul class="@socialClassName">
 				    <li>@Html.Partial("TweetButton")</li>

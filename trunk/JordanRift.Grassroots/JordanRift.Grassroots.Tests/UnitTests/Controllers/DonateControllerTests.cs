@@ -161,6 +161,30 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
+        public void ProcessDonation_Should_Append_Campaign_Info_To_Payment_Note()
+        {
+            var mocks = new MockRepository();
+            var payment = EntityHelpers.GetValidCCPayment();
+
+            var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            var organization = EntityHelpers.GetValidOrganization();
+            campaign.UserProfile = userProfile;
+            campaign.UrlSlug = "goodCampaign";
+            campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = (Organization)organization;
+            campaignRepository.Add(campaign);
+
+            SetUpController(mocks, payment);
+            mocks.ReplayAll();
+
+            var result = controller.ProcessDonation(payment, campaign.UrlSlug);
+            Assert.IsTrue(payment.Notes.Contains(campaign.Title));
+            Assert.IsTrue(payment.Notes.Contains(userProfile.FirstName));
+            Assert.IsTrue(payment.Notes.Contains(userProfile.LastName));
+        }
+
+        [Test]
         public void ProcessDonation_Should_Redirect_To_ThankYou_When_Successful_And_User_Logged_In()
         {
             var mocks = new MockRepository();

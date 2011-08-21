@@ -34,6 +34,7 @@ namespace JordanRift.Grassroots.Web.Helpers.UI
         public string HomePageHtml { get { return cacheManager.Get<string>(CacheKeys.ORG_HOME_PAGE_HTML); } }
         public string DonationInstructionsHtml { get { return cacheManager.Get<string>(CacheKeys.ORG_DONATE_HTML); } }
         public string AnalyticsTrackingCode { get { return cacheManager.Get<string>(CacheKeys.ORG_ANALYTICS_CODE); } }
+        public string CampaignUnavailableHtml { get { return cacheManager.Get<string>(CacheKeys.ORG_CAMPAIGNS_UNAVAILABLE_HTML); } }
 
         protected GrassrootsWebViewPage()
         {

@@ -119,6 +119,7 @@ namespace JordanRift.Grassroots.Framework.Entities
         public const string ORG_DONATE_HTML = "Organization.DonationInstructionsHtml";
         public const string ORG_FOOTER_HTML = "Organization.FooterHtml";
         public const string ORG_ANALYTICS_CODE = "Organization.AnalyticsTrackingCode";
+        public const string ORG_CAMPAIGNS_UNAVAILABLE_HTML = "Organization.CampaignsUnavailableHtml";
     }
 
     public static class OrgSettingKeys
@@ -132,5 +133,6 @@ namespace JordanRift.Grassroots.Framework.Entities
         public const string PUBLIC_ABOUT_PAGE_URL = "PublicAboutPageUrl";
         public const string PUBLIC_SERVICES_PAGE_URL = "PublicServicesPageUrl";
         public const string DONATION_NOTIFICATION_ADDRESS = "DonationNotificationAddress";
+        public const string CAMPAIGNS_UNAVAILABLE_HTML = "CampaignsUnavailableHtml";
     }
 }
