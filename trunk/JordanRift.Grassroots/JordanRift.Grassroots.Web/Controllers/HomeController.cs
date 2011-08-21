@@ -41,6 +41,11 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         public ActionResult Index()
         {
+            if (Request.QueryString["email-signup"] != null)
+            {
+                TempData["UserFeedback"] = "Thank you for your interest. We'll be in touch soon!";
+            }
+
             var model = Mapper.Map<Organization, OrganizationDetailsModel>(organization);
             return View("Index", model);
         }
