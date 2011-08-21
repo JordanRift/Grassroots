@@ -125,7 +125,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
                 if (Campaigns != null)
                 {
                     total = Campaigns
-                        .Where(c => c.Title != "General")
+                        .Where(c => !c.IsGeneralFund && c.IsActive)
                         .Sum(campaign => (from c in campaign.CampaignDonors
                                           where c.Approved
                                           select c.Amount).Sum());
