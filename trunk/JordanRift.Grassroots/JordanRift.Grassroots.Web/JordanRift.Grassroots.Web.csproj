@@ -217,6 +217,8 @@
     <Content Include="Content\images\tweetn.png" />
     <Content Include="Content\jquery.wijmo-complete.1.2.0.css" />
     <Content Include="Content\jquery.wijmo-open.1.2.0.css" />
+    <Content Include="Content\styles.css" />
+    <Content Include="Content\themes\grassroots-theme\custom.css" />
     <Content Include="Content\themes\grassroots-theme\images\banner-top.png" />
     <Content Include="Content\themes\grassroots-theme\images\birthday-hover.png" />
     <Content Include="Content\themes\grassroots-theme\images\birthday.png" />
