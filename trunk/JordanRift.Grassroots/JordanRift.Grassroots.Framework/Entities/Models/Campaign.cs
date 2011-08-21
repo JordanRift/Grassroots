@@ -45,6 +45,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public decimal GoalAmount { get; set; }
         public string UrlSlug { get; set; }
         public int? CampaignType { get; set; }
+        public bool IsGeneralFund { get; set; }
 
         public virtual ICollection<CampaignDonor> CampaignDonors { get; set; }
 
