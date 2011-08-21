@@ -57,9 +57,13 @@ namespace JordanRift.Grassroots.Framework.Data
             return ObjectContext.Campaigns.FirstOrDefault(c => c.UrlSlug.Equals(urlSlug, StringComparison.CurrentCultureIgnoreCase));
         }
 
+        /// <summary>
+        /// Finds the most recent campaign created that is tagged with "IsGeneralFund".
+        /// </summary>
+        /// <returns>Latest Campaign tagged with "IsGeneralFund".</returns>
         public Campaign GetDefaultCampaign()
         {
-            return ObjectContext.Campaigns.FirstOrDefault(c => c.Title == "General");
+            return ObjectContext.Campaigns.Where(c => c.IsGeneralFund).OrderByDescending(c => c.StartDate).FirstOrDefault();
         }
 
         public bool Exists(string urlSlug)

@@ -13,7 +13,10 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.Collections.Specialized;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Web.Controllers;
 using NUnit.Framework;
@@ -96,7 +99,16 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             twitterService = mocks.DynamicMock<ITwitterService>();
             blogService = mocks.DynamicMock<IBlogService>();
+            var context = mocks.Stub<HttpContextBase>();
+            var request = mocks.Stub<HttpRequestBase>();
+            var queryString = mocks.Stub<NameValueCollection>();
+            var collection = new NameValueCollection { { "email-signup", "true" } };
+            context.Stub(x => x.Request).Return(request);
+            request.Stub(x => x.QueryString).Return(queryString);
+            queryString.Stub(x => x["email-signup"]).Return(collection["email-signup"]);
             controller = new HomeController(twitterService, blogService);
+            controller.ControllerContext = new ControllerContext(context, new RouteData(), controller);
+            mocks.ReplayAll();
         }
     }
 }

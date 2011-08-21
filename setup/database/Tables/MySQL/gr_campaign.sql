@@ -12,6 +12,7 @@ CREATE TABLE `gr_campaign` (
   `GoalAmount` decimal(11,2) NOT NULL DEFAULT '0.00',
   `UrlSlug` varchar(30) NOT NULL DEFAULT '''''',
   `CampaignType` int(11) DEFAULT '-1',
+  `IsGeneralFund` bit(1) DEFAULT b'0'
   PRIMARY KEY (`CampaignID`),
   KEY `urlslug_index` (`UrlSlug`),
   KEY `Campaign_CauseTemplate_FK` (`CauseTemplateID`),

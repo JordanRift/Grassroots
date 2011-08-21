@@ -112,11 +112,16 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
             return total;
         }
 
+        public decimal CalculateTotalDonations()
+        {
+            return CalculateTotalDonations(false);
+        }
+
         /// <summary>
         /// Calculates the total raised across all campaigns of the organization.
         /// </summary>
         /// <returns>Total raised</returns>
-        public decimal CalculateTotalDonations()
+        public decimal CalculateTotalDonations(bool includeInactiveCampaigns = false)
         {
             var total = 0m;
 
@@ -124,11 +129,20 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
             {
                 if (Campaigns != null)
                 {
-                    total = Campaigns
-                        .Where(c => c.Title != "General")
-                        .Sum(campaign => (from c in campaign.CampaignDonors
-                                          where c.Approved
-                                          select c.Amount).Sum());
+                    IEnumerable<Campaign> campaigns;
+
+                    if (includeInactiveCampaigns)
+                    {
+                        campaigns = Campaigns.Where(c => !c.IsGeneralFund);
+                    }
+                    else
+                    {
+                        campaigns = Campaigns.Where(c => !c.IsGeneralFund && c.IsActive);
+                    }
+
+                    total = campaigns.Sum(campaign => (from c in campaign.CampaignDonors
+                                                       where c.Approved
+                                                       select c.Amount).Sum());
                 }
             }
             catch (ObjectDisposedException ex) { Logger.LogError(ex); }

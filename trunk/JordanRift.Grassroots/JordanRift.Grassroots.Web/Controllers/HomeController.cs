@@ -112,7 +112,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                             {
                                 ProjectsCompleted = causes != null ? causes.Count() : 0,
                                 ProjectsCompletedLabel = ModelHelpers.GetCausesLabelText(causes),
-                                DollarsRaised = organization.CalculateTotalDonations(),
+                                DollarsRaised = organization.CalculateTotalDonations(includeInactiveCampaigns: true),
                                 Donations = organization.GetDonationCount(),
                                 HoursServed = organization.Causes != null ? organization.Causes.Sum(c => c.HoursVolunteered.GetValueOrDefault()) : 0,
                             };
