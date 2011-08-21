@@ -54,7 +54,8 @@ namespace JordanRift.Grassroots.Tests.Helpers
                            Title = "My Campaign",
                            Description = "This is my super awesome campaign",
                            UrlSlug = "mycampaign",
-                           ImagePath = "content/images/campaigns/mycampaign.jpg"
+                           ImagePath = "content/images/campaigns/mycampaign.jpg",
+                           IsGeneralFund = false
                        };
         }
 

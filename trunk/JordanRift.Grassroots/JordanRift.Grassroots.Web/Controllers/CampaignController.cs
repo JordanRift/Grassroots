@@ -178,6 +178,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     campaign.EndDate = DateTime.Now.AddDays(causeTemplate.DefaultTimespanInDays);
                     campaign.ImagePath = string.Empty;  // TODO: Refactor to either accept a file upload or remove field from db
                     campaign.Description = "You should say something about your campaign here...";
+                    campaign.IsGeneralFund = false;
 
                     organization.Campaigns.Add(campaign);
                     causeTemplate.Campaigns.Add(campaign);
