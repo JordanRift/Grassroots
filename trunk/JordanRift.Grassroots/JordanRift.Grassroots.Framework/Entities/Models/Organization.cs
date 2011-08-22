@@ -162,7 +162,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
             {
                 if (Campaigns != null)
                 {
-                    total = Campaigns.Where(c => c.Title != "General").Sum(c => c.GoalAmount);
+                    total = Campaigns.Where(c => !c.IsGeneralFund && c.IsActive).Sum(c => c.GoalAmount);
                 }
             }
             catch (ObjectDisposedException ex) { Logger.LogError(ex); }
@@ -179,7 +179,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
                 if (Campaigns != null)
                 {
                     total = (from c in Campaigns
-                             where c.CampaignDonors != null && c.Title != "General"
+                             where c.CampaignDonors != null && !c.IsGeneralFund
                              from d in c.CampaignDonors
                              where d.Approved && (d.DonationDate >= FiscalYearStart && d.DonationDate <= DateTime.Now)
                              select d)
