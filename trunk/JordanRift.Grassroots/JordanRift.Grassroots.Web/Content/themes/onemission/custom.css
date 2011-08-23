@@ -453,14 +453,13 @@ hgroup.thanks > h3 {
 
     footer {
         height: 90px;
-        width: 900px;
+        width: 980px;
         margin: 0px auto;
         padding-bottom: 0px;
     }
     
         footer > div {
             float: left;
-            width: 593px;
             position: relative;
         }
     
@@ -475,7 +474,7 @@ hgroup.thanks > h3 {
 			display: block;
 			float: left;
 			height: 80px;
-			width: 196px;
+			width: 225px;
 			border-right: 1px dotted #444444;
 			text-align: center;
 			position: relative;
