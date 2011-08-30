@@ -87,7 +87,7 @@ a:hover {
 		    }
 		
 		        #menu li a {
-		            color: #f1f1f1;
+		            color: #999;
 				    font-family: 'LeagueGothicRegular', Impact, Arial, sans-serif;
 				    font-size: 26px;
 				    text-transform: uppercase;
@@ -96,8 +96,8 @@ a:hover {
 		        }
 		    
 		        #menu li a:hover {
-					background: #444444;
-					color: #ffd6a0;
+					background: #f1f1f1;
+					color: #659C41;
 					text-decoration: none;
 				}
 				
@@ -111,13 +111,13 @@ a:hover {
         
             #main hgroup h3 em {
                 font-style: normal;
-                color: #ffd6a0;
+                color: #659C41;
             }
     
         #main h1 {
             font: 40px 'LeagueGothicRegular', Impact, Arial, sans-serif;
             letter-spacing: 0;
-		    color: #ffd6a0;
+		    color: #659C41;
 		    text-transform: uppercase;
 		    display: block;
 		    float: none;
@@ -311,7 +311,7 @@ fieldset,
 
     #main .url > h2 {
         font-size: 18px;
-        color: #FFD6A0;
+        color: #659C41;
     }
 
     #main .campaign-history {
@@ -453,14 +453,13 @@ hgroup.thanks > h3 {
 
     footer {
         height: 90px;
-        width: 900px;
+        width: 980px;
         margin: 0px auto;
         padding-bottom: 0px;
     }
     
         footer > div {
             float: left;
-            width: 593px;
             position: relative;
         }
     
@@ -475,7 +474,7 @@ hgroup.thanks > h3 {
 			display: block;
 			float: left;
 			height: 80px;
-			width: 196px;
+			width: 225px;
 			border-right: 1px dotted #444444;
 			text-align: center;
 			position: relative;
@@ -679,7 +678,7 @@ hgroup.thanks > h3 {
 		z-index: 15;
 		display: none;
 		top: -160px;
-		left: 243px;
+		left: 283px;
 	}
 	
 		#contact-bubble > div
@@ -690,7 +689,7 @@ hgroup.thanks > h3 {
 		
 		#contact-bubble a
 		{
-			color: #77553b;
+			color: #659C41;
 			text-decoration: none;
 			display: block;
 			padding: 10px 0px;
@@ -878,13 +877,13 @@ hgroup.thanks > h3 {
 					display: block;
 					font-size: 26px;
 					font-family: 'LeagueGothicRegular', Impact, Arial, Helvetica;
-					color: #4d603a !important;
+					color: #659C41 !important;
 					padding: 5px 0px 10px 0px;
 				}
 			
 				aside .sidebar .bubble .content a
 				{
-					color: #77553b;
+					color: #659C41;
 					text-decoration: none;
 				}
 				
