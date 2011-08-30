@@ -10,16 +10,16 @@
 }
 
 ::selection {
-  background: #ffd6a0;
-  color: #444;
+  background: #659C41;
+  color: #f1f1f1;
 }
 ::-moz-selection {
-  background: #ffd6a0;
-  color: #444;
+  background: #659C41;
+  color: #f1f1f1;
 }
 ::-webkit-selection {
-  background: #ffd6a0;
-  color: #444;
+  background: #659C41;
+  color: #f1f1f1;
 }
 
 body, html
@@ -619,9 +619,9 @@ hgroup.thanks > h3 {
 				margin: 0px auto;
 				margin-top: 2px;
 				display: block;
-				width: 122px;
+				width: 142px;
 				height: 22px;
-				padding-left: 18px;
+				padding-left: 39px;
 			}
 			
 				#tbEmail
