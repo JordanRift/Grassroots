@@ -51,7 +51,8 @@ namespace JordanRift.Grassroots.Framework.Helpers
 	    }
 
 		public static readonly IDictionary<string, string> ExpMonthDictionary = new Dictionary<string, string> {
-			{"01", "1"},
+			{"Month", "-1"},
+            {"01", "1"},
 			{"02", "2"},
 			{"03", "3"},
 			{"04", "4"},
@@ -78,7 +79,7 @@ namespace JordanRift.Grassroots.Framework.Helpers
 			{
 				if (ExpYearDictionary == null)
 				{
-					ExpYearDictionary = new Dictionary<string, string>();
+					ExpYearDictionary = new Dictionary<string, string> { {"Year", "-1"}};
 
 					for (int i = 0; i < 5; i++)
 					{
@@ -92,7 +93,8 @@ namespace JordanRift.Grassroots.Framework.Helpers
 		}
 
 		public static readonly IDictionary<string, string> CheckTypeDictionary = new Dictionary<string, string> {
-			{"Checking", "Checking"},
+			{"Check Type", "Checking"},
+            {"Checking", "Checking"},
 			{"Savings", "Savings"},
 			{"Business Checking", "BusinessChecking"}
 		};
@@ -103,7 +105,8 @@ namespace JordanRift.Grassroots.Framework.Helpers
 		}
 
 		public static readonly IDictionary<string, string> PaymentTypeDictionary = new Dictionary<string, string> {
-			{"Visa", "CC"},
+			{"Payment Type", ""},
+            {"Visa", "CC"},
 			{"Master Card", "CC"},
 			{"American Express", "CC"},
 			{"Discover", "CC"},
@@ -116,7 +119,8 @@ namespace JordanRift.Grassroots.Framework.Helpers
 		}
 
 		public static readonly IDictionary<string, string> GenderDictionary = new Dictionary<string, string> {
-			{"Male", "male"},
+			{"Gender", ""},
+            {"Male", "male"},
 			{"Female", "female"}
 		};
 
@@ -126,7 +130,8 @@ namespace JordanRift.Grassroots.Framework.Helpers
 		}
 
 		public static readonly IDictionary<string, string> MaritalStatusDictionary = new Dictionary<string, string> {
-			{"Single", "single"},
+			{"Marital Status", "-1"},
+            {"Single", "single"},
 			{"Married", "married"},
 			{"Divorced", "divorced"}
 		};
@@ -137,7 +142,8 @@ namespace JordanRift.Grassroots.Framework.Helpers
 		}
 
 		public static readonly IDictionary<string, string> StateDictionary = new Dictionary<string, string> {
-			{"Alabama", "AL"},
+			{"State", ""},
+            {"Alabama", "AL"},
 			{"Alaska", "AK"},
 			{"American Samoa", "AS"},
 			{"Arizona", "AZ"},

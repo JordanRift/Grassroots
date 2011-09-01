@@ -91,7 +91,7 @@ var Grassroots = (function() {
             $(".payment-type").change(function () {
                 var val = $(this).val();
 
-                if (val == "CC") {
+                if (val !== "ECheck") {
                     $(".bank-info").slideUp(function () {
                         $(".cc-info").slideDown();
                     });
