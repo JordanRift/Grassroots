@@ -47,6 +47,8 @@ namespace JordanRift.Grassroots.Web.Models
         public string ZipCode { get; set; }
         public DateTime DonationDate { get; set; }
         public string Comments { get; set; }
+        public bool IsAnonymous { get; set; }
+        public string DisplayName { get; set; }
 
         //
         // Payment fields

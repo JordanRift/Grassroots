@@ -45,6 +45,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public bool Approved { get; set; }
         public string ReferenceID { get; set; }
         public string Notes { get; set; }
+        public bool IsAnonymous { get; set; }
+        public string DisplayName { get; set; }
 
         public CampaignDonor()
         {

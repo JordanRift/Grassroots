@@ -27,6 +27,7 @@ using Mvc.Mailer;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
+    [Authorize]
     public class DonateController : GrassrootsControllerBase
     {
         private readonly ICampaignRepository campaignRepository;
@@ -167,6 +168,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             UserProfile userProfile = null;
             var donation = Mapper.Map<Payment, CampaignDonor>(payment);
+            PopulateDisplayName(donation);
             
             if (User != null)
             {
@@ -195,6 +197,18 @@ namespace JordanRift.Grassroots.Web.Controllers
             userProfile.State = donation.State;
             userProfile.PrimaryPhone = donation.PrimaryPhone;
             userProfile.ZipCode = donation.ZipCode;
+        }
+
+        private static void PopulateDisplayName(CampaignDonor donation)
+        {
+            if (donation.IsAnonymous && string.IsNullOrEmpty(donation.DisplayName))
+            {
+                donation.DisplayName = "Anonymous";
+            }
+            else if (!donation.IsAnonymous && string.IsNullOrEmpty(donation.DisplayName))
+            {
+                donation.DisplayName = string.Format("{0} {1}", donation.FirstName, donation.LastName);
+            }
         }
 
         private IPaymentProvider GetPaymentProvider()

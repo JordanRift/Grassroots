@@ -146,7 +146,9 @@ namespace JordanRift.Grassroots.Tests.Helpers
                            AccountNumber = "4111111111111111",
                            Expiration = DateTime.Now.AddYears(1),
                            Cid = "123",
-                           Amount = TestHelpers.GetAmount()
+                           Amount = TestHelpers.GetAmount(),
+                           DisplayName = string.Empty,
+                           IsAnonymous = false
                        };
         }
 

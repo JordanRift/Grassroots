@@ -369,6 +369,12 @@ namespace JordanRift.Grassroots.Web.Controllers
             foreach (var d in model.Donations)
             {
                 d.Title = campaign.Title;
+
+                // Make sure DisplayName gets set for records that existed prior to update.
+                if (string.IsNullOrEmpty(d.DisplayName))
+                {
+                    d.DisplayName = string.Format("{0} {1}", d.FirstName, d.LastName);
+                }
             }
 
             model.CurrentUserIsOwner = (User.Identity.Name.ToLower() == userProfile.Email.ToLower());

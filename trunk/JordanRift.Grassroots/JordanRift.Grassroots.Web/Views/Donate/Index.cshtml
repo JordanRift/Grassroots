@@ -108,6 +108,10 @@
         </fieldset>
         <fieldset class="column">
             <legend>Billing Information</legend>
+            <div class="check-box">
+                @Html.CheckBoxFor(model => model.IsAnonymous)
+                @Html.LabelFor(model => model.IsAnonymous)
+            </div>
             <dl>
 			    <dt>@Html.LabelFor(model => model.FirstName)</dt>
 			    <dd>
@@ -119,6 +123,8 @@
 				    @Html.TextBoxFor(model => model.LastName) 
 				    @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "ui-state-error ui-corner-all" }) 
 			    </dd>
+                <dt>@Html.LabelFor(model => model.DisplayName)</dt>
+                <dd>@Html.TextBoxFor(model => model.DisplayName, new { placeholder = "Santa Clause" })</dd>
 			    <dt>@Html.LabelFor(model => model.Email)</dt>
 			    <dd>
 				    @Html.TextBoxFor(model => model.Email) 
