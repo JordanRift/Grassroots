@@ -46,6 +46,8 @@ namespace JordanRift.Grassroots.Framework.Entities
         public string State { get; set; }
         public string ZipCode { get; set; }
         public string Comments { get; set; }
+        public bool IsAnonymous { get; set; }
+        public string DisplayName { get; set; }
         
         public bool IsValid
         {

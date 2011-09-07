@@ -34,11 +34,11 @@
             @foreach (var i in Model) { 
             <tr>
                 <td>
-                @if (i.UserProfileID.HasValue) { 
-                    @Html.ActionLink(string.Format("{0} {1}", i.FirstName, i.LastName), "Index", new { controller = "UserProfile", area = "", id = i.UserProfileID.Value }, new { title = string.Format("{0} {1}'s Profile", i.FirstName, i.LastName) })
+                @if (i.UserProfileID.HasValue && !i.IsAnonymous) { 
+                    @Html.ActionLink(i.DisplayName, "Index", new { controller = "UserProfile", area = "", id = i.UserProfileID.Value }, new { title = string.Format("{0}'s Profile", i.DisplayName) })
                 }
                 else {
-                    @i.FirstName @i.LastName
+                    @i.DisplayName
                 }
                 </td>
                 <td>@i.Amount.ToString("C")</td>

@@ -94,5 +94,11 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
         [Required(ErrorMessage = "Please enter your zip code.")]
         [RegularExpression(@"(^\d{5}$)|(^\d{5}-\d{4}$)", ErrorMessage = "Please enter a valid zip code.")]
         string ZipCode { get; set; }
+
+        [Display(Name = "Would you like to donate anonymously?")]
+        bool IsAnonymous { get; set; }
+
+        [Display(Name = "Display Name (optional)")]
+        string DisplayName { get; set; }
     }
 }

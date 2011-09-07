@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
@@ -214,7 +215,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
-        public void ProcessDonation_Should_Redirect_To_ThankYou_When_Successful_Campus_Present_And_User_Logged_In()
+        public void ProcessDonation_Should_Redirect_To_ThankYou_When_Successful_Campaign_Present_And_User_Logged_In()
         {
             var mocks = new MockRepository();
             var payment = EntityHelpers.GetValidCCPayment();
@@ -294,6 +295,118 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             var controllerName = ((RedirectToRouteResult)result).RouteValues["Controller"];
             Assert.AreEqual("Campaign", controllerName);
+        }
+
+        [Test]
+        public void ProcessDonation_Should_Set_DisplayName_To_Anonymous_When_Anonymous_Is_Selected()
+        {
+            var mocks = new MockRepository();
+            var payment = EntityHelpers.GetValidCCPayment();
+            payment.IsAnonymous = true;
+
+            var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            var organization = EntityHelpers.GetValidOrganization();
+            campaign.UserProfile = userProfile;
+            campaign.UrlSlug = "goodCampaign";
+            campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = organization;
+            campaignRepository.Add(campaign);
+
+            userProfile.Email = "goodEmail";
+            userProfileRepository.Add(userProfile);
+
+            SetUpController(mocks, payment);
+            mocks.ReplayAll();
+
+            controller.ProcessDonation(payment, campaign.UrlSlug);
+            var donor = campaign.CampaignDonors.FirstOrDefault();
+            Assert.IsNotNull(donor);
+            //Assert.IsTrue(donor.IsAnonymous);
+            Assert.AreEqual("Anonymous", donor.DisplayName);
+        }
+
+        [Test]
+        public void ProcessDonation_Should_Set_IsAnonymous_To_True_When_Anonymous_Is_Selected()
+        {
+            var mocks = new MockRepository();
+            var payment = EntityHelpers.GetValidCCPayment();
+            payment.IsAnonymous = true;
+
+            var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            var organization = EntityHelpers.GetValidOrganization();
+            campaign.UserProfile = userProfile;
+            campaign.UrlSlug = "goodCampaign";
+            campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = organization;
+            campaignRepository.Add(campaign);
+
+            userProfile.Email = "goodEmail";
+            userProfileRepository.Add(userProfile);
+
+            SetUpController(mocks, payment);
+            mocks.ReplayAll();
+
+            controller.ProcessDonation(payment, campaign.UrlSlug);
+            var donor = campaign.CampaignDonors.FirstOrDefault();
+            Assert.IsNotNull(donor);
+            Assert.IsTrue(donor.IsAnonymous);
+        }
+
+        [Test]
+        public void ProcessDonation_Should_Set_DisplayName_To_FirstLast_When_DisplayName_Is_Blank()
+        {
+            var mocks = new MockRepository();
+            var payment = EntityHelpers.GetValidCCPayment();
+
+            var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            var organization = EntityHelpers.GetValidOrganization();
+            campaign.UserProfile = userProfile;
+            campaign.UrlSlug = "goodCampaign";
+            campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = organization;
+            campaignRepository.Add(campaign);
+
+            userProfile.Email = "goodEmail";
+            userProfileRepository.Add(userProfile);
+
+            SetUpController(mocks, payment);
+            mocks.ReplayAll();
+
+            controller.ProcessDonation(payment, campaign.UrlSlug);
+            var donor = campaign.CampaignDonors.FirstOrDefault();
+            Assert.IsNotNull(donor);
+            Assert.AreEqual(string.Format("{0} {1}", donor.FirstName, donor.LastName), donor.DisplayName);
+        }
+
+        [Test]
+        public void ProcessDonation_Should_Not_Set_DisplayName_If_Anonymous_Is_Not_Selected_And_DisplayName_Is_Not_Blank()
+        {
+            var mocks = new MockRepository();
+            var payment = EntityHelpers.GetValidCCPayment();
+            payment.DisplayName = "something else";
+
+            var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            var organization = EntityHelpers.GetValidOrganization();
+            campaign.UserProfile = userProfile;
+            campaign.UrlSlug = "goodCampaign";
+            campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = organization;
+            campaignRepository.Add(campaign);
+
+            userProfile.Email = "goodEmail";
+            userProfileRepository.Add(userProfile);
+
+            SetUpController(mocks, payment);
+            mocks.ReplayAll();
+
+            controller.ProcessDonation(payment, campaign.UrlSlug);
+            var donor = campaign.CampaignDonors.FirstOrDefault();
+            Assert.IsNotNull(donor);
+            Assert.AreNotEqual(string.Format("{0} {1}", donor.FirstName, donor.LastName), donor.DisplayName);
         }
 
         [Test]
