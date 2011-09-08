@@ -27,7 +27,6 @@ using Mvc.Mailer;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
-    [Authorize]
     public class DonateController : GrassrootsControllerBase
     {
         private readonly ICampaignRepository campaignRepository;
