@@ -132,15 +132,16 @@ namespace JordanRift.Grassroots.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Register()
+        public ActionResult Register(string returnUrl = "")
         {
+            ViewBag.ReturnUrl = returnUrl;
             var viewModel = TempData["RegisterModel"] as RegisterModel ?? new RegisterModel();
             ViewBag.PasswordLength = MembershipService.MinPasswordLength;
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult RegisterUser(RegisterModel model)
+        public ActionResult RegisterUser(RegisterModel model, string returnUrl = "")
         {
             if (ModelState.IsValid)
             {
@@ -349,7 +350,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         /// </summary>
         /// <param name="hash">ashed string to compare</param>
         /// <returns>Redirect based on result</returns>
-        public RedirectToRouteResult Activate(string hash)
+        public RedirectToRouteResult Activate(string hash, string redirect = "")
         {
             if (hash == null)
             {
@@ -374,7 +375,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     userProfileRepository.Save();
                     TempData["UserFeedback"] = "Sweet! Your account is activated. Please log in.";
                     accountMailer.Welcome(MapWelcomeModel(userProfile, organization)).SendAsync();
-                    return RedirectToAction("LogOn", "Account");
+                    return RedirectToAction("LogOn", "Account", new { returUrl = redirect });
                 }
             }
 
@@ -404,7 +405,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                        };
         }
 
-        private AuthorizeModel MapAuthorizeModel(UserProfile userProfile, Organization organization)
+        private AuthorizeModel MapAuthorizeModel(UserProfile userProfile, Organization organization, string returnUrl = "")
         {
             return new AuthorizeModel
                        {
@@ -413,7 +414,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                            LastName = userProfile.LastName,
                            SenderEmail = organization.ContactEmail,
                            SenderName = organization.Name,
-                           Url = Url.ToPublicUrl(Url.Action("Activate", "Account", new { hash = userProfile.ActivationHash }))
+                           Url = Url.ToPublicUrl(Url.Action("Activate", "Account", new { hash = userProfile.ActivationHash, redirect = returnUrl }))
                        };
         }
     }
