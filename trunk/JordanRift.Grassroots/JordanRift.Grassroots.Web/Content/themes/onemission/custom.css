@@ -899,8 +899,9 @@ hgroup.thanks > h3 {
 				background: url(images/bubble-bottom.png) no-repeat;
 			}
 			
-#main .donate-form .column {
-    width: 270px;
+#main .donate-form .column,
+.donate-form .column > fieldset {
+    width: 300px;
 }
 
 #main .donate-form .column .field-validation-error {
@@ -921,6 +922,12 @@ hgroup.thanks > h3 {
     top: 0px;
     right: 0px;
 }
+
+textarea.wijmo-wijtextbox, 
+textarea.ui-state-active {
+    width: 270px !important;
+}
+
 
 /* Custom home page content */
 
