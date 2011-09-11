@@ -25,7 +25,7 @@
 
 <hgroup>
     <h1>Account Log On</h1>
-    <h3><text>Please enter your username and password.</text> @Html.ActionLink("Register", "Register") <text> if you don't have an account.</text></h3>
+    <h3><text>Please enter your username and password.</text> @Html.ActionLink("Register", "Register", new { returnUrl = ViewBag.ReturnUrl }) <text> if you don't have an account.</text></h3>
 </hgroup>
 <div id="log-on-form">
     @using (Html.BeginForm("AuthenticateUser", "Account", new { returnUrl = ViewBag.ReturnUrl })) {
@@ -59,7 +59,7 @@
                     @Html.UiSubmit("Log On")
                 </div>
                 <ul class="account-maintenance">
-                    <li><p>Don't have an account? @Html.ActionLink("Click here", "Register", new { controller = "Account", area = "" }, new { title = "Click here" }) to sign up.</p></li>
+                    <li><p>Don't have an account? @Html.ActionLink("Click here", "Register", new { controller = "Account", area = "", returnUrl = ViewBag.ReturnUrl }, new { title = "Click here" }) to sign up.</p></li>
                     <li><p>Forgot your password? @Html.ActionLink("Click here", "ForgotPassword", new { controller = "Account", area = "" }, new { title = "Click here" }) to reset it.</p></li>
                 </ul>
         </fieldset>

@@ -90,6 +90,8 @@ namespace JordanRift.Grassroots.Web.Controllers
         [HttpPost]
         public ActionResult AuthenticateUser(LogOnModel model, string returnUrl = "")
         {
+            var url = returnUrl;
+
             if (ModelState.IsValid)
             {
                 using (userProfileRepository)
@@ -98,12 +100,12 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                     if (userProfile == null)
                     {
-                        return RedirectToAction("Register", "Account");
+                        return RedirectToAction("Register", "Account", new { returnUrl = url });
                     }
 
                     if (!userProfile.IsActivated)
                     {
-                        return RedirectToAction("AwaitingActivation", "Account");
+                        return RedirectToAction("AwaitingActivation", "Account", new { returnUrl = url });
                     }
                 }
 
@@ -111,9 +113,9 @@ namespace JordanRift.Grassroots.Web.Controllers
                 {
                     FormsService.SignIn(model.Email, model.RememberMe);
 
-                    if (!string.IsNullOrEmpty(returnUrl))
+                    if (!string.IsNullOrEmpty(url))
                     {
-                        return Redirect(returnUrl);
+                        return Redirect(url);
                     }
 
                     return RedirectToAction("Index", "UserProfile");
@@ -123,7 +125,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 
             TempData["LogOnModel"] = model;
-            return RedirectToAction("LogOn");
+            return RedirectToAction("LogOn", new { returnUrl = url });
         }
 
         public ActionResult LogOff()
@@ -175,14 +177,15 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 if (status == MembershipCreateStatus.Success)
                 {
-                    accountMailer.Authorize(MapAuthorizeModel(userProfile, organization)).SendAsync();
+                    accountMailer.Authorize(MapAuthorizeModel(userProfile, organization, returnUrl)).SendAsync();
 
                     return RedirectToAction("AwaitingActivation", "Account");
                 }
             }
 
+            var url = returnUrl;
             TempData["RegisterModel"] = model;
-            return RedirectToAction("Register", "Account");
+            return RedirectToAction("Register", "Account", new { returnUrl = url });
         }
 
         [Authorize]
@@ -354,7 +357,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             if (hash == null)
             {
-                return RedirectToAction("AwaitingActivation", "Account");
+                return RedirectToAction("AwaitingActivation", "Account", new { returnUrl = redirect });
             }
 
             using (userProfileRepository)
@@ -366,7 +369,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 if (userProfile == null)
                 {
                     TempData["UserFeedback"] = "Are you sure you have an account here?";
-                    return RedirectToAction("Register");
+                    return RedirectToAction("Register", new { returnUrl = redirect });
                 }
 
                 if (service.IsActivationHashValid(userProfile))
