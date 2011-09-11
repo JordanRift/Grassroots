@@ -378,7 +378,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     userProfileRepository.Save();
                     TempData["UserFeedback"] = "Sweet! Your account is activated. Please log in.";
                     accountMailer.Welcome(MapWelcomeModel(userProfile, organization)).SendAsync();
-                    return RedirectToAction("LogOn", "Account", new { returUrl = redirect });
+                    return RedirectToAction("LogOn", "Account", new { returnUrl = redirect });
                 }
             }
 
