@@ -19,7 +19,12 @@
 }
 
     <div class="dashboard">
-        @Html.Action("ProgressBar", new { controller = "Home" })
+        @if (!string.IsNullOrEmpty(HomePageHeaderHtml)) {
+        @Html.Raw(HomePageHeaderHtml)
+        }
+        else {
+        @Html.Action("ProgressBar", new {controller = "Home"})
+        }
         <aside class="donate">
             @Html.ActionLink("Get Started", "GetStarted", new { controller = "Campaign" }, new { title = "Get Started", @class = "ui-button ui-corner-all" })
         </aside>
