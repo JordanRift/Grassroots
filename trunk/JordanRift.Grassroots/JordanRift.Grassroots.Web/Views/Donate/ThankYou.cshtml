@@ -29,7 +29,7 @@
     @Html.Partial("DonationReceipt", Model)
     
     @if (!string.IsNullOrEmpty(Model.UrlSlug) || Model.UrlSlug.Equals("general", StringComparison.CurrentCultureIgnoreCase)) {
-    <p>@Html.ActionLink(linkText, "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = linkText })</p>
+    <p>@Html.ActionLink(linkText, "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = linkText, @class = "ui-button ui-corner-all" })</p>
     <div class="share">
         <h3>Share this with your friends!</h3>
         <ul>
