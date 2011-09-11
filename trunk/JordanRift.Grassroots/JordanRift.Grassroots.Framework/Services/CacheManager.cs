@@ -73,6 +73,7 @@ namespace JordanRift.Grassroots.Framework.Services
             CacheSetting(CacheKeys.ORG_FOOTER_HTML, organization.GetSetting(OrgSettingKeys.CUSTOM_FOOTER_HTML));
             CacheSetting(CacheKeys.ORG_ANALYTICS_CODE, organization.GetSetting(OrgSettingKeys.ANALYTICS_TRACKING_CODE));
             CacheSetting(CacheKeys.ORG_CAMPAIGNS_UNAVAILABLE_HTML, organization.GetSetting(OrgSettingKeys.CAMPAIGNS_UNAVAILABLE_HTML));
+            CacheSetting(CacheKeys.ORG_HOME_PAGE_HEADER_HTML, organization.GetSetting(OrgSettingKeys.HOME_PAGE_HEADER_HTML));
         }
 
         private void CacheSetting(string key, OrganizationSetting setting)
