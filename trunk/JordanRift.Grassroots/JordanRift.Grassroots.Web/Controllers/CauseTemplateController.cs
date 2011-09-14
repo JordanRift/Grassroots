@@ -54,15 +54,15 @@ namespace JordanRift.Grassroots.Web.Controllers
             using (OrganizationRepository)
             {
                 var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
-                var templates = organization.CauseTemplates.Where(t => t.Active);
+                var templates = organization.CauseTemplates.Where(t => t.Active).ToList();
 
-                if (templates.Count() == 1)
+                if (templates.Count == 1)
                 {
                     var templateModel = MapCauseTemplateDetails(templates.First());
                     return View("Details", templateModel);
                 }
 
-                var model = templates.Where(t => t.Active).Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>).ToList();
+                var model = templates.Where(t => t.Active).Select(Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>);
                 return View("Index", model);
             }
         }
@@ -203,7 +203,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		    return HttpNotFound( "The project template could not be found." );
 		}
 
-
+        //[HttpPut]
 		[HttpPost]
 		[Authorize( Roles = "Administrator" )] 
 		public ActionResult Update( CauseTemplateDetailsModel model )
@@ -242,6 +242,12 @@ namespace JordanRift.Grassroots.Web.Controllers
             return RedirectToAction( "List" );
 		}
 
+        //[HttpDelete]
+        //public ActionResult Destroy(int id)
+        //{
+            
+        //}
+
 		/// <summary>
 		/// Pre-processes the uploaded files and calls a IFileSaveService provider to save
 		/// the actual files.  Afterwards, it sets the new file name URLs onto the appropriate
@@ -261,7 +267,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			foreach ( string fileKey in Request.Files )
 			{
 				index++;
-				HttpPostedFileBase file = Request.Files[fileKey] as HttpPostedFileBase;
+				HttpPostedFileBase file = Request.Files[fileKey];
 
 				// No file was uploaded (form element was left blank)
 				if ( file.ContentLength == 0 )
@@ -270,7 +276,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 				}
 
 				// Create a new FileUpload item
-				var fileUpload = new FileUpload() { File = file, Length = file.ContentLength, IsError = false, Index = index };
+				var fileUpload = new FileUpload { File = file, Length = file.ContentLength, IsError = false, Index = index };
 
 				// Pull the existing (soon to be previous) file name from the CauseTemplate
 				// and set into the fileUpload because the provider may choose to delete
@@ -287,8 +293,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 							break;
 						case 3:
 							fileUpload.PreviousFileName = causeTemplate.AfterImagePath;
-							break;
-						default:
 							break;
 					}
 				}
@@ -309,7 +313,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			// Post process files to set the new file name (URL) to the campaign's image
 			foreach ( var fileItem in fileUploadList )
 			{
-				string oldFile = string.Empty;
+				//string oldFile = string.Empty;
 				switch ( fileItem.Index )
 				{
 					case 1:
@@ -320,8 +324,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 						break;
 					case 3:
 						causeTemplate.AfterImagePath = fileItem.NewFileName;
-						break;
-					default:
 						break;
 				}
 			}
