@@ -14,6 +14,7 @@
 //
 
 using System;
+using JordanRift.Grassroots.Framework.Entities;
 
 namespace JordanRift.Grassroots.Web.Models
 {
@@ -55,6 +56,7 @@ namespace JordanRift.Grassroots.Web.Models
         //
 
         public string PaymentType { get; set; }
+        public TransactionType TransactionType { get; set; }
 
         //
         // Organization fields
