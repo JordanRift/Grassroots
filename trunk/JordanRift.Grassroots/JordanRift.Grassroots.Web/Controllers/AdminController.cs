@@ -132,6 +132,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		    organization.SummaryHtml = model.SummaryHtml;
 		    organization.DescriptionHtml = model.DescriptionHtml;
 		    organization.PaymentGatewayApiUrl = model.PaymentGatewayApiUrl ?? "";
+	        organization.PaymentGatewayArbApiUrl = model.PaymentGatewayArbApiUrl ?? "";
 			organization.PaymentGatewayApiKey = model.PaymentGatewayApiKey ?? "";
 			organization.PaymentGatewayApiSecret = model.PaymentGatewayApiSecret ?? "";
 			organization.PaymentGatewayType = model.PaymentGatewayType;

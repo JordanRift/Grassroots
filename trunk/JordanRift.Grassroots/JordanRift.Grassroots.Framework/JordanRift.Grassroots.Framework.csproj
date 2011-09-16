@@ -130,6 +130,7 @@
     <Compile Include="Helpers\RepositoryFactory.cs" />
     <Compile Include="Helpers\InMemoryCache.cs" />
     <Compile Include="Helpers\SingletonCache.cs" />
+    <Compile Include="Services\AuthorizeArbXmlApi.cs" />
     <Compile Include="Services\BlogService.cs" />
     <Compile Include="Services\CacheManager.cs" />
     <Compile Include="Services\CampaignService.cs" />

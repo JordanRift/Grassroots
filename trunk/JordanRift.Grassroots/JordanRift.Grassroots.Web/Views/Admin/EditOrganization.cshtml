@@ -103,6 +103,11 @@
                         @Html.TextBoxFor(m => m.PaymentGatewayApiUrl)
                         @Html.ValidationMessageFor(m => m.PaymentGatewayApiUrl, null, new { @class = "ui-state-error ui-corner-all" })
                     </dd>
+                    <dt>@Html.LabelFor(m => m.PaymentGatewayArbApiUrl)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.PaymentGatewayArbApiUrl)
+                        @Html.ValidationMessageFor(m => m.PaymentGatewayArbApiUrl)
+                    </dd>
                     <dt>@Html.LabelFor(m => m.PaymentGatewayApiKey)</dt>
                     <dd>
                         @Html.TextBoxFor(m => m.PaymentGatewayApiKey)

@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IntegrationTests\Models\AimPaymentTests.cs" />
+    <Compile Include="IntegrationTests\Models\ArbPaymentTests.cs" />
     <Compile Include="IntegrationTests\Models\CampaignRepositoryTests.cs" />
     <Compile Include="IntegrationTests\Models\CauseRepositoryTests.cs" />
     <Compile Include="IntegrationTests\Models\CauseTemplateRepositoryTests.cs" />

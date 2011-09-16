@@ -1,4 +1,5 @@
-﻿@model JordanRift.Grassroots.Web.Models.DonationDetailsModel
+﻿@using JordanRift.Grassroots.Framework.Entities
+@model JordanRift.Grassroots.Web.Models.DonationDetailsModel
 @{
     //
     // Grassroots is free software: you can redistribute it and/or modify
@@ -32,7 +33,12 @@
         </tr>
         <tr>
             <td>Amount:</td>
-            <td>@Model.Amount.ToString("C")</td>
+            <td>
+                @Model.Amount.ToString("C")
+                @if (Model.TransactionType == TransactionType.Recurring) {
+                <text> every month</text>
+                }
+            </td>
         </tr>
         <tr>
             <td>Payment Method:</td>

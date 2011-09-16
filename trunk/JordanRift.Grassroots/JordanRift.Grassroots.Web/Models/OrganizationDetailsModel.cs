@@ -82,6 +82,9 @@ namespace JordanRift.Grassroots.Web.Models
         [Required(ErrorMessage = "Payment Gateway API URL is required")]
         public string PaymentGatewayApiUrl { get; set; }
 
+        [DisplayName("Recurring Billing API URL (Optional)")]
+        public string PaymentGatewayArbApiUrl { get; set; }
+
 		[DisplayName( "Gateway API Username/Key" )]
         [Required]
 		public string PaymentGatewayApiKey { get; set; }
