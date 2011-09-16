@@ -64,7 +64,7 @@ namespace JordanRift.Grassroots.Framework.Entities
         {
             if (payment.TransactionType == TransactionType.Recurring)
             {
-                return CreateSubscription(payment);
+                return ProcessRecurring(payment);
             }
 
             return ProcessOneTime(payment);
@@ -124,14 +124,11 @@ namespace JordanRift.Grassroots.Framework.Entities
             var reasonCode = int.Parse(responseArray [2]);
             var reasonText = responseArray [3];
 
-            return new PaymentResponse(responseCode, reasonCode, reasonText, null);
+            return new PaymentResponse(responseCode, reasonCode, reasonText);
         }
 
         private Dictionary<string, string> BuildAimRequest(Payment payment)
         {
-            //string loginID = isTest ? TEST_LOGIN_ID : LOGIN_ID;
-            //string transactionKey = isTest ? TEST_TRANSACTION_KEY : TRANSACTION_KEY;
-
             var postValues = new Dictionary<string, string>
                                  {
                                      { "x_login", LoginID },
@@ -179,7 +176,16 @@ namespace JordanRift.Grassroots.Framework.Entities
 
 #region Recurring
 
-        public PaymentResponse CreateSubscription(Payment payment)
+        private PaymentResponse ProcessRecurring(Payment payment)
+        {
+            payment.SubscriptionStart = DateTime.Now.AddDays(1);
+            var response = CreateSubscription(payment);
+            PaymentResponse paymentResponse = new PaymentResponse(response.ResponseCode.ToUpper() == "OK" ? PaymentResponseCode.Approved : PaymentResponseCode.Error,
+                -1, string.Join("|", response.Messages.ToArray()));
+            return paymentResponse;
+        }
+
+        private SubscriptionResponse CreateSubscription(Payment payment)
         {
             var createRequest = new ARBCreateSubscriptionRequest();
             PopulateSubscription(createRequest, payment);
@@ -278,7 +284,7 @@ namespace JordanRift.Grassroots.Framework.Entities
             return bResult;
         }
 
-        private static void ProcessXmlResponse(XmlDocument xmldoc, out object apiResponse)
+        private void ProcessXmlResponse(XmlDocument xmldoc, out object apiResponse)
         {
             apiResponse = null;
 
@@ -311,8 +317,6 @@ namespace JordanRift.Grassroots.Framework.Entities
                         serializer = new XmlSerializer(typeof(ANetApiResponse));
                         apiResponse = serializer.Deserialize(new StringReader(xmldoc.DocumentElement.OuterXml));
                         break;
-                    default:
-                        break;
                 }
             }
             catch (Exception)
@@ -322,12 +326,12 @@ namespace JordanRift.Grassroots.Framework.Entities
         }
 
 
-        private static PaymentResponse ProcessResponse(object response)
+        private SubscriptionResponse ProcessResponse(object response)
         {
             ANetApiResponse baseResponse = (ANetApiResponse)response;
-            return new PaymentResponse
+            return new SubscriptionResponse
                        {
-                           ResponseCode = (PaymentResponseCode) Enum.Parse(typeof(PaymentResponse), baseResponse.messages.resultCode.ToString()), //baseResponse.messages.resultCode.ToString(),
+                           ResponseCode = baseResponse.messages.resultCode.ToString(),
                            Messages = baseResponse.messages.message.Select(m => string.Format("{0}: {1}", m.code, m.text)).ToList()
                        };
         }

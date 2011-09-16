@@ -31,7 +31,8 @@ namespace JordanRift.Grassroots.Tests.Helpers
 
         public static decimal GetAmount()
         {
-            return (decimal) random.NextDouble() * 10;
+            var amount = random.NextDouble() * 10;
+            return (decimal) Math.Round(amount, 2);
         }
 
         public static FormCollection GetUserProfileFormPost(UserProfile userProfile)

@@ -22,16 +22,22 @@ namespace JordanRift.Grassroots.Framework.Entities
         public PaymentResponseCode ResponseCode { get; set; }
         public int ReasonCode { get; set; }
         public string ReasonText { get; set; }
-        public IEnumerable<string> Messages { get; set; }
+        //public IEnumerable<string> Messages { get; set; }
 
         public PaymentResponse() { }
 
-        public PaymentResponse(PaymentResponseCode responseCode, int reasonCode, string reasonText, IEnumerable<string> messages)
+        public PaymentResponse(PaymentResponseCode responseCode, int reasonCode, string reasonText)
         {
             ResponseCode = responseCode;
             ReasonCode = reasonCode;
             ReasonText = reasonText;
-            Messages = messages;
+            //Messages = messages;
         }
+    }
+
+    public class SubscriptionResponse
+    {
+        public string ResponseCode { get; set; }
+        public List<string> Messages { get; set; }
     }
 }
