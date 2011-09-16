@@ -43,6 +43,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 
         public int PaymentGatewayType { get; set; }
         public string PaymentGatewayApiUrl { get; set; }
+        public string PaymentGatewayArbApiUrl { get; set; }
         public string PaymentGatewayApiKey { get; set; }
         public string PaymentGatewayApiSecret { get; set; }
 

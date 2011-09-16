@@ -58,6 +58,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             using (new UnitOfWorkScope())
             {
                 var campaign = campaignRepository.GetCampaignByUrlSlug(slug);
+                var organizatin = OrganizationRepository.GetDefaultOrganization(readOnly: true);
                 UserProfile userProfile = null;
 
                 if (User != null)
@@ -85,6 +86,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     ModelState.AddModelError("PaymentGatewayError", TempData["PaymentGatewayError"].ToString());
                 }
 
+                ViewBag.CanDoRecurringBilling = !string.IsNullOrEmpty(organizatin.PaymentGatewayArbApiUrl);
                 return View(payment);
             }
         }
@@ -106,7 +108,6 @@ namespace JordanRift.Grassroots.Web.Controllers
                     }
                     else if (!campaign.IsActive)
                     {
-                        // TODO: Consider creating an action filter attribute for this check
                         TempData["UserFeedback"] = "Sorry, this campaign is inactive and can no longer receive donations.";
                         return RedirectToAction("Index", "Campaign", new { slug = urlSlug });
                     }
@@ -214,6 +215,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
             paymentProviderFactory.ApiUrl = organization.PaymentGatewayApiUrl;
+            paymentProviderFactory.ArbApiUrl = organization.PaymentGatewayArbApiUrl;
             paymentProviderFactory.ApiKey = organization.PaymentGatewayApiKey;
             paymentProviderFactory.ApiSecret = organization.PaymentGatewayApiSecret;
             return paymentProviderFactory.GetPaymentProvider(organization.PaymentGateway);

@@ -109,7 +109,7 @@
 					    @Html.ValidationMessageFor(model => model.CheckNumber, null, new { @class = "ui-state-error ui-corner-all" }) 
 				    </dd>
 			    </dl>
-                @if (campaign == null) {
+                @if (campaign == null && ViewBag.CanDoRecurringBilling) {
                 <div class="check-box">
                     @Html.EditorFor(model => model.TransactionType)
                     @Html.LabelFor(model => model.TransactionType)
