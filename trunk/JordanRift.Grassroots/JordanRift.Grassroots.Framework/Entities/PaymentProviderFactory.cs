@@ -42,7 +42,7 @@ namespace JordanRift.Grassroots.Framework.Entities
             switch (paymentGatewayType)
             {
                 case PaymentGatewayType.Authorize:
-                    return new AuthorizePaymentProvider(ApiUrl, ApiKey, ApiSecret);
+                    return new AuthorizePaymentProvider(ApiUrl, ApiKey, ApiSecret, null);
                 case PaymentGatewayType.PayPal:
                     return new PayPalPaymentProvider(ApiUrl, ApiKey, ApiSecret);
                 default:

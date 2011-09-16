@@ -442,8 +442,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             if (payment != null)
             {
                 PaymentResponse response = isPaymentApproved ? 
-                    new PaymentResponse(PaymentResponseCode.Approved, -1, string.Empty) : 
-                    new PaymentResponse(PaymentResponseCode.Error, -1, string.Empty);
+                    new PaymentResponse(PaymentResponseCode.Approved, -1, string.Empty, null) : 
+                    new PaymentResponse(PaymentResponseCode.Error, -1, string.Empty, null);
 
                 Expect.Call(paymentProviderFactory.GetPaymentProvider(PaymentGatewayType.PayPal)).IgnoreArguments()
                     .Return(paymentProvider);

@@ -60,6 +60,12 @@ namespace JordanRift.Grassroots.Framework.Entities
         ECheck
     }
 
+    public enum TransactionType
+    {
+        OneTime,
+        Recurring
+    }
+
     public enum CheckType
     {
         Checking,

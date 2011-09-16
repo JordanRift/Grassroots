@@ -13,6 +13,8 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.Collections.Generic;
+
 namespace JordanRift.Grassroots.Framework.Entities
 {
     public class PaymentResponse
@@ -20,12 +22,16 @@ namespace JordanRift.Grassroots.Framework.Entities
         public PaymentResponseCode ResponseCode { get; set; }
         public int ReasonCode { get; set; }
         public string ReasonText { get; set; }
+        public IEnumerable<string> Messages { get; set; }
 
-        public PaymentResponse(PaymentResponseCode responseCode, int reasonCode, string reasonText)
+        public PaymentResponse() { }
+
+        public PaymentResponse(PaymentResponseCode responseCode, int reasonCode, string reasonText, IEnumerable<string> messages)
         {
             ResponseCode = responseCode;
             ReasonCode = reasonCode;
             ReasonText = reasonText;
+            Messages = messages;
         }
     }
 }

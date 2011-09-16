@@ -13,10 +13,15 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
+using JordanRift.Grassroots.Framework.Services;
 
 namespace JordanRift.Grassroots.Framework.Entities
 {
@@ -25,23 +30,27 @@ namespace JordanRift.Grassroots.Framework.Entities
         private const string RESPONSE_DELIMITER = "|";
 
         private const string API_URL = "https://secure.authorize.net/gateway/transact.dll";
+        private const string ARB_API_URL = "https://api.authorize.net/xml/v1/request.api";
         private const string LOGIN_ID = "878nm4TtBa2";
         private const string TRANSACTION_KEY = "6V3Yt29kV9Tx6pTU";
 
         public string ApiUrl { get; set; }
+        public string ArbUrl { get; set; }
         public string LoginID { get; set; }
         public string TransactionKey { get; set; }
 
         public AuthorizePaymentProvider()
         {
             ApiUrl = API_URL;
+            ArbUrl = ARB_API_URL;
             LoginID = LOGIN_ID;
             TransactionKey = TRANSACTION_KEY;
         }
 
-        public AuthorizePaymentProvider(string apiUrl, string loginID, string transactionKey)
+        public AuthorizePaymentProvider(string apiUrl, string arbUrl, string loginID, string transactionKey)
         {
             ApiUrl = apiUrl;
+            ArbUrl = arbUrl;
             LoginID = loginID;
             TransactionKey = transactionKey;
         }
@@ -53,18 +62,15 @@ namespace JordanRift.Grassroots.Framework.Entities
         /// <returns>PaymentResponse object containing Authorize.net's response information</returns>
         public PaymentResponse Process(Payment payment)
         {
+            if (payment.TransactionType == TransactionType.Recurring)
+            {
+                return CreateSubscription(payment);
+            }
+
             return ProcessOneTime(payment);
         }
 
-        //public PaymentResponse Process(Payment payment, IAuthorizeArbService proxy)
-        //{
-        //    if (payment.TransactionType == TransactionType.OneTime)
-        //    {
-        //        return Process(payment);
-        //    }
-
-        //    return ProcessRecurring(payment, proxy);
-        //}
+#region OneTime
 
         /// <summary>
         /// Provides a hook into Authorize.net's AIM (one time) card processing API
@@ -118,7 +124,7 @@ namespace JordanRift.Grassroots.Framework.Entities
             var reasonCode = int.Parse(responseArray [2]);
             var reasonText = responseArray [3];
 
-            return new PaymentResponse(responseCode, reasonCode, reasonText);
+            return new PaymentResponse(responseCode, reasonCode, reasonText, null);
         }
 
         private Dictionary<string, string> BuildAimRequest(Payment payment)
@@ -168,5 +174,164 @@ namespace JordanRift.Grassroots.Framework.Entities
 
             return postValues;
         }
+
+#endregion
+
+#region Recurring
+
+        public PaymentResponse CreateSubscription(Payment payment)
+        {
+            var createRequest = new ARBCreateSubscriptionRequest();
+            PopulateSubscription(createRequest, payment);
+
+            object response = null;
+            XmlDocument xmldoc;
+            bool bResult = PostRequest(createRequest, out xmldoc);
+
+            if (bResult)
+            {
+                ProcessXmlResponse(xmldoc, out response);
+            }
+
+            return ProcessResponse(response);
+        }
+
+        private void PopulateSubscription(ARBCreateSubscriptionRequest request, Payment payment)
+        {
+            ARBSubscriptionType sub = new ARBSubscriptionType();
+            creditCardType creditCard = new creditCardType();
+
+            sub.name = string.Format("{0} {1} Subscription", payment.FirstName, payment.LastName);
+
+            creditCard.cardNumber = payment.AccountNumber;
+            creditCard.expirationDate = payment.GetFormattedDate();  // required format for API is YYYY-MM
+            sub.payment = new paymentType { Item = creditCard };
+
+            sub.billTo = new nameAndAddressType
+            {
+                firstName = payment.FirstName,
+                lastName = payment.LastName
+            };
+
+            sub.paymentSchedule = new paymentScheduleType
+            {
+                startDate = payment.SubscriptionStart,
+                startDateSpecified = true,
+                totalOccurrences = 12,
+                totalOccurrencesSpecified = true
+            };
+
+            sub.amount = payment.Amount;
+            sub.amountSpecified = true;
+
+            sub.paymentSchedule.interval = new paymentScheduleTypeInterval
+            {
+                length = 1,
+                unit = ARBSubscriptionUnitEnum.months
+            };
+
+            sub.customer = new customerType { email = payment.Email };
+
+            PopulateMerchantAuthentication(request);
+            request.subscription = sub;
+        }
+
+
+        private void PopulateMerchantAuthentication(ANetApiRequest request)
+        {
+            request.merchantAuthentication = new merchantAuthenticationType
+                                                 {
+                                                     name = LoginID,
+                                                     transactionKey = TransactionKey
+                                                 };
+        }
+
+        private bool PostRequest(object apiRequest, out XmlDocument xmldoc)
+        {
+            bool bResult;
+
+            xmldoc = null;
+
+            try
+            {
+                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(ArbUrl);
+                webRequest.Method = "POST";
+                webRequest.ContentType = "text/xml";
+                webRequest.KeepAlive = true;
+
+                XmlSerializer serializer = new XmlSerializer(apiRequest.GetType());
+                XmlWriter writer = new XmlTextWriter(webRequest.GetRequestStream(), Encoding.UTF8);
+                serializer.Serialize(writer, apiRequest);
+                writer.Close();
+
+                WebResponse webResponse = webRequest.GetResponse();
+                xmldoc = new XmlDocument();
+                xmldoc.Load(XmlReader.Create(webResponse.GetResponseStream()));
+
+                bResult = true;
+            }
+            catch (Exception)
+            {
+                bResult = false;
+            }
+
+            return bResult;
+        }
+
+        private static void ProcessXmlResponse(XmlDocument xmldoc, out object apiResponse)
+        {
+            apiResponse = null;
+
+            try
+            {
+                XmlSerializer serializer;
+                switch (xmldoc.DocumentElement.Name)
+                {
+                    case "ARBCreateSubscriptionResponse":
+                        serializer = new XmlSerializer(typeof(ARBCreateSubscriptionResponse));
+                        apiResponse = serializer.Deserialize(new StringReader(xmldoc.DocumentElement.OuterXml));
+                        break;
+
+                    case "ARBUpdateSubscriptionResponse":
+                        serializer = new XmlSerializer(typeof(ARBUpdateSubscriptionResponse));
+                        apiResponse = serializer.Deserialize(new StringReader(xmldoc.DocumentElement.OuterXml));
+                        break;
+
+                    case "ARBCancelSubscriptionResponse":
+                        serializer = new XmlSerializer(typeof(ARBCancelSubscriptionResponse));
+                        apiResponse = serializer.Deserialize(new StringReader(xmldoc.DocumentElement.OuterXml));
+                        break;
+
+                    case "ARBGetSubscriptionStatusResponse":
+                        serializer = new XmlSerializer(typeof(ARBGetSubscriptionStatusResponse));
+                        apiResponse = serializer.Deserialize(new StringReader(xmldoc.DocumentElement.OuterXml));
+                        break;
+
+                    case "ErrorResponse":
+                        serializer = new XmlSerializer(typeof(ANetApiResponse));
+                        apiResponse = serializer.Deserialize(new StringReader(xmldoc.DocumentElement.OuterXml));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                apiResponse = null;
+            }
+        }
+
+
+        private static PaymentResponse ProcessResponse(object response)
+        {
+            ANetApiResponse baseResponse = (ANetApiResponse)response;
+            return new PaymentResponse
+                       {
+                           ResponseCode = (PaymentResponseCode) Enum.Parse(typeof(PaymentResponse), baseResponse.messages.resultCode.ToString()), //baseResponse.messages.resultCode.ToString(),
+                           Messages = baseResponse.messages.message.Select(m => string.Format("{0}: {1}", m.code, m.text)).ToList()
+                       };
+        }
+
+        #endregion
     }
 }

@@ -24,6 +24,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
     public class AimPaymentTests
     {
         private const string TEST_API_URL = "https://test.authorize.net/gateway/transact.dll";
+        private const string TEST_ARB_API_URL = "https://apitest.authorize.net/xml/v1/request.api";
         private const string TEST_LOGIN_ID = "2E3jsfH7L5F";
         private const string TEST_TRANSACTION_KEY = "979cxZC5g8dDRf9b";
         
@@ -32,7 +33,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
         [SetUp]
         public void SetUp()
         {
-            provider = new AuthorizePaymentProvider(TEST_API_URL, TEST_LOGIN_ID, TEST_TRANSACTION_KEY);
+            provider = new AuthorizePaymentProvider(TEST_API_URL, TEST_ARB_API_URL, TEST_LOGIN_ID, TEST_TRANSACTION_KEY);
         }
 
         [Test]
