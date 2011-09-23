@@ -32,6 +32,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 {
     public class CampaignController : GrassrootsControllerBase
     {
+        private const string ADMIN_ROLES = "Root,Admnistrator";
         private readonly ICampaignRepository campaignRepository;
         private readonly ICauseTemplateRepository causeTemplateRepository;
         private readonly IUserProfileRepository userProfileRepository;
@@ -432,10 +433,70 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 #region Campaign Administration
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult List()
         {
-            return View("CampaignList");
+            using (campaignRepository)
+            {
+                var list = campaignRepository.FindAllCampaigns();
+                var viewModel = new List<CampaignDetailsModel>();
+
+                foreach (var c in list)
+                {
+                    viewModel.Add(MapDetailsModel(c));
+                }
+
+                return View(viewModel);
+            }
+        }
+
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult Admin(int id = -1)
+        {
+            using (campaignRepository)
+            {
+                var campaign = campaignRepository.GetCampaignByID(id);
+
+                if (campaign == null)
+                {
+                    return HttpNotFound("The campaign you are looking for could not be found.");
+                }
+
+                var viewModel = MapDetailsModel(campaign);
+                return View(viewModel);
+            }
+        }
+
+        [HttpPut]
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult AdminUpdate(CampaignAdminModel model)
+        {
+            return null;
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult Destroy(int id = -1)
+        {
+            using (campaignRepository)
+            {
+                var campaign = campaignRepository.GetCampaignByID(id);
+
+                if (campaign == null)
+                {
+                    return HttpNotFound("The campaign you are looking for could not be found.");
+                }
+
+                campaignRepository.Delete(campaign);
+                campaignRepository.Save();
+            }
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true });
+            }
+
+            return RedirectToAction("List");
         }
 
 #endregion

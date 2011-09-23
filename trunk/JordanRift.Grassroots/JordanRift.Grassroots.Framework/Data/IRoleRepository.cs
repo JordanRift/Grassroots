@@ -25,6 +25,7 @@ namespace JordanRift.Grassroots.Framework.Data
         IQueryable<Role> FindAllRoles();
         Role GetRoleByID(int id);
 		Role GetRoleByName( string name );
+        Role GetRoot();
         void Add(Role role);
         void Delete(Role role);
         void Save();

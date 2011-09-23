@@ -37,6 +37,8 @@ namespace JordanRift.Grassroots.Tests.Fakes
         private static void SetUp()
         {
             roles = new List<Role>();
+            roles.Add(new Role() { RoleID = 0, Description = "Super Admin", Name = "Root" });
+
             for (int i = 0; i < 5; i++)
             {
                 roles.Add(new Role
@@ -71,6 +73,11 @@ namespace JordanRift.Grassroots.Tests.Fakes
         public Role GetRoleByName(string name)
         {
             return roles.FirstOrDefault(r => r.Name.ToLower() == name.ToLower());
+        }
+
+        public Role GetRoot()
+        {
+            return roles.FirstOrDefault(r => r.Name == "Root");
         }
 
         public void Add(Role role)

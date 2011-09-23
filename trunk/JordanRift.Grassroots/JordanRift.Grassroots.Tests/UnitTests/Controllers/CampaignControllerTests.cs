@@ -14,6 +14,9 @@
 //
 
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Principal;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
@@ -297,13 +300,87 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void List_Should_Return_Campaign_Grid_View()
         {
-            var campaign = EntityHelpers.GetValidCampaign();
-            campaignRepository.Add(campaign);
+            FakeCampaignRepository.Empty();
             var result = controller.List();
             Assert.IsInstanceOf<ViewResult>(result);
         }
 
-        private CampaignController GetCampaignController()
+        [Test]
+        public void List_Should_Return_Populated_Campaign_Grid_View()
+        {
+            FakeCampaignRepository.Empty();
+            var campaign = EntityHelpers.GetValidCampaign();
+            var userprofile = EntityHelpers.GetValidUserProfile();
+            var causeTemplate = EntityHelpers.GetValidCauseTemplate();
+            campaign.UserProfile = userprofile;
+            campaign.CauseTemplate = causeTemplate;
+            campaign.CampaignDonors = new List<CampaignDonor>();
+            campaignRepository.Add(campaign);
+            var result = controller.List();
+            var view = result as ViewResult;
+            var list = view.Model as IEnumerable<CampaignDetailsModel>;
+            Assert.Greater(list.Count(), 0);
+        }
+
+        [Test]
+        public void Admin_Should_Return_View_If_Campaign_Found()
+        {
+            var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            var causeTemplate = EntityHelpers.GetValidCauseTemplate();
+            campaign.UserProfile = userProfile;
+            campaign.CauseTemplate = causeTemplate;
+            campaign.CampaignDonors = new List<CampaignDonor>();
+            campaignRepository.Add(campaign);
+            var result = controller.Admin(campaign.CampaignID);
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public void Admin_Should_Return_NotFound_If_Campaign_Not_Found()
+        {
+            var result = controller.Admin();
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
+        [Test]
+        public void Destroy_Should_Return_Json_If_Ajax_Delete_Successful()
+        {
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaignRepository.Add(campaign);
+            controller.Request.Stub(r => r["X-Requested-With"]).Return("XMLHttpRequest");
+            var result = controller.Destroy(campaign.CampaignID);
+            Assert.IsInstanceOf<JsonResult>(result);
+        }
+
+        [Test]
+        public void Destroy_Should_Remove_Campaign_If_Found()
+        {
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaignRepository.Add(campaign);
+            var id = campaign.CampaignID;
+            controller.Destroy(id);
+            campaign = campaignRepository.GetCampaignByID(id);
+            Assert.IsNull(campaign);
+        }
+
+        [Test]
+        public void Destroy_Should_Return_NotFound_If_Campaign_Not_Found()
+        {
+            var result = controller.Destroy();
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
+        [Test]
+        public void Destroy_Should_Return_Redirect_If_Delete_Successful()
+        {
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaignRepository.Add(campaign);
+            var result = controller.Destroy(campaign.CampaignID);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+        }
+
+        private CampaignController GetCampaignController(bool isAjaxRequest = false)
         {
             var organizationRepository = new FakeOrganizationRepository();
             var organization = organizationRepository.GetDefaultOrganization(readOnly: false);
@@ -316,18 +393,17 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var mocks = new MockRepository();
             var mailer = mocks.DynamicMock<ICampaignMailer>();
             MailerBase.IsTestModeEnabled = true;
-            var upc = new CampaignController(campaignRepository, causeTemplateRepository, userProfileRepository, mailer)
+            var c = new CampaignController(campaignRepository, causeTemplateRepository, userProfileRepository, mailer)
                           {
                               OrganizationRepository = organizationRepository
                           };
 
-            upc.ControllerContext = new ControllerContext
-                                        {
-                                            Controller = upc,
-                                            RequestContext = new RequestContext(new MockHttpContext(), new RouteData()),
-                                        };
-
-            return upc;
+            var context = MockRepository.GenerateStub<HttpContextBase>();
+            var request = MockRepository.GenerateStub<HttpRequestBase>();
+            context.Stub(x => x.Request).Return(request);
+            context.User = new GenericPrincipal(new GenericIdentity("goodEmail"), null);
+            c.ControllerContext = new ControllerContext(context, new RouteData(), c);
+            return c;
         }
     }
 }

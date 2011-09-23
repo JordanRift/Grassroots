@@ -56,6 +56,37 @@ var Grassroots = (function () {
         });
     }
 
+    function _initDeletes() {
+        $(".destroy").click(function () {
+            var $self = $(this);
+            var item = $self.attr('data-type');
+            var controller = $self.attr('data-controller');
+
+            if (confirm('Are you sure you want to delete this ' + item + '?\n\nIt can not be undone.')) {
+                $.ajax({
+                    url: '/' + controller + '/destroy',
+                    data: '{ "id": "' + $self.attr('data-id') + '" }',
+                    type: "DELETE",
+                    contentType: "application/json",
+                    dataType: "json"
+                })
+                .success(function (result) {
+                    if (result.success === true) {
+                        $self.parents('tr').remove();
+                    }
+
+                    return false;
+                })
+                .error(function (xhr, status, error) {
+                    console.log(status);
+                    return false;
+                });
+            }
+
+            return false;
+        });
+    }
+
     return {
         progressbar: function () {
             var $progressbar = $(".ui-progressbar-value");
@@ -90,6 +121,8 @@ var Grassroots = (function () {
                 ensureColumnsPxWidth: true,
                 columns: cols
             });
+
+            _initDeletes();
         },
         initPayment: function () {
             $(".bank-info").hide();

@@ -22,7 +22,7 @@ using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
-	[Authorize(Roles = "Administrator")]
+	[Authorize(Roles = "Root")]
 	public class AdminController : GrassrootsControllerBase
 	{
 		public AdminController()

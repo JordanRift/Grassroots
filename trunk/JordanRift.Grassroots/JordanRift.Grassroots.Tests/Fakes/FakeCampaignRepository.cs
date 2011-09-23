@@ -55,6 +55,11 @@ namespace JordanRift.Grassroots.Tests.Fakes
             Priority = PriorityType.High;
         }
 
+        public static void Empty()
+        {
+            campaigns = new List<Campaign>();
+        }
+
         public static void Reset()
         {
             SetUp();
