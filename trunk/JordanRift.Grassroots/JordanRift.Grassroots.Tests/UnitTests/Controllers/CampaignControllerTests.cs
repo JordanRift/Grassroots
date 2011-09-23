@@ -294,6 +294,15 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.AreEqual(campaign.Description, viewModel.Description);
         }
 
+        [Test]
+        public void List_Should_Return_Campaign_Grid_View()
+        {
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaignRepository.Add(campaign);
+            var result = controller.List();
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
         private CampaignController GetCampaignController()
         {
             var organizationRepository = new FakeOrganizationRepository();

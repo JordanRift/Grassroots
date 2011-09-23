@@ -429,5 +429,15 @@ namespace JordanRift.Grassroots.Web.Controllers
             model.CurrentUserIsOwner = (User.Identity.Name.ToLower() == userProfile.Email.ToLower());
             return model;
         }
+
+#region Campaign Administration
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult List()
+        {
+            return View("CampaignList");
+        }
+
+#endregion
     }
 }
