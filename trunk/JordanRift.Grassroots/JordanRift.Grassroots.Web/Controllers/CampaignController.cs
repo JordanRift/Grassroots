@@ -443,7 +443,9 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 foreach (var c in list)
                 {
-                    viewModel.Add(MapDetailsModel(c));
+                    var model = MapDetailsModel(c);
+                    model.CauseName = c.Cause != null ? c.Cause.Name : string.Empty;
+                    viewModel.Add(model);
                 }
 
                 return View(viewModel);

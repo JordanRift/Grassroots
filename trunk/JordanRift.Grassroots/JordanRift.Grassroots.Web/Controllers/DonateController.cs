@@ -29,6 +29,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 {
     public class DonateController : GrassrootsControllerBase
     {
+        private const string ADMIN_ROLES = "Root,Administrator";
         private readonly ICampaignRepository campaignRepository;
         private readonly IUserProfileRepository userProfileRepository;
         private readonly IDonateMailer donateMailer;
@@ -245,5 +246,14 @@ namespace JordanRift.Grassroots.Web.Controllers
             donateMailer.CampaignDonation(mailerModel).SendAsync();
             return mailerModel;
         }
+
+#region Admin
+
+        public ActionResult Admin(int id = -1)
+        {
+            return null;
+        }
+
+#endregion
     }
 }

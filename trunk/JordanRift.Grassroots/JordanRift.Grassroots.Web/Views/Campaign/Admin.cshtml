@@ -1,5 +1,5 @@
 ﻿@using JordanRift.Grassroots.Web.Models
-@model CampaignDetailsModel
+@model CampaignAdminModel
 
 @{
     //
@@ -17,10 +17,64 @@
     // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
     //
     
-    ViewBag.Title = "Admin";
+    ViewBag.Title = string.Format("Editing {0}", Model.Title);
 }
 
 <hgroup>
-    <h1>@Model.Title</h1>
+    <h1>Editing @Model.Title</h1>
 </hgroup>
-@* TODO: Build campaign edit form *@
+<section class="admin-campaign">
+    @using (Html.BeginForm("AdminUpdate", "Campaign")) {
+        @Html.ValidationSummary(excludePropertyErrors: false)
+        <fieldset class="column">
+            <legend>Campaign Info</legend>
+            <dl>
+                <dt>@Html.LabelFor(m => m.Title)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.Title)
+                    @Html.ValidationMessageFor(m => m.Title)
+                </dd>
+                <dt>@Html.LabelFor(m => m.UrlSlug)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.UrlSlug)
+                    @Html.ValidationMessageFor(m => m.UrlSlug)
+                </dd>
+                <dt>@Html.LabelFor(m => m.AmountString)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.AmountString)
+                    @Html.ValidationMessageFor(m => m.AmountString)
+                </dd>
+                <dt>@Html.LabelFor(m => m.StartDate)</dt>
+                <dd>
+                    @Html.EditorFor(m => m.StartDate)
+                    @Html.ValidationMessageFor(m => m.StartDate)
+                </dd>
+                <dt>@Html.LabelFor(m => m.EndDate)</dt>
+                <dd>
+                    @Html.EditorFor(m => m.EndDate)
+                    @Html.ValidationMessageFor(m => m.EndDate)
+                </dd>
+            </dl>
+        </fieldset>
+        <fieldset class="column">
+            <legend>Description</legend>
+            <div>
+                @Html.TextAreaFor(m => m.Description)
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
+            <ul>
+                <li>@Html.ActionLink(string.Format("{0} {1}'s Profile", Model.FirstName, Model.LastName), "Admin", new { controller = "UserProfile", id = Model.UserProfileID })</li>
+                @if (!string.IsNullOrEmpty(Model.CauseName)) {
+                <li>@Html.ActionLink(Model.CauseName, "Admin", new { controller = "Cause", id = Model.CauseID })</li>
+                }
+            </ul>
+        </fieldset>
+        <div>
+            @Html.UiSubmit("Submit Changes")
+            @Html.ActionLink("Cancel", "List", new { controller = "Campaign", area = "" }, new { title = "Cancel", @class = "cancel" })
+        </div>
+    }
+    <div class="donor-grid">
+        @Html.Partial("AdminDonations", Model.Donations)
+    </div>
+</section>

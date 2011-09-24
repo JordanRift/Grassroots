@@ -30,6 +30,7 @@
                 { headerText: "Start Date" },
                 { headerText: "End Date" },
                 { headerText: "Active" },
+                { headerText: "Project" },
                 { headerText: "" },
                 { headerText: "" }
             ]);
@@ -42,33 +43,37 @@
 </hgroup>
 @* TODO: Add search controls in future release *@
 <table>
-    <tr>
-        <th>Title</th>
-        <th>Owner</th>
-        <th>Raised</th>
-        <th>Goal</th>
-        <th>StartDate</th>
-        <th>EndDate</th>
-        <th>Active</th>
-        <th></th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    var ownerName = string.Format("{0} {1}", item.FirstName, item.LastName);
-    var total = item.Donations.Sum(d => d.Amount);
-    var status = item.IsActive ? "Yes" : "No";
-    <tr>
-        <td>@Html.ActionLink(item.Title, "Admin", new { id = item.CampaignID }, new { title = item.Title })</td>
-        <td>@Html.ActionLink(ownerName, "Admin", new { controller = "UserProfile", id = item.UserProfileID }, new { title = ownerName })</td>
-        <td>@total.ToString("C0")</td>
-        <td>@item.GoalAmount.ToString("C0")</td>
-        <td>@item.StartDate.ToShortDateString()</td>
-        <td>@item.EndDate.ToShortDateString()</td>
-        <td>@status</td>
-        <td>@Html.ActionLink("Edit", "Admin", new { id = item.CampaignID }, new { title = "Edit" })</td>
-        <td><a href="#" class="destroy" title="Delete" data-id="@item.CampaignID" data-type="Campaign" data-controller="Campaign">Delete</a></td>
-    </tr>
-}
-
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Owner</th>
+            <th>Raised</th>
+            <th>Goal</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Active</th>
+            <th>Project</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        var ownerName = string.Format("{0} {1}", item.FirstName, item.LastName);
+        var total = item.Donations.Sum(d => d.Amount);
+        var status = item.IsActive ? "Yes" : "No";
+        <tr>
+            <td>@Html.ActionLink(item.Title, "Admin", new { id = item.CampaignID }, new { title = item.Title })</td>
+            <td>@Html.ActionLink(ownerName, "Admin", new { controller = "UserProfile", id = item.UserProfileID }, new { title = ownerName })</td>
+            <td>@total.ToString("C0")</td>
+            <td>@item.GoalAmount.ToString("C0")</td>
+            <td>@item.StartDate.ToShortDateString()</td>
+            <td>@item.EndDate.ToShortDateString()</td>
+            <td>@status</td>
+            <td>@item.CauseName</td>
+            <td>@Html.ActionLink("Edit", "Admin", new { id = item.CampaignID }, new { title = "Edit" })</td>
+            <td><a href="#" class="destroy" title="Delete" data-id="@item.CampaignID" data-type="Campaign" data-controller="Campaign">Delete</a></td>
+        </tr>
+    }
+    </tbody>
 </table>
