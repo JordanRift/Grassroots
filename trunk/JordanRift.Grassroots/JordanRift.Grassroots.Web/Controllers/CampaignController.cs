@@ -568,6 +568,12 @@ namespace JordanRift.Grassroots.Web.Controllers
             campaign.StartDate = model.StartDate;
             campaign.EndDate = model.EndDate;
             campaign.UrlSlug = model.UrlSlug;
+            decimal amount;
+
+            if (decimal.TryParse(model.AmountString, out amount))
+            {
+                campaign.GoalAmount = amount;
+            }
         }
 
 #endregion

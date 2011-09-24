@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
@@ -413,6 +414,33 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.IsInstanceOf<RedirectToRouteResult>(result);
             var redirect = result as RedirectToRouteResult;
             Assert.AreEqual(redirect.RouteValues["Action"], "Admin");
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Update_Campaign_Properties_When_Successful()
+        {
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaignRepository.Add(campaign);
+            var id = campaign.CampaignID;
+            var model = new CampaignAdminModel
+                            {
+                                CampaignID = id,
+                                AmountString = "12345.67",
+                                Title = "Something different",
+                                Description = "Some other description",
+                                StartDate = DateTime.Now.AddDays(-10),
+                                EndDate = DateTime.Now,
+                                UrlSlug = "different"
+                            };
+
+            controller.AdminUpdate(model);
+            campaign = campaignRepository.GetCampaignByID(id);
+            Assert.AreEqual(model.Title, campaign.Title);
+            Assert.AreEqual(model.Description, campaign.Description);
+            Assert.AreEqual(model.StartDate, campaign.StartDate);
+            Assert.AreEqual(model.EndDate, campaign.EndDate);
+            Assert.AreEqual(model.UrlSlug, campaign.UrlSlug);
+            Assert.AreEqual(decimal.Parse(model.AmountString), campaign.GoalAmount);
         }
 
         private CampaignController GetCampaignController(bool isAjaxRequest = false)
