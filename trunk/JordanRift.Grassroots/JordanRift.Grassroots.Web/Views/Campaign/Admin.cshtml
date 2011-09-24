@@ -19,12 +19,14 @@
     
     ViewBag.Title = string.Format("Editing {0}", Model.Title);
 }
-
+@section DocumentHead {
+    @Html.Partial("UIForm")
+}
 <hgroup>
     <h1>Editing @Model.Title</h1>
 </hgroup>
 <section class="admin-campaign">
-    @using (Html.BeginForm("AdminUpdate", "Campaign")) {
+    @using (Html.BeginForm("AdminUpdate", "Campaign", FormMethod.Post)) {
         @Html.ValidationSummary(excludePropertyErrors: false)
         @Html.HiddenFor(m => m.CampaignID)
         <fieldset class="column">

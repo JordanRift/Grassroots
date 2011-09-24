@@ -51,6 +51,12 @@ namespace JordanRift.Grassroots
                 new { controller = "Campaign", action = "Index", slug = UrlParameter.Optional }
             );
 
+            routes.MapRoute(
+                "CampaignModify",
+                "Campaigns/Edit/{slug}", // URL with url-slug appended
+                new { controller = "Campaign", action = "Edit", slug = UrlParameter.Optional }
+            );
+
             RegisterDonateRoutes(routes);
             RegisterHomeRoutes(routes);
 
@@ -68,12 +74,6 @@ namespace JordanRift.Grassroots
 
             RegisterUserProfileRoutes(routes);
             RegisterAdminRoutes(routes);
-
-            routes.MapRoute(
-                "CampaignModify",
-                "Campaign/{action}/{slug}", // URL with url-slug appended
-                new { controller = "Campaign", action = "Edit", slug = UrlParameter.Optional }
-            );
 
             routes.MapRoute(
                 "Default", // Route name
@@ -128,9 +128,21 @@ namespace JordanRift.Grassroots
 		private static void RegisterAdminRoutes( RouteCollection routes )
 		{
             routes.MapRoute(
-                "Admin",
+                "AdminProjects",
                 "Admin/Project/{action}/{id}",
                 new { controller = "CauseTemplate", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "AdminUpdateCampaign",
+                "Campaign/AdminUpdate",
+                new { controller = "Campaign", action = "AdminUpdate" }
+            );
+
+            routes.MapRoute(
+                "AdminCampaigns",
+                "Campaign/{action}/{id}",
+                new { controller = "Campaign", action = "List", id = UrlParameter.Optional }
             );
 		}
 

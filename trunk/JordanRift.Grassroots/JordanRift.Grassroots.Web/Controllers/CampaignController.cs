@@ -489,7 +489,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpPut, HttpPost]
+        [HttpPost]
         [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult AdminUpdate(CampaignAdminModel model)
         {
@@ -527,6 +527,16 @@ namespace JordanRift.Grassroots.Web.Controllers
                 if (campaign == null)
                 {
                     return HttpNotFound("The campaign you are looking for could not be found.");
+                }
+
+                // To prevent data loss, move donations from this campaign into current general fund.
+                var generalFund = campaignRepository.GetDefaultCampaign();
+                var donations = campaign.CampaignDonors.ToList();
+
+                foreach (var d in donations)
+                {
+                    campaign.CampaignDonors.Remove(d);
+                    generalFund.CampaignDonors.Add(d);
                 }
 
                 campaignRepository.Delete(campaign);

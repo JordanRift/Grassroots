@@ -35,7 +35,7 @@ namespace JordanRift.Grassroots.Web.Models
         [Display(Name = "Friendly URL (letters & numbers only)")]
         [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Please enter only letters and numbers (no spaces or special characters).")]
         [StringLength(30, MinimumLength = 5, ErrorMessage = "Campaign URL must be between 5 and 30 characters in length.")]
-        [Remote("CheckUrlSlug", "Validation", ErrorMessage = "That friendly URL is already in use. Please try another one.")]
+        [Remote("CheckUrlSlug", "Validation", AdditionalFields = "CampaignID", ErrorMessage = "That friendly URL is already in use. Please try another one.")]
         public string UrlSlug { get; set; }
         
         [Required]
