@@ -144,6 +144,12 @@ namespace JordanRift.Grassroots
                 "Campaign/{action}/{id}",
                 new { controller = "Campaign", action = "List", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                "AdminMethods",
+                "Admin/{action}/{id}",
+                new { controller = "Admin", action = "Index", id = UrlParameter.Optional}
+            );
 		}
 
         private static void RegisterDonateRoutes(RouteCollection routes)

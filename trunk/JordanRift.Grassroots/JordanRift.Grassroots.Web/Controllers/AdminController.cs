@@ -134,7 +134,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         /// Request to generate the "General Campaign" for the current month if none exists. Leave public so it can be automated.
         /// </summary>
         /// <returns>Http Status indicating success or error</returns>
-        public ActionResult GenerateDetaultCampaign()
+        public ActionResult GenerateDefaultCampaign()
         {
             var defaultCampaign = campaignRepository.GetDefaultCampaign();
 
@@ -145,7 +145,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             using (new UnitOfWorkScope())
             {
-                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
                 var causeTemplate = organization.CauseTemplates.FirstOrDefault();
                 var root = roleRepository.GetRoot();
                 var userProfile = root.UserProfiles.FirstOrDefault();
@@ -159,8 +159,8 @@ namespace JordanRift.Grassroots.Web.Controllers
                 var campaign = new Campaign
                                    {
                                        GoalAmount = causeTemplate.DefaultAmount,
-                                       Title = string.Format("General Fund {0} {1}", today.Month, today.Year),
-                                       UrlSlug = string.Format("{0}_{1}-{2}", organization.Name, today.Month, today.Year),
+                                       Title = string.Format("General Fund {0}/{1}", today.Month, today.Year),
+                                       UrlSlug = string.Format("{0}{1}{2}", organization.Name, today.Month, today.Year),
                                        StartDate = new DateTime(today.Year, today.Month, 1),
                                        // Get the first day of the current month
                                        EndDate = today.AddMonths(1).AddDays(-1),

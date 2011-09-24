@@ -118,7 +118,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             role.UserProfiles = new List<UserProfile> { userProfile };
             roleRepository.Add(role);
             organizationRepository.Add(organization);
-            var result = controller.GenerateDetaultCampaign();
+            var result = controller.GenerateDefaultCampaign();
             Assert.IsInstanceOf<HttpStatusCodeResult>(result);
             var statusCode = result as HttpStatusCodeResult;
             Assert.AreEqual(statusCode.StatusCode, 200);
@@ -135,7 +135,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             campaign.IsGeneralFund = true;
             campaignRepository.Add(campaign);
             organizationRepository.Add(organization);
-            var result = controller.GenerateDetaultCampaign();
+            var result = controller.GenerateDefaultCampaign();
             Assert.IsInstanceOf<HttpStatusCodeResult>(result);
             var statusCode = result as HttpStatusCodeResult;
             Assert.AreEqual(statusCode.StatusCode, 403);
@@ -158,7 +158,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             role.UserProfiles = new List<UserProfile> { userProfile };
             roleRepository.Add(role);
             organizationRepository.Add(organization);
-            var result = controller.GenerateDetaultCampaign();
+            var result = controller.GenerateDefaultCampaign();
             Assert.IsInstanceOf<HttpNotFoundResult>(result);
         }
 
@@ -179,7 +179,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             role.UserProfiles = new List<UserProfile>();
             roleRepository.Add(role);
             organizationRepository.Add(organization);
-            var result = controller.GenerateDetaultCampaign();
+            var result = controller.GenerateDefaultCampaign();
             Assert.IsInstanceOf<HttpNotFoundResult>(result);
         }
 
