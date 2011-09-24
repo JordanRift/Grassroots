@@ -197,55 +197,6 @@ namespace JordanRift.Grassroots.Web.Controllers
             return RedirectToAction("Create");
         }
 
-        /// <summary>
-        /// Request to generate the "General Campaign" for the current month if none exists.
-        /// </summary>
-        /// <returns>Http Status indicating success or error</returns>
-        public ActionResult GenerateDetaultCampaign()
-        {
-            var defaultCampaign = campaignRepository.GetDefaultCampaign();
-
-            if (defaultCampaign.StartDate.Month == DateTime.Now.Month)
-            {
-                // Consider refactoring to return 403 result if exists already.
-                return null;
-            }
-
-            using (new UnitOfWorkScope())
-            {
-                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-                var causeTemplate = organization.CauseTemplates.FirstOrDefault();
-                var userProfile = organization.UserProfiles.FirstOrDefault();
-
-                if (causeTemplate == null || userProfile == null)
-                {
-                    // Consider refactoring to return 404 if admin user not found.
-                    return null;
-                }
-
-                var today = DateTime.Now;
-                var campaign = new Campaign
-                                   {
-                                       GoalAmount = causeTemplate.DefaultAmount,
-                                       Title = string.Format("General Fund {0} {1}", today.Month, today.Year),
-                                       UrlSlug = string.Format("{0}_{1}-{2}", organization.Name, today.Month, today.Year),
-                                       StartDate = new DateTime(today.Year, today.Month, 1), // Get the first day of the current month
-                                       EndDate = today.AddMonths(1).AddDays(-1), // Get the last day of the current month
-                                       ImagePath = string.Empty,
-                                       Description = string.Format("General Fund for month of {0}, {1}", today.Month, today.Year),
-                                       IsGeneralFund = true
-                                   };
-
-                organization.Campaigns.Add(campaign);
-                causeTemplate.Campaigns.Add(campaign);
-                userProfile.Campaigns.Add(campaign);
-                campaignRepository.Save();
-            }
-
-            // Refactor to return a 200 status code
-            return null;
-        }
-
         [Authorize]
         public ActionResult Edit(string slug = "")
         {

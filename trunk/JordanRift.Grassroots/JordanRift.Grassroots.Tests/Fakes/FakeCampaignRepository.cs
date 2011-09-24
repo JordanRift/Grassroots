@@ -92,7 +92,7 @@ namespace JordanRift.Grassroots.Tests.Fakes
 
         public Campaign GetDefaultCampaign()
         {
-            return campaigns.FirstOrDefault(c => c.Title == "General");
+            return campaigns.Where(c => c.IsGeneralFund).OrderByDescending(c => c.StartDate).FirstOrDefault();
         }
 
         public bool Exists(string urlSlug)

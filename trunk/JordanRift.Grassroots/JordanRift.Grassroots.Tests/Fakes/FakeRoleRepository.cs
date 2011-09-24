@@ -60,6 +60,11 @@ namespace JordanRift.Grassroots.Tests.Fakes
             SetUp();
         }
 
+        public static void Clear()
+        {
+            roles = new List<Role>();
+        }
+
         public IQueryable<Role> FindAllRoles()
         {
             return roles.AsQueryable();
