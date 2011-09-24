@@ -54,6 +54,9 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
             Mapper.CreateMap<CampaignDetailsModel, Campaign>();
             Mapper.CreateMap<CampaignCreateModel, Campaign>();
+            Mapper.CreateMap<Campaign, CampaignAdminModel>();
+            Mapper.CreateMap<CampaignAdminModel, Campaign>();
+            Mapper.CreateMap<CampaignDonor, DonationAdminModel>();
         }
 
         ~CampaignController()
@@ -455,25 +458,62 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult Admin(int id = -1)
         {
+            CampaignAdminModel viewModel;
+
+            if (TempData["ModelErrors"] != null)
+            {
+                var errors = TempData["ModelErrors"] as List<string>;
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+
+                viewModel = TempData["CampaignAdminModel"] as CampaignAdminModel;
+            }
+            else
+            {
+                using (campaignRepository)
+                {
+                    var campaign = campaignRepository.GetCampaignByID(id);
+
+                    if (campaign == null)
+                    {
+                        return HttpNotFound("The campaign you are looking for could not be found.");
+                    }
+
+                    viewModel = MapAdminModel(campaign);
+                }
+            }
+            
+            return View(viewModel);
+        }
+
+        [HttpPut, HttpPost]
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult AdminUpdate(CampaignAdminModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["ModelErrors"] = ModelState.Select(m => m.Value);
+                TempData["CampaignAdminModel"] = model;
+                return RedirectToAction("Admin");
+            }
+
             using (campaignRepository)
             {
-                var campaign = campaignRepository.GetCampaignByID(id);
+                var campaign = campaignRepository.GetCampaignByID(model.CampaignID);
 
                 if (campaign == null)
                 {
                     return HttpNotFound("The campaign you are looking for could not be found.");
                 }
 
-                var viewModel = MapDetailsModel(campaign);
-                return View(viewModel);
+                MapCampaign(campaign, model);
+                campaignRepository.Save();
+                TempData["UserFeedback"] = string.Format("'{0}' has been updated successfully.", campaign.Title);
+                return RedirectToAction("List");
             }
-        }
-
-        [HttpPut]
-        [Authorize(Roles = ADMIN_ROLES)]
-        public ActionResult AdminUpdate(CampaignAdminModel model)
-        {
-            return null;
         }
 
         [HttpDelete]
@@ -499,6 +539,35 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 
             return RedirectToAction("List");
+        }
+
+        private CampaignAdminModel MapAdminModel(Campaign campaign)
+        {
+            var model = Mapper.Map<Campaign, CampaignAdminModel>(campaign);
+            model.AmountString = campaign.GoalAmount.ToString();
+            var userProfile = campaign.UserProfile;
+            model.UserProfileID = userProfile.UserProfileID;
+            model.FirstName = userProfile.FirstName;
+            model.LastName = userProfile.LastName;
+            var cause = campaign.Cause;
+
+            if (cause != null)
+            {
+                model.CauseID = cause.CauseID;
+                model.CauseName = cause.Name;
+            }
+
+            model.Donations = campaign.CampaignDonors.Select(Mapper.Map<CampaignDonor, DonationAdminModel>).ToList();
+            return model;
+        }
+
+        private void MapCampaign(Campaign campaign, CampaignAdminModel model)
+        {
+            campaign.Title = model.Title;
+            campaign.Description = model.Description;
+            campaign.StartDate = model.StartDate;
+            campaign.EndDate = model.EndDate;
+            campaign.UrlSlug = model.UrlSlug;
         }
 
 #endregion

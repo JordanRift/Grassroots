@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
@@ -22,6 +23,8 @@ namespace JordanRift.Grassroots.Web.Models
 {
     public class CampaignAdminModel
     {
+        public int CampaignID { get; set; }
+
         [Required]
         public string Title { get; set; }
 
@@ -44,12 +47,12 @@ namespace JordanRift.Grassroots.Web.Models
 
         [Required]
         [Display(Name = "Start Date")]
-        public string StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Required]
         [GreaterThanDate("StartDate")]
         [Display(Name = "End Date")]
-        public string EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         //
         // User Profile Info
@@ -70,6 +73,6 @@ namespace JordanRift.Grassroots.Web.Models
         // Campaign Donors
         //
 
-        public List<DonationDetailsModel> Donations { get; set; } 
+        public List<DonationAdminModel> Donations { get; set; } 
     }
 }

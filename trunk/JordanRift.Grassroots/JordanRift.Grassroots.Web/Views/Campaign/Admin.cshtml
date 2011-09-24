@@ -26,6 +26,7 @@
 <section class="admin-campaign">
     @using (Html.BeginForm("AdminUpdate", "Campaign")) {
         @Html.ValidationSummary(excludePropertyErrors: false)
+        @Html.HiddenFor(m => m.CampaignID)
         <fieldset class="column">
             <legend>Campaign Info</legend>
             <dl>

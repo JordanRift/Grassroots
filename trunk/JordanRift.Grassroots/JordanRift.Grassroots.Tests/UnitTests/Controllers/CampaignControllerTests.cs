@@ -47,6 +47,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             controller = GetCampaignController();
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
             Mapper.CreateMap<Campaign, CampaignCreateModel>();
+            Mapper.CreateMap<Campaign, CampaignAdminModel>();
         }
 
         [TearDown]
@@ -378,6 +379,40 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             campaignRepository.Add(campaign);
             var result = controller.Destroy(campaign.CampaignID);
             Assert.IsInstanceOf<RedirectToRouteResult>(result);
+        }
+
+        [Test]
+        public void AdminUPdate_Should_Redirect_To_List_When_Update_Successful()
+        {
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaignRepository.Add(campaign);
+            var model = Mapper.Map<Campaign, CampaignAdminModel>(campaign);
+            model.AmountString = campaign.GoalAmount.ToString();
+            var result = controller.AdminUpdate(model);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var redirect = result as RedirectToRouteResult;
+            Assert.AreEqual(redirect.RouteValues["Action"], "List");
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Return_NotFound_If_Campaign_Not_Found()
+        {
+            var campaign = EntityHelpers.GetValidCampaign();
+            var model = Mapper.Map<Campaign, CampaignAdminModel>(campaign);
+            var result = controller.AdminUpdate(model);
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Redirect_To_Admin_If_ModelState_Is_Invalid()
+        {
+            var campaign = EntityHelpers.GetValidCampaign();
+            var model = Mapper.Map<Campaign, CampaignAdminModel>(campaign);
+            controller.ModelState.AddModelError("", "Uh oh...");
+            var result = controller.AdminUpdate(model);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var redirect = result as RedirectToRouteResult;
+            Assert.AreEqual(redirect.RouteValues["Action"], "Admin");
         }
 
         private CampaignController GetCampaignController(bool isAjaxRequest = false)
