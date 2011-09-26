@@ -40,15 +40,12 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void SetUp()
         {
             Mapper.CreateMap<Organization, OrganizationDetailsModel>();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
             FakeOrganizationRepository.Reset();
+            FakeCampaignRepository.Reset();
+            FakeRoleRepository.Reset();
         }
 
-       [Test]
+        [Test]
         public void Index_Should_Return_View()
         {
             SetUpAdminController();

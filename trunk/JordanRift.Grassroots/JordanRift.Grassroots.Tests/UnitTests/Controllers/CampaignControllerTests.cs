@@ -349,6 +349,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void Destroy_Should_Return_Json_If_Ajax_Delete_Successful()
         {
             var campaign = EntityHelpers.GetValidCampaign();
+            campaign.CampaignDonors = new List<CampaignDonor>();
             campaignRepository.Add(campaign);
             controller.Request.Stub(r => r["X-Requested-With"]).Return("XMLHttpRequest");
             var result = controller.Destroy(campaign.CampaignID);
@@ -359,6 +360,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void Destroy_Should_Remove_Campaign_If_Found()
         {
             var campaign = EntityHelpers.GetValidCampaign();
+            campaign.CampaignDonors = new List<CampaignDonor>();
             campaignRepository.Add(campaign);
             var id = campaign.CampaignID;
             controller.Destroy(id);
@@ -377,6 +379,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void Destroy_Should_Return_Redirect_If_Delete_Successful()
         {
             var campaign = EntityHelpers.GetValidCampaign();
+            campaign.CampaignDonors = new List<CampaignDonor>();
             campaignRepository.Add(campaign);
             var result = controller.Destroy(campaign.CampaignID);
             Assert.IsInstanceOf<RedirectToRouteResult>(result);

@@ -102,14 +102,14 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Models
             Assert.IsEmpty(results.ToList());
         }
 
-        [Test]
-        public void Validate_Should_Return_ValidationResult_When_Goal_Amount_Does_Not_Match_CauseTemplate()
-        {
-            campaign.UrlSlug = "mysuperawesomecampaign";
-            causeTemplate.DefaultAmount = 200;
-            var results = campaign.Validate(null);
-            Assert.IsNotEmpty(results.ToList());
-        }
+        //[Test]
+        //public void Validate_Should_Return_ValidationResult_When_Goal_Amount_Does_Not_Match_CauseTemplate()
+        //{
+        //    campaign.UrlSlug = "mysuperawesomecampaign";
+        //    causeTemplate.DefaultAmount = 200;
+        //    var results = campaign.Validate(null);
+        //    Assert.IsNotEmpty(results.ToList());
+        //}
 
         [Test]
         public void Validate_Should_Return_Empty_When_Amount_Does_Not_Match_CauseTemplate_That_Is_Configurable()

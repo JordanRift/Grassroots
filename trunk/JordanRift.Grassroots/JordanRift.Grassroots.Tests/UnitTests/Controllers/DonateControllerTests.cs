@@ -122,6 +122,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var organization = EntityHelpers.GetValidOrganization();
             campaign.UserProfile = userProfile;
             campaign.Title = "General";
+            campaign.IsGeneralFund = true;
             campaign.CampaignDonors = new List<CampaignDonor>();
             campaign.Organization = (Organization) organization;
             campaignRepository.Add(campaign);
@@ -196,6 +197,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var organization = EntityHelpers.GetValidOrganization();
             campaign.UserProfile = userProfile;
             campaign.Title = "General";
+            campaign.IsGeneralFund = true;
             campaign.CampaignDonors = new List<CampaignDonor>();
             campaign.Organization = (Organization)organization;
             campaignRepository.Add(campaign);
