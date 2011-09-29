@@ -43,6 +43,11 @@ namespace JordanRift.Grassroots.Framework.Data
             return ObjectContext.CampaignDonors.FirstOrDefault(d => d.CampaignDonorID == id);
         }
 
+        public void Add(CampaignDonor campaignDonor)
+        {
+            ObjectContext.CampaignDonors.Add(campaignDonor);
+        }
+
         public void Delete(CampaignDonor campaignDonor)
         {
             ObjectContext.CampaignDonors.Remove(campaignDonor);

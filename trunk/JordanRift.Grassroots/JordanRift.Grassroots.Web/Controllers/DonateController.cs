@@ -48,6 +48,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<Payment, CampaignDonor>();
             Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
             Mapper.CreateMap<Campaign, CampaignDetailsModel>();
+            Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
         }
 
         ~DonateController()
@@ -274,7 +275,15 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult Admin(int id = -1)
         {
-            return null;
+            var campaignDonor = campaignDonorRepository.GetDonationByID(id);
+
+            if (campaignDonor == null)
+            {
+                return HttpNotFound("The donation you are looking for could not be found.");
+            }
+
+            var model = MapCampaignDonor(campaignDonor);
+            return View(model);
         }
 
         [Authorize(Roles = ADMIN_ROLES)]
@@ -287,7 +296,35 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult Destroy(int id = -1)
         {
-            return null;
+            var campaignDonor = campaignDonorRepository.GetDonationByID(id);
+
+            if (campaignDonor == null)
+            {
+                return HttpNotFound("The donation you are looking for could not be found.");
+            }
+
+            using (campaignDonorRepository)
+            {
+                campaignDonorRepository.Delete(campaignDonor);
+                campaignDonorRepository.Save();
+            }
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true });
+            }
+
+            // TODO: Consider adding message to inform user of successful delete.
+            return RedirectToAction("List");
+        }
+
+        private DonationAdminModel MapCampaignDonor(CampaignDonor campaignDonor)
+        {
+            var model = Mapper.Map<CampaignDonor, DonationAdminModel>(campaignDonor);
+            var campaign = campaignDonor.Campaign;
+            model.CampaignID = campaign.CampaignID;
+            model.CampaignTitle = campaign.Title;
+            return model;
         }
 
 #endregion

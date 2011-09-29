@@ -80,6 +80,12 @@ namespace JordanRift.Grassroots.Tests.Fakes
             return donors.FirstOrDefault(d => d.CampaignDonorID == id);
         }
 
+        public void Add(CampaignDonor campaignDonor)
+        {
+            campaignDonor.CampaignDonorID = donors.Count + 1;
+            donors.Add(campaignDonor);
+        }
+
         public void Delete(CampaignDonor campaignDonor)
         {
             donors.Remove(campaignDonor);

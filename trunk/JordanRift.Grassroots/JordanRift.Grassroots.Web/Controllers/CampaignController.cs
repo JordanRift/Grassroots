@@ -499,6 +499,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 return Json(new { success = true });
             }
 
+            // TODO: Consider adding message to inform user of successful delete.
             return RedirectToAction("List");
         }
 

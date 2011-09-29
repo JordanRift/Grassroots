@@ -25,6 +25,7 @@ namespace JordanRift.Grassroots.Framework.Data
         IQueryable<CampaignDonor> FindAllDonations();
         IQueryable<CampaignDonor> FindApprovedDonations();
         CampaignDonor GetDonationByID(int id);
+        void Add(CampaignDonor campaignDonor);
         void Delete(CampaignDonor campaignDonor);
         void Save();
     }
