@@ -29,6 +29,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 {
     public class CauseTemplateController : GrassrootsControllerBase
     {
+        private const string ADMIN_ROLES = "Root,Administrator";
         private readonly ICauseTemplateRepository causeTemplateRepository;
         private readonly ICauseRepository causeRepository;
 
@@ -133,7 +134,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		#region Administrative Actions
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = ADMIN_ROLES)]
 		public ActionResult List()
 		{
             using (OrganizationRepository)
@@ -145,13 +146,13 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 		}
 
-		[Authorize( Roles = "Administrator" )]
+		[Authorize( Roles = ADMIN_ROLES )]
 		public ActionResult Create()
 		{
 			return View();
 		}
 
-		[Authorize( Roles = "Administrator" )] 
+		[Authorize( Roles = ADMIN_ROLES )] 
 		[HttpPost]
 		public ActionResult New( CauseTemplateDetailsModel model )
 		{
@@ -172,7 +173,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		    return RedirectToAction( "List" );
 		}
 
-		[Authorize( Roles = "Administrator" )] 
+		[Authorize( Roles = ADMIN_ROLES )] 
 		public ActionResult Edit( int id )
 		{
             using (causeTemplateRepository)
@@ -205,7 +206,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         //[HttpPut]
 		[HttpPost]
-		[Authorize( Roles = "Administrator" )] 
+		[Authorize( Roles = ADMIN_ROLES )] 
 		public ActionResult Update( CauseTemplateDetailsModel model )
 		{
             using (causeTemplateRepository)

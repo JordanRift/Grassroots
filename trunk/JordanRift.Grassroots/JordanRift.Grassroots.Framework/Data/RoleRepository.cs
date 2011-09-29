@@ -43,6 +43,11 @@ namespace JordanRift.Grassroots.Framework.Data
 			return ObjectContext.Roles.FirstOrDefault( r => r.Name == name );
 		}
 
+        public Role GetRoot()
+        {
+            return ObjectContext.Roles.FirstOrDefault(r => r.Name == "Root");
+        }
+
 		public void Add(Role role)
 		{
 			ObjectContext.Roles.Add(role);

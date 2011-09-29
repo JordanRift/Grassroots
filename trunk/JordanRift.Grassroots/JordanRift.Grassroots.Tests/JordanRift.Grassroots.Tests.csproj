@@ -103,6 +103,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fakes\FakeCampaignDonorRepository.cs" />
     <Compile Include="Fakes\FakeCampaignRepository.cs" />
     <Compile Include="Fakes\FakeOrganizationRepository.cs" />
     <Compile Include="Fakes\FakeRoleRepository.cs" />

@@ -1,1 +1,6 @@
-﻿
+﻿# go away
+User-agent: Flipboard
+Disallow: /
+
+User-agent: FlipboardProxy
+Disallow: /

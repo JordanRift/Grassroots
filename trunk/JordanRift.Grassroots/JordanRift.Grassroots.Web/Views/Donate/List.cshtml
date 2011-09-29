@@ -1,0 +1,71 @@
+﻿@model List<JordanRift.Grassroots.Web.Models.DonationAdminModel>
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
+    ViewBag.Title = "Donation List";
+}
+@section DocumentHead {
+    @Html.Partial("UIGrid")
+    <script type="text/javascript">
+        $(function () {
+            Grassroots.gridui([
+                { headerText: "Name" },
+                { headerText: "Amount" },
+                { headerText: "Campaign" },
+                { headerText: "Approved" },
+                { headerText: "" },
+                { headerText: "" }
+            ]);
+        });
+    </script>
+}
+<hgroup>
+    <h1>Donation List</h1>
+</hgroup>
+<section class="donation-list">
+    @* TODO: Add filter controls to allow admins to refine and search results *@
+    <div class="donor-grid">
+    @if (Model != null) {
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Campaign</th>
+                    <th>Approved</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var donation in Model) {
+                var name = string.Format("{0} {1}", donation.FirstName, donation.LastName);
+                var status = donation.IsApproved ? "Yes" : "No";
+                <tr>
+                    <td>@Html.ActionLink(name, "Admin", new { id = donation.CampaignDonorID }, new { title = name })</td>
+                    <td>@donation.Amount.ToString("C")</td>
+                    <td>@Html.ActionLink(donation.CampaignTitle, "Admin", new { controller = "Campaign", id = donation.CampaignID }, new { title = donation.CampaignTitle })</td>
+                    <td>@status</td>
+                    <td>@Html.ActionLink("Edit", "Admin", new { id = donation.CampaignDonorID }, new { title = "Edit" })</td>
+                    <td><a href="#" class="destroy" title="Delete" data-id="@donation.CampaignDonorID" data-type="Donation" data-controller="Donate">Delete</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    </div>
+    <p>@Html.ActionLink("Create New", "New", new { controller = "Donate" }, new { title = "Create New" })</p>
+</section>

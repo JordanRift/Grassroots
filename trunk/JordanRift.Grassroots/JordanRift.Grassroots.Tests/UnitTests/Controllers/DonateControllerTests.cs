@@ -16,6 +16,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
@@ -39,6 +41,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         private IUserProfileRepository userProfileRepository;
         private ICampaignRepository campaignRepository;
         private IOrganizationRepository organizationRepository;
+        private ICampaignDonorRepository campaignDonorRepository;
         private DonateController controller;
 
         [SetUp]
@@ -47,8 +50,10 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             organizationRepository = new FakeOrganizationRepository();
             campaignRepository = new FakeCampaignRepository();
             userProfileRepository = new FakeUserProfileRepository();
+            campaignDonorRepository = new FakeCampaignDonorRepository();
             Mapper.CreateMap<Payment, CampaignDonor>();
             Mapper.CreateMap<Payment, DonationDetailsModel>();
+            Mapper.CreateMap<CampaignDonor, DonationAdminModel>();
         }
 
         [TearDown]
@@ -58,6 +63,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             FakeCampaignRepository.Reset();
             FakeOrganizationRepository.Reset();
             FakeUserRepository.Reset();
+            FakeCampaignDonorRepository.Reset();
         }
 
 
@@ -122,6 +128,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var organization = EntityHelpers.GetValidOrganization();
             campaign.UserProfile = userProfile;
             campaign.Title = "General";
+            campaign.IsGeneralFund = true;
             campaign.CampaignDonors = new List<CampaignDonor>();
             campaign.Organization = (Organization) organization;
             campaignRepository.Add(campaign);
@@ -196,6 +203,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var organization = EntityHelpers.GetValidOrganization();
             campaign.UserProfile = userProfile;
             campaign.Title = "General";
+            campaign.IsGeneralFund = true;
             campaign.CampaignDonors = new List<CampaignDonor>();
             campaign.Organization = (Organization)organization;
             campaignRepository.Add(campaign);
@@ -432,6 +440,92 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.IsInstanceOf(typeof(HttpNotFoundResult), result);
         }
 
+        [Test]
+        public void List_Should_Return_Donate_Grid_View()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var result = controller.List();
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public void List_Should_Return_Populated_Donate_Grid_View()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var result = controller.List() as ViewResult;
+            var model = result.Model as IEnumerable<CampaignDonor>;
+            Assert.Greater(model.Count(), 0);
+
+        }
+
+        [Test]
+        public void Admin_Should_Return_View_If_CampaignDonor_Found()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var donation = EntityHelpers.GetValidCampaignDonor();
+            donation.Campaign = EntityHelpers.GetValidCampaign();
+            campaignDonorRepository.Add(donation);
+            var result = controller.Admin(donation.CampaignDonorID);
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public void Admin_Should_Return_NotFound_If_Campaign_Not_Found()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var result = controller.Admin();
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
+        [Test]
+        public void Destroy_Should_Return_Json_If_Ajax_Delete_Successful()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            controller.Request.Stub(x => x["X-Requested-With"]).Return("XMLHttpRequest");
+            var donation = EntityHelpers.GetValidCampaignDonor();
+            campaignDonorRepository.Add(donation);
+            var result = controller.Destroy(donation.CampaignDonorID);
+            Assert.IsInstanceOf<JsonResult>(result);
+        }
+
+        [Test]
+        public void Destroy_Should_Return_Redirect_If_Delete_Successful()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var donation = EntityHelpers.GetValidCampaignDonor();
+            campaignDonorRepository.Add(donation);
+            var result = controller.Destroy(donation.CampaignDonorID);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+        }
+
+        [Test]
+        public void Destroy_Should_Remove_CampaignDonor_If_Found()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var donation = EntityHelpers.GetValidCampaignDonor();
+            campaignDonorRepository.Add(donation);
+            var id = donation.CampaignDonorID;
+            controller.Destroy(id);
+            donation = campaignDonorRepository.GetDonationByID(id);
+            Assert.IsNull(donation);
+        }
+
+        [Test]
+        public void Destroy_Should_Return_NotFound_If_CampaignDonor_Not_Found()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var result = controller.Destroy();
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
         private void SetUpController(MockRepository mocks, Payment payment = null, bool isPaymentApproved = true)
         {
             var mailer = mocks.DynamicMock<IDonateMailer>();
@@ -450,16 +544,16 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                 Expect.Call(paymentProvider.Process(payment)).IgnoreArguments().Return(response);
             }
 
-            controller = new DonateController(campaignRepository, userProfileRepository, mailer, paymentProviderFactory)
+            controller = new DonateController(campaignRepository, userProfileRepository, mailer, paymentProviderFactory, campaignDonorRepository)
                              {
                                  OrganizationRepository = organizationRepository
                              };
 
-            controller.ControllerContext = new ControllerContext
-                                               {
-                                                   Controller = controller,
-                                                   RequestContext = new RequestContext(new MockHttpContext(), new RouteData())
-                                               };
+            var context = MockRepository.GenerateStub<HttpContextBase>();
+            var request = MockRepository.GenerateStub<HttpRequestBase>();
+            context.Stub(x => x.Request).Return(request);
+            context.User = new GenericPrincipal(new GenericIdentity("goodEmail"), null);
+            controller.ControllerContext = new ControllerContext(context, new RouteData(), controller);
         }
     }
 }

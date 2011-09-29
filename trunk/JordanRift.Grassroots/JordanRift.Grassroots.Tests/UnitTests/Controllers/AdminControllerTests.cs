@@ -13,6 +13,8 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AutoMapper;
@@ -30,21 +32,20 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
     public class AdminControllerTests
     {
         private IOrganizationRepository organizationRepository;
+        private ICampaignRepository campaignRepository;
+        private IRoleRepository roleRepository;
         private AdminController controller;
 
         [SetUp]
         public void SetUp()
         {
             Mapper.CreateMap<Organization, OrganizationDetailsModel>();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
             FakeOrganizationRepository.Reset();
+            FakeCampaignRepository.Reset();
+            FakeRoleRepository.Reset();
         }
 
-       [Test]
+        [Test]
         public void Index_Should_Return_View()
         {
             SetUpAdminController();
@@ -93,18 +94,107 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.AreEqual("EditOrganization", actionName);
         }
 
+        [Test]
+        public void GererateDefaultCampaign_Should_Return_200_If_Successful()
+        {
+            SetUpAdminController();
+            FakeOrganizationRepository.Clear();
+            FakeRoleRepository.Clear();
+            var organization = EntityHelpers.GetValidOrganization();
+            organization.Campaigns = new List<Campaign>();
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaign.IsGeneralFund = true;
+            campaign.StartDate = DateTime.Now.AddMonths(-1);
+            campaignRepository.Add(campaign);
+            var causeTemplate = EntityHelpers.GetValidCauseTemplate();
+            causeTemplate.Campaigns = new List<Campaign>();
+            organization.CauseTemplates = new List<CauseTemplate> { causeTemplate };
+            var role = new Role { Name = "Root" };
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Campaigns = new List<Campaign>();
+            role.UserProfiles = new List<UserProfile> { userProfile };
+            roleRepository.Add(role);
+            organizationRepository.Add(organization);
+            var result = controller.GenerateDefaultCampaign();
+            Assert.IsInstanceOf<HttpStatusCodeResult>(result);
+            var statusCode = result as HttpStatusCodeResult;
+            Assert.AreEqual(statusCode.StatusCode, 200);
+        }
+
+        [Test]
+        public void GenerateDefaultCampaign_Should_Return_403_If_Current_Month_Defaut_Exists()
+        {
+            SetUpAdminController();
+            FakeOrganizationRepository.Clear();
+            var organization = EntityHelpers.GetValidOrganization();
+            organization.Campaigns = new List<Campaign>();
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaign.IsGeneralFund = true;
+            campaignRepository.Add(campaign);
+            organizationRepository.Add(organization);
+            var result = controller.GenerateDefaultCampaign();
+            Assert.IsInstanceOf<HttpStatusCodeResult>(result);
+            var statusCode = result as HttpStatusCodeResult;
+            Assert.AreEqual(statusCode.StatusCode, 403);
+        }
+
+        [Test]
+        public void GenerateDefaultCampaign_Should_Return_NotFound_If_CauseTemplate_Not_Found()
+        {
+            SetUpAdminController();
+            FakeOrganizationRepository.Clear();
+            FakeRoleRepository.Clear();
+            var organization = EntityHelpers.GetValidOrganization();
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaign.IsGeneralFund = true;
+            campaign.StartDate = DateTime.Now.AddMonths(-1);
+            campaignRepository.Add(campaign);
+            organization.CauseTemplates = new List<CauseTemplate>();
+            var role = new Role { Name = "Root" };
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            role.UserProfiles = new List<UserProfile> { userProfile };
+            roleRepository.Add(role);
+            organizationRepository.Add(organization);
+            var result = controller.GenerateDefaultCampaign();
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
+        [Test]
+        public void GenerateDefaultCampaign_Should_Return_NotFound_If_UserProfile_Not_Found()
+        {
+            SetUpAdminController();
+            FakeOrganizationRepository.Clear();
+            FakeRoleRepository.Clear();
+            var organization = EntityHelpers.GetValidOrganization();
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaign.IsGeneralFund = true;
+            campaign.StartDate = DateTime.Now.AddMonths(-1);
+            campaignRepository.Add(campaign);
+            var causeTemplate = EntityHelpers.GetValidCauseTemplate();
+            organization.CauseTemplates = new List<CauseTemplate> { causeTemplate };
+            var role = new Role { Name = "Root" };
+            role.UserProfiles = new List<UserProfile>();
+            roleRepository.Add(role);
+            organizationRepository.Add(organization);
+            var result = controller.GenerateDefaultCampaign();
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
         private void SetUpAdminController(bool shouldFindOrganization = true, bool repoReadOnly = true)
         {
             organizationRepository = new FakeOrganizationRepository();
+            campaignRepository = new FakeCampaignRepository();
+            roleRepository = new FakeRoleRepository();
 
             if (!shouldFindOrganization)
             {
                 FakeOrganizationRepository.Clear();
             }
 
-            controller = new AdminController
+            controller = new AdminController(campaignRepository, roleRepository)
                              {
                                  OrganizationRepository = organizationRepository
+
                              };
 
             controller.ControllerContext = new ControllerContext
