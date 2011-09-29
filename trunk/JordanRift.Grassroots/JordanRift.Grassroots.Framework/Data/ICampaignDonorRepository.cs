@@ -13,26 +13,19 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-namespace JordanRift.Grassroots.Web.Models
+using System;
+using System.Linq;
+using JordanRift.Grassroots.Framework.Entities;
+using JordanRift.Grassroots.Framework.Entities.Models;
+
+namespace JordanRift.Grassroots.Framework.Data
 {
-    public class DonationAdminModel
+    public interface ICampaignDonorRepository : IPriority, IDisposable
     {
-        //
-        // Campaign Donor Info
-        //
-
-        // TODO: Add validation attributes
-        public int CampaignDonorID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public decimal Amount { get; set; }
-        public bool IsApproved { get; set; }
-
-        //
-        // Campaign Info
-        //
-        public string CampaignTitle { get; set; }
-        public int CampaignID { get; set; }
+        IQueryable<CampaignDonor> FindAllDonations();
+        IQueryable<CampaignDonor> FindApprovedDonations();
+        CampaignDonor GetDonationByID(int id);
+        void Delete(CampaignDonor campaignDonor);
+        void Save();
     }
 }

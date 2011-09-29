@@ -39,6 +39,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         private IUserProfileRepository userProfileRepository;
         private ICampaignRepository campaignRepository;
         private IOrganizationRepository organizationRepository;
+        private ICampaignDonorRepository campaignDonorRepository;
         private DonateController controller;
 
         [SetUp]
@@ -47,6 +48,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             organizationRepository = new FakeOrganizationRepository();
             campaignRepository = new FakeCampaignRepository();
             userProfileRepository = new FakeUserProfileRepository();
+            campaignDonorRepository = new FakeCampaignDonorRepository();
             Mapper.CreateMap<Payment, CampaignDonor>();
             Mapper.CreateMap<Payment, DonationDetailsModel>();
         }
@@ -58,6 +60,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             FakeCampaignRepository.Reset();
             FakeOrganizationRepository.Reset();
             FakeUserRepository.Reset();
+            FakeCampaignDonorRepository.Reset();
         }
 
 
@@ -434,6 +437,26 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.IsInstanceOf(typeof(HttpNotFoundResult), result);
         }
 
+        [Test]
+        public void List_Should_Return_Donate_Grid_View()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var result = controller.List();
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public void List_Should_Return_Populated_Donate_Grid_View()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var result = controller.List() as ViewResult;
+            var model = result.Model as IEnumerable<CampaignDonor>;
+            Assert.Greater(model.Count(), 0);
+
+        }
+
         private void SetUpController(MockRepository mocks, Payment payment = null, bool isPaymentApproved = true)
         {
             var mailer = mocks.DynamicMock<IDonateMailer>();
@@ -452,7 +475,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                 Expect.Call(paymentProvider.Process(payment)).IgnoreArguments().Return(response);
             }
 
-            controller = new DonateController(campaignRepository, userProfileRepository, mailer, paymentProviderFactory)
+            controller = new DonateController(campaignRepository, userProfileRepository, mailer, paymentProviderFactory, campaignDonorRepository)
                              {
                                  OrganizationRepository = organizationRepository
                              };

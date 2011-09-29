@@ -102,6 +102,7 @@ namespace JordanRift.Grassroots
             var kernel = new StandardKernel();
             
             // Repository layer DI
+            kernel.Bind<ICampaignDonorRepository>().To<CampaignDonorRepository>();
             kernel.Bind<ICampaignRepository>().To<CampaignRepository>();
             kernel.Bind<IOrganizationRepository>().To<OrganizationRepository>();
             kernel.Bind<IUserProfileRepository>().To<UserProfileRepository>();

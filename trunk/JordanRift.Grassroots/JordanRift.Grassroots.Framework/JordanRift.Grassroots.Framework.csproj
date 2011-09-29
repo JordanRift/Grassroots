@@ -92,10 +92,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\CampaignDonorRepository.cs" />
     <Compile Include="Data\CampaignRepository.cs" />
     <Compile Include="Data\CauseTemplateRepository.cs" />
     <Compile Include="Data\CauseRepository.cs" />
     <Compile Include="Data\GrassrootsContext.cs" />
+    <Compile Include="Data\ICampaignDonorRepository.cs" />
     <Compile Include="Data\ICauseRepository.cs" />
     <Compile Include="Data\ICauseTemplateRepository.cs" />
     <Compile Include="Data\GrassrootsRepositoryBase.cs" />

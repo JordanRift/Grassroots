@@ -34,14 +34,16 @@ namespace JordanRift.Grassroots.Web.Controllers
         private readonly IUserProfileRepository userProfileRepository;
         private readonly IDonateMailer donateMailer;
         private readonly IPaymentProviderFactory paymentProviderFactory;
+        private readonly ICampaignDonorRepository campaignDonorRepository;
 
         public DonateController(ICampaignRepository campaignRepository, IUserProfileRepository userProfileRepository, 
-            IDonateMailer donateMailer, IPaymentProviderFactory paymentProviderFactory)
+            IDonateMailer donateMailer, IPaymentProviderFactory paymentProviderFactory, ICampaignDonorRepository campaignDonorRepository)
         {
             this.campaignRepository = campaignRepository;
             this.userProfileRepository = userProfileRepository;
             this.donateMailer = donateMailer;
             this.paymentProviderFactory = paymentProviderFactory;
+            this.campaignDonorRepository = campaignDonorRepository;
             Mapper.CreateMap<UserProfile, Payment>();
             Mapper.CreateMap<Payment, CampaignDonor>();
             Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
@@ -249,7 +251,41 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 #region Admin
 
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult List()
+        {
+            var donations = campaignDonorRepository.FindAllDonations();
+            return View(donations);
+        }
+
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult New()
+        {
+            return null;
+        }
+
+        [HttpPost]
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult Create(DonationAdminModel model)
+        {
+            return null;
+        }
+
+        [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult Admin(int id = -1)
+        {
+            return null;
+        }
+
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult AdminUpdate(DonationAdminModel model)
+        {
+            return null;
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult Destroy(int id = -1)
         {
             return null;
         }
