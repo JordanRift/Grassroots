@@ -26,13 +26,26 @@ namespace JordanRift.Grassroots.Web.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string AddressLine1;
+        public string AddressLine2;
+        public string City;
+        public string State;
+        public string ZipCode;
+        public string PrimaryPhone;
         public decimal Amount { get; set; }
-        public bool IsApproved { get; set; }
+        public bool Approved { get; set; }
+        public bool IsAnonymous { get; set; }
 
         //
         // Campaign Info
         //
         public string CampaignTitle { get; set; }
         public int CampaignID { get; set; }
+
+        //
+        // UserProfile Info
+        //
+
+        public int? UserProfileID { get; set; }
     }
 }

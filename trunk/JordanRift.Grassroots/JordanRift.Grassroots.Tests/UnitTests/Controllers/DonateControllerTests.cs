@@ -526,6 +526,107 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.IsInstanceOf<HttpNotFoundResult>(result);
         }
 
+        [Test]
+        public void AdminUpdate_Should_Redirect_To_List_If_Successful()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var donation = EntityHelpers.GetValidCampaignDonor();
+            campaignDonorRepository.Add(donation);
+            var model = Mapper.Map<CampaignDonor, DonationAdminModel>(donation);
+            var result = controller.AdminUpdate(model);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var redirect = result as RedirectToRouteResult;
+            Assert.AreEqual("List", redirect.RouteValues["Action"]);
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Redirect_To_Campaign_If_Successful_And_Context_Set()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var donation = EntityHelpers.GetValidCampaignDonor();
+            campaignDonorRepository.Add(donation);
+            var model = Mapper.Map<CampaignDonor, DonationAdminModel>(donation);
+            var result = controller.AdminUpdate(model, "campaign");
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var redirect = result as RedirectToRouteResult;
+            Assert.AreEqual("Admin", redirect.RouteValues["Action"]);
+            Assert.AreEqual("Campaign", redirect.RouteValues["Controller"]);
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Return_NotFound_If_CampaignDonor_Not_Found()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var donation = EntityHelpers.GetValidCampaignDonor();
+            var model = Mapper.Map<CampaignDonor, DonationAdminModel>(donation);
+            var result = controller.AdminUpdate(model);
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Redirect_To_Admin_If_ModelState_Not_Valid()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var donation = EntityHelpers.GetValidCampaignDonor();
+            campaignDonorRepository.Add(donation);
+            controller.ModelState.AddModelError("", "Uh oh...");
+            var model = Mapper.Map<CampaignDonor, DonationAdminModel>(donation);
+            var result = controller.AdminUpdate(model);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var redirect = result as RedirectToRouteResult;
+            Assert.AreEqual("Admin", redirect.RouteValues["Action"]);
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Update_CampaignDonor_Properties_When_Successful()
+        {
+            var mocks = new MockRepository();
+            SetUpController(mocks);
+            var donation = EntityHelpers.GetValidCampaignDonor();
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaignRepository.Add(campaign);
+            donation.CampaignID = campaign.CampaignID;
+            donation.Campaign = campaign;
+            campaignDonorRepository.Add(donation);
+            var id = donation.CampaignDonorID;
+            var model = new DonationAdminModel
+                            {
+                                CampaignDonorID = id,
+                                Amount = 1234.56m,
+                                Email = "some-other-email",
+                                FirstName = "some",
+                                LastName = "guy",
+                                AddressLine1 = "asdf",
+                                AddressLine2 = "yald",
+                                City = "townplace",
+                                State = "al",
+                                ZipCode = "92827",
+                                PrimaryPhone = "23434234234",
+                                Approved = false,
+                                IsAnonymous = true
+                            };
+
+            controller.AdminUpdate(model);
+            donation = campaignDonorRepository.GetDonationByID(id);
+            Assert.AreEqual(model.CampaignDonorID, donation.CampaignDonorID);
+            Assert.AreEqual(model.Amount, donation.Amount);
+            Assert.AreEqual(model.Email, donation.Email);
+            Assert.AreEqual(model.FirstName, donation.FirstName);
+            Assert.AreEqual(model.LastName, donation.LastName);
+            Assert.AreEqual(model.AddressLine1, donation.AddressLine1);
+            Assert.AreEqual(model.AddressLine2, donation.AddressLine2);
+            Assert.AreEqual(model.City, donation.City);
+            Assert.AreEqual(model.State, donation.State);
+            Assert.AreEqual(model.ZipCode, donation.ZipCode);
+            Assert.AreEqual(model.PrimaryPhone, donation.PrimaryPhone);
+            Assert.AreEqual(model.Approved, donation.Approved);
+            Assert.AreEqual(model.IsAnonymous, donation.IsAnonymous);
+        }
+
         private void SetUpController(MockRepository mocks, Payment payment = null, bool isPaymentApproved = true)
         {
             var mailer = mocks.DynamicMock<IDonateMailer>();

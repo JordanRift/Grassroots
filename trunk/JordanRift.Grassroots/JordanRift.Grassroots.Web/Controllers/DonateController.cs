@@ -273,23 +273,67 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [Authorize(Roles = ADMIN_ROLES)]
-        public ActionResult Admin(int id = -1)
+        public ActionResult Admin(int id = -1, string context = "list")
         {
-            var campaignDonor = campaignDonorRepository.GetDonationByID(id);
+            DonationAdminModel model;
 
-            if (campaignDonor == null)
+            if (TempData["ModelErrors"] != null)
             {
-                return HttpNotFound("The donation you are looking for could not be found.");
+                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+
+                model = TempData["DonationAdminModel"] as DonationAdminModel;
+            }
+            else
+            {
+                var campaignDonor = campaignDonorRepository.GetDonationByID(id);
+
+                if (campaignDonor == null)
+                {
+                    return HttpNotFound("The donation you are looking for could not be found.");
+                }
+
+                model = MapAdminModel(campaignDonor);
             }
 
-            var model = MapCampaignDonor(campaignDonor);
+            ViewBag.Context = context;
             return View(model);
         }
 
         [Authorize(Roles = ADMIN_ROLES)]
-        public ActionResult AdminUpdate(DonationAdminModel model)
+        public ActionResult AdminUpdate(DonationAdminModel model, string context = "list")
         {
-            return null;
+            if (!ModelState.IsValid)
+            {
+                TempData["ModelErrors"] = ModelState.Select(m => m.Value);
+                TempData["DonationAdminModel"] = model;
+                return RedirectToAction("Admin");
+            }
+
+            using (new UnitOfWorkScope())
+            using (campaignDonorRepository)
+            {
+                var donation = campaignDonorRepository.GetDonationByID(model.CampaignDonorID);
+
+                if (donation == null)
+                {
+                    return HttpNotFound("The donation you are looking for could not be found.");
+                }
+
+                MapCampaignDonor(model, donation);
+                campaignDonorRepository.Save();
+            }
+
+            if (context.ToLower() == "campaign")
+            {
+                return RedirectToAction("Admin", "Campaign");
+            }
+
+            return RedirectToAction("List");
         }
 
         [HttpDelete]
@@ -318,13 +362,44 @@ namespace JordanRift.Grassroots.Web.Controllers
             return RedirectToAction("List");
         }
 
-        private DonationAdminModel MapCampaignDonor(CampaignDonor campaignDonor)
+        private DonationAdminModel MapAdminModel(CampaignDonor campaignDonor)
         {
             var model = Mapper.Map<CampaignDonor, DonationAdminModel>(campaignDonor);
             var campaign = campaignDonor.Campaign;
             model.CampaignID = campaign.CampaignID;
             model.CampaignTitle = campaign.Title;
+            model.UserProfileID = campaignDonor.UserProfileID;
             return model;
+        }
+
+        private void MapCampaignDonor(DonationAdminModel model, CampaignDonor campaignDonor)
+        {
+            campaignDonor.Amount = model.Amount;
+            campaignDonor.FirstName = model.FirstName;
+            campaignDonor.LastName = model.LastName;
+            campaignDonor.Email = model.Email;
+            campaignDonor.PrimaryPhone = model.PrimaryPhone;
+            campaignDonor.AddressLine1 = model.AddressLine1;
+            campaignDonor.AddressLine2 = model.AddressLine2;
+            campaignDonor.City = model.City;
+            campaignDonor.State = model.State;
+            campaignDonor.ZipCode = model.ZipCode;
+            campaignDonor.IsAnonymous = model.IsAnonymous;
+            campaignDonor.Approved = model.Approved;
+
+            if (campaignDonor.CampaignID != model.CampaignID)
+            {
+                var oldCampaign = campaignDonor.Campaign;
+                var newCampaign = campaignRepository.GetCampaignByID(model.CampaignID);
+
+                if (newCampaign == null)
+                {
+                    return;
+                }
+
+                oldCampaign.CampaignDonors.Remove(campaignDonor);
+                newCampaign.CampaignDonors.Add(campaignDonor);
+            }
         }
 
 #endregion
