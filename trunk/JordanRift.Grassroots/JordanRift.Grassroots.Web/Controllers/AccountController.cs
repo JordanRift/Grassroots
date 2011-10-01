@@ -136,6 +136,16 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         public ActionResult Register(string returnUrl = "")
         {
+            if (TempData["ModelErrors"] != null)
+            {
+                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             var viewModel = TempData["RegisterModel"] as RegisterModel ?? new RegisterModel();
             ViewBag.PasswordLength = MembershipService.MinPasswordLength;
@@ -185,6 +195,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             var url = returnUrl;
             TempData["RegisterModel"] = model;
+            TempData["ModelErrors"] = FindModelErrors();
             return RedirectToAction("Register", "Account", new { returnUrl = url });
         }
 

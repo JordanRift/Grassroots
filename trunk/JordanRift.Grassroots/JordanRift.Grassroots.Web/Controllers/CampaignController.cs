@@ -446,7 +446,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["ModelErrors"] = ModelState.Select(m => m.Value);
+                TempData["ModelErrors"] = FindModelErrors();
                 TempData["CampaignAdminModel"] = model;
                 return RedirectToAction("Admin");
             }

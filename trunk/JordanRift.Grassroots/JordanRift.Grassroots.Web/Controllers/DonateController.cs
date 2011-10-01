@@ -262,14 +262,66 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult New()
         {
-            return null;
+            if (TempData["ModelErrors"] != null)
+            {
+                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+            }
+
+            var model = TempData["DonationAdminModel"] as DonationAdminModel ?? new DonationAdminModel();
+            return View(model);
         }
 
         [HttpPost]
         [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult Create(DonationAdminModel model)
         {
-            return null;
+            if (!ModelState.IsValid)
+            {
+                TempData["ModelErrors"] = FindModelErrors();
+                TempData["DonationAdminModel"] = model;
+                return RedirectToAction("New");
+            }
+
+            CampaignDonor campaignDonor;
+
+            using (new UnitOfWorkScope())
+            {
+                campaignDonor = new CampaignDonor
+                                    {
+                                        Amount = model.Amount,
+                                        FirstName = model.FirstName,
+                                        LastName = model.LastName,
+                                        AddressLine1 = model.AddressLine1,
+                                        AddressLine2 = model.AddressLine2,
+                                        City = model.City,
+                                        State = model.State,
+                                        ZipCode = model.ZipCode,
+                                        Email = model.Email,
+                                        PrimaryPhone = model.PrimaryPhone,
+                                        Approved = model.Approved,
+                                        IsAnonymous = model.IsAnonymous
+                                    };
+
+                var campaign = campaignRepository.GetCampaignByID(model.CampaignID);
+                campaign.CampaignDonors.Add(campaignDonor);
+                var userProfile = userProfileRepository.FindUserProfileByEmail(model.Email).FirstOrDefault();
+
+                if (userProfile != null)
+                {
+                    userProfile.CampaignDonors.Add(campaignDonor);
+                }
+
+                campaignDonorRepository.Save();
+            }
+
+            TempData["UserFeedback"] = string.Format("{0} {1}'s donation of {2} has been created successfully.",
+                campaignDonor.FirstName, campaignDonor.LastName, campaignDonor.Amount);
+            return RedirectToAction("Admin", new { id = campaignDonor.CampaignDonorID });
         }
 
         [Authorize(Roles = ADMIN_ROLES)]
@@ -309,13 +361,12 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["ModelErrors"] = ModelState.Select(m => m.Value);
+                TempData["ModelErrors"] = FindModelErrors();
                 TempData["DonationAdminModel"] = model;
                 return RedirectToAction("Admin");
             }
 
             using (new UnitOfWorkScope())
-            using (campaignDonorRepository)
             {
                 var donation = campaignDonorRepository.GetDonationByID(model.CampaignDonorID);
 
@@ -326,6 +377,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 MapCampaignDonor(model, donation);
                 campaignDonorRepository.Save();
+                TempData["UserFeedback"] = string.Format("{0} {1}'s donation of {2} has been saved.",
+                    donation.FirstName, donation.LastName, donation.Amount);
             }
 
             if (context.ToLower() == "campaign")
