@@ -413,7 +413,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (TempData["ModelErrors"] != null)
             {
-                var errors = TempData["ModelErrors"] as List<string>;
+                var errors = TempData["ModelErrors"] as IEnumerable<string>;
 
                 foreach (var error in errors)
                 {
@@ -446,7 +446,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["ModelErrors"] = ModelState.Select(m => m.Value);
+                TempData["ModelErrors"] = FindModelErrors();
                 TempData["CampaignAdminModel"] = model;
                 return RedirectToAction("Admin");
             }

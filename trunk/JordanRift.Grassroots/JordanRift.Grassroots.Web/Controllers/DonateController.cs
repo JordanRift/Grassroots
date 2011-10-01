@@ -262,34 +262,131 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult New()
         {
-            return null;
+            if (TempData["ModelErrors"] != null)
+            {
+                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+            }
+
+            var model = TempData["DonationAdminModel"] as DonationAdminModel ?? new DonationAdminModel();
+            return View(model);
         }
 
         [HttpPost]
         [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult Create(DonationAdminModel model)
         {
-            return null;
+            if (!ModelState.IsValid)
+            {
+                TempData["ModelErrors"] = FindModelErrors();
+                TempData["DonationAdminModel"] = model;
+                return RedirectToAction("New");
+            }
+
+            CampaignDonor campaignDonor;
+
+            using (new UnitOfWorkScope())
+            {
+                campaignDonor = new CampaignDonor
+                                    {
+                                        Amount = model.Amount,
+                                        FirstName = model.FirstName,
+                                        LastName = model.LastName,
+                                        AddressLine1 = model.AddressLine1,
+                                        AddressLine2 = model.AddressLine2,
+                                        City = model.City,
+                                        State = model.State,
+                                        ZipCode = model.ZipCode,
+                                        Email = model.Email,
+                                        PrimaryPhone = model.PrimaryPhone,
+                                        Approved = model.Approved,
+                                        IsAnonymous = model.IsAnonymous
+                                    };
+
+                var campaign = campaignRepository.GetCampaignByID(model.CampaignID);
+                campaign.CampaignDonors.Add(campaignDonor);
+                var userProfile = userProfileRepository.FindUserProfileByEmail(model.Email).FirstOrDefault();
+
+                if (userProfile != null)
+                {
+                    userProfile.CampaignDonors.Add(campaignDonor);
+                }
+
+                campaignDonorRepository.Save();
+            }
+
+            TempData["UserFeedback"] = string.Format("{0} {1}'s donation of {2} has been created successfully.",
+                campaignDonor.FirstName, campaignDonor.LastName, campaignDonor.Amount);
+            return RedirectToAction("Admin", new { id = campaignDonor.CampaignDonorID });
         }
 
         [Authorize(Roles = ADMIN_ROLES)]
-        public ActionResult Admin(int id = -1)
+        public ActionResult Admin(int id = -1, string context = "list")
         {
-            var campaignDonor = campaignDonorRepository.GetDonationByID(id);
+            DonationAdminModel model;
 
-            if (campaignDonor == null)
+            if (TempData["ModelErrors"] != null)
             {
-                return HttpNotFound("The donation you are looking for could not be found.");
+                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+
+                model = TempData["DonationAdminModel"] as DonationAdminModel;
+            }
+            else
+            {
+                var campaignDonor = campaignDonorRepository.GetDonationByID(id);
+
+                if (campaignDonor == null)
+                {
+                    return HttpNotFound("The donation you are looking for could not be found.");
+                }
+
+                model = MapAdminModel(campaignDonor);
             }
 
-            var model = MapCampaignDonor(campaignDonor);
+            ViewBag.Context = context;
             return View(model);
         }
 
         [Authorize(Roles = ADMIN_ROLES)]
-        public ActionResult AdminUpdate(DonationAdminModel model)
+        public ActionResult AdminUpdate(DonationAdminModel model, string context = "list")
         {
-            return null;
+            if (!ModelState.IsValid)
+            {
+                TempData["ModelErrors"] = FindModelErrors();
+                TempData["DonationAdminModel"] = model;
+                return RedirectToAction("Admin");
+            }
+
+            using (new UnitOfWorkScope())
+            {
+                var donation = campaignDonorRepository.GetDonationByID(model.CampaignDonorID);
+
+                if (donation == null)
+                {
+                    return HttpNotFound("The donation you are looking for could not be found.");
+                }
+
+                MapCampaignDonor(model, donation);
+                campaignDonorRepository.Save();
+                TempData["UserFeedback"] = string.Format("{0} {1}'s donation of {2} has been saved.",
+                    donation.FirstName, donation.LastName, donation.Amount);
+            }
+
+            if (context.ToLower() == "campaign")
+            {
+                return RedirectToAction("Admin", "Campaign");
+            }
+
+            return RedirectToAction("List");
         }
 
         [HttpDelete]
@@ -318,13 +415,44 @@ namespace JordanRift.Grassroots.Web.Controllers
             return RedirectToAction("List");
         }
 
-        private DonationAdminModel MapCampaignDonor(CampaignDonor campaignDonor)
+        private DonationAdminModel MapAdminModel(CampaignDonor campaignDonor)
         {
             var model = Mapper.Map<CampaignDonor, DonationAdminModel>(campaignDonor);
             var campaign = campaignDonor.Campaign;
             model.CampaignID = campaign.CampaignID;
             model.CampaignTitle = campaign.Title;
+            model.UserProfileID = campaignDonor.UserProfileID;
             return model;
+        }
+
+        private void MapCampaignDonor(DonationAdminModel model, CampaignDonor campaignDonor)
+        {
+            campaignDonor.Amount = model.Amount;
+            campaignDonor.FirstName = model.FirstName;
+            campaignDonor.LastName = model.LastName;
+            campaignDonor.Email = model.Email;
+            campaignDonor.PrimaryPhone = model.PrimaryPhone;
+            campaignDonor.AddressLine1 = model.AddressLine1;
+            campaignDonor.AddressLine2 = model.AddressLine2;
+            campaignDonor.City = model.City;
+            campaignDonor.State = model.State;
+            campaignDonor.ZipCode = model.ZipCode;
+            campaignDonor.IsAnonymous = model.IsAnonymous;
+            campaignDonor.Approved = model.Approved;
+
+            if (campaignDonor.CampaignID != model.CampaignID)
+            {
+                var oldCampaign = campaignDonor.Campaign;
+                var newCampaign = campaignRepository.GetCampaignByID(model.CampaignID);
+
+                if (newCampaign == null)
+                {
+                    return;
+                }
+
+                oldCampaign.CampaignDonors.Remove(campaignDonor);
+                newCampaign.CampaignDonors.Add(campaignDonor);
+            }
         }
 
 #endregion

@@ -13,6 +13,8 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Helpers;
@@ -42,6 +44,13 @@ namespace JordanRift.Grassroots.Web.Controllers
         ~GrassrootsControllerBase()
         {
             organizationRepository.Dispose();
+        }
+
+        protected IEnumerable<string> FindModelErrors()
+        {
+            return from s in ModelState.Values 
+                   from error in s.Errors 
+                   select error.ErrorMessage;
         }
     }
 }
