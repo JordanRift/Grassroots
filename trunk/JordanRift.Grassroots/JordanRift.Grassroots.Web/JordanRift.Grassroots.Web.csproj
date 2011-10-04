@@ -594,6 +594,8 @@
     <Content Include="Views\Donate\List.cshtml" />
     <Content Include="Views\Donate\Admin.cshtml" />
     <Content Include="Views\Donate\New.cshtml" />
+    <Content Include="Views\Donate\DonationAdminForm.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ActiveCampaignList.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
