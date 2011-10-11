@@ -21,5 +21,12 @@
     <h1>Create New Donation</h1>
 </hgroup>
 <section class="donation-details">
-    @Html.Partial("DonationAdminForm", Model)
+    @Html.BeginForm("Create", "Donate") {
+        @Html.ValidationSummary(false, "Unable to creat new donation. Please correct the following errors:", new { @class = "ui-widget ui-state-error ui-corner-all" })
+        @Html.Partial("DonationAdminForm", Model)
+        <div>
+            @Html.UiSubmit("Create")
+            @Html.ActionLink("Cancel", "Admin", new { controller = "Donate" }, new { title = "Cancel" })
+        </div>
+    }
 </section>

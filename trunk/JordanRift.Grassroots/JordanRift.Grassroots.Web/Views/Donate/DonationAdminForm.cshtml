@@ -17,3 +17,19 @@
     
     Layout = null;
 }
+
+<fieldset class="column">
+    <legend>Personal Info</legend>
+    <dl>
+        <dt>@Html.LabelFor(m => m.FirstName)</dt>
+        <dd>
+            @Html.TextBoxFor(m => m.FirstName)
+            @Html.ValidationMessageFor(m => m.FirstName)
+        </dd>
+        <dt>@Html.LabelFor(m => m.LastName)</dt>
+        <dd>
+            @Html.TextBoxFor(m => m.LastName)
+            @Html.ValidationMessageFor(m => m.LastName)
+        </dd>
+    </dl>
+</fieldset>
