@@ -36,14 +36,16 @@ namespace JordanRift.Grassroots.Web.Controllers
     {
         private readonly IAccountMailer accountMailer;
         private readonly IUserProfileRepository userProfileRepository;
+        private readonly ICampaignDonorRepository campaignDonorRepository;
 
         public IFormsAuthenticationService FormsService { get; set; }
         public IMembershipService MembershipService { get; set; }
 
-        public AccountController(IUserProfileRepository userProfileRepository, IAccountMailer accountMailer)
+        public AccountController(IUserProfileRepository userProfileRepository, IAccountMailer accountMailer, ICampaignDonorRepository campaignDonorRepository)
         {
             this.accountMailer = accountMailer;
             this.userProfileRepository = userProfileRepository;
+            this.campaignDonorRepository = campaignDonorRepository;
             Mapper.CreateMap<RegisterModel, UserProfile>();
             Mapper.CreateMap<UserProfile, RegisterModel>();
         }
@@ -386,6 +388,18 @@ namespace JordanRift.Grassroots.Web.Controllers
                 if (service.IsActivationHashValid(userProfile))
                 {
                     userProfile.IsActivated = true;
+
+                    // Check for existing donations
+                    var previousDonations = from d in campaignDonorRepository.FindAllDonations()
+                                            where d.Email == userProfile.Email
+                                            && d.UserProfile == null
+                                            select d;
+                    foreach (var donation in previousDonations)
+                    {
+                        donation.UserProfileID = userProfile.UserProfileID;
+                    }
+                    campaignDonorRepository.Save();
+
                     userProfileRepository.Save();
                     TempData["UserFeedback"] = "Sweet! Your account is activated. Please log in.";
                     accountMailer.Welcome(MapWelcomeModel(userProfile, organization)).SendAsync();

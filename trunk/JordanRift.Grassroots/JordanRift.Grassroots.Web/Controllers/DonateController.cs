@@ -174,9 +174,13 @@ namespace JordanRift.Grassroots.Web.Controllers
             var donation = Mapper.Map<Payment, CampaignDonor>(payment);
             PopulateDisplayName(donation);
             
-            if (User != null)
+            if (User.Identity.IsAuthenticated)
             {
                 userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+            }
+            else
+            {
+                userProfile = userProfileRepository.FindUserProfileByEmail(payment.Email).FirstOrDefault();
             }
 
             if (userProfile != null)
