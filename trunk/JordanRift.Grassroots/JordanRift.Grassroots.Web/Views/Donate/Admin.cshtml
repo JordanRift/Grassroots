@@ -1,7 +1,28 @@
 ﻿@model JordanRift.Grassroots.Web.Models.DonationAdminModel
-
 @{
-    ViewBag.Title = "Admin";
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+
+    var title = string.Format("Editing {0} {1}'s donation of {2}", Model.FirstName, Model.LastName, Model.Amount.ToString("C"));
+    ViewBag.Title = title;
 }
 
-<h2>Admin</h2>
+<hgroup>
+    <h1>@title</h1>
+</hgroup>
+<section class="donation-details">
+    @Html.Partial("DonationAdminForm", Model)
+    <a href="#" class="destroy" data-type="Donation" data-id="@Model.CampaignDonorID" data-controller="Donate">Delete</a>
+</section>
