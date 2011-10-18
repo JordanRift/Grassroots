@@ -33,6 +33,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
     {
 
         private IUserProfileRepository userProfileRepository;
+        private ICampaignDonorRepository campaignDonorRepository;
         private UserProfile userProfile;
         private AccountController controller;
         private MockRepository mocks;
@@ -446,11 +447,12 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             var fakeOrganizationRepository = new FakeOrganizationRepository();
             userProfileRepository = new FakeUserProfileRepository();
+            campaignDonorRepository = new FakeCampaignDonorRepository();
 
             mocks = new MockRepository();
             var fakeEmailService = mocks.DynamicMock<IAccountMailer>();
             MailerBase.IsTestModeEnabled = true;
-            AccountController c = new AccountController(userProfileRepository, fakeEmailService)
+            AccountController c = new AccountController(userProfileRepository, fakeEmailService, campaignDonorRepository)
                                                {
                                                    FormsService = new MockFormsAuthenticationService(),
                                                    MembershipService = new MockMembershipService(),
