@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.ModelConfiguration;
@@ -37,6 +38,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public decimal DefaultAmount { get; set; }
         public bool TimespanIsConfigurable { get; set; }
         public int DefaultTimespanInDays { get; set; }
+        public DateTime? CutOffDate { get; set; }
         public string Summary { get; set; }
         public string VideoEmbedHtml { get; set; }
         public string DescriptionHtml { get; set; }

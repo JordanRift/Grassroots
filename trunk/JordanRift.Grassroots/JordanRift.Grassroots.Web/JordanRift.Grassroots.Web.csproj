@@ -412,6 +412,7 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\themes\207miles\images\" />
     <Folder Include="Content\UserContent\campaign\" />
     <Folder Include="Content\UserContent\profile\" />
     <Folder Include="Views\Cause\" />
