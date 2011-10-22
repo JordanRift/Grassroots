@@ -1,0 +1,559 @@
+﻿html, body
+{
+    background: #010101 url(images/bg.jpg);
+    font-family: Helvetica, Arial, Verdana;
+    color: #010101;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+#main-wrap
+{
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    margin: 0px;
+    padding: 0px;
+    background: url(images/top-bg.jpg) repeat-x;
+}
+
+    #main
+    {
+        width: 998px;
+        padding: 0px 30px;
+        background: url(images/main-bg.png) repeat-y;
+        margin: 0px auto;
+    }
+    
+        #main > div
+        {
+            width: 1000px;
+            position: relative;
+            margin-left: -2px;
+            clear: both;
+        }
+    
+        #header
+        {
+            height: 210px;
+            background: url(images/tire-top.png) no-repeat;
+            background-position: left 99px;
+        }
+        
+            #header .logo
+            {
+                text-indent: -2000px;
+                display: block;
+                height: 129px;
+                width: 218px;
+                background: url(images/logo.png) no-repeat;
+            }
+            
+            #header > .nav
+            {
+                font-size: 24px;
+                font-family: ChunkFive, Arial;
+                position: absolute;
+                left: 248px;
+                top: 62px;
+                width: 750px;
+                display: block;
+            }
+            
+                #header > .nav li
+                {
+                    display: inline;
+                    list-style: none;
+                    padding: 0px 6px;
+                }
+            
+                    #header > .nav a
+                    {
+                        color: #010101;
+                        text-decoration: none;
+                    }
+                
+                    #header > .nav a:hover
+                    {
+                        color: #f27d33;
+                    }
+                    
+        #main > #footer
+        {
+            height: 309px;
+            background: #010101 url(images/footer-bg.jpg) no-repeat;
+        }
+        
+            #footer > .copy
+            {
+                color: #a4a4a4;
+                font-size: 12px;
+                display: block;
+                position: absolute;
+                top: 151px;
+                left: 42px;
+                line-height: 16px;
+            }
+            
+                #footer > .copy a
+                {
+                    color: #a4a4a4;
+                    text-decoration: none;
+                }
+                
+                #footer > .copy a:hover
+                {
+                    color: #f27d33;
+                }
+        
+            #footer > .nav
+            {
+                font-size: 16px;
+                position: absolute;
+                top: 121px;
+                left: 35px;   
+                width: 700px;             
+            }
+            
+                #footer > .nav li
+                {
+                    display: inline;
+                    list-style: none;
+                    padding: 0px 7px;
+                }
+            
+                    #footer > .nav a
+                    {
+                        color: #a4a4a4;
+                        text-decoration: none;
+                    }
+                
+                    #footer > .nav a:hover
+                    {
+                        color: #f27d33;
+                    }
+                    
+            #footer > .social-networks
+            {
+                position: absolute;
+                display: block;
+                top: 238px;
+                right: 55px;
+            }
+            
+                #footer > .social-networks li
+                {
+                    display: inline;
+                    padding: 0px 5px;
+                }
+        
+	#main > #content
+	{
+		padding: 20px 30px;
+		width: 940px;
+	}
+		
+		#content h1
+		{
+			font-size: 30px;
+			color: #f27d33;
+			padding-bottom: 10px;
+		}
+	
+		#content h3
+		{
+			font-size: 20px;
+			color: #a4a4a4;
+		}
+		
+		#content h4
+		{
+			font-size: 16px;
+			color: #a4a4a4;
+		}
+		
+		#content em
+		{
+			color: #a4a4a4;
+		}
+		
+		#content p
+		{
+			padding: 10px 0px;
+		}
+		
+		#content a
+		{
+			color: #f27d33;
+			text-decoration: none;
+		}
+		
+		#content ul
+		{
+			padding: 10px 0px;
+		}
+		
+			#content ul li
+			{
+				list-style-position: inside;
+				list-style-type: disc;
+			}
+			
+		#content table
+		{
+			margin: 10px 0px;
+		}
+		
+			#content table td
+			{
+				padding: 5px 0px;
+			}
+		
+		#content a:hover
+		{
+			text-decoration: underline;
+		}
+                
+		#content > .column
+		{
+			float: left;
+		}
+		
+		#content .media
+		{
+			width: 561px;
+			height: 451px;
+			background: url(images/player-bg.png) no-repeat;
+			margin-left: -23px;
+			padding: 33px 0px 0px 51px;
+		}
+		
+		    #content .media .social
+		    {
+		        padding: 0px;
+		        margin: 0px;
+		    }
+		
+		        #content .media .social > li
+		        {
+		            list-style-type: none;
+		            display: block;
+		            padding: 3px 0px;
+		        }
+		
+		#content .chart
+		{
+			width: 657px;
+			height: 274px;
+			background: url(images/chart-bg.png) no-repeat;
+			margin: -70px 0px 0px -12px;
+			padding: 32px 0px 0px 39px;
+		}
+		
+		#content .sidebar
+		{
+			width: 291px;
+			padding: 30px;
+		}
+		
+			.om-logo
+			{
+				width: 196px;
+				height: 143px;
+				display: block;
+				margin: 0px auto;
+				background: url(images/om_logo.png) no-repeat;
+				text-indent: -2000px;
+			}
+			
+		#content .section
+		{
+			clear: both;
+			float: none;
+		}
+		
+		#content .pad-top
+		{
+			padding-top: 20px;
+		}
+		
+		#content #sponsor-heading
+		{
+			padding-left: 30px;
+		}
+		
+		#content #sponsors
+		{
+			width: 900px;
+			padding: 10px 20px;
+			height: 100px;
+		}
+		
+			#content #sponsors > li
+			{
+				list-style: none;
+				display: inline;
+				height: 100px;
+				width: 200px;
+				padding: 0px 10px;
+			}
+			
+		#content > table
+		{
+			margin: 0px auto;
+		}	
+			
+		#content > table.training-schedule,
+		#content .legend
+		{
+			margin: 20px auto 0px auto;
+			width: 75%;
+		}
+		
+			#content .training-schedule .alt,
+			#content .training-schedule .alt > td
+			{
+				background: #ffffff;
+			}
+		
+				#content .training-schedule td,
+				#content .training-schedule th
+				{
+					text-align: center;
+					padding: 3px 5px;
+					vertical-align: middle;
+				}
+				
+				#content .training-schedule th
+				{
+					color: #ffffff;
+					background: #A4A4A4;
+				}
+			
+				#content .training-schedule .meta
+				{
+					color: #A4A4A4;
+					font-style: italic;
+				}
+			
+			#content .legend h3
+			{
+				padding-bottom: 10px;
+			}
+			
+			#content .legend p
+			{
+				color: #A4A4A4;
+				padding: 2px 0px;
+				margin: 0px 0px 0px 20px;
+			}
+			
+	#content .form-panel
+	{
+		width: 550px;
+		margin-top: 15px;
+		margin-left: 100px;
+		float: left;
+	}
+	
+	#content .donate-sidebar
+	{
+		width: 165px;
+		float: left;
+		padding: 10px;
+	}
+	
+		#content .sidebar p
+		{
+			font-size: 10pt;
+			padding: 10px 0px 10px 10px;
+			width: 150px
+		}
+		
+	.field-validation-error
+	{
+		color: #CF4046;
+		font-size: 10px;
+		clear: both;
+		float: none;
+		display: block;
+	}
+	
+	button.ui-datepicker-trigger
+	{
+		background-color: Transparent;
+		border: none;
+	}
+	
+	#content fieldset
+	{
+		display: block;
+		padding-top: 10px;
+	}
+	
+	#content .column
+	{
+		padding: 0px 20px;
+		float: left;
+	}
+		.editor-label
+		{
+			padding: 5px 0px;
+		}
+		
+		.editor-field
+		{
+			height: 40px;
+		}
+	
+		#content .editor-field input[type="text"],
+		#content .editor-field input[type="password"],
+		#content .editor-field textarea,
+		#content .editor-field select
+		{
+			background: #ffffff;
+			border: none;
+			height: 30px;
+			width: 200px;
+			border: none;
+			color: #010101;
+			padding: 0px 3px;
+		}
+		
+		#content .editor-field select
+		{
+			width: 203px;
+			padding-top: 5px;
+			border: none;
+		}
+		
+			#content .editor-field select option
+			{
+				background-color: #ffffff;
+				padding: 3px 5px;
+				color: #010101;
+				border: none;
+			}
+			
+		#content .editor-field .exp-date
+		{
+			display: inline;
+			margin-right: 20px;
+			width: 90px;
+		}
+		
+		#content #RoutingNumber
+		{
+			margin-right: 18px;
+		}
+		
+		.ui-datepicker
+		{
+			margin-top: 5px;
+		}
+		
+		#content .editor-field .datePicker
+		{
+			display: block;
+			float: left;
+			width: 200px;
+			height: 30px;
+		}
+		
+		#content .editor-field input.short
+		{
+			width: 100px;
+		}
+		
+		#content .editor-field input.time
+		{
+			width: 75px;
+			margin-left: 10px;
+			display: block;
+			float: left
+		}
+		
+		#content .editor-field textarea
+		{
+			height: 100px;
+		}
+		
+		#content .ui-datepicker-trigger
+		{
+			display: block;
+			float: left;
+			margin-left: 10px;
+			margin-top: -3px;
+		}
+	
+	#content .form-buttons
+	{
+		padding-top: 20px;
+	}
+	
+		#content .submit
+		{
+			color: #f27d33;
+			font-size: 24px;
+			height: 30px;
+			cursor: pointer;
+			background: none;
+			border: none;
+			display: inline;
+		}
+	
+		#content .form-buttons .cancel,
+		#content .cancel-form .cancel,
+		#content .delete-form .cancel
+		{
+			color: #a4a4a4;
+			font-size: 16px;
+			margin-left: 50px;
+			display: inline;
+			background: none;
+			border: none;
+			cursor: pointer;
+		}
+		
+		#content .delete-form
+		{
+			float: right;
+			margin: -30px 100px 0px 0px;
+		}
+		
+	#content .cancel-form
+	{
+		position: relative;
+		width: 100px;
+		height: 30px;
+		margin: -21px 0px 0px 80px;
+	}
+	
+	.bank-info
+	{
+		display: none;
+	}
+	
+	#content .user-feedback
+	{
+		color: #CF4046;
+		border: 1px solid #f27d33;
+		padding: 5px 15px;
+		width: 400px;
+	}
+	
+	#content .sponsor-logos
+	{
+		width: 75%;
+		margin: 0px auto;
+	}
+			
+	#content .sponsor-logos > li
+	{
+		list-style-type: none;
+		display: inline-block;
+		
+		/* IE7 hack */
+		zoom: 1;
+		*display: inline;
+	}
