@@ -237,6 +237,7 @@
     <Content Include="Content\themes\207miles\images\player-bg.png" />
     <Content Include="Content\themes\207miles\images\player.jpg" />
     <Content Include="Content\themes\207miles\images\sponsor-placeholder.gif" />
+    <Content Include="Content\themes\207miles\images\stat-bg.png" />
     <Content Include="Content\themes\207miles\images\tire-bottom.png" />
     <Content Include="Content\themes\207miles\images\tire-top.png" />
     <Content Include="Content\themes\207miles\images\top-bg.jpg" />
