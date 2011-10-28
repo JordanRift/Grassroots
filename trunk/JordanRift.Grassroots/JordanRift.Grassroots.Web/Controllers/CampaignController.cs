@@ -119,6 +119,17 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult Create(int id)
+        {
+            return Create(new GetStartedModel
+                              {
+                                  CampaignType = (int) CampaignType.Other,
+                                  CauseTemplateID = id
+                              });
+        }
+
         [Authorize]
         public ActionResult Create(GetStartedModel model)
         {

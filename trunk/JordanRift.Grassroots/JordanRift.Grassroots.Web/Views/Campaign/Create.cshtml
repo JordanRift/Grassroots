@@ -47,7 +47,7 @@
                     @Html.ValidationMessageFor(m => m.UrlSlug, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                 </dd>
                 @if (Model.AmountIsConfigurable) { 
-                <dt><p>@Model.GoalName cost about @Model.DefaultAmount.ToString("C0"). We encourage all campaigners try funding one.</p></dt>
+                <dt><p>We encourage everyone to raise at least @Model.DefaultAmount.ToString("C0").</p></dt>
                 <dd class="currency">
                     <span class="meta">$ </span>@Html.TextBoxFor(m => m.AmountString, new { placeholder = Model.DefaultAmount.ToString() })
                     @Html.ValidationMessageFor(m => m.AmountString, null, new { @class = "ui-widget ui-state-error ui-corner-all" })

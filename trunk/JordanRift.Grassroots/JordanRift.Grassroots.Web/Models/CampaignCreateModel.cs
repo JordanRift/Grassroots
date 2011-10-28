@@ -21,7 +21,8 @@ namespace JordanRift.Grassroots.Web.Models
     public class CampaignCreateModel
     {
         [Required]
-        [Display(Name = "Give your campaign a name")]
+        //[Display(Name = "Give your page a name")]
+        [Display(Name = "Give your ride a name")]
         public string Title { get; set; }
         
         [Required]

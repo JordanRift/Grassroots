@@ -198,6 +198,10 @@ html, body
     padding: 70px 30px 0px;
 }
 
+    .page > #main > div.ui-state-highlight > p > strong {
+        display: none;
+    }
+
     .page > #main > div {
         padding: 0px 40px;
     }
