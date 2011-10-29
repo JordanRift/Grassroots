@@ -234,6 +234,7 @@
     <Content Include="Content\themes\207miles\images\logo.png" />
     <Content Include="Content\themes\207miles\images\main-bg.png" />
     <Content Include="Content\themes\207miles\images\om_logo.png" />
+    <Content Include="Content\themes\207miles\images\pie-chart.png" />
     <Content Include="Content\themes\207miles\images\player-bg.png" />
     <Content Include="Content\themes\207miles\images\player.jpg" />
     <Content Include="Content\themes\207miles\images\sponsor-placeholder.gif" />

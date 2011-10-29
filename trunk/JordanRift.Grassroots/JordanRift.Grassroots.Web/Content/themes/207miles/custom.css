@@ -37,16 +37,25 @@ html, body
     }
     
         #main > div,
-        #main > hgroup
+        #main > hgroup,
+        #main > section
         {
             width: 930px;
             position: relative;
             margin-left: -2px;
             clear: both;
+            float: none;
+            padding: 0px 30px;
         }
         
         #main > hgroup {
             padding: 0px 30px;
+        }
+        
+        #main > hgroup.campaign {
+            max-width: 600px;
+            position: absolute;
+            margin-top: 40px;
         }
         
         .page #main > div.ui-widget {
@@ -221,6 +230,10 @@ html, body
     #main .dashboard .stats {
         /*margin-left: -13px;*/
         display: none;
+    }
+    
+    #main .campaign-dashboard .stats {
+        display: block !important;
     }
     
     .stats > li, #main .get-started .projects li, .steps > li {
@@ -546,8 +559,15 @@ html, body
 	    background: #ddd;
 	}
 	
+	#main ul.column {
+	    padding: 0px;
+	}
+	
 	.campaign-history,
-	#main fieldset
+	#main fieldset,
+	.donations,
+	.cause-template-info,
+	.url
 	{
 		display: block;
 		padding-top: 10px;
@@ -559,9 +579,19 @@ html, body
 	    padding: 20px;
 	}
 	
+	#main .cause-template-info,
+	#main .donations {
+	    max-width: 870px;
+	    margin: 0px auto 30px !important;
+	}
+	
 	    #main > fieldset > legend {
 	        color: #777 !important;
 	    }
+	
+	#main .url {
+	    height: 150px;
+    }
 	
 	#main .column
 	{
