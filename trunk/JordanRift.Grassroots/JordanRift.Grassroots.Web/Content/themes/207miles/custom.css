@@ -1011,12 +1011,16 @@ textarea.ui-state-active {
 }
 
 /* Custom Footer Style */
+footer > div {
+    padding: 0px 30px;
+}
+
 footer > div > .nav
 {
     font-size: 16px;
     position: absolute;
     top: 121px;
-    left: 35px;   
+    left: 60px;   
     width: 700px;             
 }
             
