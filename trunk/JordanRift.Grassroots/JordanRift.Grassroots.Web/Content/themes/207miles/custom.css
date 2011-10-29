@@ -48,6 +48,11 @@ html, body
             padding: 0px 30px;
         }
         
+        .admin-dashboard {
+            padding-bottom: 30px !important;
+            min-height: 150px;
+        }
+        
         #main > hgroup {
             padding: 0px 30px;
         }
@@ -105,11 +110,15 @@ html, body
                 display: block;
             }
             
-                .page > header > nav li
+                .page > header > nav > #menu {
+                    text-align: center;
+                }
+            
+                .page > header > nav > #menu >li
                 {
                     display: inline;
                     list-style: none;
-                    padding: 0px 6px;
+                    padding: 0px 10px;
                 }
             
                     .page > header > nav #menu a
@@ -280,8 +289,16 @@ html, body
 		    font-weight: bold;
 		}
 		
+		#main > hgroup > h3 {
+		    margin-bottom: 20px;
+		}
+		
 		#main > .dashboard > .donate {
 		    margin-top: 28px;
+		}
+		
+		#main fieldset ul li {
+		    list-style-type: none;
 		}
 		
 		a.ui-button,
@@ -595,7 +612,7 @@ html, body
 	
 	#main .column
 	{
-		padding: 0px 20px;
+		padding: 0px 20px 20px;
 		float: left;
 	}
 	
