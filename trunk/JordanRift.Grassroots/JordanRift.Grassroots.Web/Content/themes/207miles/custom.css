@@ -256,7 +256,7 @@ html, body
         display: block !important;
     }
     
-    .stats > li, #main .get-started .projects li, .steps > li {
+    .stats > li, #main .get-started .projects li {
         background: url(images/stat-bg.png) no-repeat;
         width: 186px;
         height: 125px;
@@ -602,7 +602,8 @@ html, body
 	#main fieldset,
 	.donations,
 	.cause-template-info,
-	.url
+	.url,
+	.steps > li
 	{
 		display: block;
 		padding-top: 10px;
@@ -613,6 +614,43 @@ html, body
 	    -webkit-border-radius: 4px;
 	    padding: 20px;
 	}
+	
+	.steps {
+	    height: 270px;
+	    margin-bottom: 30px;
+	}
+	
+	.steps > li {
+	    float: left;
+	    width: 245px;
+	    height: 230px;
+	    margin: 0px 10px;
+	}
+
+        .steps > li > p {
+            padding: 30px 30px 30px 70px !important;
+            display: block;
+        }
+
+        .steps > .one {
+            margin-left: 0px;
+        }
+
+            .steps > .one > p {
+                background: url(images/one.png) no-repeat 10px 10px;
+            }
+
+            .steps > .two > p {
+                background: url(images/two.png) no-repeat 10px 10px;
+            }
+
+        .steps > .three {
+            margin-right: 0px;
+        }
+
+            .steps > .three > p {
+                background: url(images/three.png) no-repeat 10px 10px;
+            }
 	
 	#main .cause-template-info,
 	#main .donations {
@@ -971,3 +1009,46 @@ textarea.wijmo-wijtextbox,
 textarea.ui-state-active {
     width: 270px !important;
 }
+
+/* Custom Footer Style */
+footer > div > .nav
+{
+    font-size: 16px;
+    position: absolute;
+    top: 121px;
+    left: 35px;   
+    width: 700px;             
+}
+            
+    footer > div > .nav li
+    {
+        display: inline;
+        list-style: none;
+        padding: 0px 7px;
+    }
+            
+        footer > div > .nav a
+        {
+            font-family: Chunkfive, Arial;
+            color: #a4a4a4;
+            text-decoration: none;
+        }
+                
+        footer > div > .nav a:hover
+        {
+            color: #f27d33;
+        }
+                    
+footer > div > .social-networks
+{
+    position: absolute;
+    display: block;
+    top: 238px;
+    right: 105px;
+}
+            
+    footer > div > .social-networks li
+    {
+        display: inline;
+        padding: 0px 5px;
+    }
