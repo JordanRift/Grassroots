@@ -35,7 +35,7 @@
             @Html.Raw(Model.VideoEmbedHtml)
         </div>
         <div class="org-summary">
-            <p>@Html.Raw(Model.SummaryHtml)</p>
+            @Html.Raw(Model.SummaryHtml)
             <ul class="social">
                 <li>@Html.Partial("TweetButton")</li>
                 <li>@Html.Partial("FacebookLikeButton")</li>

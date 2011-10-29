@@ -57,7 +57,7 @@ html, body
             padding: 0px 30px;
         }
         
-        #main > hgroup.campaign {
+        #main hgroup.campaign {
             max-width: 600px;
             position: absolute;
             margin-top: 40px;
@@ -216,6 +216,17 @@ html, body
     padding: 70px 30px 0px;
 }
 
+    .page > #main div.ui-state-highlight {
+        padding: 20px;
+        width: 900px;
+    }
+    
+    .show-activation-form {
+        display: block;
+        margin: 10px 0px;
+        font-size: 18px;
+    }
+
     .page > #main > div.ui-state-highlight > p > strong {
         display: none;
     }
@@ -321,6 +332,13 @@ html, body
 	        -webkit-border-radius: 6px;
 	        -khtml-border-radius: 6px;
 	        -ms-border-radius: 6px;
+		    height: 20px;
+        }
+        
+        .ui-button {
+            color: #be5919 !important;
+	        background: #fee9dc url(images/ui-bg_glass_65_fee9dc_1x400.png) 50% 50% repeat-x;
+	        border: 1px solid #f27d33;
         }
         
         #main .delicious-vertical > a {
@@ -781,3 +799,175 @@ html, body
 		zoom: 1;
 		*display: inline;
 	}
+	
+/* Donate sidebar css */
+
+#main .donate-form {
+    width: 900px
+}
+
+#main .donate-form aside,
+#main .donate-form aside .sidebar
+{
+	width: 130px;
+	float: right;
+	padding: 10px;
+}
+	
+	#main .donate-form .sidebar p
+	{
+		font-size: 10pt;
+		padding: 10px 0px 10px 10px;
+		width: 150px
+	}
+	
+#main ul.buttons
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+	#main ul.buttons li
+	{
+		list-style: none !important;
+		margin: 0px;
+		padding: 10px 0px;
+	}
+
+		#mail-donation
+		{
+			height: 43px;
+			width: 139px;
+			display: block;
+			text-indent: -9000px;
+			background: url(images/mail-donation.gif) no-repeat;
+		}
+	
+		#mail-donation:hover
+		{
+			background: url(images/mail-donation-hover.gif) no-repeat;
+		}
+	
+		#one-hundred-percent
+		{
+			height: 43px;
+			width: 277px;
+			display: block;
+			text-indent: -9000px;
+			background: url(images/100-percent.gif) no-repeat;
+		}
+	
+		#one-hundred-percent:hover
+		{
+			background: url(images/100-percent-hover.gif) no-repeat;
+		}
+		
+		ul.buttons li
+		{
+			position: relative;
+		}
+		
+		ul.buttons .bubble
+		{
+			width: 277px;
+			margin: 0px;
+			padding: 0px;
+			position: absolute;
+			bottom: 51px;
+			z-index: 15;
+			display: none;
+		}
+		
+			.bubble > div
+			{
+				position: relative;
+			}
+		
+			.bubble .top
+			{
+				width: 277px;
+				height: 13px;
+				background: url(images/bubble-top.png) no-repeat;
+			}
+			
+			.bubble .content
+			{
+				background: #f1f1f1;
+				color: #444444;
+				width: 217px;
+				height: auto;
+				font-family: Georgia, "Times New Roman";
+				line-height: normal;
+				padding: 0px 30px;
+			}
+			
+				.bubble > .content > .close,
+				.bubble > .content > .close:hover
+				{
+					display: block;
+					height: 20px;
+					width: 20px;
+					position: absolute;
+					top: 0px;
+					right: 10px;
+					text-indent: 1000px;
+					overflow: hidden;
+					background: #f1f1f1 url(images/close.png) no-repeat;
+					text-decoration: none;
+				}
+				
+				#main .bubble > .content > h1
+				{
+					display: block;
+					font-size: 26px;
+					font-family: 'LeagueGothicRegular', Impact, Arial, Helvetica;
+					color: #659C41 !important;
+					padding: 5px 0px 10px 0px;
+				}
+			
+				aside .sidebar .bubble .content a
+				{
+					color: #659C41;
+					text-decoration: none;
+				}
+				
+				aside .sidebar .bubble .content a:hover
+				{
+					text-decoration: underline;
+				}
+			
+			.bubble .bottom
+			{
+				width: 277px;
+				height: 29px;
+				background: url(images/bubble-bottom.png) no-repeat;
+			}
+			
+#main .donate-form .column,
+.donate-form .column > fieldset {
+    width: 300px;
+}
+
+#main .donate-form .column .field-validation-error {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 190px;
+    margin: 10px 0px 0px;
+}
+
+.campaign-summary {
+    font-size: 16px;
+}
+
+#campaign-email-form .field-validation-error {
+    position: absolute;
+    width: 230px;
+    top: 0px;
+    right: 0px;
+}
+
+textarea.wijmo-wijtextbox, 
+textarea.ui-state-active {
+    width: 270px !important;
+}
