@@ -77,6 +77,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         [Authorize(Roles = "Root")]
 		[HttpPost]
+        [ValidateAntiForgeryToken(Salt = "EditOrganization")]
 		public ActionResult UpdateOrganization( OrganizationDetailsModel model )
 		{
             using (OrganizationRepository)

@@ -162,6 +162,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "CampaignCreate")]
         public ActionResult CreateCampaign(CampaignCreateModel model)
         {
             if (ModelState.IsValid)
@@ -238,6 +239,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "EditCampaign")]
         public ActionResult Update(CampaignDetailsModel model, int id = -1)
         {
             using (campaignRepository)
@@ -269,6 +271,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
         }
 
+        // TODO: Find a good way to validate AJAX requests. Built in Anti-CSRF stuff looks for Request.Form and will fail any request that doesn't have it.
         [Authorize]
         [HttpPost]
         public ActionResult SendEmail(CampaignEmailBlastModel model)
@@ -455,6 +458,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = ADMIN_ROLES)]
+        [ValidateAntiForgeryToken(Salt = "AdminUpdateCampaign")]
         public ActionResult AdminUpdate(CampaignAdminModel model)
         {
             if (!ModelState.IsValid)

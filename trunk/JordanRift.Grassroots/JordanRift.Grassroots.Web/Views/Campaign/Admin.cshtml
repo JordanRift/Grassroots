@@ -27,6 +27,7 @@
 </hgroup>
 <section class="admin-campaign">
     @using (Html.BeginForm("AdminUpdate", "Campaign", FormMethod.Post)) {
+        @Html.AntiForgeryToken("AdminUpdateCampaign")
         @Html.ValidationSummary(excludePropertyErrors: false)
         @Html.HiddenFor(m => m.CampaignID)
         <fieldset class="column">

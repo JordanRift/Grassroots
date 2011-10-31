@@ -24,7 +24,8 @@
     <h3>You're coming back!</h3>
 </hgroup>
 <section id="reactivate-form">
-    @using (Html.BeginForm("Reactivate", "UserProfile")) { 
+    @using (Html.BeginForm("Reactivate", "UserProfile")) {
+        @Html.AntiForgeryToken("UserProfileReactivate")
         <p>Sweet! We knew you'd come back eventually. We even kept all your stuff just the way you left it.</p>
         
         <div>

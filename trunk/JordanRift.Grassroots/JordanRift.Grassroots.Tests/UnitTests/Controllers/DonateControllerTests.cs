@@ -605,7 +605,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                                 State = "al",
                                 ZipCode = "92827",
                                 PrimaryPhone = "23434234234",
-                                Approved = false,
+                                IsApproved = false,
                                 IsAnonymous = true
                             };
 
@@ -622,7 +622,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.AreEqual(model.State, donation.State);
             Assert.AreEqual(model.ZipCode, donation.ZipCode);
             Assert.AreEqual(model.PrimaryPhone, donation.PrimaryPhone);
-            Assert.AreEqual(model.Approved, donation.Approved);
+            Assert.AreEqual(model.IsApproved, donation.Approved);
             Assert.AreEqual(model.IsAnonymous, donation.IsAnonymous);
         }
 

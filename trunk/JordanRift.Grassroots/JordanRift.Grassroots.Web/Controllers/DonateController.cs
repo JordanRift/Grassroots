@@ -96,6 +96,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "Donation")]
         public ActionResult ProcessDonation(Payment model, string slug = "")
         {
             var urlSlug = slug;
@@ -282,6 +283,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = ADMIN_ROLES)]
+        [ValidateAntiForgeryToken(Salt = "AdminCreateDonation")]
         public ActionResult Create(DonationAdminModel model)
         {
             if (!ModelState.IsValid)
@@ -307,7 +309,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                                         ZipCode = model.ZipCode,
                                         Email = model.Email,
                                         PrimaryPhone = model.PrimaryPhone,
-                                        Approved = model.Approved,
+                                        Approved = model.IsApproved,
                                         IsAnonymous = model.IsAnonymous
                                     };
 
@@ -360,7 +362,9 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
         [Authorize(Roles = ADMIN_ROLES)]
+        [ValidateAntiForgeryToken(Salt = "AdminUpdateDonation")]
         public ActionResult AdminUpdate(DonationAdminModel model, string context = "list")
         {
             if (!ModelState.IsValid)
@@ -442,7 +446,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             campaignDonor.State = model.State;
             campaignDonor.ZipCode = model.ZipCode;
             campaignDonor.IsAnonymous = model.IsAnonymous;
-            campaignDonor.Approved = model.Approved;
+            campaignDonor.Approved = model.IsApproved;
 
             if (campaignDonor.CampaignID != model.CampaignID)
             {

@@ -90,6 +90,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AccountLogOn")]
         public ActionResult AuthenticateUser(LogOnModel model, string returnUrl = "")
         {
             var url = returnUrl;
@@ -155,6 +156,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AccountRegister")]
         public ActionResult RegisterUser(RegisterModel model, string returnUrl = "")
         {
             if (ModelState.IsValid)
@@ -211,6 +213,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AccountPasswordChange")]
         public ActionResult UpdatePassword(ChangePasswordModel model)
         {
             if (ModelState.IsValid)
@@ -247,6 +250,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AccountPasswordReset")]
         public ActionResult SendPasswordReset(ForgotPasswordModel model)
         {
             if (ModelState.IsValid)
@@ -287,6 +291,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AccountForgotPassword")]
         public ActionResult UpdateForgottenPassword(string hash, UpdatePasswordModel model)
         {
             if (ModelState.IsValid)
@@ -335,6 +340,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AccountAuthorization")]
         public ActionResult SendAuthorizationNote(AuthorizeModel model)
         {
             using (userProfileRepository)

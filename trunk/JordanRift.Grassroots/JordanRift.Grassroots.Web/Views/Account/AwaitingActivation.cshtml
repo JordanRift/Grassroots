@@ -43,6 +43,7 @@
     <p><a href="#" class="show-activation-form" title="Click here if you didn't receive your activation email">Click here if you didn't receive your activation email</a></p>
     <div class="resend-activation">
         @using(Html.BeginForm("SendAuthorizationNote", "Account")) {
+            @Html.AntiForgeryToken("AccountAuthorization")
             @Html.ValidationSummary(true, "We were unable to send your email. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })    
             <fieldset>
                 <legend>Account activation</legend>

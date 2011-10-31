@@ -27,6 +27,7 @@
 </hgroup>
 <div id="edit-form">
 	@using ( Html.BeginForm( "Update", "CauseTemplate", FormMethod.Post, new { enctype="multipart/form-data" } ) ) {
+        @Html.AntiForgeryToken("CauseTemplateEdit")
 		@Html.Partial( "CauseTemplateForm", Model )
         @Html.HiddenFor( m => m.CauseTemplateID )
     }

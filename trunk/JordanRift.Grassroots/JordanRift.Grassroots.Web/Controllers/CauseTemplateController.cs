@@ -154,6 +154,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		[Authorize( Roles = ADMIN_ROLES )] 
 		[HttpPost]
+        [ValidateAntiForgeryToken(Salt = "CauseTemplateCreate")]
 		public ActionResult New( CauseTemplateDetailsModel model )
 		{
 			if ( !ModelState.IsValid )
@@ -207,6 +208,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         //[HttpPut]
 		[HttpPost]
 		[Authorize( Roles = ADMIN_ROLES )] 
+        [ValidateAntiForgeryToken(Salt = "CauseTemplateEdit")]
 		public ActionResult Update( CauseTemplateDetailsModel model )
 		{
             using (causeTemplateRepository)

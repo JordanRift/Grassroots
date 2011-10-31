@@ -27,6 +27,7 @@
 </hgroup>
 <div id="account-registration-form">
     @using (Html.BeginForm("RegisterUser", "Account", new { returnUrl = ViewBag.ReturnUrl })) {
+        @Html.AntiForgeryToken("AccountRegister")
         <fieldset class="column">
             <legend>Connect with Facebook...</legend>
             <p>Click the button below to sign up with Facebook. You'll be redirected to grant @OrganizationName permission to access

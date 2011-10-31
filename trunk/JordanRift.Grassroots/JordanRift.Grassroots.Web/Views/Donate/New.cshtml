@@ -22,6 +22,7 @@
 </hgroup>
 <section class="donation-details">
     @Html.BeginForm("Create", "Donate") {
+        @Html.AntiForgeryToken("AdminCreateDonation")
         @Html.ValidationSummary(false, "Unable to creat new donation. Please correct the following errors:", new { @class = "ui-widget ui-state-error ui-corner-all" })
         @Html.Partial("DonationAdminForm", Model)
         <div>

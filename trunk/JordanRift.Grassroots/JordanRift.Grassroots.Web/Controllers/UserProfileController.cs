@@ -100,6 +100,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		[HttpPost]
 		[Authorize]
+        [ValidateAntiForgeryToken(Salt = "UserProfileEdit")]
 		public ActionResult Update(UserProfileDetailsModel model)
 		{
 			using (new UnitOfWorkScope())
@@ -141,6 +142,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		[Authorize]
 		[HttpPost]
+        [ValidateAntiForgeryToken(Salt = "UserProfileDeactivate")]
 		public ActionResult Deactivate()
 		{
             using (userProfileRepository)
@@ -193,6 +195,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		[Authorize]
 		[HttpPost]
+        [ValidateAntiForgeryToken(Salt = "UserProfileReactivate")]
 		public ActionResult Reactivate()
 		{
             using (userProfileRepository)

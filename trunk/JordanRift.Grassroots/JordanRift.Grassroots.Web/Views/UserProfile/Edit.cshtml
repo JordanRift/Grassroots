@@ -28,6 +28,7 @@
 </hgroup>
 <div id="user-profile-edit-form">
     @using (Html.BeginForm(new { Action = "Update", Controller = "UserProfile", ID = Model.UserProfileID })) {
+        @Html.AntiForgeryToken("UserProfileEdit")
         @Html.ValidationSummary(false, "Could not save your profile. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
         <fieldset class="column">
             <legend>Personal Info</legend>

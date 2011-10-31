@@ -25,6 +25,7 @@
 </hgroup>
 <section id="deactivate-form">
     @using (Html.BeginForm("Deactivate", "UserProfile")) {
+        @Html.AntiForgeryToken("UserProfileDeactivate")
         <p>We're sorry you have to go. We won't delete your account. It'd just be mean, and we actually need to hang
         onto it for tax reporting purposes. <strong>Are you sure you have to go?</strong></p>
         

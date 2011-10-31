@@ -28,6 +28,7 @@
 </hgroup>
 <div id="campaign-create-form">
     @using (Html.BeginForm("CreateCampaign", "Campaign", new { Area = "" })) {
+        @Html.AntiForgeryToken("CampaignCreate")
         @Html.ValidationSummary(false, "Unable to create campaign. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
         
         @Html.HiddenFor(m => m.CauseTemplateID)
