@@ -278,6 +278,7 @@ html, body
     
     #main .campaign-dashboard {
         margin-top: -30px;
+        height: 180px;
     }
     
     #main .campaign-dashboard .stats {
@@ -321,6 +322,10 @@ html, body
 		    font-weight: normal;
 		    line-height: 100%;
 		}
+		
+		#main h2 {
+		    color: #999;
+		}
 	
 		#main h3
 		{
@@ -340,6 +345,10 @@ html, body
 		
 		#main fieldset ul li {
 		    list-style-type: none;
+		}
+		
+		#main form > .title {
+		    margin: -30px 0px 30px;
 		}
 		
 		a.ui-button,
@@ -1087,3 +1096,53 @@ footer > div > .social-networks
         display: inline;
         padding: 0px 5px;
     }
+    
+/* Custom Org Summary Style */
+#main .summary-stats {
+    display: block;
+    height: 130px;
+    margin-top: 10px;
+}
+
+    .summary-stats > li {
+        display: block;
+        width: 135px;
+        height: 70px;
+        padding-top: 30px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        float: left;
+        background: #e9e9e9 url(images/ui-bg_glass_75_dadada_1x400.png) 0px -200px repeat-x;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -moz-border-radius: 4px;
+	    -webkit-border-radius: 4px;
+        text-align: center;
+        font-size: 14px;
+        color: #444;
+    }
+    
+    .summary-stats > .odd {
+        margin-left: 0px;
+    }
+    
+        .summary-stats > li > span {
+            display: block;
+            text-align: center;
+            font-size: 20px;
+            color: #a4a4a4;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .summary-stats > li > a {
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 13px;
+            display: block;
+        }
+        
+.org-summary > .social {
+    clear: both;
+    float: none;
+}
