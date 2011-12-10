@@ -54,6 +54,8 @@ namespace JordanRift.Grassroots.Web.Models
         [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
 
+        public bool IsActive { get; set; }
+
         //
         // User Profile Info
         //

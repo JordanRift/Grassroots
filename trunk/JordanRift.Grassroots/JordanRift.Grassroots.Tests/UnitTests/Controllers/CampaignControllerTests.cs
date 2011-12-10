@@ -320,7 +320,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             campaignRepository.Add(campaign);
             var result = controller.List();
             var view = result as ViewResult;
-            var list = view.Model as IEnumerable<CampaignDetailsModel>;
+            var list = view.Model as IEnumerable<CampaignAdminModel>;
             Assert.Greater(list.Count(), 0);
         }
 

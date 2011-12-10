@@ -409,11 +409,12 @@ namespace JordanRift.Grassroots.Web.Controllers
             using (campaignRepository)
             {
                 var list = campaignRepository.FindAllCampaigns();
-                var viewModel = new List<CampaignDetailsModel>();
+                var viewModel = new List<CampaignAdminModel>();
 
                 foreach (var c in list)
                 {
-                    var model = MapDetailsModel(c);
+                    //var model = MapDetailsModel(c);
+                    var model = MapAdminModel(c);
                     model.CauseName = c.Cause != null ? c.Cause.Name : string.Empty;
                     viewModel.Add(model);
                 }

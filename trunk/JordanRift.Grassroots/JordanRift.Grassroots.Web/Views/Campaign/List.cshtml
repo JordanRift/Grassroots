@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JordanRift.Grassroots.Web.Models.CampaignDetailsModel>
+﻿@model IEnumerable<JordanRift.Grassroots.Web.Models.CampaignAdminModel>
 @{
     //
     // Grassroots is free software: you can redistribute it and/or modify
@@ -66,7 +66,7 @@
             <td>@Html.ActionLink(item.Title, "Admin", new { id = item.CampaignID }, new { title = item.Title })</td>
             <td>@Html.ActionLink(ownerName, "Admin", new { controller = "UserProfile", id = item.UserProfileID }, new { title = ownerName })</td>
             <td>@total.ToString("C0")</td>
-            <td>@item.GoalAmount.ToString("C0")</td>
+            <td>@item.AmountString</td>
             <td>@item.StartDate.ToShortDateString()</td>
             <td>@item.EndDate.ToShortDateString()</td>
             <td>@status</td>
