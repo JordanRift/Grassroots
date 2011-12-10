@@ -23,7 +23,7 @@
     <h1>@title</h1>
 </hgroup>
 <section class="donation-details">
-    @Html.BeginForm("AdminUpdate", "Donate") {
+    @using(Html.BeginForm("AdminUpdate", "Donate")) {
         @Html.AntiForgeryToken("AdminUpdateDonation")
         @Html.ValidationSummary(false, "Unable to creat new donation. Please correct the following errors:", new { @class = "ui-widget ui-state-error ui-corner-all" })
         @Html.Partial("DonationAdminForm", Model)
