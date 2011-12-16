@@ -18,12 +18,14 @@
     var title = string.Format("Editing {0} {1}'s donation of {2}", Model.FirstName, Model.LastName, Model.Amount.ToString("C"));
     ViewBag.Title = title;
 }
-
+@section DocumentHead {
+    @Html.Partial("UIForm")
+}
 <hgroup>
     <h1>@title</h1>
 </hgroup>
 <section class="donation-details">
-    @using(Html.BeginForm("AdminUpdate", "Donate")) {
+    @using (Html.BeginForm("AdminUpdate", "Donate")) {
         @Html.AntiForgeryToken("AdminUpdateDonation")
         @Html.ValidationSummary(false, "Unable to creat new donation. Please correct the following errors:", new { @class = "ui-widget ui-state-error ui-corner-all" })
         @Html.Partial("DonationAdminForm", Model)

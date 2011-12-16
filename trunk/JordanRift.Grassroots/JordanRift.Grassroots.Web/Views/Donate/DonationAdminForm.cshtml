@@ -18,18 +18,67 @@
     Layout = null;
 }
 
-<fieldset class="column">
-    <legend>Personal Info</legend>
-    <dl>
-        <dt>@Html.LabelFor(m => m.FirstName)</dt>
-        <dd>
-            @Html.TextBoxFor(m => m.FirstName)
-            @Html.ValidationMessageFor(m => m.FirstName)
-        </dd>
-        <dt>@Html.LabelFor(m => m.LastName)</dt>
-        <dd>
-            @Html.TextBoxFor(m => m.LastName)
-            @Html.ValidationMessageFor(m => m.LastName)
-        </dd>
-    </dl>
-</fieldset>
+        <section class="column">
+            <fieldset>
+                <legend>Optional Display Information</legend>
+                <div class="check-box">
+                    @Html.CheckBoxFor(model => model.IsAnonymous)
+                    @Html.LabelFor(model => model.IsAnonymous)
+                </div>
+                <dl>
+                    <dt>@Html.LabelFor(model => model.DisplayName)</dt>
+                    <dd>@Html.TextBoxFor(model => model.DisplayName, new { placeholder = "ex: Santa Clause" })</dd>
+                </dl>
+            </fieldset>
+        </section>
+        <section class="column">
+            <fieldset>
+                <legend>Billing Information</legend>
+                <dl>
+			        <dt>@Html.LabelFor(model => model.FirstName)</dt>
+			        <dd>
+				        @Html.TextBoxFor(model => model.FirstName) 
+				        @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+			        <dt>@Html.LabelFor(model => model.LastName)</dt>
+			        <dd>
+				        @Html.TextBoxFor(model => model.LastName) 
+				        @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+			        <dt>@Html.LabelFor(model => model.Email)</dt>
+			        <dd>
+				        @Html.TextBoxFor(model => model.Email) 
+				        @Html.ValidationMessageFor(model => model.Email, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+			        <dt>@Html.LabelFor(model => model.PrimaryPhone)</dt>
+			        <dd>
+				        @Html.TextBoxFor(model => model.PrimaryPhone) 
+				        @Html.ValidationMessageFor(model => model.PrimaryPhone, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+			        <dt>@Html.LabelFor(model => model.AddressLine1)</dt>
+			        <dd>
+				        @Html.TextBoxFor(model => model.AddressLine1) 
+				        @Html.ValidationMessageFor(model => model.AddressLine1, null, new { @class = "ui-state-error ui-corner-all" })
+                        <p>
+                            @Html.TextBoxFor(model => model.AddressLine2)
+                            @Html.ValidationMessageFor(model => model.AddressLine2, null, new { @class = "ui-state-error ui-corner-all" })
+                        </p>
+			        </dd>
+			        <dt>@Html.LabelFor(model => model.City)</dt>
+			        <dd>
+				        @Html.TextBoxFor(model => model.City) 
+				        @Html.ValidationMessageFor(model => model.City, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+			        <dt>@Html.LabelFor(model => model.State)</dt>
+			        <dd>
+				        @Html.EditorFor(model => model.State) 
+				        @Html.ValidationMessageFor(model => model.State, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+			        <dt>@Html.LabelFor(model => model.ZipCode)</dt>
+			        <dd>
+				        @Html.TextBoxFor(model => model.ZipCode) 
+				        @Html.ValidationMessageFor(model => model.ZipCode, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+                </dl>
+		    </fieldset>
+        </section>
