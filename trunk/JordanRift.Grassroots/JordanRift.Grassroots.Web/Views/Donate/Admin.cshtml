@@ -31,7 +31,7 @@
         @Html.Partial("DonationAdminForm", Model)
         <div>
             @Html.UiSubmit("Update")
-            @Html.ActionLink("Cancel", "Admin", new { controller = "Donate" }, new { title = "Cancel" })
+            @Html.ActionLink("Cancel", "List", new { controller = "Donate" }, new { title = "Cancel" })
             <a href="#" class="destroy" data-type="Donation" data-id="@Model.CampaignDonorID" data-controller="Donate">Delete</a>
         </div>
     }

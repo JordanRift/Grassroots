@@ -53,7 +53,7 @@
             <tbody>
             @foreach (var donation in Model) {
                 var name = string.Format("{0} {1}", donation.FirstName, donation.LastName);
-                var status = donation.Approved ? "Yes" : "No";
+                var status = donation.IsApproved ? "Yes" : "No";
                 <tr>
                     <td>@Html.ActionLink(name, "Admin", new { id = donation.CampaignDonorID }, new { title = name })</td>
                     <td>@donation.Amount.ToString("C")</td>

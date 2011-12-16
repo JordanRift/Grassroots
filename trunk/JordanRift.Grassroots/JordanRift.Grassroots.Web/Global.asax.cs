@@ -168,6 +168,42 @@ namespace JordanRift.Grassroots
             );
 
             routes.MapRoute(
+                "DonationList",
+                "Donors/List",
+                new { controller = "Donate", action = "List" }
+            );
+
+            routes.MapRoute(
+                "DonationAdmin",
+                "Donors/Admin/{id}",
+                new { controller = "Donate", action = "Admin" }
+            );
+
+            routes.MapRoute(
+                "DonationAdminUpdate",
+                "Donors/AdminUpdate",
+                new { controller = "Donate", action = "AdminUpdate" }
+            );
+
+            routes.MapRoute(
+                "DonationNew",
+                "Donors/New",
+                new { controller = "Donate", action = "New" }
+            );
+
+            routes.MapRoute(
+                "DonationCreate",
+                "Donors/Create",
+                new { controller = "Donate", action = "Create" }
+            );
+
+            routes.MapRoute(
+                "DonationDestroy",
+                "Donors/Destroy/{id}",
+                new { controller = "Donate", action = "Destroy" }
+            );
+
+            routes.MapRoute(
                 "Donate",
                 "Donate/{slug}",
                 new { controller = "Donate", action = "Index", slug = UrlParameter.Optional }
