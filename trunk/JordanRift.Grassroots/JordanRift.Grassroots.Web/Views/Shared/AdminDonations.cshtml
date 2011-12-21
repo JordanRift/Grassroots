@@ -18,8 +18,9 @@
     Layout = null;
 }
 
-@if (Model != null && Model.Count > 0) {
-    <table>
+@if (Model != null && Model.Count > 0)
+{
+    <table class="grid">
         <thead>
             <tr>
                 <th>Name</th>
@@ -30,7 +31,8 @@
             </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
             var name = string.Format("{0} {1}", item.FirstName, item.LastName);
             var status = item.Approved ? "Yes" : "No";
             <tr>
