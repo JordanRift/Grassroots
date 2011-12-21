@@ -33,7 +33,7 @@
         <div>
             @Html.UiSubmit("Update")
             @Html.ActionLink("Cancel", "Admin", new { controller = "Campaign", id = Model.CampaignID }, new { title = "Cancel" })
-            <a href="#" class="destroy" data-type="Donation" data-id="@Model.CampaignDonorID" data-controller="Donate">Delete</a>
+            <a href="#" class="destroy" data-type="Donation" data-id="@Model.CampaignDonorID" data-controller="Donors" data-redirect="/campaign/admin/@Model.CampaignID">Delete</a>
         </div>
     }
 </section>
