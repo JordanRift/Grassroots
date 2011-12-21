@@ -49,6 +49,10 @@ html, body
         margin: 0px auto;
     }
     
+        .progress-indicator {
+            color: #999;
+        }
+    
         #main > div,
         #main > hgroup,
         #main > section
