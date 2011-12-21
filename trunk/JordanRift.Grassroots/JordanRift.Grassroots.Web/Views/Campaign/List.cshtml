@@ -40,37 +40,40 @@
 <hgroup>
     <h1>Browse Campaigns</h1>
 </hgroup>
-@* TODO: Add search controls in future release *@
-<table class="grid">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Owner</th>
-            <th>Raised</th>
-            <th>Starts</th>
-            <th>Ends</th>
-            <th>Active</th>
-            <th>Project</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model) {
-        var ownerName = string.Format("{0} {1}", item.FirstName, item.LastName);
-        var total = item.Donations.Sum(d => d.Amount);
-        var status = item.IsActive ? "Yes" : "No";
-        <tr>
-            <td>@Html.ActionLink(item.Title, "Admin", new { id = item.CampaignID }, new { title = item.Title })</td>
-            <td>@Html.ActionLink(ownerName, "Admin", new { controller = "UserProfile", id = item.UserProfileID }, new { title = ownerName })</td>
-            <td>@total.ToString("C0")</td>
-            <td>@item.StartDate.ToShortDateString()</td>
-            <td>@item.EndDate.ToShortDateString()</td>
-            <td>@status</td>
-            <td>@item.CauseName</td>
-            <td>@Html.ActionLink("Edit", "Admin", new { id = item.CampaignID }, new { title = "Edit" })</td>
-            <td><a href="#" class="destroy" title="Delete" data-id="@item.CampaignID" data-type="Campaign" data-controller="Campaign">Delete</a></td>
-        </tr>
-    }
-    </tbody>
-</table>
+<div class="campaigns">
+    @* TODO: Add search controls in future release *@
+    <table class="grid">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Owner</th>
+                <th>Raised</th>
+                <th>Starts</th>
+                <th>Ends</th>
+                <th>Active</th>
+                <th>Project</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model) {
+            var ownerName = string.Format("{0} {1}", item.FirstName, item.LastName);
+            var total = item.Donations.Sum(d => d.Amount);
+            var status = item.IsActive ? "Yes" : "No";
+            <tr>
+                <td>@Html.ActionLink(item.Title, "Admin", new { id = item.CampaignID }, new { title = item.Title })</td>
+                <td>@Html.ActionLink(ownerName, "Admin", new { controller = "UserProfile", id = item.UserProfileID }, new { title = ownerName })</td>
+                <td>@total.ToString("C0")</td>
+                <td>@item.StartDate.ToShortDateString()</td>
+                <td>@item.EndDate.ToShortDateString()</td>
+                <td>@status</td>
+                <td>@item.CauseName</td>
+                <td>@Html.ActionLink("Edit", "Admin", new { id = item.CampaignID }, new { title = "Edit" })</td>
+                <td><a href="#" class="destroy" title="Delete" data-id="@item.CampaignID" data-type="Campaign" data-controller="Campaign">Delete</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <p>@Html.ActionLink("Back to Admin Dashboard", "Index", new { controller = "Admin", area = "" }, new { title = "Back to Admin Dashboard" })</p>
+</div>
