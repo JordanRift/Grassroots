@@ -198,6 +198,55 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var message = controller.TempData["UserFeedback"];
             Assert.AreEqual("Your changes have been saved. Please allow a few minutes for them to take effect.", message);
         }
+
+        //[Test]
+        //public void Destroy_Should_Return_Json_If_Ajax_Delete_Successful()
+        //{
+        //    var mocks = new MockRepository();
+        //    SetUpController(mocks);
+        //    controller.Request.Stub(x => x["X-Requested-With"]).Return("XMLHttpRequest");
+        //    var donation = EntityHelpers.GetValidCampaignDonor();
+        //    campaignDonorRepository.Add(donation);
+        //    var result = controller.Destroy(donation.CampaignDonorID);
+        //    Assert.IsInstanceOf<JsonResult>(result);
+        //}
+
+        [Test]
+        public void Destory_Should_return_Json_If_Ajax_Delete_Successful()
+        {
+            controller.Request.Stub(x => x["X-Requested-With"]).Return("XMLHttpRequest");
+            var causeTemplate = EntityHelpers.GetValidCauseTemplate();
+            causeTemplateRepository.Add(causeTemplate);
+            var result = controller.Destroy(causeTemplate.CauseTemplateID);
+            Assert.IsInstanceOf<JsonResult>(result);
+        }
+
+        [Test]
+        public void Destroy_Should_Return_Redirect_If_Delete_Successful()
+        {
+            var causeTemplate = EntityHelpers.GetValidCauseTemplate();
+            causeTemplateRepository.Add(causeTemplate);
+            var result = controller.Destroy(causeTemplate.CauseTemplateID);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+        }
+
+        [Test]
+        public void Destroy_Should_Remove_CauseTemplate_If_Found()
+        {
+            var causeTemplate = EntityHelpers.GetValidCauseTemplate();
+            causeTemplateRepository.Add(causeTemplate);
+            var id = causeTemplate.CauseTemplateID;
+            controller.Destroy(id);
+            causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
+            Assert.IsNull(causeTemplate);
+        }
+
+        [Test]
+        public void Destroy_Should_Return_NotFound_If_CauseTemplate_Not_Found()
+        {
+            var result = controller.Destroy();
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
         
         /// TODO: Dig a little deeper into the SaveFiles method to test some more use cases...
         /// * What if a single upload fails

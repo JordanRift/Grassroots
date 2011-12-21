@@ -278,7 +278,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 
             var model = TempData["DonationAdminModel"] as DonationAdminModel ?? new DonationAdminModel();
-            ViewBag.CampaignID = id;
+            model.CampaignID = id;
             return View(model);
         }
 

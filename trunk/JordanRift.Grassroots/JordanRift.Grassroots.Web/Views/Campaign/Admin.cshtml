@@ -36,6 +36,7 @@
                 { headerText: "Email Address", width: 175 },
                 { headerText: "Amount", width: 100 },
                 { headerText: "Approved", width: 50 },
+                { headerText: "", width: 50 },
                 { headerText: "", width: 50 }
             ]);
         });
@@ -97,7 +98,7 @@
         </fieldset>
         <div>
             @Html.UiSubmit("Submit Changes")
-            @Html.ActionLink("Cancel", "List", new { controller = "Campaign", area = "" }, new { title = "Cancel", @class = "cancel" })
+            @Html.ActionLink("Back", "List", new { controller = "Campaign", area = "" }, new { title = "Back", @class = "cancel" })
         </div>
     }
     <div class="donor-grid">

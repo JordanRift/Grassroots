@@ -28,6 +28,7 @@
                 <th>Amount</th>
                 <th>Approved</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +42,7 @@
                 <td>@item.Amount.ToString("C0")</td>
                 <td>@status</td>
                 <td>@Html.ActionLink("Edit", "Admin", new { controller = "Donate", id = item.CampaignDonorID }, new { title = "Edit" })</td>
+                <td><a href="#" class="destroy" title="Delete" data-id="@item.CampaignDonorID" data-type="Donation" data-controller="Donate">Delete</a></td>
             </tr>
         }
         </tbody>

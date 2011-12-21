@@ -245,11 +245,30 @@ namespace JordanRift.Grassroots.Web.Controllers
             return RedirectToAction( "List" );
 		}
 
-        //[HttpDelete]
-        //public ActionResult Destroy(int id)
-        //{
-            
-        //}
+        [HttpDelete]
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult Destroy(int id = -1)
+        {
+            using (causeTemplateRepository)
+            {
+                var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
+
+                if (causeTemplate == null)
+                {
+                    return HttpNotFound("The project template could not be found.");
+                }
+
+                causeTemplateRepository.Delete(causeTemplate);
+                causeTemplateRepository.Save();
+            }
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true });
+            }
+
+            return RedirectToAction("List");
+        }
 
 		/// <summary>
 		/// Pre-processes the uploaded files and calls a IFileSaveService provider to save
