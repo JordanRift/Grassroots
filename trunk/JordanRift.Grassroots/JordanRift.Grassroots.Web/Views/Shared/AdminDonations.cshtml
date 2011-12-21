@@ -32,7 +32,7 @@
         <tbody>
         @foreach (var item in Model) {
             var name = string.Format("{0} {1}", item.FirstName, item.LastName);
-            var status = item.IsApproved ? "Yes" : "No";
+            var status = item.Approved ? "Yes" : "No";
             <tr>
                 <td>@Html.ActionLink(name, "Admin", new { controller = "Donate", id = item.CampaignDonorID }, new { title = name })</td>
                 <td><a href="mailto:@item.Email">@item.Email</a></td>

@@ -310,7 +310,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                                         ZipCode = model.ZipCode,
                                         Email = model.Email,
                                         PrimaryPhone = model.PrimaryPhone,
-                                        Approved = model.IsApproved,
+                                        Approved = model.Approved,
                                         IsAnonymous = model.IsAnonymous
                                     };
 
@@ -328,7 +328,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             TempData["UserFeedback"] = string.Format("{0} {1}'s donation of {2} has been created successfully.",
                 campaignDonor.FirstName, campaignDonor.LastName, campaignDonor.Amount);
-            return RedirectToAction("Admin", new { id = campaignDonor.CampaignDonorID });
+            return RedirectToAction("Admin", new { controller = "Campaign", id = campaignDonor.CampaignID });
         }
 
         [Authorize(Roles = ADMIN_ROLES)]
@@ -432,6 +432,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         private void MapCampaignDonor(DonationAdminModel model, CampaignDonor campaignDonor)
         {
             campaignDonor.Amount = model.Amount;
+            campaignDonor.DonationDate = model.DonationDate;
             campaignDonor.FirstName = model.FirstName;
             campaignDonor.LastName = model.LastName;
             campaignDonor.Email = model.Email;
@@ -442,7 +443,8 @@ namespace JordanRift.Grassroots.Web.Controllers
             campaignDonor.State = model.State;
             campaignDonor.ZipCode = model.ZipCode;
             campaignDonor.IsAnonymous = model.IsAnonymous;
-            campaignDonor.Approved = model.IsApproved;
+            campaignDonor.DisplayName = model.DisplayName;
+            campaignDonor.Approved = model.Approved;
 
             if (campaignDonor.CampaignID != model.CampaignID)
             {

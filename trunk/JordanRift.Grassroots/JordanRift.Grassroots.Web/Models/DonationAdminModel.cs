@@ -66,7 +66,7 @@ namespace JordanRift.Grassroots.Web.Models
 
         [Required]
         public DateTime DonationDate { get; set; }
-        public bool IsApproved { get; set; }
+        public bool Approved { get; set; }
         public bool IsAnonymous { get; set; }
 
         //
