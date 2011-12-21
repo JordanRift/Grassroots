@@ -187,8 +187,8 @@ namespace JordanRift.Grassroots
 
             routes.MapRoute(
                 "DonationNew",
-                "Donors/New",
-                new { controller = "Donate", action = "New" }
+                "Donors/New/{id}",
+                new { controller = "Donate", action = "New", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

@@ -27,7 +27,6 @@
     @using (Html.BeginForm("Create", "Donate")) {
         @Html.AntiForgeryToken("AdminCreateDonation")
         @Html.ValidationSummary(false, "Unable to creat new donation. Please correct the following errors:", new { @class = "ui-widget ui-state-error ui-corner-all" })
-        <input type="hidden" id="CampaignID" name="CampaignID" value="@ViewBag.CampaignID"/>
         @Html.Partial("DonationAdminForm", Model)
         <div>
             @Html.UiSubmit("Create")
