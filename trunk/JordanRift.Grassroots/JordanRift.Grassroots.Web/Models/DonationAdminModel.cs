@@ -41,21 +41,21 @@ namespace JordanRift.Grassroots.Web.Models
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
             ErrorMessage = "Please enter a valid email address.")]
         public string Email { get; set; }
-        
+
         [Required]
         [Display(Name = "Street Address")]
-        public string AddressLine1;
-        public string AddressLine2;
-        
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
+
         [Required]
-        public string City;
-        
+        public string City { get; set; }
+
         [Required]
-        public string State;
-        
+        public string State { get; set; }
+
         [Required]
         [Display(Name = "Zip Code")]
-        public string ZipCode;
+        public string ZipCode { get; set; }
 
         [Required]
         [Display(Name = "Phone Number")]

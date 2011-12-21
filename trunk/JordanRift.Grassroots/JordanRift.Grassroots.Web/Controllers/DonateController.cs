@@ -265,7 +265,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [Authorize(Roles = ADMIN_ROLES)]
-        public ActionResult New()
+        public ActionResult New(int id = -1)
         {
             if (TempData["ModelErrors"] != null)
             {
@@ -278,6 +278,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 
             var model = TempData["DonationAdminModel"] as DonationAdminModel ?? new DonationAdminModel();
+            ViewBag.CampaignID = id;
             return View(model);
         }
 
@@ -365,7 +366,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         [HttpPost]
         [Authorize(Roles = ADMIN_ROLES)]
         [ValidateAntiForgeryToken(Salt = "AdminUpdateDonation")]
-        public ActionResult AdminUpdate(DonationAdminModel model, string context = "list")
+        public ActionResult AdminUpdate(DonationAdminModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -389,12 +390,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     donation.FirstName, donation.LastName, donation.Amount);
             }
 
-            if (context.ToLower() == "campaign")
-            {
-                return RedirectToAction("Admin", "Campaign");
-            }
-
-            return RedirectToAction("List");
+            return RedirectToAction("Admin", "Campaign", new { id = model.CampaignID });
         }
 
         [HttpDelete]

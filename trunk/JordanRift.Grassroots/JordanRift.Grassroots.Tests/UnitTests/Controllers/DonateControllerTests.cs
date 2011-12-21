@@ -526,20 +526,6 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
-        public void AdminUpdate_Should_Redirect_To_List_If_Successful()
-        {
-            var mocks = new MockRepository();
-            SetUpController(mocks);
-            var donation = EntityHelpers.GetValidCampaignDonor();
-            campaignDonorRepository.Add(donation);
-            var model = Mapper.Map<CampaignDonor, DonationAdminModel>(donation);
-            var result = controller.AdminUpdate(model);
-            Assert.IsInstanceOf<RedirectToRouteResult>(result);
-            var redirect = result as RedirectToRouteResult;
-            Assert.AreEqual("List", redirect.RouteValues["Action"]);
-        }
-
-        [Test]
         public void AdminUpdate_Should_Redirect_To_Campaign_If_Successful_And_Context_Set()
         {
             var mocks = new MockRepository();
@@ -547,7 +533,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var donation = EntityHelpers.GetValidCampaignDonor();
             campaignDonorRepository.Add(donation);
             var model = Mapper.Map<CampaignDonor, DonationAdminModel>(donation);
-            var result = controller.AdminUpdate(model, "campaign");
+            var result = controller.AdminUpdate(model);
             Assert.IsInstanceOf<RedirectToRouteResult>(result);
             var redirect = result as RedirectToRouteResult;
             Assert.AreEqual("Admin", redirect.RouteValues["Action"]);

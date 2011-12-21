@@ -24,13 +24,14 @@
     <h1>Create New Donation</h1>
 </hgroup>
 <section class="donation-details">
-    @Html.BeginForm("Create", "Donate") {
+    @using (Html.BeginForm("Create", "Donate")) {
         @Html.AntiForgeryToken("AdminCreateDonation")
         @Html.ValidationSummary(false, "Unable to creat new donation. Please correct the following errors:", new { @class = "ui-widget ui-state-error ui-corner-all" })
+        <input type="hidden" id="CampaignID" name="CampaignID" value="@ViewBag.CampaignID"/>
         @Html.Partial("DonationAdminForm", Model)
         <div>
             @Html.UiSubmit("Create")
-            @Html.ActionLink("Cancel", "Admin", new { controller = "Donate" }, new { title = "Cancel" })
+            @Html.ActionLink("Cancel", "Admin", new { controller = "Campaign", id = Model.CampaignID }, new { title = "Cancel" })
         </div>
     }
 </section>

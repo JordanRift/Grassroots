@@ -80,5 +80,6 @@
     }
     <div class="donor-grid">
         @Html.Partial("AdminDonations", Model.Donations)
+        <p>@Html.ActionLink("Create New", "New", new { controller = "Donate", id = Model.CampaignID })</p>
     </div>
 </section>

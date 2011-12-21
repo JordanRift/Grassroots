@@ -17,17 +17,31 @@
     
     Layout = null;
 }
-
         <section class="column">
+            <fieldset>
+                <legend>Transaction Details</legend>
+                <dl>
+                    <dt>@Html.LabelFor(m => m.Amount)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.Amount)
+                        @Html.ValidationMessageFor(m => m.Amount, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.DonationDate)</dt>
+                    <dd>
+                        @Html.EditorFor(m => m.DonationDate)
+                        @Html.ValidationMessageFor(m => m.DonationDate, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                </dl>
+            </fieldset>
             <fieldset>
                 <legend>Optional Display Information</legend>
                 <div class="check-box">
-                    @Html.CheckBoxFor(model => model.IsAnonymous)
-                    @Html.LabelFor(model => model.IsAnonymous)
+                    @Html.CheckBoxFor(m => m.IsAnonymous)
+                    @Html.LabelFor(m => m.IsAnonymous)
                 </div>
                 <dl>
-                    <dt>@Html.LabelFor(model => model.DisplayName)</dt>
-                    <dd>@Html.TextBoxFor(model => model.DisplayName, new { placeholder = "ex: Santa Clause" })</dd>
+                    <dt>@Html.LabelFor(m => m.DisplayName)</dt>
+                    <dd>@Html.TextBoxFor(m => m.DisplayName, new { placeholder = "ex: Santa Clause" })</dd>
                 </dl>
             </fieldset>
         </section>
