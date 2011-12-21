@@ -23,16 +23,15 @@
     <script type="text/javascript">
         $(function () {
             Grassroots.gridui([
-                { headerText: "Title" },
-                { headerText: "Owner" },
-                { headerText: "Raised" },
-                { headerText: "Goal" },
-                { headerText: "Start Date" },
-                { headerText: "End Date" },
-                { headerText: "Active" },
-                { headerText: "Project" },
-                { headerText: "" },
-                { headerText: "" }
+                { headerText: "Title", width: 125 },
+                { headerText: "Owner", width: 100 },
+                { headerText: "Raised", width: 75 },
+                { headerText: "Starts", width: 50 },
+                { headerText: "Ends", width: 50 },
+                { headerText: "Active", width: 50 },
+                { headerText: "Project", width: 125 },
+                { headerText: "", width: 35 },
+                { headerText: "", width: 35 }
             ]);
         });
     </script>
@@ -42,15 +41,14 @@
     <h1>Browse Campaigns</h1>
 </hgroup>
 @* TODO: Add search controls in future release *@
-<table>
+<table class="grid">
     <thead>
         <tr>
             <th>Title</th>
             <th>Owner</th>
             <th>Raised</th>
-            <th>Goal</th>
-            <th>Start Date</th>
-            <th>End Date</th>
+            <th>Starts</th>
+            <th>Ends</th>
             <th>Active</th>
             <th>Project</th>
             <th></th>
@@ -66,7 +64,6 @@
             <td>@Html.ActionLink(item.Title, "Admin", new { id = item.CampaignID }, new { title = item.Title })</td>
             <td>@Html.ActionLink(ownerName, "Admin", new { controller = "UserProfile", id = item.UserProfileID }, new { title = ownerName })</td>
             <td>@total.ToString("C0")</td>
-            <td>@item.AmountString</td>
             <td>@item.StartDate.ToShortDateString()</td>
             <td>@item.EndDate.ToShortDateString()</td>
             <td>@status</td>
