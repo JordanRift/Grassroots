@@ -1,3 +1,4 @@
+# TODO: Create a more complete template for signup form...
 class Grassroots.Views.FacebookSignUp extends Backbone.View
 	constructor: ->
 		@el = '#signup-form'

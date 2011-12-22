@@ -1,3 +1,4 @@
+# TODO: Create view template for Login button...
 class Grassroots.Views.FacebookLogin extends Backbone.View
 	constructor: ->
 		@el = '#log-in'
