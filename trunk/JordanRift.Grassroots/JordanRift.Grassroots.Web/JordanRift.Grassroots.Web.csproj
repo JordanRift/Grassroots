@@ -569,6 +569,19 @@
     <Content Include="Views\Admin\EditCampaignDonor.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CoffeeScripts\App.coffee" />
+    <None Include="CoffeeScripts\routers\FacebookConnectRouter.coffee" />
+    <None Include="CoffeeScripts\routers\FacebookLoginRouter.coffee" />
+    <None Include="CoffeeScripts\helpers\Authentication.coffee" />
+    <None Include="CoffeeScripts\helpers\FacebookEvents.coffee" />
+    <None Include="CoffeeScripts\helpers\UrlHelper.coffee" />
+    <None Include="CoffeeScripts\models\FacebookUser.coffee" />
+    <None Include="CoffeeScripts\models\FacebookUserCollection.coffee" />
+    <None Include="CoffeeScripts\views\Connected.coffee" />
+    <None Include="CoffeeScripts\views\FacebookConnectAccount.coffee" />
+    <None Include="CoffeeScripts\views\FacebookLogin.coffee" />
+    <None Include="CoffeeScripts\views\FacebookSignUp.coffee" />
+    <None Include="CoffeeScripts\views\FacebookWelcome.coffee" />
     <None Include="Content\styles.less" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Donate\Index.cshtml" />
