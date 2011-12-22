@@ -1,5 +1,5 @@
 # Declare a new event aggrigator object
-window.facebookEvents = _.extend Grassroots.Events, Backbone.Events
+facebookEvents = _.extend Grassroots.Events, Backbone.Events
 
 # Set of default AJAX callbacks to respond to Arena web service calls
 facebookEvents.defaults =
