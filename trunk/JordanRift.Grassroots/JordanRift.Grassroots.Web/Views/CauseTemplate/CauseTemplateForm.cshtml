@@ -16,81 +16,97 @@
     //
 }
         @Html.ValidationSummary(false, "Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
-        <fieldset>
-			<legend>Project Settings</legend>
-			<dl>
-				<dt>@Html.LabelFor(m => m.Name)</dt>
-				<dd>
-                    @Html.TextBoxFor(m => m.Name)
-					@Html.ValidationMessageFor(m => m.Name, null, new { @class = "ui-state-error ui-corner-all" })
-				</dd>
-				<dt>@Html.LabelFor(m => m.ActionVerb)</dt>
-				<dd>
-                    @Html.TextBoxFor(m => m.ActionVerb)
-					@Html.ValidationMessageFor(m => m.ActionVerb, null, new { @class = "ui-state-error ui-corner-all" })
-				</dd>
-				<dt>@Html.LabelFor(m => m.GoalName)</dt>
-				<dd>
-                    @Html.TextBoxFor(m => m.GoalName)
-					@Html.ValidationMessageFor(m => m.GoalName, null, new { @class = "ui-state-error ui-corner-all" })
-				</dd>
-                <dt>@Html.LabelFor(m => m.CallToAction)</dt>
-				<dd>
-                    @Html.TextBoxFor(m => m.CallToAction)
-					@Html.ValidationMessageFor(m => m.CallToAction, null, new { @class = "ui-state-error ui-corner-all" })
-				</dd>
-				<dt>@Html.LabelFor(m => m.Active)</dt>
-				<dd>
-                    @Html.EditorFor(m => m.Active)
-					@Html.ValidationMessageFor(m => m.Active, null, new { @class = "ui-state-error ui-corner-all" })
-				</dd>
-				<dt>@Html.LabelFor(m => m.AmountIsConfigurable)</dt>
-				<dd>
-                    @Html.EditorFor(m => m.AmountIsConfigurable)
-					@Html.ValidationMessageFor(m => m.AmountIsConfigurable, null, new { @class = "ui-state-error ui-corner-all" })
-				</dd>
-				<dt>@Html.LabelFor(m => m.DefaultAmount)</dt>
-				<dd>
-                    @Html.EditorFor(m => m.DefaultAmount)
-					@Html.ValidationMessageFor(m => m.DefaultAmount, null, new { @class = "ui-state-error ui-corner-all" })
-				</dd>
-				<dt>@Html.LabelFor(m => m.TimespanIsConfigurable)</dt>
-				<dd>
-                    @Html.EditorFor(m => m.TimespanIsConfigurable)
-					@Html.ValidationMessageFor(m => m.TimespanIsConfigurable, null, new { @class = "ui-state-error ui-corner-all" })
-				</dd>
-				<dt>@Html.LabelFor(m => m.DefaultTimespanInDays)</dt>
-				<dd>
-                    @Html.EditorFor(m => m.DefaultTimespanInDays)
-					@Html.ValidationMessageFor(m => m.DefaultTimespanInDays, null, new { @class = "ui-state-error ui-corner-all" })
-				</dd>
-				<dt>@Html.LabelFor(m => m.ImagePath)</dt>
-				<dd>
-                    @Html.TextBoxFor(m => m.ImagePath)
-					<input type="file" name="ImagePath" id="ImagePath" />
-					@Html.ValidationMessageFor(m => m.ImagePath, null, new { @class = "ui-state-error ui-corner-all" })
-				</dd>
-                <dt>@Html.LabelFor(m => m.BeforeImagePath)</dt>
-				<dd>
-                    @Html.TextBoxFor( m => m.BeforeImagePath )
-					<input type="file" name="BeforeImagePath" id="BeforeImagePath" />
-					@Html.ValidationMessageFor( m => m.BeforeImagePath, null, new { @class = "ui-state-error ui-corner-all" } )
-				</dd>
-				<dt>@Html.LabelFor(m => m.AfterImagePath)</dt>
-				<dd>
-                    @Html.TextBoxFor(m => m.AfterImagePath)
-					<input type="file" name="AfterImagePath" id="AfterImagePath" />
-					@Html.ValidationMessageFor( m => m.AfterImagePath, null, new { @class = "ui-state-error ui-corner-all" } )
-				</dd>
-				<dt>@Html.LabelFor(m => m.VideoEmbedHtml)</dt>
+        <section class="column">
+             <fieldset>
+			    <legend>Project Details</legend>
+			    <dl>
+				    <dt>@Html.LabelFor(m => m.Name)</dt>
+				    <dd>
+                        @Html.TextBoxFor(m => m.Name)
+					    @Html.ValidationMessageFor(m => m.Name, null, new { @class = "ui-state-error ui-corner-all" })
+				    </dd>
+				    <dt>@Html.LabelFor(m => m.ActionVerb)</dt>
+				    <dd>
+                        @Html.TextBoxFor(m => m.ActionVerb)
+					    @Html.ValidationMessageFor(m => m.ActionVerb, null, new { @class = "ui-state-error ui-corner-all" })
+				    </dd>
+				    <dt>@Html.LabelFor(m => m.GoalName)</dt>
+				    <dd>
+                        @Html.TextBoxFor(m => m.GoalName)
+					    @Html.ValidationMessageFor(m => m.GoalName, null, new { @class = "ui-state-error ui-corner-all" })
+				    </dd>
+                    <dt>@Html.LabelFor(m => m.CallToAction)</dt>
+				    <dd>
+                        @Html.TextBoxFor(m => m.CallToAction)
+					    @Html.ValidationMessageFor(m => m.CallToAction, null, new { @class = "ui-state-error ui-corner-all" })
+				    </dd>
+				    <dt>@Html.LabelFor(m => m.Active)</dt>
+				    <dd>
+                        @Html.EditorFor(m => m.Active)
+					    @Html.ValidationMessageFor(m => m.Active, null, new { @class = "ui-state-error ui-corner-all" })
+				    </dd>
+				    <dt>@Html.LabelFor(m => m.AmountIsConfigurable)</dt>
+				    <dd>
+                        @Html.EditorFor(m => m.AmountIsConfigurable)
+					    @Html.ValidationMessageFor(m => m.AmountIsConfigurable, null, new { @class = "ui-state-error ui-corner-all" })
+				    </dd>
+				    <dt>@Html.LabelFor(m => m.DefaultAmount)</dt>
+				    <dd>
+                        @Html.EditorFor(m => m.DefaultAmount)
+					    @Html.ValidationMessageFor(m => m.DefaultAmount, null, new { @class = "ui-state-error ui-corner-all" })
+				    </dd>
+				    <dt>@Html.LabelFor(m => m.TimespanIsConfigurable)</dt>
+				    <dd>
+                        @Html.EditorFor(m => m.TimespanIsConfigurable)
+					    @Html.ValidationMessageFor(m => m.TimespanIsConfigurable, null, new { @class = "ui-state-error ui-corner-all" })
+				    </dd>
+				    <dt>@Html.LabelFor(m => m.DefaultTimespanInDays)</dt>
+				    <dd>
+                        @Html.EditorFor(m => m.DefaultTimespanInDays)
+					    @Html.ValidationMessageFor(m => m.DefaultTimespanInDays, null, new { @class = "ui-state-error ui-corner-all" })
+				    </dd>
+                    <dt>@Html.LabelFor(m => m.Summary)</dt>
+				    <dd class="textarea">
+                        @Html.ValidationMessageFor(m => m.Summary, null, new { @class = "ui-state-error ui-corner-all" })
+                        @Html.TextAreaFor(m => m.Summary)
+				    </dd>
+			    </dl>
+		    </fieldset>
+            <div>
+			    @Html.UiSubmit("Save")
+			    @Html.ActionLink("Cancel", "List", new { controller = "CauseTemplate", area = "" }, new { title = "Cancel", @class = "cancel" })
+		    </div>
+        </section>
+        <section class="column">
+            <fieldset>
+                <legend>Media</legend>
+                <dl>
+                    <dt>@Html.LabelFor(m => m.ImagePath)</dt>
+				    <dd>
+                        @Html.TextBoxFor(m => m.ImagePath)
+					    <input type="file" name="ImagePath" id="ImagePath" />
+					    @Html.ValidationMessageFor(m => m.ImagePath, null, new { @class = "ui-state-error ui-corner-all" })
+				    </dd>
+                    <dt>@Html.LabelFor(m => m.BeforeImagePath)</dt>
+				    <dd>
+                        @Html.TextBoxFor( m => m.BeforeImagePath )
+					    <input type="file" name="BeforeImagePath" id="BeforeImagePath" />
+					    @Html.ValidationMessageFor( m => m.BeforeImagePath, null, new { @class = "ui-state-error ui-corner-all" } )
+				    </dd>
+				    <dt>@Html.LabelFor(m => m.AfterImagePath)</dt>
+				    <dd>
+                        @Html.TextBoxFor(m => m.AfterImagePath)
+					    <input type="file" name="AfterImagePath" id="AfterImagePath" />
+					    @Html.ValidationMessageFor( m => m.AfterImagePath, null, new { @class = "ui-state-error ui-corner-all" } )
+				    </dd>
+                </dl>
+            </fieldset>
+            <fieldset>
+                <legend>HTML Settings</legend>
+                <dt>@Html.LabelFor(m => m.VideoEmbedHtml)</dt>
 				<dd class="textarea">
                     @Html.ValidationMessageFor(m => m.VideoEmbedHtml, null, new { @class = "ui-state-error ui-corner-all" })
                     @Html.TextAreaFor(m => m.VideoEmbedHtml)
-				</dd>
-				<dt>@Html.LabelFor(m => m.Summary)</dt>
-				<dd class="textarea">
-                    @Html.ValidationMessageFor(m => m.Summary, null, new { @class = "ui-state-error ui-corner-all" })
-                    @Html.TextAreaFor(m => m.Summary)
 				</dd>
 				<dt>@Html.LabelFor(m => m.DescriptionHtml)</dt>
 				<dd class="textarea">
@@ -112,9 +128,5 @@
                     @Html.ValidationMessageFor( m => m.StatisticsHtml, null, new { @class = "ui-state-error ui-corner-all" } )
                     @Html.TextAreaFor( m => m.StatisticsHtml )
 				</dd>
-			</dl>
-		</fieldset>
-		<div>
-			@Html.UiSubmit("Save")
-			@Html.ActionLink("Cancel", "List", new { controller = "CauseTemplate", area = "" }, new { title = "Cancel", @class = "cancel" })
-		</div>
+            </fieldset>
+        </section>
