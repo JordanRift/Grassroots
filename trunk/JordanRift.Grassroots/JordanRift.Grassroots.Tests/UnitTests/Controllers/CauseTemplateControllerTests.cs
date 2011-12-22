@@ -202,18 +202,6 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.AreEqual("Your changes have been saved. Please allow a few minutes for them to take effect.", message);
         }
 
-        //[Test]
-        //public void Destroy_Should_Return_Json_If_Ajax_Delete_Successful()
-        //{
-        //    var mocks = new MockRepository();
-        //    SetUpController(mocks);
-        //    controller.Request.Stub(x => x["X-Requested-With"]).Return("XMLHttpRequest");
-        //    var donation = EntityHelpers.GetValidCampaignDonor();
-        //    campaignDonorRepository.Add(donation);
-        //    var result = controller.Destroy(donation.CampaignDonorID);
-        //    Assert.IsInstanceOf<JsonResult>(result);
-        //}
-
         [Test]
         public void Destory_Should_return_Json_If_Ajax_Delete_Successful()
         {

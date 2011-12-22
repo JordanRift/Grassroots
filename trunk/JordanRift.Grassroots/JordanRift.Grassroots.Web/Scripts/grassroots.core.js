@@ -95,12 +95,22 @@ var Grassroots = (function () {
 
     return {
         progressbar: function () {
-            var $progressbar = $(".ui-progressbar-value");
+            var $progressbar = $(".ui-progressbar-value"),
+                $progressIndicator = $(".progress-indicator"),
+                progressTimer,
+                px;
 
             if ($progressbar.length > 0) {
-                var px = $progressbar.outerWidth();
+                px = $progressbar.outerWidth();
                 $progressbar.css("width", "0px").show().animate({ width: '+=' + px + 'px' }, 2000);
-                $(".progress-indicator").animate({ left: '+=' + px + 'px', opacity: 1 }, 2000);
+                $progressIndicator.animate({ left: '+=' + px + 'px' }, 2000);
+
+                progressTimer = setInterval(function () {
+                    if ($progressbar.outerWidth() > $progressIndicator.outerWidth()) {
+                        $progressIndicator.animate({ opacity: 1 }, 2000);
+                        clearInterval(progressTimer);
+                    }
+                }, 100);
             }
         },
         formui: function () {

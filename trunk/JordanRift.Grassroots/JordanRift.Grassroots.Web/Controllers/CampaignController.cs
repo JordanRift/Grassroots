@@ -408,12 +408,13 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             using (campaignRepository)
             {
-                var list = campaignRepository.FindAllCampaigns();
+                // Calling ToList() here to prevent possible InvalidOperationException on databases that aren't configured
+                // to allow multiple result sets.
+                var list = campaignRepository.FindAllCampaigns().ToList();
                 var viewModel = new List<CampaignAdminModel>();
 
                 foreach (var c in list)
                 {
-                    //var model = MapDetailsModel(c);
                     var model = MapAdminModel(c);
                     model.CauseName = c.Cause != null ? c.Cause.Name : string.Empty;
                     viewModel.Add(model);
