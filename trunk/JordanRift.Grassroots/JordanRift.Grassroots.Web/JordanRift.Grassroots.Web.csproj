@@ -390,6 +390,8 @@
     <Content Include="favicon.ico" />
     <Content Include="README.jQuery.vsdoc.txt" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\backbone.js" />
+    <Content Include="Scripts\backbone.min.js" />
     <Content Include="Scripts\globalize.min.js" />
     <Content Include="Scripts\grassroots.core.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
@@ -432,8 +434,11 @@
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
+    <Content Include="Scripts\mustache.min.js" />
     <Content Include="Scripts\raphael-min.js" />
     <Content Include="Scripts\raphael.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Views\DonateMailer\CampaignDonation.cshtml" />
     <Content Include="Views\DonateMailer\UserDonation.cshtml" />
     <Content Include="Views\Shared\_EmailLayout.cshtml" />
