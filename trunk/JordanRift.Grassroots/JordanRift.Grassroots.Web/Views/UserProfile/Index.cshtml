@@ -25,29 +25,26 @@
 
 @section DocumentHead {
     @if (Model.CurrentUserIsOwner) {
-    <link href="@Url.Content("~/Content/jquery.wijmo-open.1.2.0.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/jquery.wijmo-complete.1.2.0.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/jQuery.tmpl.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.13.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/jquery.wijmo-open.1.2.0.min.js")" type="text/javascript"></script>
-    <script type="text/x-jquery-tmpl" id="tooltip-template">
-        <div class="tooltip-instructions">
-            @if (string.IsNullOrEmpty(Model.FacebookID)) { 
-            <p class="fb">@Html.ActionLink("Connect", "Connect", new { controller = "Facebook", area = "" }, new { title = "Connect", @class = "fb-connect" }) your account to Facebook.</p>
-            <br /><text>- or -</text>
-            <p>Claim your email address on <a href="http://en.gravatar.com/" title="Gravatar" target="_blank">Gravatar</a>.</p>
-            }
-            else {
-            <p>Change your <a href="http://www.facebook.com" title="Facebook" target="_blank">Facebook</a> profile picture.</p>
-            }
-        </div>
-    </script>
+    <link href="@Url.Content("~/Content/jquery.wijmo-open.1.5.0.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/jquery.wijmo-complete.1.5.0.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.16.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.wijmo-open.1.5.0.min.js")" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             $(".user-image-info").wijtooltip({
                 hideDelay: 3000,
                 content: function () {
-                    return $("#tooltip-template").tmpl();
+                    var content = '<div class="tooltip-instructions">';
+                    @if (string.IsNullOrEmpty(Model.FacebookID)) { 
+                    <text>content += '<p class="fb">@Html.ActionLink("Connect", "Connect", new { controller = "Facebook", area = "" }, new { title = "Connect", @class = "fb-connect" }) your account to Facebook.</p>';</text>
+                    <text>content += '<br />- or -';</text>
+                    <text>content += '<p>Claim your email address on <a href="http://en.gravatar.com/" title="Gravatar" target="_blank">Gravatar</a>.</p>';</text>
+                    }
+                    else {
+                    <text>content += '<p>Change your <a href="http://www.facebook.com" title="Facebook" target="_blank">Facebook</a> profile picture.</p>';</text>
+                    }
+                    content += '</div>';
+                    return content;
                 }
             });
         });
