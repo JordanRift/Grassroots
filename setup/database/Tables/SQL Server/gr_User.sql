@@ -1,7 +1,7 @@
 USE [Grassroots]
 GO
 
-/****** Object:  Table [dbo].[gr_User]    Script Date: 06/17/2011 21:19:11 ******/
+/****** Object:  Table [dbo].[gr_User]    Script Date: 12/22/2011 10:53:53 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -22,6 +22,8 @@ CREATE TABLE [dbo].[gr_User](
 	[RegisterDate] [datetime] NOT NULL,
 	[LastLoggedIn] [datetime] NOT NULL,
 	[FailedLoginAttempts] [int] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[LastModifiedOn] [datetime] NOT NULL,
  CONSTRAINT [PK_gr_User_1] PRIMARY KEY CLUSTERED 
 (
 	[UserID] ASC
@@ -58,6 +60,12 @@ GO
 ALTER TABLE [dbo].[gr_User] ADD  CONSTRAINT [DF_gr_User_LastLoggedIn]  DEFAULT ('1/1/1900') FOR [LastLoggedIn]
 GO
 
-ALTER TABLE [dbo].[gr_User] ADD  CONSTRAINT [DF_gr_User_LoginAttempts]  DEFAULT ((0)) FOR [FailedLoginAttempts]
+ALTER TABLE [dbo].[gr_User] ADD  CONSTRAINT [DF_gr_User_FailedLoginAttempts]  DEFAULT ((0)) FOR [FailedLoginAttempts]
+GO
+
+ALTER TABLE [dbo].[gr_User] ADD  DEFAULT ('1/1/1900') FOR [CreatedOn]
+GO
+
+ALTER TABLE [dbo].[gr_User] ADD  DEFAULT ('1/1/1900') FOR [LastModifiedOn]
 GO
 

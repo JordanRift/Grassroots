@@ -25,7 +25,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 {
 	[MetadataType(typeof(IUserProfileValidation))]
     [Table("gr_userprofile")]
-    public class UserProfile : IUserProfileValidation, IValidatableObject, ICanCalculate
+    public class UserProfile : Model, IUserProfileValidation, IValidatableObject, ICanCalculate
 	{
         [Key]
         public int UserProfileID { get; set; }

@@ -20,7 +20,7 @@ using System.Data.Entity.ModelConfiguration;
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [Table("gr_recipient")]
-    public class Recipient
+    public class Recipient : Model
     {
         [Key]
         public int RecipientID { get; set; }

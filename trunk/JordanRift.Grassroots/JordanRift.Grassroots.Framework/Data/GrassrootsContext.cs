@@ -13,7 +13,9 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.Data;
 using System.Data.Entity;
+using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Framework.Data
@@ -47,6 +49,28 @@ namespace JordanRift.Grassroots.Framework.Data
             modelBuilder.Configurations.Add(new RecipientConfiguration());
             modelBuilder.Configurations.Add(new RegionConfiguration());
             modelBuilder.Configurations.Add(new RoleConfiguration());
+        }
+
+        public override int SaveChanges()
+        {
+            var changedEntities = ChangeTracker.Entries();
+
+            foreach (var changedEntity in changedEntities)
+            {
+                var model = (Model) changedEntity.Entity;
+
+                switch (changedEntity.State)
+                {
+                    case EntityState.Added:
+                        model.OnBeforeInsert();
+                        break;
+                    case EntityState.Modified:
+                        model.OnBeforeUpdate();
+                        break;
+                }
+            }
+
+            return base.SaveChanges();
         }
     }
 }

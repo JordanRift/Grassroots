@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using JordanRift.Grassroots.Framework.Entities;

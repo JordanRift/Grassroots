@@ -20,7 +20,7 @@ using System.Data.Entity.ModelConfiguration;
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [Table("gr_region")]
-    public class Region
+    public class Region : Model
     {
         [Key]
         public int RegionID { get; set; }

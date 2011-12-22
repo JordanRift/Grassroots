@@ -22,7 +22,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 {
 	[MetadataType(typeof(ICauseNoteValidation))]
 	[Table("gr_causenote")]
-	public class CauseNote : ICauseNoteValidation
+	public class CauseNote : Model, ICauseNoteValidation
 	{
 		[Key]
 		public int CauseNoteID { get; set; }

@@ -1,7 +1,7 @@
 USE [Grassroots]
 GO
 
-/****** Object:  Table [dbo].[gr_CauseNote]    Script Date: 05/13/2011 11:58:11 ******/
+/****** Object:  Table [dbo].[gr_CauseNote]    Script Date: 12/22/2011 10:52:19 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -14,6 +14,8 @@ CREATE TABLE [dbo].[gr_CauseNote](
 	[UserProfileID] [int] NOT NULL,
 	[Text] [nvarchar](max) NOT NULL,
 	[EntryDate] [datetime] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[LastModifiedOn] [datetime] NOT NULL,
  CONSTRAINT [PK_gr_CauseNote] PRIMARY KEY CLUSTERED 
 (
 	[CauseNoteID] ASC
@@ -38,5 +40,11 @@ ALTER TABLE [dbo].[gr_CauseNote] CHECK CONSTRAINT [FK_gr_CauseNote_gr_UserProfil
 GO
 
 ALTER TABLE [dbo].[gr_CauseNote] ADD  CONSTRAINT [DF_gr_CauseNote_NoteDate]  DEFAULT (getdate()) FOR [EntryDate]
+GO
+
+ALTER TABLE [dbo].[gr_CauseNote] ADD  DEFAULT ('1/1/1900') FOR [CreatedOn]
+GO
+
+ALTER TABLE [dbo].[gr_CauseNote] ADD  DEFAULT ('1/1/1900') FOR [LastModifiedOn]
 GO
 

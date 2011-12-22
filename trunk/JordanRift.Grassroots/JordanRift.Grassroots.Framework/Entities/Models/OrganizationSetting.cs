@@ -21,7 +21,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [MetadataType(typeof(IOrganizationSettingValidation))]
     [Table("gr_organizationsetting")]
-    public class OrganizationSetting : IOrganizationSettingValidation
+    public class OrganizationSetting : Model, IOrganizationSettingValidation
     {
         [Key]
         public int OrganizationSettingID { get; set; }

@@ -20,7 +20,7 @@ using System.Data.Entity.ModelConfiguration;
 namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [Table("gr_role")]
-    public class Role
+    public class Role : Model
     {
         [Key]
         public int RoleID { get; set; }

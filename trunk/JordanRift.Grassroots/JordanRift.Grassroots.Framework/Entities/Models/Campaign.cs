@@ -25,7 +25,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [MetadataType(typeof(ICampaignValidation))]
     [Table("gr_campaign")]
-    public class Campaign : ICampaignValidation, IValidatableObject, ICanCalculate
+    public class Campaign : Model, ICampaignValidation, IValidatableObject, ICanCalculate
     {
         [Key]
         public int CampaignID { get; set; }

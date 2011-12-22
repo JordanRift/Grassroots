@@ -23,7 +23,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [MetadataType(typeof(ICauseTemplateValidation))]
     [Table("gr_causetemplate")]
-    public class CauseTemplate : ICauseTemplateValidation
+    public class CauseTemplate : Model, ICauseTemplateValidation
     {
         [Key]
         public int CauseTemplateID { get; set; }

@@ -23,7 +23,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 {
     [MetadataType(typeof(IUserValidation))]
     [Table("gr_user")]
-    public class User : IUserValidation
+    public class User : Model, IUserValidation
     {
         [Key]
         public int UserID { get; set; }

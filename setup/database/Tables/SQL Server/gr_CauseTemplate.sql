@@ -1,7 +1,7 @@
 USE [Grassroots]
 GO
 
-/****** Object:  Table [dbo].[gr_CauseTemplate]    Script Date: 10/18/2011 08:10:49 ******/
+/****** Object:  Table [dbo].[gr_CauseTemplate]    Script Date: 12/22/2011 10:52:33 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -33,6 +33,8 @@ CREATE TABLE [dbo].[gr_CauseTemplate](
 	[InstructionsClosedHtml] [varchar](max) NOT NULL,
 	[StatisticsHtml] [varchar](max) NULL,
 	[CutOffDate] [datetime] NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[LastModifiedOn] [datetime] NOT NULL,
  CONSTRAINT [PK_gr_CauseType] PRIMARY KEY CLUSTERED 
 (
 	[CauseTemplateID] ASC
@@ -94,5 +96,11 @@ ALTER TABLE [dbo].[gr_CauseTemplate] ADD  CONSTRAINT [DF_gr_CauseTemplate_Instru
 GO
 
 ALTER TABLE [dbo].[gr_CauseTemplate] ADD  CONSTRAINT [DF_gr_CauseTemplate_InstructionsClosedHtml]  DEFAULT ('') FOR [InstructionsClosedHtml]
+GO
+
+ALTER TABLE [dbo].[gr_CauseTemplate] ADD  DEFAULT ('1/1/1900') FOR [CreatedOn]
+GO
+
+ALTER TABLE [dbo].[gr_CauseTemplate] ADD  DEFAULT ('1/1/1900') FOR [LastModifiedOn]
 GO
 

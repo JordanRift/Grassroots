@@ -22,7 +22,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 {
 	[MetadataType( typeof( ICauseValidation ) )]
 	[Table( "gr_cause" )]
-	public class Cause : ICauseValidation
+	public class Cause : Model, ICauseValidation
 	{
 		[Key]
 		public int CauseID { get; set; }

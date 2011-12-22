@@ -1,7 +1,7 @@
 USE [Grassroots]
 GO
 
-/****** Object:  Table [dbo].[gr_CampaignDonor]    Script Date: 09/06/2011 22:37:13 ******/
+/****** Object:  Table [dbo].[gr_CampaignDonor]    Script Date: 12/22/2011 10:52:01 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -32,6 +32,8 @@ CREATE TABLE [dbo].[gr_CampaignDonor](
 	[Notes] [varchar](max) NULL,
 	[IsAnonymous] [bit] NOT NULL,
 	[DisplayName] [varchar](50) NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[LastModifiedOn] [datetime] NOT NULL,
  CONSTRAINT [PK_myc_CampaignDonor] PRIMARY KEY CLUSTERED 
 (
 	[CampaignDonorID] ASC
@@ -94,5 +96,11 @@ ALTER TABLE [dbo].[gr_CampaignDonor] ADD  CONSTRAINT [DF_gr_CampaignDonor_Approv
 GO
 
 ALTER TABLE [dbo].[gr_CampaignDonor] ADD  CONSTRAINT [DF_gr_CampaignDonor_IsAnonymous]  DEFAULT ((0)) FOR [IsAnonymous]
+GO
+
+ALTER TABLE [dbo].[gr_CampaignDonor] ADD  DEFAULT ('1/1/1900') FOR [CreatedOn]
+GO
+
+ALTER TABLE [dbo].[gr_CampaignDonor] ADD  DEFAULT ('1/1/1900') FOR [LastModifiedOn]
 GO
 

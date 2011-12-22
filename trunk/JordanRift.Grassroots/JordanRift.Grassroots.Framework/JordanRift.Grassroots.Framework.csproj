@@ -116,6 +116,7 @@
     <Compile Include="Entities\ICanCalculate.cs" />
     <Compile Include="Entities\IPaymentProviderFactory.cs" />
     <Compile Include="Entities\IPriority.cs" />
+    <Compile Include="Entities\Model.cs" />
     <Compile Include="Entities\Models\CauseNote.cs" />
     <Compile Include="Entities\Models\Recipient.cs" />
     <Compile Include="Entities\Models\Region.cs" />

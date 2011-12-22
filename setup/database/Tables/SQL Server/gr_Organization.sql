@@ -1,7 +1,7 @@
 USE [Grassroots]
 GO
 
-/****** Object:  Table [dbo].[gr_Organization]    Script Date: 09/15/2011 23:53:51 ******/
+/****** Object:  Table [dbo].[gr_Organization]    Script Date: 12/22/2011 10:52:42 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -32,6 +32,8 @@ CREATE TABLE [dbo].[gr_Organization](
 	[BlogRssUrl] [varchar](250) NULL,
 	[ThemeName] [varchar](50) NOT NULL,
 	[PaymentGatewayArbApiUrl] [varchar](100) NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[LastModifiedOn] [datetime] NOT NULL,
  CONSTRAINT [PK_myc_Organization] PRIMARY KEY CLUSTERED 
 (
 	[OrganizationID] ASC
@@ -83,5 +85,11 @@ ALTER TABLE [dbo].[gr_Organization] ADD  CONSTRAINT [DF_gr_Organization_TwitterN
 GO
 
 ALTER TABLE [dbo].[gr_Organization] ADD  CONSTRAINT [DF_gr_Organization_ThemeName]  DEFAULT ('') FOR [ThemeName]
+GO
+
+ALTER TABLE [dbo].[gr_Organization] ADD  DEFAULT ('1/1/1900') FOR [CreatedOn]
+GO
+
+ALTER TABLE [dbo].[gr_Organization] ADD  DEFAULT ('1/1/1900') FOR [LastModifiedOn]
 GO
 
