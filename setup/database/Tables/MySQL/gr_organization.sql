@@ -11,7 +11,7 @@ CREATE TABLE `gr_organization` (
   `FiscalYearStartDay` int(11) DEFAULT '1',
   `PaymentGatewayType` int(11) NOT NULL DEFAULT '-1',
   `PaymentGatewayApiUrl` varchar(100) DEFAULT '',
-  `PaymentGatewayArbApiUrl` varchar(100) DEFAULT ''
+  `PaymentGatewayArbApiUrl` varchar(100) DEFAULT '',
   `PaymentGatewayApiKey` varchar(100) NOT NULL DEFAULT '',
   `PaymentGatewayApiSecret` varchar(100) NOT NULL DEFAULT '',
   `FacebookPageUrl` varchar(200) NOT NULL DEFAULT '',
@@ -19,6 +19,8 @@ CREATE TABLE `gr_organization` (
   `TwitterName` varchar(50) DEFAULT '',
   `BlogRssUrl` varchar(250) DEFAULT '',
   `ThemeName` varchar(50) NOT NULL DEFAULT '',
+  `CreatedOn` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
+  `LastModifiedOn` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
   PRIMARY KEY (`OrganizationID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 

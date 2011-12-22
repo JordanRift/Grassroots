@@ -21,6 +21,8 @@ CREATE TABLE `gr_campaigndonor` (
   `Notes` varchar(8000) DEFAULT NULL,
   `IsAnonymous` bit(1) DEFAULT b'0',
   `DisplayName` varchar(50) DEFAULT NULL,
+  `CreatedOn` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
+  `LastModifiedOn` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
   PRIMARY KEY (`CampaignDonorID`),
   KEY `CampaignDonor_Campaign_FK` (`CampaignID`),
   KEY `CampaignDonor_UserProfile_FK` (`UserProfileID`),

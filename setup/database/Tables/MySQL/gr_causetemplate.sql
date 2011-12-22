@@ -20,6 +20,8 @@ CREATE TABLE `gr_causetemplate` (
   `InstructionsOpenHtml` varchar(8000) NOT NULL DEFAULT '',
   `InstructionsClosedHtml` varchar(20) NOT NULL DEFAULT '',
   `StatisticsHtml` varchar(2000) DEFAULT NULL,
+  `CreatedOn` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
+  `LastModifiedOn` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
   PRIMARY KEY (`CauseTemplateID`),
   KEY `CauseTemplate_Organization_FK` (`OrganizationID`),
   CONSTRAINT `CauseTemplate_Organization_FK` FOREIGN KEY (`OrganizationID`) REFERENCES `gr_organization` (`OrganizationID`) ON DELETE CASCADE ON UPDATE NO ACTION
