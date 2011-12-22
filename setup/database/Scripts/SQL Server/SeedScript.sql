@@ -111,7 +111,7 @@ INSERT INTO [dbo].[gr_UserProfile]
            ,'Admin'
            ,'1/1/1970'
            ,'male'
-           ,'some-email@gmail.com'
+           ,'admin@gmail.com'
            ,'602-123-4567'
            ,'123 Some Place'
            ,NULL
@@ -129,6 +129,31 @@ INSERT INTO [dbo].[gr_UserProfile]
            ,GETDATE());
 
 SET @UserProfileID = SCOPE_IDENTITY();
+
+INSERT INTO [dbo].[gr_User]
+           ([Username]
+           ,[Password]
+           ,[UserProfileID]
+           ,[IsActive]
+           ,[IsAuthorized]
+           ,[ForcePasswordChange]
+           ,[RegisterDate]
+           ,[LastLoggedIn]
+           ,[FailedLoginAttempts]
+           ,[CreatedOn]
+           ,[LastModifiedOn])
+     VALUES
+           ('admin@gmail.com'
+           ,'9mdZfZTsYyk9wOqMpJOun0XcMtqGJJXVUg=='
+           ,@UserProfileID
+           ,1
+           ,1
+           ,0
+           ,GETDATE()
+           ,GETDATE()
+           ,0
+           ,GETDATE()
+           ,GETDATE());
 
 INSERT INTO [dbo].[gr_CauseTemplate]
            ([OrganizationID]
