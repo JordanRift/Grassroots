@@ -27,6 +27,7 @@
 </hgroup>
 <div id="edit-form">
 	@using (Html.BeginForm(new { Action = "New", Controller = "CauseTemplate" } )) { 
+        @Html.AntiForgeryToken("CauseTemplateCreate")
 		@Html.Partial("CauseTemplateForm", Model)
     }
 </div>

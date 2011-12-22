@@ -29,6 +29,7 @@
 
     <div id="campaign-edit-form">
         @using (Html.BeginForm("Update", "Campaign", new { area = "", id = Model.CampaignID })) {
+            @Html.AntiForgeryToken("EditCampaign")
             <section class="campaign-header">
 		        <a href="@Url.Action("Index", new { controller = "UserProfile", area = "", id = Model.UserProfileID })" title="@Model.FirstName @Model.LastName's Profile">
                     <img src="@Model.UserImagePath" alt="@Model.FirstName @Model.LastName"/>

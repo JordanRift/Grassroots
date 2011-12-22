@@ -32,6 +32,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 {
     public class CampaignController : GrassrootsControllerBase
     {
+        private const string ADMIN_ROLES = "Root,Admnistrator";
         private readonly ICampaignRepository campaignRepository;
         private readonly ICauseTemplateRepository causeTemplateRepository;
         private readonly IUserProfileRepository userProfileRepository;
@@ -53,6 +54,9 @@ namespace JordanRift.Grassroots.Web.Controllers
             Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
             Mapper.CreateMap<CampaignDetailsModel, Campaign>();
             Mapper.CreateMap<CampaignCreateModel, Campaign>();
+            Mapper.CreateMap<Campaign, CampaignAdminModel>();
+            Mapper.CreateMap<CampaignAdminModel, Campaign>();
+            Mapper.CreateMap<CampaignDonor, DonationAdminModel>();
         }
 
         ~CampaignController()
@@ -115,6 +119,17 @@ namespace JordanRift.Grassroots.Web.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult Create(int id)
+        {
+            return Create(new GetStartedModel
+                              {
+                                  CampaignType = (int) CampaignType.Other,
+                                  CauseTemplateID = id
+                              });
+        }
+
         [Authorize]
         public ActionResult Create(GetStartedModel model)
         {
@@ -147,6 +162,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "CampaignCreate")]
         public ActionResult CreateCampaign(CampaignCreateModel model)
         {
             if (ModelState.IsValid)
@@ -175,7 +191,9 @@ namespace JordanRift.Grassroots.Web.Controllers
                     }
 
                     campaign.StartDate = DateTime.Now;
-                    campaign.EndDate = DateTime.Now.AddDays(causeTemplate.DefaultTimespanInDays);
+                    campaign.EndDate = causeTemplate.CutOffDate == null
+                                           ? DateTime.Now.AddDays(causeTemplate.DefaultTimespanInDays)
+                                           : causeTemplate.CutOffDate.Value;
                     campaign.ImagePath = string.Empty;  // TODO: Refactor to either accept a file upload or remove field from db
                     campaign.Description = "You should say something about your campaign here...";
                     campaign.IsGeneralFund = false;
@@ -191,55 +209,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             TempData["CampaignDetailsModel"] = model;
             return RedirectToAction("Create");
-        }
-
-        /// <summary>
-        /// Request to generate the "General Campaign" for the current month if none exists.
-        /// </summary>
-        /// <returns>Http Status indicating success or error</returns>
-        public ActionResult GenerateDetaultCampaign()
-        {
-            var defaultCampaign = campaignRepository.GetDefaultCampaign();
-
-            if (defaultCampaign.StartDate.Month == DateTime.Now.Month)
-            {
-                // Consider refactoring to return 403 result if exists already.
-                return null;
-            }
-
-            using (new UnitOfWorkScope())
-            {
-                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
-                var causeTemplate = organization.CauseTemplates.FirstOrDefault();
-                var userProfile = organization.UserProfiles.FirstOrDefault();
-
-                if (causeTemplate == null || userProfile == null)
-                {
-                    // Consider refactoring to return 404 if admin user not found.
-                    return null;
-                }
-
-                var today = DateTime.Now;
-                var campaign = new Campaign
-                                   {
-                                       GoalAmount = causeTemplate.DefaultAmount,
-                                       Title = string.Format("General Fund {0} {1}", today.Month, today.Year),
-                                       UrlSlug = string.Format("{0}_{1}-{2}", organization.Name, today.Month, today.Year),
-                                       StartDate = new DateTime(today.Year, today.Month, 1), // Get the first day of the current month
-                                       EndDate = today.AddMonths(1).AddDays(-1), // Get the last day of the current month
-                                       ImagePath = string.Empty,
-                                       Description = string.Format("General Fund for month of {0}, {1}", today.Month, today.Year),
-                                       IsGeneralFund = true
-                                   };
-
-                organization.Campaigns.Add(campaign);
-                causeTemplate.Campaigns.Add(campaign);
-                userProfile.Campaigns.Add(campaign);
-                campaignRepository.Save();
-            }
-
-            // Refactor to return a 200 status code
-            return null;
         }
 
         [Authorize]
@@ -270,6 +239,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "EditCampaign")]
         public ActionResult Update(CampaignDetailsModel model, int id = -1)
         {
             using (campaignRepository)
@@ -301,6 +271,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
         }
 
+        // TODO: Find a good way to validate AJAX requests. Built in Anti-CSRF stuff looks for Request.Form and will fail any request that doesn't have it.
         [Authorize]
         [HttpPost]
         public ActionResult SendEmail(CampaignEmailBlastModel model)
@@ -429,5 +400,162 @@ namespace JordanRift.Grassroots.Web.Controllers
             model.CurrentUserIsOwner = (User.Identity.Name.ToLower() == userProfile.Email.ToLower());
             return model;
         }
+
+#region Campaign Administration
+
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult List()
+        {
+            using (campaignRepository)
+            {
+                var list = campaignRepository.FindAllCampaigns();
+                var viewModel = new List<CampaignAdminModel>();
+
+                foreach (var c in list)
+                {
+                    //var model = MapDetailsModel(c);
+                    var model = MapAdminModel(c);
+                    model.CauseName = c.Cause != null ? c.Cause.Name : string.Empty;
+                    viewModel.Add(model);
+                }
+
+                return View(viewModel);
+            }
+        }
+
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult Admin(int id = -1)
+        {
+            CampaignAdminModel viewModel;
+
+            if (TempData["ModelErrors"] != null)
+            {
+                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+
+                viewModel = TempData["CampaignAdminModel"] as CampaignAdminModel;
+            }
+            else
+            {
+                using (campaignRepository)
+                {
+                    var campaign = campaignRepository.GetCampaignByID(id);
+
+                    if (campaign == null)
+                    {
+                        return HttpNotFound("The campaign you are looking for could not be found.");
+                    }
+
+                    viewModel = MapAdminModel(campaign);
+                }
+            }
+            
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = ADMIN_ROLES)]
+        [ValidateAntiForgeryToken(Salt = "AdminUpdateCampaign")]
+        public ActionResult AdminUpdate(CampaignAdminModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["ModelErrors"] = FindModelErrors();
+                TempData["CampaignAdminModel"] = model;
+                return RedirectToAction("Admin");
+            }
+
+            using (campaignRepository)
+            {
+                var campaign = campaignRepository.GetCampaignByID(model.CampaignID);
+
+                if (campaign == null)
+                {
+                    return HttpNotFound("The campaign you are looking for could not be found.");
+                }
+
+                MapCampaign(campaign, model);
+                campaignRepository.Save();
+                TempData["UserFeedback"] = string.Format("'{0}' has been updated successfully.", campaign.Title);
+                return RedirectToAction("List");
+            }
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult Destroy(int id = -1)
+        {
+            using (campaignRepository)
+            {
+                var campaign = campaignRepository.GetCampaignByID(id);
+
+                if (campaign == null)
+                {
+                    return HttpNotFound("The campaign you are looking for could not be found.");
+                }
+
+                // To prevent data loss, move donations from this campaign into current general fund.
+                var generalFund = campaignRepository.GetDefaultCampaign();
+                var donations = campaign.CampaignDonors.ToList();
+
+                foreach (var d in donations)
+                {
+                    campaign.CampaignDonors.Remove(d);
+                    generalFund.CampaignDonors.Add(d);
+                }
+
+                campaignRepository.Delete(campaign);
+                campaignRepository.Save();
+            }
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true });
+            }
+
+            // TODO: Consider adding message to inform user of successful delete.
+            return RedirectToAction("List");
+        }
+
+        private CampaignAdminModel MapAdminModel(Campaign campaign)
+        {
+            var model = Mapper.Map<Campaign, CampaignAdminModel>(campaign);
+            model.AmountString = campaign.GoalAmount.ToString();
+            var userProfile = campaign.UserProfile;
+            model.UserProfileID = userProfile.UserProfileID;
+            model.FirstName = userProfile.FirstName;
+            model.LastName = userProfile.LastName;
+            var cause = campaign.Cause;
+
+            if (cause != null)
+            {
+                model.CauseID = cause.CauseID;
+                model.CauseName = cause.Name;
+            }
+
+            model.Donations = campaign.CampaignDonors.Select(Mapper.Map<CampaignDonor, DonationAdminModel>).ToList();
+            return model;
+        }
+
+        private void MapCampaign(Campaign campaign, CampaignAdminModel model)
+        {
+            campaign.Title = model.Title;
+            campaign.Description = model.Description;
+            campaign.StartDate = model.StartDate;
+            campaign.EndDate = model.EndDate;
+            campaign.UrlSlug = model.UrlSlug;
+            decimal amount;
+
+            if (decimal.TryParse(model.AmountString, out amount))
+            {
+                campaign.GoalAmount = amount;
+            }
+        }
+
+#endregion
     }
 }

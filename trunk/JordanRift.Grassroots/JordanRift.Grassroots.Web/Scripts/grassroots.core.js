@@ -56,6 +56,43 @@ var Grassroots = (function () {
         });
     }
 
+    function _initDeletes() {
+        $(".destroy").click(function () {
+            var $self = $(this),
+                item = $self.attr('data-type'),
+                controller = $self.attr('data-controller'),
+                redirectPath = $self.attr('data-redirect'),
+                id = $self.attr('data-id');
+
+            if (confirm('Are you sure you want to delete this ' + item + '?\n\nIt can not be undone.')) {
+                $.ajax({
+                    url: '/' + controller + '/destroy/' + id,
+                    data: '{ "id": "' + id + '" }',
+                    type: "DELETE",
+                    contentType: "application/json",
+                    dataType: "json"
+                })
+                .success(function (result) {
+                    if (result.success) {
+                        if ($self.parents('tr').length > 0) {
+                            $self.parents('tr').remove();
+                        } else if (redirectPath !== '') {
+                            window.location = redirectPath;
+                        }
+                    }
+
+                    return false;
+                })
+                .error(function (xhr, status, error) {
+                    console.log(status);
+                    return false;
+                });
+            }
+
+            return false;
+        });
+    }
+
     return {
         progressbar: function () {
             var $progressbar = $(".ui-progressbar-value");
@@ -80,6 +117,8 @@ var Grassroots = (function () {
                 // If HTML5 placeholders aren't supported, use JS placeholders.
                 _initPlaceholders();
             }
+
+            _initDeletes();
         },
         gridui: function (cols) {
             $(".grid").wijgrid({
@@ -90,6 +129,8 @@ var Grassroots = (function () {
                 ensureColumnsPxWidth: true,
                 columns: cols
             });
+
+            _initDeletes();
         },
         initPayment: function () {
             $(".bank-info").hide();

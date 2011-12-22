@@ -26,6 +26,7 @@
 </hgroup>
 <div id="organization-edit-form">
     @using (Html.BeginForm("UpdateOrganization", "Admin")) {
+        @Html.AntiForgeryToken("EditOrganization")
         @Html.ValidationSummary(false, "Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
         <section class="column">
             <fieldset>

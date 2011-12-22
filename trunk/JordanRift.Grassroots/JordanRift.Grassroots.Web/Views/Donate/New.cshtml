@@ -1,0 +1,36 @@
+﻿@model JordanRift.Grassroots.Web.Models.DonationAdminModel
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
+    ViewBag.Title = "Create New Donation";
+}
+@section DocumentHead {
+    @Html.Partial("UIForm")
+}
+<hgroup>
+    <h1>Create New Donation</h1>
+</hgroup>
+<section class="donation-details">
+    @using (Html.BeginForm("Create", "Donate")) {
+        @Html.AntiForgeryToken("AdminCreateDonation")
+        @Html.ValidationSummary(false, "Unable to creat new donation. Please correct the following errors:", new { @class = "ui-widget ui-state-error ui-corner-all" })
+        @Html.Partial("DonationAdminForm", Model)
+        <div>
+            @Html.UiSubmit("Create")
+            @Html.ActionLink("Cancel", "Admin", new { controller = "Campaign", id = Model.CampaignID }, new { title = "Cancel" })
+        </div>
+    }
+</section>

@@ -24,11 +24,14 @@
     <script type="text/javascript">
         $(function () {
             Grassroots.gridui([
-                { headerText: "Active", width: 50, allowSizing: false },
                 { headerText: "Name", width: 150 },
                 { headerText: "Goal Name", width: 125 },
                 { headerText: "Action Verb", width: 125 },
-                { headerText: "Summary", width: 300 }
+                { headerText: "Default Amount", width: 100 },
+                { headerText: "Default Length", width: 100 },
+                { headerText: "Active", width: 50, allowSizing: false },
+                { headerText: "", width: 50 },
+                { headerText: "", width: 50 }
             ]);
         });
     </script>
@@ -37,28 +40,41 @@
 <hgroup>
     <h1>Project Templates</h1>
 </hgroup>
-<!-- layout to be replaced later -->
-<table class="grid">
-    <thead>
-        <tr>
-            <th>Active</th>
-            <th>Name</th>
-            <th>Action</th>
-            <th>Goal Name</th>
-            <th>Summary</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>@Html.CheckBoxFor(i => item.Active, new { disabled = true })</td>
-            <td>@Html.ActionLink(item.Name, "Edit", new { controller = "CauseTemplate", id = item.CauseTemplateID }, new { title = item.Name })</td>
-            <td>@item.ActionVerb</td>
-            <td>@item.GoalName</td>
-            <td>@item.Summary</td>
-        </tr>
-}
-    </tbody>
-</table>
-<p>@Html.ActionLink("Create New", "Create")</p>
-<p>@Html.ActionLink("Back to Admin Dashboard", "Index", new { controller = "Admin", area = "" }, new { title = "Back to Admin Dashboard" })</p>
+<div class="cause-templates">
+    <table class="grid">
+        <thead>
+            <tr>
+            
+                <th>Name</th>
+                <th>Action</th>
+                <th>Goal Name</th>
+                <th>Default Amount</th>
+                <th>Default Length</th>
+                <th>Active</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) 
+    {
+        var isActive = item.Active ? "Yes" : "No";
+            <tr>
+            
+                <td>@Html.ActionLink(item.Name, "Edit", new { controller = "CauseTemplate", id = item.CauseTemplateID }, new { title = item.Name })</td>
+                <td>@item.ActionVerb</td>
+                <td>@item.GoalName</td>
+                <td>@item.DefaultAmount.ToString("C0")</td>
+                <td>@item.DefaultTimespanInDays days</td>
+                <td>@isActive</td>
+                <td>@Html.ActionLink("Edit", "Edit", new { controller = "CauseTemplate", id = item.CauseTemplateID }, new { title = item.Name })</td>
+                <td><a href="#" title="Delete" class="destroy" data-id="@item.CauseTemplateID" data-type="Project Template" data-controller="Projects">Delete</a></td>
+            </tr>
+    }
+        </tbody>
+    </table>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Back to Admin Dashboard", "Index", new { controller = "Admin", area = "" }, new { @class = "cancel", title = "Back to Admin Dashboard" })
+    </p>
+</div>

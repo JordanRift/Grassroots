@@ -69,6 +69,13 @@ namespace JordanRift.Grassroots.Tests.Helpers
 		                   Comments = "Thanks for letting me help!",
 		                   Amount = 10.00m,
 		                   Email = "joe@yahoo.com",
+                           PrimaryPhone = "602-234-9282",
+                           AddressLine1 = "123 My St",
+                           City = "My Town",
+                           State = "SM",
+                           ZipCode = "90201",
+                           Approved = true,
+                           IsAnonymous = false
 		               };
 		}
 

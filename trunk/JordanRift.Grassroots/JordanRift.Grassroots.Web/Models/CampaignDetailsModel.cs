@@ -89,6 +89,7 @@ namespace JordanRift.Grassroots.Web.Models
 		public string InstructionsClosedHtml { get; set; }
         public string CauseTemplateStatisticsHtml { get; set; }
         public string CallToAction { get; set; }
+        public string CauseName { get; set; }
 
         //
         // Security

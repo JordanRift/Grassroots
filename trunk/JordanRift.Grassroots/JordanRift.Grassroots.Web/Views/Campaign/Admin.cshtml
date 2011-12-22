@@ -1,0 +1,111 @@
+﻿@using JordanRift.Grassroots.Web.Models
+@model CampaignAdminModel
+
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+
+    ViewBag.Title = string.Format("Editing {0}", Model.Title);
+}
+@section DocumentHead {
+    @Html.Partial("UIForm")
+
+    @if (Model.Donations.Count > 0)
+    {
+    <link href="@Url.Content("~/Content/jquery.wijmo-complete.1.5.0.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/raphael-min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/globalize.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.wijmo-complete.1.5.0.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            Grassroots.gridui([
+                { headerText: "Name", width: 200 },
+                { headerText: "Email Address", width: 175 },
+                { headerText: "Amount", width: 100 },
+                { headerText: "Approved", width: 50 },
+                { headerText: "", width: 50 },
+                { headerText: "", width: 50 }
+            ]);
+        });
+    </script>
+    }
+}
+<hgroup>
+    <h1>Editing @Model.Title</h1>
+</hgroup>
+<section class="admin-campaign">
+    @using (Html.BeginForm("AdminUpdate", "Campaign", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken("AdminUpdateCampaign")
+        @Html.ValidationSummary(excludePropertyErrors: false)
+        @Html.HiddenFor(m => m.CampaignID)
+        <fieldset class="column">
+            <legend>Campaign Info</legend>
+            <dl>
+                <dt>@Html.LabelFor(m => m.Title)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.Title)
+                    @Html.ValidationMessageFor(m => m.Title)
+                </dd>
+                <dt>@Html.LabelFor(m => m.UrlSlug)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.UrlSlug)
+                    @Html.ValidationMessageFor(m => m.UrlSlug)
+                </dd>
+                <dt>@Html.LabelFor(m => m.AmountString)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.AmountString)
+                    @Html.ValidationMessageFor(m => m.AmountString)
+                </dd>
+                <dt>@Html.LabelFor(m => m.StartDate)</dt>
+                <dd>
+                    @Html.EditorFor(m => m.StartDate)
+                    @Html.ValidationMessageFor(m => m.StartDate)
+                </dd>
+                <dt>@Html.LabelFor(m => m.EndDate)</dt>
+                <dd>
+                    @Html.EditorFor(m => m.EndDate)
+                    @Html.ValidationMessageFor(m => m.EndDate)
+                </dd>
+            </dl>
+        </fieldset>
+        <fieldset class="column">
+            <legend>Description</legend>
+            <div>
+                @Html.TextAreaFor(m => m.Description)
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
+            <ul>
+                <li>@Html.ActionLink(string.Format("{0} {1}'s Profile", Model.FirstName, Model.LastName), "Admin", new { controller = "UserProfile", id = Model.UserProfileID })</li>
+                @if (!string.IsNullOrEmpty(Model.CauseName))
+                {
+                <li>@Html.ActionLink(Model.CauseName, "Admin", new { controller = "Cause", id = Model.CauseID })</li>
+                }
+            </ul>
+        </fieldset>
+        <div>
+            @Html.UiSubmit("Submit Changes")
+            @Html.ActionLink("Back", "List", new { controller = "Campaign", area = "" }, new { title = "Back", @class = "cancel" })
+        </div>
+    }
+    <div class="donor-grid">
+        @Html.Partial("AdminDonations", Model.Donations)
+        <p>
+            @Html.ActionLink("Create New", "New", new { controller = "Donate", id = Model.CampaignID })
+            @Html.ActionLink("Back to List", "List", new { controller = "Campaign", area = "" }, new { title = "Cancel", @class = "cancel" })
+        </p>
+    </div>
+</section>

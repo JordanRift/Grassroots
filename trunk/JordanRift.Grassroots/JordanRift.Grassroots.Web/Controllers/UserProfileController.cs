@@ -30,6 +30,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 {
 	public class UserProfileController : GrassrootsControllerBase
 	{
+	    private const string ADMIN_ROLES = "Root,Administrator";
 		private readonly IUserProfileRepository userProfileRepository;
 		private readonly ICauseRepository causeRepository;
 		private readonly IUserProfileMailer mailer;
@@ -99,6 +100,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		[HttpPost]
 		[Authorize]
+        [ValidateAntiForgeryToken(Salt = "UserProfileEdit")]
 		public ActionResult Update(UserProfileDetailsModel model)
 		{
 			using (new UnitOfWorkScope())
@@ -140,6 +142,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		[Authorize]
 		[HttpPost]
+        [ValidateAntiForgeryToken(Salt = "UserProfileDeactivate")]
 		public ActionResult Deactivate()
 		{
             using (userProfileRepository)
@@ -192,6 +195,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		[Authorize]
 		[HttpPost]
+        [ValidateAntiForgeryToken(Salt = "UserProfileReactivate")]
 		public ActionResult Reactivate()
 		{
             using (userProfileRepository)
@@ -361,5 +365,15 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
 		#endregion
-	}
+
+#region Admin
+
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult Admin(int id = -1)
+        {
+            return null;
+        }
+
+#endregion
+    }
 }

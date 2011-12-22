@@ -15,7 +15,6 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
 namespace JordanRift.Grassroots.Framework.Entities.Validation
 {
@@ -40,7 +39,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
         [Required(ErrorMessage = "Please enter a Campaign URL.")]
         [StringLength(30, MinimumLength = 5, ErrorMessage = "Campaign URL must be between 5 and 30 characters in length.")]
         [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Please enter only alpha-numeric characters.")]
-        [Remote("CheckUrlSlug", "Validation", ErrorMessage = "This URL slug is already in use. Please try another one.")]
+        //[Remote("CheckUrlSlug", "Validation", ErrorMessage = "This URL slug is already in use. Please try another one.")]
         string UrlSlug { get; set; }
     }
 }

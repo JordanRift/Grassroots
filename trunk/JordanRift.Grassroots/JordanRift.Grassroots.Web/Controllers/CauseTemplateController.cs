@@ -29,6 +29,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 {
     public class CauseTemplateController : GrassrootsControllerBase
     {
+        private const string ADMIN_ROLES = "Root,Administrator";
         private readonly ICauseTemplateRepository causeTemplateRepository;
         private readonly ICauseRepository causeRepository;
 
@@ -133,7 +134,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
 		#region Administrative Actions
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = ADMIN_ROLES)]
 		public ActionResult List()
 		{
             using (OrganizationRepository)
@@ -145,14 +146,15 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 		}
 
-		[Authorize( Roles = "Administrator" )]
+		[Authorize( Roles = ADMIN_ROLES )]
 		public ActionResult Create()
 		{
 			return View();
 		}
 
-		[Authorize( Roles = "Administrator" )] 
+		[Authorize( Roles = ADMIN_ROLES )] 
 		[HttpPost]
+        [ValidateAntiForgeryToken(Salt = "CauseTemplateCreate")]
 		public ActionResult New( CauseTemplateDetailsModel model )
 		{
 			if ( !ModelState.IsValid )
@@ -172,7 +174,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 		    return RedirectToAction( "List" );
 		}
 
-		[Authorize( Roles = "Administrator" )] 
+		[Authorize( Roles = ADMIN_ROLES )] 
 		public ActionResult Edit( int id )
 		{
             using (causeTemplateRepository)
@@ -205,7 +207,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         //[HttpPut]
 		[HttpPost]
-		[Authorize( Roles = "Administrator" )] 
+		[Authorize( Roles = ADMIN_ROLES )] 
+        [ValidateAntiForgeryToken(Salt = "CauseTemplateEdit")]
 		public ActionResult Update( CauseTemplateDetailsModel model )
 		{
             using (causeTemplateRepository)
@@ -242,11 +245,30 @@ namespace JordanRift.Grassroots.Web.Controllers
             return RedirectToAction( "List" );
 		}
 
-        //[HttpDelete]
-        //public ActionResult Destroy(int id)
-        //{
-            
-        //}
+        [HttpDelete]
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult Destroy(int id = -1)
+        {
+            using (causeTemplateRepository)
+            {
+                var causeTemplate = causeTemplateRepository.GetCauseTemplateByID(id);
+
+                if (causeTemplate == null)
+                {
+                    return HttpNotFound("The project template could not be found.");
+                }
+
+                causeTemplateRepository.Delete(causeTemplate);
+                causeTemplateRepository.Save();
+            }
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true });
+            }
+
+            return RedirectToAction("List");
+        }
 
 		/// <summary>
 		/// Pre-processes the uploaded files and calls a IFileSaveService provider to save

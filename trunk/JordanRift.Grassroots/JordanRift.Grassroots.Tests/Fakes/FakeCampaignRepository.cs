@@ -55,6 +55,11 @@ namespace JordanRift.Grassroots.Tests.Fakes
             Priority = PriorityType.High;
         }
 
+        public static void Empty()
+        {
+            campaigns = new List<Campaign>();
+        }
+
         public static void Reset()
         {
             SetUp();
@@ -87,7 +92,7 @@ namespace JordanRift.Grassroots.Tests.Fakes
 
         public Campaign GetDefaultCampaign()
         {
-            return campaigns.FirstOrDefault(c => c.Title == "General");
+            return campaigns.Where(c => c.IsGeneralFund).OrderByDescending(c => c.StartDate).FirstOrDefault();
         }
 
         public bool Exists(string urlSlug)

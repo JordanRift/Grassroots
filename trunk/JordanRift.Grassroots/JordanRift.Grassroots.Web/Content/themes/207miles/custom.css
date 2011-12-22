@@ -1,0 +1,1152 @@
+﻿@font-face {
+    font-family: 'Chunkfive';
+    src: url('Chunkfive-webfont.eot');
+    src: url('Chunkfive-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Chunkfive-webfont.woff') format('woff'),
+         url('Chunkfive-webfont.ttf') format('truetype'),
+         url('Chunkfive-webfont.svg#Chunkfive') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+::selection {
+  background: #f27d33;
+  color: #f1f1f1;
+}
+::-moz-selection {
+  background: #f27d33;
+  color: #f1f1f1;
+}
+::-webkit-selection {
+  background: #f27d33;
+  color: #f1f1f1;
+}
+
+html, body
+{
+    background: #010101 url(images/bg.jpg);
+    font-family: Helvetica, Arial, Verdana;
+    color: #010101;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.page
+{
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    margin: 0px;
+    padding: 0px;
+    background: url(images/top-bg.jpg) repeat-x;
+}
+
+    .page > #main, .page > header, .page > footer
+    {
+        width: 1000px;
+        padding: 0px 30px;
+        background: url(images/main-bg.png) repeat-y;
+        margin: 0px auto;
+    }
+    
+        .progress-indicator {
+            color: #999;
+        }
+    
+        #main > div,
+        #main > hgroup,
+        #main > section
+        {
+            width: 930px;
+            position: relative;
+            margin-left: -2px;
+            clear: both;
+            float: none;
+            padding: 0px 30px;
+        }
+        
+        #main > a {
+            padding: 10px 0px 20px 30px;
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+        }
+        
+        .admin-dashboard {
+            padding-bottom: 30px !important;
+            min-height: 150px;
+        }
+        
+        #main > hgroup {
+            padding: 0px 30px;
+        }
+        
+        #main hgroup.campaign {
+            max-width: 600px;
+            position: relative;
+            top: -90px;
+        }
+        
+        .page #main > div.ui-widget {
+            padding: 10px;
+            margin: 0px auto 30px;
+        }
+        
+        .page > header > .user-info {
+            top: 10px;
+            right: 70px;
+        }
+        
+            .page > header > .user-info  a {
+                color: #f27d33;
+			    text-decoration: none;
+            }
+    
+        .page > header > hgroup
+        {
+            height: 210px;
+            background: url(images/tire-top.png) no-repeat;
+            background-position: left 99px;
+            margin-left: -2px;
+        }
+        
+            .page > header > hgroup > h1
+            {
+                text-indent: -2000px;
+                display: block;
+                height: 129px;
+                width: 218px;
+                background: url(images/logo.png) no-repeat;
+            }
+            
+            .page > header > hgroup > h2 {
+                display: none;
+            }
+            
+            .page > header > nav
+            {
+                font-size: 24px;
+                font-family: Chunkfive, Arial;
+                position: absolute;
+                left: 248px;
+                top: 62px;
+                width: 750px;
+                display: block;
+            }
+            
+                .page > header > nav > #menu {
+                    text-align: center;
+                }
+            
+                .page > header > nav > #menu >li
+                {
+                    display: inline;
+                    list-style: none;
+                    padding: 0px 10px;
+                }
+            
+                    .page > header > nav #menu a
+                    {
+                        font-size: 24px;
+                        color: #010101;
+                        text-decoration: none;
+                    }
+                
+                    .page > header > nav #menu a:hover
+                    {
+                        color: #f27d33;
+                    }
+         
+        .page > footer {
+            height: 309px;
+            position: relative;
+        }
+                   
+        .page > footer > div
+        {
+            margin-left: -2px;
+            height: 309px;
+            background: #010101 url(images/footer-bg.jpg) no-repeat;
+        }
+        
+            .page > footer > .copyright
+            {
+                color: #a4a4a4;
+                font-size: 12px;
+                display: block;
+                position: absolute;
+                top: 151px;
+                left: 42px;
+                line-height: 16px;
+            }
+            
+                .page > footer > .copyright a
+                {
+                    color: #a4a4a4;
+                    text-decoration: none;
+                }
+                
+                .page > footer > .copyright a:hover
+                {
+                    color: #f27d33;
+                }
+                
+                .copyright p {
+                    text-align: left;
+                }
+        
+            .page > footer > .nav
+            {
+                font-size: 16px;
+                position: absolute;
+                top: 121px;
+                left: 35px;   
+                width: 700px;             
+            }
+            
+                .page > footer > .nav li
+                {
+                    display: inline;
+                    list-style: none;
+                    padding: 0px 7px;
+                }
+            
+                    .page > footer > .nav a
+                    {
+                        color: #a4a4a4;
+                        text-decoration: none;
+                    }
+                
+                    .page > footer > .nav a:hover
+                    {
+                        color: #f27d33;
+                    }
+                    
+            .page > footer > .social-networks
+            {
+                position: absolute;
+                display: block;
+                top: 238px;
+                right: 55px;
+            }
+            
+                .page > footer > .social-networks li
+                {
+                    display: inline;
+                    padding: 0px 5px;
+                }
+    
+.page > #main {
+    padding: 70px 30px 0px;
+}
+
+    .page > #main div.ui-state-highlight {
+        padding: 20px;
+        width: 900px;
+    }
+    
+    .show-activation-form {
+        display: block;
+        margin: 10px 0px;
+        font-size: 18px;
+    }
+
+    .page > #main > div.ui-state-highlight > p > strong {
+        display: none;
+    }
+
+    .page > #main > div {
+        padding: 0px 40px;
+    }
+    
+    #main .dashboard > #progress {
+        margin: 0px;
+    }
+    
+    #main .dashboard > .donate {
+        margin-top: 40px;
+    }
+    
+    #main .dashboard .stats, #main .get-started .projects {
+        height: auto;
+    }
+    
+    .campaign-header {
+        height: 180px;
+    }
+    
+    #main .dashboard .stats {
+        /*margin-left: -13px;*/
+        display: none;
+    }
+    
+    #main .campaign-dashboard {
+        margin-top: -30px;
+        height: 180px;
+    }
+    
+    #main .campaign-dashboard .stats {
+        display: block !important;
+    }
+    
+    .stats > li, #main .get-started .projects li {
+        background: url(images/stat-bg.png) no-repeat;
+        width: 186px;
+        height: 75px;
+        padding-left: 10px;
+        color: #bbb;
+        padding-top: 50px;
+    }
+    
+        .stats > li span 
+        {
+            font-family: Helvetica, Arial;
+            font-weight: bold;
+            color: #999;
+            display: block;
+            margin: 0px 0px 7px;
+        }
+        
+        .stats > li a:hover {
+            text-decoration: none !important;
+        }
+    
+	/*#main > #main
+	{
+		padding: 20px 30px;
+		width: 940px;
+	}*/
+		
+		#main h1
+		{
+		    font-family: Chunkfive, Helvetica, Arial;
+			font-size: 30px;
+			color: #f27d33;
+			padding-bottom: 10px;
+		    font-weight: normal;
+		    line-height: 100%;
+		}
+		
+		#main h2 {
+		    color: #999;
+		}
+	
+		#main h3
+		{
+		    font-family: Helvetica, Arial;
+			font-size: 20px;
+			color: #a4a4a4;
+		    font-weight: bold;
+		}
+		
+		#main > hgroup > h3 {
+		    margin-bottom: 20px;
+		}
+		
+		#main > .dashboard > .donate {
+		    margin-top: 28px;
+		}
+		
+		#main fieldset ul li {
+		    list-style-type: none;
+		}
+		
+		#main form > .title {
+		    margin: -30px 0px 30px;
+		}
+		
+		a.ui-button,
+        .links a,
+        .button-style {
+	        cursor: pointer;
+            display: inline-block;
+            margin-right: 0.1em;
+            overflow: visible;
+            padding: 0;
+            position: relative;
+            text-align: center;
+            text-decoration: none !important;
+	        padding: 0.5em 1em !important;
+	        color: #be5919 !important;
+	        background: #fee9dc url(images/ui-bg_glass_65_fee9dc_1x400.png) 50% 50% repeat-x;
+	        border: 1px solid #f27d33;
+	        height: 1.3em;
+	        -moz-border-radius: 6px;
+	        -webkit-border-radius: 6px;
+	        -khtml-border-radius: 6px;
+	        -ms-border-radius: 6px;
+		    height: 20px;
+        }
+        
+        .ui-button {
+            color: #be5919 !important;
+	        background: #fee9dc url(images/ui-bg_glass_65_fee9dc_1x400.png) 50% 50% repeat-x;
+	        border: 1px solid #f27d33;
+        }
+        
+        #main .delicious-vertical > a {
+            color: #5897D4;
+            padding: 0px;
+        }        
+		
+		#main h4
+		{
+			font-size: 16px;
+			color: #a4a4a4;
+		}
+		
+		#main em
+		{
+			color: #a4a4a4;
+		}
+		
+		#main p
+		{
+			padding: 10px 0px;
+		}
+		
+		#main a
+		{
+			color: #f27d33;
+			text-decoration: none;
+		}
+		
+		#main ul
+		{
+			padding: 10px 0px;
+		}
+		
+			#main ul li
+			{
+				list-style-position: inside;
+				list-style-type: disc;
+			}
+			
+		#main table
+		{
+			margin: 10px 0px;
+		}
+		
+			#main table td
+			{
+				padding: 5px 0px;
+			}
+		
+		#main a:hover
+		{
+			text-decoration: underline;
+		}
+                
+		#main > .column
+		{
+			float: left;
+		}
+		
+		#main > .info > .video
+		{
+			width: 561px;
+			height: 451px;
+			background: url(images/player-bg.png) no-repeat;
+			margin-left: -23px;
+			padding: 33px 0px 0px 51px;
+		}
+		
+		#main > .info > .org-summary {
+		    width: 300px;
+		}
+		
+		    .org-summary > .social > li, .url .share li, .thanks .share li {
+		        width: 60px;
+		    }
+		
+		    #main .media .social
+		    {
+		        padding: 0px;
+		        margin: 0px;
+		    }
+		
+		        #main .media .social > li
+		        {
+		            list-style-type: none;
+		            display: block;
+		            padding: 3px 0px;
+		        }
+		
+		#main .chart
+		{
+			width: 657px;
+			height: 274px;
+			background: url(images/chart-bg.png) no-repeat;
+			margin: -70px 0px 0px -12px;
+			padding: 32px 0px 0px 39px;
+		}
+		
+		#main .sidebar
+		{
+			width: 291px;
+			padding: 30px;
+		}
+		
+			.om-logo
+			{
+				width: 196px;
+				height: 143px;
+				display: block;
+				margin: 0px auto;
+				background: url(images/om_logo.png) no-repeat;
+				text-indent: -2000px;
+			}
+			
+		#main .section
+		{
+			clear: both;
+			float: none;
+		}
+		
+		#main .pad-top
+		{
+			padding-top: 20px;
+		}
+		
+		#main #sponsor-heading
+		{
+			padding-left: 30px;
+		}
+		
+		#main #sponsors
+		{
+			width: 900px;
+			padding: 10px 20px;
+			height: 100px;
+		}
+		
+			#main #sponsors > li
+			{
+				list-style: none;
+				display: inline;
+				height: 100px;
+				width: 200px;
+				padding: 0px 10px;
+			}
+			
+		#main > table
+		{
+			margin: 0px auto;
+		}	
+			
+		#main > table.training-schedule,
+		#main .legend
+		{
+			margin: 20px auto 0px auto;
+			width: 75%;
+		}
+		
+			#main .training-schedule .alt,
+			#main .training-schedule .alt > td
+			{
+				background: #ffffff;
+			}
+		
+				#main .training-schedule td,
+				#main .training-schedule th
+				{
+					text-align: center;
+					padding: 3px 5px;
+					vertical-align: middle;
+				}
+				
+				#main .training-schedule th
+				{
+					color: #ffffff;
+					background: #A4A4A4;
+				}
+			
+				#main .training-schedule .meta
+				{
+					color: #A4A4A4;
+					font-style: italic;
+				}
+			
+			#main .legend h3
+			{
+				padding-bottom: 10px;
+			}
+			
+			#main .legend p
+			{
+				color: #A4A4A4;
+				padding: 2px 0px;
+				margin: 0px 0px 0px 20px;
+			}
+			
+	#main .form-panel
+	{
+		width: 550px;
+		margin-top: 15px;
+		margin-left: 100px;
+		float: left;
+	}
+	
+	#main .donate-sidebar
+	{
+		width: 165px;
+		float: left;
+		padding: 10px;
+	}
+	
+		#main .sidebar p
+		{
+			font-size: 10pt;
+			padding: 10px 0px 10px 10px;
+			width: 150px
+		}
+		
+	.field-validation-error
+	{
+		color: #CF4046;
+		font-size: 10px;
+		clear: both;
+		float: none;
+		display: block;
+	}
+	
+	button.ui-datepicker-trigger
+	{
+		background-color: Transparent;
+		border: none;
+	}
+	
+	.public-info > .campaigns {
+	    padding: 30px 0px;
+	}
+	
+	    .public-info h3 {
+	        padding-bottom: 10px;
+	    }
+	
+	.user-profile .private-info h3 {
+	    padding-left: 0px;
+	}
+	
+	.public-info > div > .user-image-info {
+	    position: absolute;
+	    margin: -20px 0px 0px 48px;	    
+	}
+	
+	.grid tr:hover {
+	    background: #ddd;
+	}
+	
+	#main ul.column {
+	    padding: 0px;
+	}
+	
+	.campaign-history,
+	#main fieldset,
+	.donations,
+	.cause-template-info,
+	.url,
+	.steps > li
+	{
+		display: block;
+		padding-top: 10px;
+	    background: #e9e9e9 url(images/ui-bg_glass_75_dadada_1x400.png) 0px -200px repeat-x;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -moz-border-radius: 4px;
+	    -webkit-border-radius: 4px;
+	    padding: 20px;
+	}
+	
+	.steps {
+	    height: 270px;
+	    margin-bottom: 30px;
+	}
+	
+	.steps > li {
+	    float: left;
+	    width: 245px;
+	    height: 230px;
+	    margin: 0px 10px;
+	}
+
+        .steps > li > p {
+            padding: 30px 30px 30px 70px !important;
+            display: block;
+        }
+
+        .steps > .one {
+            margin-left: 0px;
+        }
+
+            .steps > .one > p {
+                background: url(images/one.png) no-repeat 10px 10px;
+            }
+
+            .steps > .two > p {
+                background: url(images/two.png) no-repeat 10px 10px;
+            }
+
+        .steps > .three {
+            margin-right: 0px;
+        }
+
+            .steps > .three > p {
+                background: url(images/three.png) no-repeat 10px 10px;
+            }
+	
+	#main .cause-template-info,
+	#main .donations {
+	    max-width: 870px;
+	    margin: 0px auto 30px !important;
+	}
+	
+	    #main > fieldset > legend {
+	        color: #777 !important;
+	    }
+	
+	#main .url {
+	    height: 150px;
+    }
+	
+	#main .column
+	{
+		padding: 0px 20px 20px;
+		float: left;
+	}
+	
+	#main fieldset.column {
+	    width: 395px;
+	}
+	
+		.editor-label
+		{
+			padding: 5px 0px;
+		}
+		
+		.editor-field
+		{
+			height: 40px;
+		}
+	
+		#main .editor-field input[type="text"],
+		#main .editor-field input[type="password"],
+		#main .editor-field textarea,
+		#main .editor-field select
+		{
+			background: #ffffff;
+			border: none;
+			height: 30px;
+			width: 200px;
+			border: none;
+			color: #010101;
+			padding: 0px 3px;
+		}
+		
+		#main .editor-field select
+		{
+			width: 203px;
+			padding-top: 5px;
+			border: none;
+		}
+		
+			#main .editor-field select option
+			{
+				background-color: #ffffff;
+				padding: 3px 5px;
+				color: #010101;
+				border: none;
+			}
+			
+		#main .editor-field .exp-date
+		{
+			display: inline;
+			margin-right: 20px;
+			width: 90px;
+		}
+		
+		#main #RoutingNumber
+		{
+			margin-right: 18px;
+		}
+		
+		.ui-datepicker
+		{
+			margin-top: 5px;
+		}
+		
+		#main .editor-field .datePicker
+		{
+			display: block;
+			float: left;
+			width: 200px;
+			height: 30px;
+		}
+		
+		#main .editor-field input.short
+		{
+			width: 100px;
+		}
+		
+		#main .editor-field input.time
+		{
+			width: 75px;
+			margin-left: 10px;
+			display: block;
+			float: left
+		}
+		
+		#main .editor-field textarea
+		{
+			height: 100px;
+		}
+		
+		#main .ui-datepicker-trigger
+		{
+			display: block;
+			float: left;
+			margin-left: 10px;
+			margin-top: -3px;
+		}
+	
+	#main .form-buttons
+	{
+		padding-top: 20px;
+	}
+	
+		#main .submit
+		{
+			color: #f27d33;
+			font-size: 24px;
+			height: 30px;
+			cursor: pointer;
+			background: none;
+			border: none;
+			display: inline;
+		}
+	
+		#main .form-buttons .cancel,
+		#main .cancel-form .cancel,
+		#main .delete-form .cancel
+		{
+			color: #a4a4a4;
+			font-size: 16px;
+			margin-left: 50px;
+			display: inline;
+			background: none;
+			border: none;
+			cursor: pointer;
+		}
+		
+		#main .delete-form
+		{
+			float: right;
+			margin: -30px 100px 0px 0px;
+		}
+		
+	#main .cancel-form
+	{
+		position: relative;
+		width: 100px;
+		height: 30px;
+		margin: -21px 0px 0px 80px;
+	}
+	
+	.bank-info
+	{
+		display: none;
+	}
+	
+	#main .user-feedback
+	{
+		color: #CF4046;
+		border: 1px solid #f27d33;
+		padding: 5px 15px;
+		width: 400px;
+	}
+	
+	#main .sponsor-logos
+	{
+		width: 75%;
+		margin: 0px auto;
+	}
+			
+	#main .sponsor-logos > li
+	{
+		list-style-type: none;
+		display: inline-block;
+		
+		/* IE7 hack */
+		zoom: 1;
+		*display: inline;
+	}
+	
+/* Donate sidebar css */
+
+#main .donate-form {
+    width: 900px
+}
+
+#main .donate-form aside,
+#main .donate-form aside .sidebar
+{
+	width: 130px;
+	float: right;
+	padding: 10px;
+}
+	
+	#main .donate-form .sidebar p
+	{
+		font-size: 10pt;
+		padding: 10px 0px 10px 10px;
+		width: 150px
+	}
+	
+#main ul.buttons
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+	#main ul.buttons li
+	{
+		list-style: none !important;
+		margin: 0px;
+		padding: 10px 0px;
+	}
+
+		#mail-donation
+		{
+			height: 43px;
+			width: 139px;
+			display: block;
+			text-indent: -9000px;
+			background: url(images/mail-donation.gif) no-repeat;
+		}
+	
+		#mail-donation:hover
+		{
+			background: url(images/mail-donation-hover.gif) no-repeat;
+		}
+	
+		#one-hundred-percent
+		{
+			height: 43px;
+			width: 277px;
+			display: block;
+			text-indent: -9000px;
+			background: url(images/100-percent.gif) no-repeat;
+		}
+	
+		#one-hundred-percent:hover
+		{
+			background: url(images/100-percent-hover.gif) no-repeat;
+		}
+		
+		ul.buttons li
+		{
+			position: relative;
+		}
+		
+		ul.buttons .bubble
+		{
+			width: 277px;
+			margin: 0px;
+			padding: 0px;
+			position: absolute;
+			bottom: 51px;
+			z-index: 15;
+			display: none;
+		}
+		
+			.bubble > div
+			{
+				position: relative;
+			}
+		
+			.bubble .top
+			{
+				width: 277px;
+				height: 13px;
+				background: url(images/bubble-top.png) no-repeat;
+			}
+			
+			.bubble .content
+			{
+				background: #f1f1f1;
+				color: #444444;
+				width: 217px;
+				height: auto;
+				font-family: Georgia, "Times New Roman";
+				line-height: normal;
+				padding: 0px 30px;
+			}
+			
+				.bubble > .content > .close,
+				.bubble > .content > .close:hover
+				{
+					display: block;
+					height: 20px;
+					width: 20px;
+					position: absolute;
+					top: 0px;
+					right: 10px;
+					text-indent: 1000px;
+					overflow: hidden;
+					background: #f1f1f1 url(images/close.png) no-repeat;
+					text-decoration: none;
+				}
+				
+				#main .bubble > .content > h1
+				{
+					display: block;
+					font-size: 26px;
+					font-family: 'LeagueGothicRegular', Impact, Arial, Helvetica;
+					color: #659C41 !important;
+					padding: 5px 0px 10px 0px;
+				}
+			
+				aside .sidebar .bubble .content a
+				{
+					color: #659C41;
+					text-decoration: none;
+				}
+				
+				aside .sidebar .bubble .content a:hover
+				{
+					text-decoration: underline;
+				}
+			
+			.bubble .bottom
+			{
+				width: 277px;
+				height: 29px;
+				background: url(images/bubble-bottom.png) no-repeat;
+			}
+			
+#main .donate-form .column,
+.donate-form .column > fieldset {
+    width: 300px;
+}
+
+#main .donate-form .column .field-validation-error {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 190px;
+    margin: 10px 0px 0px;
+}
+
+.campaign-summary {
+    font-size: 16px;
+}
+
+#campaign-email-form .field-validation-error {
+    position: absolute;
+    width: 230px;
+    top: 0px;
+    right: 0px;
+}
+
+textarea.wijmo-wijtextbox, 
+textarea.ui-state-active {
+    width: 270px !important;
+}
+
+/* Custom Footer Style */
+footer > div {
+    padding: 0px 30px;
+}
+
+footer > div > .nav
+{
+    font-size: 16px;
+    position: absolute;
+    top: 121px;
+    left: 60px;   
+    width: 700px;             
+}
+            
+    footer > div > .nav li
+    {
+        display: inline;
+        list-style: none;
+        padding: 0px 7px;
+    }
+            
+        footer > div > .nav a
+        {
+            font-family: Chunkfive, Arial;
+            color: #a4a4a4;
+            text-decoration: none;
+            line-height: 100%;
+        }
+                
+        footer > div > .nav a:hover
+        {
+            color: #f27d33;
+        }
+                    
+footer > div > .social-networks
+{
+    position: absolute;
+    display: block;
+    top: 238px;
+    right: 105px;
+}
+            
+    footer > div > .social-networks li
+    {
+        display: inline;
+        padding: 0px 5px;
+    }
+    
+/* Custom Org Summary Style */
+#main .summary-stats {
+    display: block;
+    height: 130px;
+    margin-top: 10px;
+}
+
+    .summary-stats > li {
+        display: block;
+        width: 135px;
+        height: 70px;
+        padding-top: 30px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        float: left;
+        background: #e9e9e9 url(images/ui-bg_glass_75_dadada_1x400.png) 0px -200px repeat-x;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -moz-border-radius: 4px;
+	    -webkit-border-radius: 4px;
+        text-align: center;
+        font-size: 14px;
+        color: #444;
+    }
+    
+    .summary-stats > .odd {
+        margin-left: 0px;
+    }
+    
+        .summary-stats > li > span {
+            display: block;
+            text-align: center;
+            font-size: 20px;
+            color: #a4a4a4;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .summary-stats > li > a {
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 13px;
+            display: block;
+        }
+        
+.org-summary > .social {
+    clear: both;
+    float: none;
+}

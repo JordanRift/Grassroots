@@ -62,7 +62,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         }
 
         [NotMapped]
-        public Entities.CampaignType TheCampaignType
+        public CampaignType TheCampaignType
         {
             get { return this.CampaignType.HasValue ? (Entities.CampaignType) this.CampaignType.Value : Entities.CampaignType.Unknown; }
             set { this.CampaignType = (int) value; }
@@ -111,22 +111,6 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         /// <returns>ValidationResults based on custom rules</returns>
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (!CauseTemplate.AmountIsConfigurable && CauseTemplate.DefaultAmount != GoalAmount)
-            {
-                yield return new ValidationResult(string.Format("'Goal Amount' must equal {0}.", CauseTemplate.DefaultAmount), 
-                    new[] { "GoalAmount" });
-            }
-
-            // Access Date only to avoid issues with time zones
-            TimeSpan timeInDays = (EndDate.Date - StartDate.Date);
-
-            if (!CauseTemplate.TimespanIsConfigurable && timeInDays.Days != CauseTemplate.DefaultTimespanInDays)
-            {
-                yield return new ValidationResult(string.Format("'End Date' must be {0} days after 'Start Date', but is {1} days.", 
-                    CauseTemplate.DefaultTimespanInDays, timeInDays.Days), 
-                    new[] {"StartDate", "EndDate"});
-            }
-
             if (!IsUnique(CampaignService, UrlSlug, CampaignID))
             {
                 yield return new ValidationResult("'URL Slug' is already in use by another campaign.", new[] { "UrlSlug" });

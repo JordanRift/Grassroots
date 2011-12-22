@@ -17,7 +17,7 @@
     
     ViewBag.Title = string.Format("{0}'s Profile", Model.FirstName);
     var isConnectedToFacebook = !string.IsNullOrEmpty(Model.FacebookID);
-    var isAdministrator = User.IsInRole("Administrator");
+    var isAdministrator = User.IsInRole("Root") || User.IsInRole("Administrator");
     var shouldDisplaySidebar = Model.CurrentUserIsOwner && (!isConnectedToFacebook || isAdministrator);
     var campaignHistoryClass = shouldDisplaySidebar ? "campaigns" : "campaigns wide";
     var ownerName = Model.CurrentUserIsOwner ? "My" : string.Format("{0}'s", Model.FirstName);

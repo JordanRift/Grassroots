@@ -12,9 +12,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
+
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Helpers;
 using JordanRift.Grassroots.Web.Models;
@@ -22,23 +26,28 @@ using JordanRift.Grassroots.Framework.Entities.Models;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
-	[Authorize(Roles = "Administrator")]
 	public class AdminController : GrassrootsControllerBase
 	{
-		public AdminController()
+	    private readonly ICampaignRepository campaignRepository;
+	    private readonly IRoleRepository roleRepository;
+
+		public AdminController(ICampaignRepository campaignRepository, IRoleRepository roleRepository)
 		{
+		    this.campaignRepository = campaignRepository;
+		    this.roleRepository = roleRepository;
 			Mapper.CreateMap<Organization, OrganizationDetailsModel>();
 		    Mapper.CreateMap<OrganizationSetting, OrganizationSettingModel>();
 		}
 
 		//
 		// GET: /Admin/
-
+        [Authorize(Roles = "Root,Administrator")]
 		public ActionResult Index()
 		{
 			return View();
 		}
 
+        [Authorize(Roles = "Root")]
 		public ActionResult EditOrganization()
 		{
             using (OrganizationRepository)
@@ -66,7 +75,9 @@ namespace JordanRift.Grassroots.Web.Controllers
 		    return HttpNotFound( "The organization could not be found." );
 		}
 
+        [Authorize(Roles = "Root")]
 		[HttpPost]
+        [ValidateAntiForgeryToken(Salt = "EditOrganization")]
 		public ActionResult UpdateOrganization( OrganizationDetailsModel model )
 		{
             using (OrganizationRepository)
@@ -119,6 +130,56 @@ namespace JordanRift.Grassroots.Web.Controllers
                 
             }
 	    }
+
+        /// <summary>
+        /// Request to generate the "General Campaign" for the current month if none exists. Leave public so it can be automated.
+        /// </summary>
+        /// <returns>Http Status indicating success or error</returns>
+        public ActionResult GenerateDefaultCampaign()
+        {
+            var defaultCampaign = campaignRepository.GetDefaultCampaign();
+
+            if (defaultCampaign.StartDate.Month == DateTime.Now.Month)
+            {
+                return new HttpStatusCodeResult(403);
+            }
+
+            using (new UnitOfWorkScope())
+            {
+                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+                var causeTemplate = organization.CauseTemplates.FirstOrDefault();
+                var root = roleRepository.GetRoot();
+                var userProfile = root.UserProfiles.FirstOrDefault();
+
+                if (causeTemplate == null || userProfile == null)
+                {
+                    return HttpNotFound("The default cause template or root user could not be found");
+                }
+
+                var today = DateTime.Now;
+                var campaign = new Campaign
+                                   {
+                                       GoalAmount = causeTemplate.DefaultAmount,
+                                       Title = string.Format("General Fund {0}/{1}", today.Month, today.Year),
+                                       UrlSlug = string.Format("{0}{1}{2}", organization.Name, today.Month, today.Year),
+                                       StartDate = new DateTime(today.Year, today.Month, 1),
+                                       // Get the first day of the current month
+                                       EndDate = today.AddMonths(1).AddDays(-1),
+                                       // Get the last day of the current month
+                                       ImagePath = string.Empty,
+                                       Description = string.Format("General Fund for month of {0}, {1}", today.Month, today.Year),
+                                       IsGeneralFund = true
+                                   };
+
+                organization.Campaigns.Add(campaign);
+                causeTemplate.Campaigns.Add(campaign);
+                userProfile.Campaigns.Add(campaign);
+                campaignRepository.Save();
+            }
+
+            // Success
+            return new HttpStatusCodeResult(200);
+        }
 
 	    private static void MapOrganizationUpdate( Organization organization, OrganizationDetailsModel model )
 		{

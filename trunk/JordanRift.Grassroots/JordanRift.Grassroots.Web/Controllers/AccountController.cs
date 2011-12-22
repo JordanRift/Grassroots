@@ -36,14 +36,16 @@ namespace JordanRift.Grassroots.Web.Controllers
     {
         private readonly IAccountMailer accountMailer;
         private readonly IUserProfileRepository userProfileRepository;
+        private readonly ICampaignDonorRepository campaignDonorRepository;
 
         public IFormsAuthenticationService FormsService { get; set; }
         public IMembershipService MembershipService { get; set; }
 
-        public AccountController(IUserProfileRepository userProfileRepository, IAccountMailer accountMailer)
+        public AccountController(IUserProfileRepository userProfileRepository, IAccountMailer accountMailer, ICampaignDonorRepository campaignDonorRepository)
         {
             this.accountMailer = accountMailer;
             this.userProfileRepository = userProfileRepository;
+            this.campaignDonorRepository = campaignDonorRepository;
             Mapper.CreateMap<RegisterModel, UserProfile>();
             Mapper.CreateMap<UserProfile, RegisterModel>();
         }
@@ -88,6 +90,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AccountLogOn")]
         public ActionResult AuthenticateUser(LogOnModel model, string returnUrl = "")
         {
             var url = returnUrl;
@@ -136,6 +139,16 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         public ActionResult Register(string returnUrl = "")
         {
+            if (TempData["ModelErrors"] != null)
+            {
+                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             var viewModel = TempData["RegisterModel"] as RegisterModel ?? new RegisterModel();
             ViewBag.PasswordLength = MembershipService.MinPasswordLength;
@@ -143,6 +156,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AccountRegister")]
         public ActionResult RegisterUser(RegisterModel model, string returnUrl = "")
         {
             if (ModelState.IsValid)
@@ -185,6 +199,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             var url = returnUrl;
             TempData["RegisterModel"] = model;
+            TempData["ModelErrors"] = FindModelErrors();
             return RedirectToAction("Register", "Account", new { returnUrl = url });
         }
 
@@ -198,6 +213,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AccountPasswordChange")]
         public ActionResult UpdatePassword(ChangePasswordModel model)
         {
             if (ModelState.IsValid)
@@ -234,6 +250,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AccountPasswordReset")]
         public ActionResult SendPasswordReset(ForgotPasswordModel model)
         {
             if (ModelState.IsValid)
@@ -274,6 +291,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AccountForgotPassword")]
         public ActionResult UpdateForgottenPassword(string hash, UpdatePasswordModel model)
         {
             if (ModelState.IsValid)
@@ -322,6 +340,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AccountAuthorization")]
         public ActionResult SendAuthorizationNote(AuthorizeModel model)
         {
             using (userProfileRepository)
@@ -375,6 +394,18 @@ namespace JordanRift.Grassroots.Web.Controllers
                 if (service.IsActivationHashValid(userProfile))
                 {
                     userProfile.IsActivated = true;
+
+                    // Check for existing donations
+                    var previousDonations = from d in campaignDonorRepository.FindAllDonations()
+                                            where d.Email == userProfile.Email
+                                            && d.UserProfile == null
+                                            select d;
+                    foreach (var donation in previousDonations)
+                    {
+                        donation.UserProfileID = userProfile.UserProfileID;
+                    }
+                    campaignDonorRepository.Save();
+
                     userProfileRepository.Save();
                     TempData["UserFeedback"] = "Sweet! Your account is activated. Please log in.";
                     accountMailer.Welcome(MapWelcomeModel(userProfile, organization)).SendAsync();

@@ -111,16 +111,17 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         /// <summary>
-        /// Log user out of Grassroots and notifies Facebook
+        /// Log user out of Grassroots and notifies Facebook. 
+        /// NOTE: oAuthClient.GetLogoutUrl() is deprecated. The official practice is to use the JS SDK to logout from FB.
         /// </summary>
         /// <returns>Redirect to home page</returns>
-        public ActionResult LogOff()
-        {
-            FormsAuthentication.SignOut();
-            var oAuthClient = new FacebookOAuthClient { RedirectUri = new Uri(GetLogOffUrl()) };
-            var logoutUrl = oAuthClient.GetLogoutUrl();
-            return Redirect(logoutUrl.AbsoluteUri);
-        }
+        //public ActionResult LogOff()
+        //{
+        //    FormsAuthentication.SignOut();
+        //    var oAuthClient = new FacebookOAuthClient { RedirectUri = new Uri(GetLogOffUrl()) };
+        //    var logoutUrl = oAuthClient.GetLogoutUrl();
+        //    return Redirect(logoutUrl.AbsoluteUri);
+        //}
 
         /// <summary>
         /// Connect existing user account with Facebook account. Sends required permissions to Facebook and requests authorization.

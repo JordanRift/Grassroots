@@ -29,6 +29,7 @@
 </hgroup>
 <div id="log-on-form">
     @using (Html.BeginForm("AuthenticateUser", "Account", new { returnUrl = ViewBag.ReturnUrl })) {
+        @Html.AntiForgeryToken("AccountLogOn")
         @Html.ValidationSummary(false, "Login was unsuccessful. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
         <fieldset class="column">
             <legend>Connect with Facebook...</legend>

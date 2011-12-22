@@ -1,0 +1,50 @@
+﻿@model List<JordanRift.Grassroots.Web.Models.DonationAdminModel>
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+
+    Layout = null;
+}
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="grid">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email Address</th>
+                <th>Amount</th>
+                <th>Approved</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            var name = string.Format("{0} {1}", item.FirstName, item.LastName);
+            var status = item.Approved ? "Yes" : "No";
+            <tr>
+                <td>@Html.ActionLink(name, "Admin", new { controller = "Donate", id = item.CampaignDonorID }, new { title = name })</td>
+                <td><a href="mailto:@item.Email">@item.Email</a></td>
+                <td>@item.Amount.ToString("C0")</td>
+                <td>@status</td>
+                <td>@Html.ActionLink("Edit", "Admin", new { controller = "Donate", id = item.CampaignDonorID }, new { title = "Edit" })</td>
+                <td><a href="#" class="destroy" title="Delete" data-id="@item.CampaignDonorID" data-type="Donation" data-controller="Donate">Delete</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

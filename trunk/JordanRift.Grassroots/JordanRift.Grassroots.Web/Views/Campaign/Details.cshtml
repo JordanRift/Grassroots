@@ -1,4 +1,4 @@
-﻿@model JordanRift.Grassroots.Web.Models.CampaignDetailsModel
+﻿@model CampaignDetailsModel
 @using JordanRift.Grassroots.Web.Models
 @{
     //
@@ -25,7 +25,9 @@
 }
 
 @section DocumentHead {
-    @Html.Partial("UIForm")
+    @if (Model.CurrentUserIsOwner) {
+        @Html.Partial("UIForm")
+    }
 }
 	<section class="campaign-header">
 		<a href="@Url.Action("Index", new { controller = "UserProfile", area = "", id = Model.UserProfileID })" title="@Model.FirstName @Model.LastName's Profile">

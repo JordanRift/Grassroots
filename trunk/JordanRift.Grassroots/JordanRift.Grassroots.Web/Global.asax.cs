@@ -51,6 +51,12 @@ namespace JordanRift.Grassroots
                 new { controller = "Campaign", action = "Index", slug = UrlParameter.Optional }
             );
 
+            routes.MapRoute(
+                "CampaignModify",
+                "Campaigns/Edit/{slug}", // URL with url-slug appended
+                new { controller = "Campaign", action = "Edit", slug = UrlParameter.Optional }
+            );
+
             RegisterDonateRoutes(routes);
             RegisterHomeRoutes(routes);
 
@@ -68,12 +74,6 @@ namespace JordanRift.Grassroots
 
             RegisterUserProfileRoutes(routes);
             RegisterAdminRoutes(routes);
-
-            routes.MapRoute(
-                "CampaignModify",
-                "Campaign/{action}/{slug}", // URL with url-slug appended
-                new { controller = "Campaign", action = "Edit", slug = UrlParameter.Optional }
-            );
 
             routes.MapRoute(
                 "Default", // Route name
@@ -102,6 +102,7 @@ namespace JordanRift.Grassroots
             var kernel = new StandardKernel();
             
             // Repository layer DI
+            kernel.Bind<ICampaignDonorRepository>().To<CampaignDonorRepository>();
             kernel.Bind<ICampaignRepository>().To<CampaignRepository>();
             kernel.Bind<IOrganizationRepository>().To<OrganizationRepository>();
             kernel.Bind<IUserProfileRepository>().To<UserProfileRepository>();
@@ -128,9 +129,27 @@ namespace JordanRift.Grassroots
 		private static void RegisterAdminRoutes( RouteCollection routes )
 		{
             routes.MapRoute(
-                "Admin",
+                "AdminProjects",
                 "Admin/Project/{action}/{id}",
                 new { controller = "CauseTemplate", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "AdminUpdateCampaign",
+                "Campaign/AdminUpdate",
+                new { controller = "Campaign", action = "AdminUpdate" }
+            );
+
+            routes.MapRoute(
+                "AdminCampaigns",
+                "Campaign/{action}/{id}",
+                new { controller = "Campaign", action = "List", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "AdminMethods",
+                "Admin/{action}/{id}",
+                new { controller = "Admin", action = "Index", id = UrlParameter.Optional}
             );
 		}
 
@@ -146,6 +165,42 @@ namespace JordanRift.Grassroots
                 "DonationThankYou",
                 "Donate/ThankYou",
                 new { controller = "Donate", action = "ThankYou" }
+            );
+
+            routes.MapRoute(
+                "DonationList",
+                "Donors/List",
+                new { controller = "Donate", action = "List" }
+            );
+
+            routes.MapRoute(
+                "DonationAdmin",
+                "Donors/Admin/{id}",
+                new { controller = "Donate", action = "Admin" }
+            );
+
+            routes.MapRoute(
+                "DonationAdminUpdate",
+                "Donors/AdminUpdate",
+                new { controller = "Donate", action = "AdminUpdate" }
+            );
+
+            routes.MapRoute(
+                "DonationNew",
+                "Donors/New/{id}",
+                new { controller = "Donate", action = "New", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "DonationCreate",
+                "Donors/Create",
+                new { controller = "Donate", action = "Create" }
+            );
+
+            routes.MapRoute(
+                "DonationDestroy",
+                "Donors/Destroy/{id}",
+                new { controller = "Donate", action = "Destroy" }
             );
 
             routes.MapRoute(

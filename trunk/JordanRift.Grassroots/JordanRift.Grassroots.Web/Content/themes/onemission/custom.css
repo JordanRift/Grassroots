@@ -105,6 +105,10 @@ a:hover {
         color: #f1f1f1;
     }
     
+        .progress-indicator {
+            color: #444;
+        }
+    
         #main hgroup {
             padding: 20px 0px 30px;
         }

@@ -1,0 +1,108 @@
+﻿@model JordanRift.Grassroots.Web.Models.DonationAdminModel
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
+    Layout = null;
+}
+        <section class="column">
+            <fieldset>
+                <legend>Transaction Details</legend>
+                <dl>
+                    <dt>@Html.LabelFor(m => m.Amount)</dt>
+                    <dd>
+                        $@Html.TextBoxFor(m => m.Amount)
+                        @Html.ValidationMessageFor(m => m.Amount, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.DonationDate)</dt>
+                    <dd>
+                        @Html.EditorFor(m => m.DonationDate)
+                        @Html.ValidationMessageFor(m => m.DonationDate, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    @* TODO: Add typedown search for the selected campaign, rather than ID entry. *@
+                    <dt>@Html.LabelFor(m => m.CampaignID)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.CampaignID)
+                        @Html.ValidationMessageFor(m => m.CampaignID, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                </dl>
+                <div class="check-box">
+                    @Html.CheckBoxFor(m => m.Approved)
+                    @Html.LabelFor(m => m.Approved)
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Optional Display Information</legend>
+                <div class="check-box">
+                    @Html.CheckBoxFor(m => m.IsAnonymous)
+                    @Html.LabelFor(m => m.IsAnonymous)
+                </div>
+                <dl>
+                    <dt>@Html.LabelFor(m => m.DisplayName)</dt>
+                    <dd>@Html.TextBoxFor(m => m.DisplayName, new { placeholder = "ex: Santa Clause" })</dd>
+                </dl>
+            </fieldset>
+        </section>
+        <section class="column">
+            <fieldset>
+                <legend>Billing Information</legend>
+                <dl>
+			        <dt>@Html.LabelFor(m => m.FirstName)</dt>
+			        <dd>
+				        @Html.TextBoxFor(m => m.FirstName) 
+				        @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+			        <dt>@Html.LabelFor(m => m.LastName)</dt>
+			        <dd>
+				        @Html.TextBoxFor(m => m.LastName) 
+				        @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+			        <dt>@Html.LabelFor(m => m.Email)</dt>
+			        <dd>
+				        @Html.TextBoxFor(m => m.Email) 
+				        @Html.ValidationMessageFor(m => m.Email, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+			        <dt>@Html.LabelFor(m => m.PrimaryPhone)</dt>
+			        <dd>
+				        @Html.TextBoxFor(m => m.PrimaryPhone) 
+				        @Html.ValidationMessageFor(model => model.PrimaryPhone, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+			        <dt>@Html.LabelFor(m => m.AddressLine1)</dt>
+			        <dd>
+				        @Html.TextBoxFor(m => m.AddressLine1) 
+				        @Html.ValidationMessageFor(m => m.AddressLine1, null, new { @class = "ui-state-error ui-corner-all" })
+                        <p>
+                            @Html.TextBoxFor(m => m.AddressLine2)
+                            @Html.ValidationMessageFor(m => m.AddressLine2, null, new { @class = "ui-state-error ui-corner-all" })
+                        </p>
+			        </dd>
+			        <dt>@Html.LabelFor(m => m.City)</dt>
+			        <dd>
+				        @Html.TextBoxFor(m => m.City) 
+				        @Html.ValidationMessageFor(m => m.City, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+			        <dt>@Html.LabelFor(m => m.State)</dt>
+			        <dd>
+				        @Html.EditorFor(m => m.State) 
+				        @Html.ValidationMessageFor(m => m.State, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+			        <dt>@Html.LabelFor(m => m.ZipCode)</dt>
+			        <dd>
+				        @Html.TextBoxFor(m => m.ZipCode) 
+				        @Html.ValidationMessageFor(m => m.ZipCode, null, new { @class = "ui-state-error ui-corner-all" }) 
+			        </dd>
+                </dl>
+		    </fieldset>
+        </section>
