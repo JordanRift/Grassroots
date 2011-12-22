@@ -1,0 +1,1164 @@
+.two-column {
+  display: block;
+  float: left;
+  margin: 0px 10px;
+}
+.no-float {
+  float: none;
+  clear: both;
+}
+.header-style {
+  font-size: 48px;
+}
+.nav-style {
+  font-size: 16px;
+}
+.transparent {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+body {
+  font-size: 14px;
+  line-height: normal;
+}
+section,
+aside,
+article,
+hgroup,
+nav,
+header,
+footer {
+  display: block;
+}
+.column {
+  display: block;
+  float: left;
+  margin: 0px 10px;
+  width: 400px;
+  padding: 10px 15px;
+}
+fieldset {
+  margin: 1em 0;
+  padding: 1em;
+  border: 1px solid #CCC;
+}
+header {
+  width: 980px;
+  height: 167px;
+  display: block;
+  position: relative;
+}
+header h2 {
+  font-size: 25px;
+  margin: 10px 0px 0px 28px;
+}
+header .user-info {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 14px;
+}
+header nav {
+  position: absolute;
+  right: 15px;
+  top: 88px;
+}
+#menu li {
+  display: inline;
+  padding: 0px 5px;
+}
+#menu li a {
+  font-size: 16px;
+}
+fieldset.column {
+  display: block;
+  float: left;
+  margin: 0px 10px;
+  padding: 30px;
+  width: 370px;
+}
+p {
+  padding: 10px 0px;
+}
+.page {
+  width: 980px;
+  margin: 0px auto;
+}
+#main {
+  width: 904px;
+  margin: 0px 20px;
+  padding: 20px 28px;
+}
+#main > div, #main > section {
+  float: none;
+  clear: both;
+}
+#main h1 {
+  font-size: 48px;
+}
+#main h2 {
+  font-size: 24px;
+  padding-bottom: 10px;
+}
+#main h3 {
+  font-size: 20px;
+  color: #555;
+}
+#main form fieldset h3 {
+  font-size: 18px;
+  padding: 0px 0px 10px;
+}
+#main > hgroup > h3 {
+  margin-top: 5px;
+}
+#main #progress {
+  position: relative;
+  margin: 0px 0px 30px 0px;
+}
+#main .dashboard > #progress {
+  width: 668px;
+  float: left;
+  margin: 30px 0px;
+}
+#main .campaign-dashboard > #progress {
+  width: 100%;
+  float: none;
+}
+#progressbar {
+  margin-top: 5px;
+  position: relative;
+}
+#progress > h3 {
+  display: inline;
+}
+.progressbar-info {
+  font-size: 12px;
+  padding-left: 10px;
+}
+.progress-indicator {
+  position: absolute;
+  /*border-left: 1px solid #495a5a;*/
+  height: 15px;
+  margin-left: -30px;
+  padding: 5px 0px 0px 5px;
+  top: 30px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: right;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.goal-start, .goal-complete {
+  float: left;
+  font-size: 12px;
+}
+.goal-complete {
+  float: right;
+}
+.ui-progressbar-value {
+  display: none;
+}
+#main .dashboard > .donate {
+  width: 156px;
+  text-align: center;
+  float: left;
+  margin: 60px 0px 30px 40px;
+}
+.dashboard .donate > .ui-button {
+  width: 167px;
+  margin-right: 0px;
+}
+.stats > li, #main .get-started .projects li {
+  width: 196px;
+  position: relative;
+}
+.stats > .user-image {
+  background: none;
+  border: none;
+}
+#main > .feeds {
+  margin-top: 30px;
+}
+#main .tweets li {
+  display: block;
+  position: relative;
+  clear: both;
+  float: none;
+  padding: 10px 0px;
+}
+.tweets li img {
+  display: block;
+  float: left;
+  margin: 0px 10px 5px 0px;
+}
+.tweets li .meta {
+  font-size: 12px;
+  float: right;
+}
+header h1 a {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+#main .terms strong {
+  display: block;
+  padding-top: 20px;
+}
+#main .terms strong.first {
+  padding-top: 0px;
+}
+#main > .dashboard {
+  min-height: 115px;
+}
+#main form > .title {
+  padding: 0px;
+}
+#main > .info {
+  margin-top: 30px;
+  min-height: 283px;
+}
+#main > .info > div {
+  float: left;
+}
+#main > .info > .video {
+  width: 450px;
+}
+#main > .info > .org-summary {
+  float: right;
+  width: 400px;
+  padding-left: 40px;
+}
+.thanks .share {
+  padding-top: 20px;
+}
+.org-summary > .social, .url .share, .thanks .share ul {
+  display: block;
+  position: relative;
+  text-align: center;
+  margin: 20px auto;
+  width: 225px;
+}
+.org-summary > .social {
+  width: 375px;
+}
+.url .share {
+  width: 400px;
+}
+.thanks .share ul {
+  margin: 20px 0px;
+}
+.org-summary > .social > li, .url .share li, .thanks .share li {
+  display: block;
+  float: left;
+  width: 75px;
+  text-align: left;
+}
+#main .feeds {
+  clear: both;
+  float: none;
+}
+#main .break {
+  float: none;
+  width: 904px;
+  height: 1px;
+  clear: both;
+}
+#main .dashboard .stats, #main .get-started .projects {
+  display: block;
+  height: 100px;
+}
+#main .stats > li.first, .get-started .projects li:first-child {
+  margin-left: 0px !important;
+}
+#main .stats > li.last {
+  margin-right: 0px !important;
+}
+.get-started .projects li:last-child {
+  margin-right: 0px !important;
+}
+.stats > li, .get-started .projects li {
+  display: block;
+  float: left;
+  width: 196px;
+  height: 70px;
+  text-align: center;
+  margin: 0px 20px;
+  padding-top: 20px;
+}
+.stats > .user-image {
+  height: auto;
+  max-height: 100px;
+  overflow: hidden;
+  padding-top: 0px;
+}
+.stats > li span {
+  font-size: 32px;
+  display: block;
+}
+.stats > li span.field-validation-valid {
+  display: none;
+}
+.stats > li .wijmo-wijtextbox {
+  width: 130px !important;
+  margin: 10px auto 0px;
+}
+#main .share-campaign,
+#main .summary,
+#main .donations,
+#main .cause-template-info {
+  padding: 30px;
+}
+.cause-template-info .overview h4 {
+  padding: 10px 0px;
+}
+.get-started .projects > ul {
+  height: 140px;
+}
+.get-started .projects li {
+  padding-top: 0px;
+  height: 140px;
+}
+.get-started .projects li > a {
+  display: block;
+  height: 100px;
+  width: 156px;
+  padding: 15px 20px 20px;
+}
+.get-started .projects a > img {
+  margin-top: 5px;
+}
+.get-started .campaign-types {
+  float: none;
+  clear: both;
+  padding-top: 40px;
+}
+.get-started .campaign-types li {
+  width: 429px;
+  height: 200px;
+  display: block;
+  float: left;
+  margin: 20px 0px;
+}
+.get-started .campaign-types .even {
+  margin-left: 40px;
+}
+.get-started .campaign-types li > a {
+  display: block;
+  padding: 20px;
+  height: 160px;
+  width: 389px;
+  text-align: center;
+}
+.get-started .campaign-types strong {
+  display: block;
+  font-size: 24px;
+}
+.campaign-header {
+  height: 50px;
+}
+.campaign-header > .url {
+  display: block;
+  padding: 15px 0px;
+  float: right;
+  height: 20px;
+  text-align: center;
+  width: 400px;
+}
+.url > h3 {
+  padding-bottom: 5px;
+}
+.campaign-header > a > img {
+  border: 1px;
+  float: left;
+}
+.url > .wijmo-wijtextbox {
+  width: 350px !important;
+}
+.campaign-header > .edit {
+  float: left;
+  padding: 15px 0px 15px 20px;
+  height: 20px;
+}
+#main .campaign-summary .share {
+  width: 350px;
+}
+#main .url .share ul {
+  width: 225px;
+  margin: 0px auto;
+}
+#main .url .share .email {
+  width: 300px;
+}
+.url .share .email li {
+  width: 75px;
+  display: block;
+  float: left;
+}
+.url .email li a {
+  display: block;
+  width: 50px;
+  margin: 0px auto;
+  height: auto;
+}
+#main .campaign-summary .buttons {
+  width: 350px;
+  text-align: center;
+  padding: 10px 0px;
+}
+#main .url .buttons a {
+  display: inline-block;
+  *display: inline;
+  margin: 0px 10px;
+}
+#main .campaign-summary > .user-description {
+  float: none;
+  clear: both;
+  padding: 20px 0px;
+}
+#main .share-campaign {
+  margin: 20px 0px 0px;
+  min-height: 278px;
+}
+.share-campaign > .campaign-img {
+  display: block;
+  float: left;
+  width: 450px;
+  min-height: 278px;
+  text-align: center;
+}
+.campaign-img > img {
+  margin-bottom: 20px;
+}
+.share-campaign > .share {
+  float: left;
+  width: 350px;
+  padding-left: 30px;
+  text-align: center;
+}
+.share > ul {
+  display: block;
+}
+.share > ul > li {
+  display: inline;
+}
+.share > .fb {
+  margin-top: 20px;
+}
+.share-campaign > .closed-options {
+  text-align: center;
+  width: 200px;
+  float: left;
+}
+.share-campaign > .closed-options > img {
+  margin-bottom: 10px;
+}
+.share-campaign > .closed-options li {
+  padding: 7px;
+  text-align: center;
+  display: block;
+}
+.share-campaign > .closed-instructions {
+  float: left;
+  padding-left: 20px;
+  width: 620px;
+}
+#main .summary {
+  min-height: 323px;
+}
+#main > .summary > div, #campaign-edit-form .summary > div {
+  float: left;
+}
+.summary > .video {
+  width: 450px;
+}
+.summary > .body, .summary > .share {
+  padding-left: 30px;
+  width: 350px;
+}
+.summary .wijmo-wijtextbox {
+  width: 330px !important;
+  height: 125px;
+}
+#main .summary, #main .donations {
+  margin: 30px 0px 30px !important;
+}
+#main table {
+  display: block;
+  margin-top: 20px;
+}
+#main .grid {
+  margin-top: 0px;
+}
+#main table th {
+  text-align: left;
+}
+#main table td, #main table th {
+  width: 150px;
+  padding: 5px 10px;
+}
+#main table .wide {
+  width: 400px;
+}
+#main .cause-template-info {
+  position: relative;
+}
+.cause-template-info > .close {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.cause-template-info > .overview, .cause-template-info > .infographics {
+  float: left;
+  text-align: center;
+}
+.cause-template-info > .infographics {
+  margin-left: 20px;
+}
+.overview ul {
+  display: block;
+  width: 321px;
+}
+.overview > ul > li {
+  display: block;
+  padding-bottom: 15px;
+}
+.overview li > label {
+  display: block;
+  text-align: center;
+}
+.overview li > img {
+  display: block;
+  margin: 5px auto 0px;
+}
+.overview > h4 {
+  padding-top: 10px;
+}
+#main .user-info > .user-dashboard a {
+  width: 130px;
+  padding: 0.4em 0em !important;
+}
+#main .user-info aside ul {
+  font-size: 14px;
+}
+#main .user-info aside > ul > li > span {
+  font-size: 18px;
+}
+#main .get-started .projects > p, #main .get-started .campaign-types > p {
+  font-size: 18px;
+}
+.get-started .campaign-types li {
+  font-size: 14px;
+}
+.public-info > div > .user-image-info {
+  font-size: 10px;
+  margin: 5px 0px 0px 43px;
+}
+.tooltip-instructions {
+  font-size: 12px;
+}
+.tooltip-instructions .fb {
+  padding-bottom: 0px;
+}
+.tooltip-instructions .fb-connect {
+  margin-top: -3px;
+}
+.public-info > .campaigns {
+  padding-top: 30px;
+  float: left;
+}
+.public-info > .wide {
+  float: none;
+}
+.public-info > .campaigns > h4 {
+  padding-bottom: 20px;
+}
+#main .public-info .campaign-list {
+  width: 530px;
+}
+#main .campaign-list .title {
+  width: 400px;
+}
+#main .campaign-list td {
+  width: 130px;
+}
+.user-profile .private-info {
+  padding-top: 30px;
+  width: 300px;
+  float: right;
+}
+#main .user-profile .private-info table {
+  margin-top: 0px;
+}
+.user-profile .private-info h3 {
+  display: block;
+  padding: 20px 0px 0px 10px;
+}
+.user-profile .private-info ul {
+  display: block;
+  padding: 10px;
+}
+.user-profile .private-info ul > li {
+  font-weight: bold;
+  padding: 3px 0px;
+  display: block;
+  float: none;
+  clear: both;
+  height: 25px;
+}
+#main .project-types li {
+  display: block;
+  min-height: 100px;
+  float: none;
+  clear: both;
+  padding-top: 20px;
+}
+#main .project-types li:first-child {
+  padding-top: 0px;
+}
+#main .project-types li > a {
+  display: block;
+  width: 175px;
+  float: left;
+}
+#main .project-types li > div {
+  min-height: 100px;
+  width: 715px;
+  float: left;
+  position: relative;
+}
+#main .project-types li > div > a {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+.project-summary > aside,
+.project-summary > div,
+.project-details > aside,
+.project-details > .search {
+  display: block;
+  float: left;
+}
+.project-summary > aside, .project-details > aside {
+  width: 160px;
+  margin-right: 15px;
+}
+.project-summary > aside > ul {
+  display: block;
+  margin-top: 20px;
+}
+.links > li {
+  padding: 5px 0px;
+  text-align: center;
+}
+.project-summary > div, .project-details > .search {
+  width: 725px;
+}
+.project-details > .search {
+  text-align: center;
+  padding-bottom: 30px;
+  margin-top: -30px;
+}
+.project-details > .search > h3 {
+  padding-bottom: 10px;
+}
+.project-details > .search .wijmo-wijtextbox {
+  padding: 0.4em 1em;
+  height: 18px;
+}
+.project-summary > div > p, .project-details > .before-after {
+  display: block;
+  width: 235px;
+  margin: 0px 30px 0px 10px;
+}
+.project-summary > div > .video, .project-details > .infographics {
+  width: 450px;
+}
+.project-summary > div > p,
+.project-summary > div > .video,
+.project-details > .before-after,
+.project-details > .infographics {
+  float: left;
+  padding: 0px;
+}
+.project-summary  .search-instructions {
+  padding: 0px 20px;
+}
+.search-instructions > li {
+  display: list-item;
+  font-size: 16px;
+  list-style: decimal inside;
+  float: left;
+  padding: 10px 0px;
+}
+.search-instructions > li > p {
+  display: inline;
+}
+#main .project-details, #main .project-description {
+  padding-top: 30px;
+}
+#main .project-details > aside li, .project-details > .before-after li {
+  text-align: center;
+  padding: 5px 0px;
+}
+.project-details > .before-after label {
+  display: block;
+  text-align: center;
+}
+.project-details > .before-after img {
+  margin-top: 5px;
+}
+.project-details > .infographics {
+  overflow: hidden;
+}
+#main .completed-projects {
+  text-align: center;
+  padding-top: 30px;
+}
+#main .completed-projects .cause-grid {
+  margin: 0px auto;
+  display: table;
+}
+.cause-grid td {
+  text-align: left;
+}
+#main .cause-details {
+  position: relative;
+}
+.cause-details > .reference-number {
+  position: absolute;
+  top: -130px;
+  right: 10px;
+  font-size: 16px;
+}
+#main .cause-details > .recipients {
+  position: relative;
+}
+.recipients > img {
+  display: block;
+  float: left;
+  margin-right: 20px;
+  width: 450px;
+}
+.recipients > ul {
+  display: block;
+  float: left;
+  width: 430px;
+}
+.recipients > ul > li {
+  display: block;
+  width: 215px;
+  float: left;
+  text-align: center;
+  padding-bottom: 20px;
+}
+.recipients li > p {
+  font-size: 17px;
+}
+.recpients li > span {
+  font-size: 16px;
+}
+#main .cause-details > .before-after {
+  padding-top: 30px;
+}
+.cause-details > .before-after > ul {
+  display: block;
+  width: 450px;
+  float: left;
+}
+.cause-details > .before-after li {
+  display: block;
+  float: left;
+  width: 225px;
+}
+.cause-details > .before-after li > label {
+  display: block;
+  text-align: center;
+  padding-bottom: 5px;
+}
+.cause-details > .before-after li > img {
+  display: block;
+  margin: 0px auto;
+}
+.before-after > .deets {
+  width: 424px;
+  float: left;
+  padding-left: 30px;
+}
+#main .before-after > .deets p {
+  font-size: 18px;
+  padding-left: 100px;
+}
+#main .cause-details > .media, #main .cause-details > .details, #main .cause-details > .description {
+  padding-top: 30px;
+}
+.media > .video {
+  width: 450px;
+  float: left;
+}
+.media > .map {
+  float: left;
+  width: 424px;
+  padding-left: 30px;
+}
+.media > .map > ul {
+  display: block;
+  text-align: center;
+}
+.media > .map li {
+  display: inline;
+  padding: 10px 15px;
+  font-size: 12px;
+}
+#main .admin-dashboard {
+  margin: 20px auto 0px;
+  width: 800px;
+}
+.admin-dashboard .column {
+  width: 350px;
+}
+#main .admin-dashboard li {
+  display: block;
+  padding: 5px 0px;
+  font-size: 24px;
+}
+#main .organization-settings {
+  height: auto;
+  position: relative;
+  margin: 0px 30px;
+  float: none;
+  clear: both;
+}
+.resend-activation {
+  display: none;
+}
+footer {
+  width: 920px;
+  height: 135px;
+  display: block;
+  padding: 30px;
+  float: none;
+  clear: both;
+}
+footer aside {
+  float: right;
+  font-size: 12px;
+  text-align: right;
+  margin-left: 28px;
+}
+form > div {
+  clear: both;
+  float: none;
+  padding: 20px 0px;
+}
+form > div > input, form > div > button, form > div > a {
+  margin: 10px 20px 10px 0px;
+}
+form > div > a {
+  margin-left: 20px;
+}
+form fieldset {
+  position: relative;
+}
+form .right {
+  float: right;
+}
+form fieldset dl {
+  margin-bottom: 20px;
+}
+form dt, form dd {
+  display: block;
+  position: relative;
+}
+form dt label {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  padding-bottom: 5px;
+}
+form dd {
+  padding-bottom: 10px;
+}
+form dd > p {
+  padding-top: 5px;
+}
+form fieldset > legend {
+  padding: 5px;
+  font-size: 16px;
+  color: #999999;
+}
+form fieldset > p.tip {
+  padding: 20px 0px;
+}
+.field-validation-error {
+  display: inline-block;
+  *display: inline
+	position: relative;
+  padding: 5px;
+  font-size: 12px;
+  margin-left: 10px;
+  max-width: 300px;
+}
+.column .field-validation-error {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 210px;
+}
+.column .textarea > .field-validation-error {
+  display: block;
+  position: relative;
+  margin: 10px 0px;
+  width: 300px;
+  top: auto;
+  left: auto;
+}
+.account-maintenance {
+  display: block;
+  padding-top: 30px;
+}
+#campaign-edit-form .stats > li .field-validation-error {
+  display: block;
+  position: absolute;
+  font-size: 12px;
+  top: 70px;
+  margin: 0px 5px;
+  width: 172px;
+}
+#campaign-edit-form .stats > li .field-validation-error span {
+  font-size: 12px;
+}
+.field-validation-valid {
+  display: none;
+}
+.input-validation-error {
+  border: 1px solid #ff0000;
+  background-color: #ffeeee;
+}
+.validation-summary-errors {
+  font-weight: normal;
+  font-size: 14px;
+  padding: 10px;
+  margin: 10px;
+}
+.validation-summary-errors span {
+  font-weight: bold;
+  display: block;
+  padding-bottom: 10px;
+}
+.validation-summary-errors ul {
+  font-weight: 12px;
+  margin-left: 10px;
+}
+.validation-summary-valid {
+  display: none;
+}
+.wijmo-wijdropdown {
+  width: 200px !important;
+}
+.wijmo-wijtextbox {
+  width: 190px !important;
+}
+textarea.wijmo-wijtextbox, textarea.ui-state-active {
+  width: 300px !important;
+  background-position: left bottom !important;
+}
+#campaign-email-form textarea.wijmo-wijtextbox {
+  width: 447px !important;
+  height: 150px !important;
+}
+div.check-box {
+  padding-bottom: 10px;
+}
+.check-box label {
+  font-size: 12px;
+  width: 350px !important;
+  padding-left: 25px !important;
+}
+.check-box .wijmo-checkbox .wijmo-checkbox-box {
+  margin-right: 10px;
+}
+.wijmo-wijgrid {
+  padding: 0px !important;
+  border-radius: 7px !important;
+  -moz-border-radius: 7px !important;
+  -webkit-border-radius: 7px !important;
+}
+.wijmo-wijgrid th:first-child {
+  border-radius: 7px 0px 0px 0px;
+  -moz-border-radius: 7px 0px 0px 0px;
+  -webkit-border-radius: 7px 0px 0px 0px;
+}
+.wijmo-wijgrid th:last-child {
+  border-radius: 0px 7px 0px 0px;
+  -moz-border-radius: 0px 7px 0px 0px;
+  -webkit-border-radius: 0px 7px 0px 0px;
+}
+.wijmo-wijgrid .wijmo-wijgrid-footer {
+  border-radius: 0px 0px 7px 7px !important;
+  -moz-border-radius: 0px 0px 7px 7px !important;
+  -webkit-border-radius: 0px 0px 7px 7px !important;
+}
+.wijmo-wijgrid td, .wijmo-wijgrid th {
+  font-size: 12px !important;
+}
+.wijmo-wijgrid th {
+  font-weight: bold !important;
+}
+#main .wijmo-wijgrid td {
+  padding: 5px;
+}
+#main .wijmo-wijgrid table {
+  margin: 0px !important;
+}
+#main .wijmo-wijgrid li {
+  list-style-type: none;
+}
+#main .wijmo-wijgrid a:hover {
+  text-decoration: none;
+}
+#main .wijmo-wijgrid .wijmo-wijpager {
+  border-top: 1px solid #999 !important;
+}
+#main .wijmo-wijpager .ui-list {
+  padding: 5px 0px;
+}
+#main .wijmo-wijpager .ui-list .ui-page {
+  font-size: 12px;
+  padding: 3px;
+  margin: 0px 2px;
+}
+.wijmo-wijgrid .wijmo-wijgrid-headerrow .wijmo-wijgrid-headertext {
+  padding: 0px !important;
+}
+.blogger-post-footer {
+  display: none;
+}
+.ui-widget > p {
+  padding: 10px;
+}
+.ui-widget > p > .ui-icon {
+  float: left;
+  margin-right: .3em;
+}
+.ui-widget-overlay {
+  display: none;
+}
+.ui-dialog .ui-dialog-content {
+  overflow: hidden !important;
+}
+.notification {
+  position: fixed;
+  display: none;
+  top: 30%;
+  right: 50%;
+  margin-right: -170px;
+  margin-top: -70px;
+  padding: 20px;
+  height: 100px;
+  width: 300px;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+.cancel {
+  margin-left: 30px;
+}
+.fb-login {
+  display: block;
+  background: url(images/fb-login.jpg);
+  height: 22px;
+  width: 65px;
+  text-indent: -2000px;
+  overflow: hidden;
+  margin: 20px 0px;
+}
+.fb-register {
+  display: block;
+  background: url(images/fb-register.jpg);
+  height: 22px;
+  width: 83px;
+  text-indent: -2000px;
+  overflow: hidden;
+  margin: 20px 0px;
+}
+.fb-connect {
+  display: block;
+  float: left;
+  background: url(images/fb-connect.png) no-repeat;
+  height: 25px;
+  width: 107px;
+  text-indent: -2000px;
+  overflow: hidden;
+  margin-right: 5px;
+}
+#main .plus-one-vertical, #main .fb-like-vertical, #main .twitter-vertical {
+  margin: 0px auto;
+  padding: 0px 5px;
+}
+#main .delicious-vertical, #main .stumble-vertical {
+  width: 50px;
+  margin: 0px auto;
+}
+.delicious-vertical > .icon {
+  background: url(images/delicious.png) no-repeat;
+  width: 50px;
+  height: 39px;
+}
+.delicious-vertical > a {
+  font-size: 9px;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  color: #5897d4;
+  padding: 3px 0px;
+  margin: 3px 0px 0px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -khtml-border-radius: 2px;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+}
+#main .plus-one-vertical {
+  width: 50px;
+}
+#main .fb-like-vertical {
+  width: 46px;
+  position: relative;
+}
+#main .twitter-vertical {
+  width: 55px;
+}
+#main .twitter-vertical > .count {
+  background: url(images/tweet.png) no-repeat 0px -63px;
+  display: block;
+  width: 55px;
+  height: 40px;
+  color: #2A7090 !important;
+  text-align: center;
+  font: bold 16px/34px Arial, Helvetica, sans-serif;
+}
+#main .count > a {
+  color: #2A7090 !important;
+  text-align: center;
+  font: bold 16px/34px Arial, Helvetica, sans-serif;
+  height: 34px;
+}
+#main .count > a:hover {
+  color: #30566d !important;
+  text-decoration: none;
+}
+#main .twitter-vertical > .count:hover {
+  background: url(images/tweet.png) no-repeat 0px -104px;
+  color: #30566d !important;
+}
+#main .twitter-vertical > .tweet {
+  display: block;
+  height: 20px;
+  width: 55px;
+  overflow: hidden;
+  text-indent: -1000px;
+  background: url(images/tweet.png) no-repeat 0px 0px;
+}
+#main .tweet:hover {
+  background: url(images/tweet.png) no-repeat 0px -21px;
+}
