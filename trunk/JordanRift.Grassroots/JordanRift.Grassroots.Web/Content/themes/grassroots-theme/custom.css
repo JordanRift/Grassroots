@@ -95,6 +95,9 @@ header section.user-info {
   font-weight: bold;
   text-decoration: none;
 }
+.progress-indicator {
+  color: #495a5a;
+}
 #main {
   background: #f1f1f1;
 }
