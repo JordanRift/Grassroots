@@ -130,20 +130,31 @@ namespace JordanRift.Grassroots
 		{
             routes.MapRoute(
                 "AdminProjects",
-                "Admin/Project/{action}/{id}",
+                "Admin/Projects/{action}/{id}",
                 new { controller = "CauseTemplate", action = "Index", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                 "AdminUpdateCampaign",
-                "Campaign/AdminUpdate",
+                "Admin/Campaigns/Update",
                 new { controller = "Campaign", action = "AdminUpdate" }
             );
 
             routes.MapRoute(
                 "AdminCampaigns",
-                "Campaign/{action}/{id}",
+                "Admin/Campaigns/{action}/{id}",
                 new { controller = "Campaign", action = "List", id = UrlParameter.Optional }
+            );
+
+		    routes.MapRoute(
+                "AdminUpdateDonation", 
+                "Admin/Donors/Update", new { controller = "Donate", action = "AdminUpdate" }
+            );
+
+		    routes.MapRoute(
+                "AdminDonations", 
+                "Admin/Donors/{action}/{id}", 
+                new { controller = "Donate", action = "List", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
@@ -165,42 +176,6 @@ namespace JordanRift.Grassroots
                 "DonationThankYou",
                 "Donate/ThankYou",
                 new { controller = "Donate", action = "ThankYou" }
-            );
-
-            routes.MapRoute(
-                "DonationList",
-                "Donors/List",
-                new { controller = "Donate", action = "List" }
-            );
-
-            routes.MapRoute(
-                "DonationAdmin",
-                "Donors/Admin/{id}",
-                new { controller = "Donate", action = "Admin" }
-            );
-
-            routes.MapRoute(
-                "DonationAdminUpdate",
-                "Donors/AdminUpdate",
-                new { controller = "Donate", action = "AdminUpdate" }
-            );
-
-            routes.MapRoute(
-                "DonationNew",
-                "Donors/New/{id}",
-                new { controller = "Donate", action = "New", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                "DonationCreate",
-                "Donors/Create",
-                new { controller = "Donate", action = "Create" }
-            );
-
-            routes.MapRoute(
-                "DonationDestroy",
-                "Donors/Destroy/{id}",
-                new { controller = "Donate", action = "Destroy" }
             );
 
             routes.MapRoute(
