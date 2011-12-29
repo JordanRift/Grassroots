@@ -13,7 +13,7 @@ class Grassroots.Routers.FacebookLoginRouter extends Backbone.Router
 		@ev.bind 'facebookLoggedIn', @onLogin
 		@ev.bind 'facebookLogOut', @onLogOut
 		@ev.bind 'userDeclined', @onDecline
-		@ev.bind 'arenaLoginFailed', @onArenaLoginFail
+		@ev.bind 'grassrootsLoginFailed', @onGrassrootsLoginFail
 	index: (status = '') ->
 		# TODO: Do something better than booing the user when they decline Facebook
 		if status is 'declined' then alert 'boo!'
@@ -34,7 +34,7 @@ class Grassroots.Routers.FacebookLoginRouter extends Backbone.Router
 		@user = new Grassroots.Models.FacebookUser response
 		@userInfoView = new Grassroots.Views.FacebookWelcome model: @user, events: @ev
 		@userInfoView.render()
-		@ev.trigger 'arenaLogin'
+		@ev.trigger 'grassrootsLogin'
 	onLogOut: -> @navigate '!/log-in', true
 	onDecline: -> @navigate '!/log-in/declined', true
-	onArenaLoginFail: -> @navigate '!/sign-up', true
+	onGrassrootsLoginFail: -> @navigate '!/sign-up', true

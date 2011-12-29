@@ -5,23 +5,24 @@ facebookEvents = _.extend Grassroots.Events, Backbone.Events
 facebookEvents.defaults =
 	onLoginSuccess: (result) ->
 		if result.d > -1 then window.location = Grassroots.Helpers.Authentication.config.redirectPath
-		else facebookEvents.trigger 'arenaLoginFailed'
+		else facebookEvents.trigger 'grassrootsLoginFailed'
 	onConnectSuccess: (result) ->
 		facebookEvents.trigger 'connectAccountSuccessful'
 	onOptOutSuccess: (result) ->
 		facebookEvents.trigger 'optOutSuccessful'
 	onError: (result, status, error) ->
+		if typeof console is 'undefined' then return false
 		console.log JSON.stringify result
 		console.log status
 		console.log error
 
 # Call Arena web service in attempt to authenticate against database given
 # FB Access Token and 'state' hash to prevent CSRF hacks
-facebookEvents.bind 'arenaLogin', (onSuccess = facebookEvents.defaults.onLoginSuccess, onError = facebookEvents.defaults.onError) ->
+facebookEvents.bind 'grassrootsLogin', (onSuccess = facebookEvents.defaults.onLoginSuccess, onError = facebookEvents.defaults.onError) ->
 	accessToken = Grassroots.Helpers.Authentication.config.accessToken
 	state = Grassroots.Helpers.Authentication.config.state
 	$.ajax
-		url: "webservices/custom/cccev/core/AuthenticationService.asmx/AuthenticateFacebook"
+		url: '/facebook/login'
 		type: 'POST'
 		data: "{'accessToken': '#{accessToken}', 'state': '#{state}'}"
 		contentType: 'application/json'
@@ -56,7 +57,7 @@ facebookEvents.bind 'connectAccounts', (onSuccess = facebookEvents.defaults.onCo
 	accessToken = Grassroots.Helpers.Authentication.config.accessToken
 	state = Grassroots.Helpers.Authentication.config.state
 	$.ajax
-		url: 'webservices/custom/cccev/core/AuthenticationService.asmx/ConnectAccountToFacebook'
+		url: '/facebook/connect'
 		type: 'POST'
 		data: "{'accessToken': '#{accessToken}', 'state': '#{state}'}"
 		contentType: 'application/json'
@@ -69,7 +70,7 @@ facebookEvents.bind 'connectAccounts', (onSuccess = facebookEvents.defaults.onCo
 facebookEvents.bind 'optOut', (onSuccess = facebookEvents.defaults.onOptOutSuccess, onError = facebookEvents.defaults.onError) ->
 	state = Grassroots.Helpers.Authentication.config.state
 	$.ajax
-		url: 'webservices/custom/cccev/core/AuthenticationService.asmx/OptOutOfFacebookConnection'
+		url: '/facebook/optout'
 		type: 'POST'
 		data: "{'state': '#{state}'}"
 		contentType: 'application/json'
