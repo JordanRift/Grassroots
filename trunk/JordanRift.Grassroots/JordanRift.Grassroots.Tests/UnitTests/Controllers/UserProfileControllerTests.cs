@@ -16,7 +16,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Tests.Helpers;
@@ -48,12 +51,14 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             mocks = new MockRepository();
             controller = GetUserProfileController(userProfile.UserProfileID);
             Mapper.CreateMap<UserProfile, UserProfileDetailsModel>();
+            Mapper.CreateMap<UserProfile, UserProfileAdminModel>();
         }
 
         [TearDown]
         public void TearDown()
         {
             FakeUserProfileRepository.Reset();
+            FakeCauseRepository.Reset();
         }
 
         [Test]
@@ -61,10 +66,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             userProfile.Email = "goodEmail";
             userProfile.Campaigns = new List<Campaign>();
-            //mocks.ReplayAll();
             var result = controller.Index();
             Assert.IsInstanceOf(typeof(ViewResult), result);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -305,17 +308,124 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.IsInstanceOf(typeof (HttpNotFoundResult), result);
         }
 
+        [Test]
+        public void List_Should_Return_Donate_Grid_View()
+        {
+            var result = controller.List();
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public void List_Should_Return_Populated_Donate_Grid_View()
+        {
+            var result = controller.List() as ViewResult;
+            var model = result.Model as IEnumerable<UserProfileAdminModel>;
+            Assert.Greater(model.Count(), 0);
+        }
+
+        [Test]
+        public void Admin_Should_Return_View_If_UserProfile_Found()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            repository.Add(userProfile);
+            var result = controller.Admin(userProfile.UserProfileID);
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public void Admin_Should_Return_NotFound_If_UserProfile_Not_Found()
+        {
+            var result = controller.Admin();
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
+        [Test]
+        public void Destroy_Should_Return_Json_If_Ajax_Delete_Successful()
+        {
+            controller.Request.Stub(x => x["X-Requested-With"]).Return("XMLHttpRequest");
+            userProfile = EntityHelpers.GetValidUserProfile();
+            repository.Add(userProfile);
+            var result = controller.Destroy(userProfile.UserProfileID);
+            Assert.IsInstanceOf<JsonResult>(result);
+        }
+
+        [Test]
+        public void Destroy_Should_Return_Redirect_If_Delete_Successful()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            repository.Add(userProfile);
+            var result = controller.Destroy(userProfile.UserProfileID);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+        }
+
+        [Test]
+        public void Destroy_Should_Remove_UserProfile_If_Found()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            repository.Add(userProfile);
+            var id = userProfile.UserProfileID;
+            controller.Destroy(id);
+            userProfile = repository.GetUserProfileByID(id);
+            Assert.IsNull(userProfile);
+        }
+
+        [Test]
+        public void Destroy_Should_Return_NotFound_If_UserProfile_Not_Found()
+        {
+            var result = controller.Destroy();
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Redirect_To_List_If_Successful()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            repository.Add(userProfile);
+            var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+            var result = controller.AdminUpdate(model);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var redirect = result as RedirectToRouteResult;
+            Assert.AreEqual("List", redirect.RouteValues["Action"]);
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Return_NotFound_If_UserProfile_Not_Found()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+            var result = controller.AdminUpdate(model);
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Redirect_To_Admin_If_ModelState_Not_Valid()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            repository.Add(userProfile);
+            controller.ModelState.AddModelError("", "Oops");
+            var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+            var result = controller.AdminUpdate(model);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var redirect = result as RedirectToRouteResult;
+            Assert.AreEqual("Admin", redirect.RouteValues["Action"]);
+        }
+
         private UserProfileController GetUserProfileController(int userProfileID = -1)
         {
-            var causeRepository = mocks.DynamicMock<ICauseRepository>();
-            Expect.Call(causeRepository.FindCausesByUserProfileID(userProfileID)).Return(new List<Cause>().AsQueryable());
+            var causeRepository = new FakeCauseRepository();
+            //Expect.Call(causeRepository.FindCausesByUserProfileID(userProfileID)).Return(new List<Cause>().AsQueryable());
             
             var mailer = mocks.DynamicMock<IUserProfileMailer>();
             //mocks.ReplayAll();
 
             MailerBase.IsTestModeEnabled = true;
             var upc = new UserProfileController(repository, causeRepository, mailer);
-            TestHelpers.MockHttpContext(upc, mocks);
+            //TestHelpers.MockHttpContext(upc, mocks);
+            var context = MockRepository.GenerateStub<HttpContextBase>();
+            var request = MockRepository.GenerateStub<HttpRequestBase>();
+            context.Stub(x => x.Request).Return(request);
+            context.User = new GenericPrincipal(new GenericIdentity("goodEmail"), null);
+            upc.ControllerContext = new ControllerContext(context, new RouteData(), upc);
             return upc;
         }
     }

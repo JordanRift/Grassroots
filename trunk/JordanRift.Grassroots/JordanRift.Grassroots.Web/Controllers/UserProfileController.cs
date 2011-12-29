@@ -44,6 +44,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 			Mapper.CreateMap<Campaign, CampaignDetailsModel>();
 			Mapper.CreateMap<Cause, CauseDetailsModel>();
             Mapper.CreateMap<CampaignDonor, DonationDetailsModel>();
+            Mapper.CreateMap<UserProfile, UserProfileAdminModel>();
+            Mapper.CreateMap<UserProfileAdminModel, UserProfile>();
 		}
 
         ~UserProfileController()
@@ -369,9 +371,100 @@ namespace JordanRift.Grassroots.Web.Controllers
 #region Admin
 
         [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult List()
+        {
+            var userProfiles = userProfileRepository.FindAllUserProfiles().ToList();
+            var models = new List<UserProfileAdminModel>();
+
+            foreach (var userProfile in userProfiles)
+            {
+                var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+                models.Add(model);
+            }
+
+            return View(models);
+        }
+
+        [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult Admin(int id = -1)
         {
-            return null;
+            UserProfileAdminModel model;
+
+            if (TempData["ModelErrors"] != null)
+            {
+                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+
+                model = TempData["UserProfileAdminModel"] as UserProfileAdminModel;
+            }
+            else
+            {
+                using (userProfileRepository)
+                {
+                    var userProfile = userProfileRepository.GetUserProfileByID(id);
+
+                    if (userProfile == null)
+                    {
+                        return HttpNotFound("The person you are looking for could not be found.");
+                    }
+
+                    model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AdminUpdateUserProfile")]
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult AdminUpdate(UserProfileAdminModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["ModelErrors"] = FindModelErrors();
+                TempData["UserProfileAdminModel"] = model;
+                return RedirectToAction("Admin");
+            }
+
+            var userProfile = userProfileRepository.GetUserProfileByID(model.UserProfileID);
+
+            if (userProfile == null)
+            {
+                return HttpNotFound("The person you are looking for could not be found.");
+            }
+
+            return RedirectToAction("List");
+        }
+
+        [Authorize(Roles = ADMIN_ROLES)]
+        [HttpDelete]
+        public ActionResult Destroy(int id = -1)
+        {
+            using (userProfileRepository)
+            {
+                var userProfile = userProfileRepository.GetUserProfileByID(id);
+
+                if (userProfile == null)
+                {
+                    return HttpNotFound("The person you are looking for could not be found.");
+                }
+
+                userProfileRepository.Delete(userProfile);
+                userProfileRepository.Save();
+            }
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true });
+            }
+
+            // TODO: Consider adding message to inform user of successful delete.
+            return RedirectToAction("List");
         }
 
 #endregion

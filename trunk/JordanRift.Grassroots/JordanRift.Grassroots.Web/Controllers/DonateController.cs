@@ -357,14 +357,17 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
             else
             {
-                var campaignDonor = campaignDonorRepository.GetDonationByID(id);
-
-                if (campaignDonor == null)
+                using (campaignDonorRepository)
                 {
-                    return HttpNotFound("The donation you are looking for could not be found.");
-                }
+                    var campaignDonor = campaignDonorRepository.GetDonationByID(id);
 
-                model = MapAdminModel(campaignDonor);
+                    if (campaignDonor == null)
+                    {
+                        return HttpNotFound("The donation you are looking for could not be found.");
+                    }
+
+                    model = MapAdminModel(campaignDonor);
+                }
             }
 
             ViewBag.Context = context;
@@ -405,15 +408,15 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult Destroy(int id = -1)
         {
-            var campaignDonor = campaignDonorRepository.GetDonationByID(id);
-
-            if (campaignDonor == null)
-            {
-                return HttpNotFound("The donation you are looking for could not be found.");
-            }
-
             using (campaignDonorRepository)
             {
+                var campaignDonor = campaignDonorRepository.GetDonationByID(id);
+
+                if (campaignDonor == null)
+                {
+                    return HttpNotFound("The donation you are looking for could not be found.");
+                }
+
                 campaignDonorRepository.Delete(campaignDonor);
                 campaignDonorRepository.Save();
             }

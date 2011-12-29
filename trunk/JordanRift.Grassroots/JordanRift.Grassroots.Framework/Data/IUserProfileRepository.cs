@@ -14,7 +14,7 @@
 //
 
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
@@ -25,7 +25,8 @@ namespace JordanRift.Grassroots.Framework.Data
         UserProfile GetUserProfileByID(int id);
         UserProfile GetUserProfileByFacebookID(string facebookID);
         UserProfile GetUserProfileByActivationHash(string hash);
-        IEnumerable<UserProfile> FindUserProfileByEmail(string email);
+        IQueryable<UserProfile> FindAllUserProfiles();
+        IQueryable<UserProfile> FindUserProfileByEmail(string email);
         bool Exists(string email);
         void Add(UserProfile userProfile);
         void Delete(UserProfile userProfile);

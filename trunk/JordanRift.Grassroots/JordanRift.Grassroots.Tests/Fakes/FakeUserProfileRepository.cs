@@ -75,9 +75,14 @@ namespace JordanRift.Grassroots.Tests.Fakes
             return profiles.FirstOrDefault(p => p.ActivationHash == hash);
         }
 
-        public IEnumerable<UserProfile> FindUserProfileByEmail(string email)
+        public IQueryable<UserProfile> FindAllUserProfiles()
         {
-            return profiles.Where(p => p.Email.ToLower() == email.ToLower());
+            return profiles.AsQueryable();
+        }
+
+        public IQueryable<UserProfile> FindUserProfileByEmail(string email)
+        {
+            return profiles.Where(p => p.Email.ToLower() == email.ToLower()).AsQueryable();
         }
 
         public bool Exists(string email)

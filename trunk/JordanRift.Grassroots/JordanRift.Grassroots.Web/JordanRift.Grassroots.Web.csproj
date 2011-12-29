@@ -197,6 +197,7 @@
     </Compile>
     <Compile Include="Models\RecipientDetailsModel.cs" />
     <Compile Include="Models\UpdatePasswordModel.cs" />
+    <Compile Include="Models\UserProfileAdminModel.cs" />
     <Compile Include="Models\UserProfileDetailsModel.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -659,6 +660,8 @@
     <Content Include="Views\Donate\New.cshtml" />
     <Content Include="Views\Donate\DonationAdminForm.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ActiveCampaignList.cshtml" />
+    <Content Include="Views\UserProfile\List.cshtml" />
+    <Content Include="Views\UserProfile\Admin.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

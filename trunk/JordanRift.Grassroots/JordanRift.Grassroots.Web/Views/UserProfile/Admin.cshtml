@@ -1,0 +1,12 @@
+﻿@model JordanRift.Grassroots.Web.Models.UserProfileAdminModel
+
+@{
+    ViewBag.Title = "Admin";
+}
+
+<h2>Admin</h2>
+@using (Html.BeginForm("AdminUpdate", "UserProfile"))
+{
+    @Html.AntiForgeryToken(salt: "AdminUpdateUserProfile")
+    @Html.HiddenFor(m => m.UserProfileID)
+}
