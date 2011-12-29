@@ -454,7 +454,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var mocks = new MockRepository();
             SetUpController(mocks);
             var result = controller.List() as ViewResult;
-            var model = result.Model as IEnumerable<CampaignDonor>;
+            var model = result.Model as IEnumerable<DonationAdminModel>;
             Assert.Greater(model.Count(), 0);
 
         }

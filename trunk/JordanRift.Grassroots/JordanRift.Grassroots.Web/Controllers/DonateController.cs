@@ -260,8 +260,16 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult List()
         {
-            var donations = campaignDonorRepository.FindAllDonations();
-            return View(donations);
+            var donations = campaignDonorRepository.FindAllDonations().ToList();
+            var models = new List<DonationAdminModel>();
+
+            foreach (var donation in donations)
+            {
+                var model = Mapper.Map<CampaignDonor, DonationAdminModel>(donation);
+                models.Add(model);
+            }
+
+            return View(models);
         }
 
         [Authorize(Roles = ADMIN_ROLES)]
