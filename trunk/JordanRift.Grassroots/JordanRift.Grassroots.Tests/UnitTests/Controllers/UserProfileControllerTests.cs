@@ -16,10 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Tests.Helpers;
@@ -534,11 +531,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 
             MailerBase.IsTestModeEnabled = true;
             var upc = new UserProfileController(userProfileRepository, causeRepository, campaignDonorRepository, mailer);
-            var context = MockRepository.GenerateStub<HttpContextBase>();
-            var request = MockRepository.GenerateStub<HttpRequestBase>();
-            context.Stub(x => x.Request).Return(request);
-            context.User = new GenericPrincipal(new GenericIdentity("goodEmail"), null);
-            upc.ControllerContext = new ControllerContext(context, new RouteData(), upc);
+            TestHelpers.MockBasicRequest(upc);
             return upc;
         }
     }

@@ -16,7 +16,6 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Routing;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
@@ -197,11 +196,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 
                              };
 
-            controller.ControllerContext = new ControllerContext
-                                               {
-                                                   Controller = controller,
-                                                   RequestContext = new RequestContext(new MockHttpContext(), new RouteData())
-                                               };
+            TestHelpers.MockBasicRequest(controller);
         }
     }
 }

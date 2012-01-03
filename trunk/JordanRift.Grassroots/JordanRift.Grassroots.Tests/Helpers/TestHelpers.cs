@@ -55,6 +55,15 @@ namespace JordanRift.Grassroots.Tests.Helpers
             return form;
         }
 
+        public static void MockBasicRequest(Controller controller)
+        {
+            var context = MockRepository.GenerateStub<HttpContextBase>();
+            var request = MockRepository.GenerateStub<HttpRequestBase>();
+            context.Stub(x => x.Request).Return(request);
+            context.User = new GenericPrincipal(new GenericIdentity("goodEmail"), null);
+            controller.ControllerContext = new ControllerContext(context, new RouteData(), controller);
+        }
+
         public static void MockHttpContext(Controller controller, MockRepository mocks, bool isAuthenticated = true, bool postFiles = false)
         {
             // Mocking http request so MVC UrlHelper class will function normally under test

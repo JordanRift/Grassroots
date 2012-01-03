@@ -16,10 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
@@ -446,7 +443,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.AreEqual(decimal.Parse(model.AmountString), campaign.GoalAmount);
         }
 
-        private CampaignController GetCampaignController(bool isAjaxRequest = false)
+        private CampaignController GetCampaignController()
         {
             var organizationRepository = new FakeOrganizationRepository();
             var organization = organizationRepository.GetDefaultOrganization(readOnly: false);
@@ -464,11 +461,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                               OrganizationRepository = organizationRepository
                           };
 
-            var context = MockRepository.GenerateStub<HttpContextBase>();
-            var request = MockRepository.GenerateStub<HttpRequestBase>();
-            context.Stub(x => x.Request).Return(request);
-            context.User = new GenericPrincipal(new GenericIdentity("goodEmail"), null);
-            c.ControllerContext = new ControllerContext(context, new RouteData(), c);
+            TestHelpers.MockBasicRequest(c);
             return c;
         }
     }
