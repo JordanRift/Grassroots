@@ -46,6 +46,7 @@ namespace JordanRift.Grassroots.Tests.Fakes
                 org.UserProfiles = new List<UserProfile>();
                 org.OrganizationSettings = new List<OrganizationSetting>();
                 org.Campaigns = new List<Campaign>();
+                org.CauseTemplates = new List<CauseTemplate>();
                 organizations.Add(org);
                 AddSettings(org);
             }

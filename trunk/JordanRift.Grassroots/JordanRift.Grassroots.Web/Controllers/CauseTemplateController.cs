@@ -104,12 +104,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 150, VaryByParam = "id;referenceNumber")]
         public ActionResult CauseDetails(int id = -1, string referenceNumber = "")
         {
-            bool isValid = true;
-
-            if (id == -1 || string.IsNullOrEmpty(referenceNumber))
-            {
-                isValid = false;
-            }
+            bool isValid = !(id == -1 || string.IsNullOrEmpty(referenceNumber));
 
             using (causeRepository)
             {

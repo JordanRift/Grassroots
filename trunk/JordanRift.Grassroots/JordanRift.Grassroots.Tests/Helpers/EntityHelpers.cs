@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
@@ -22,6 +23,13 @@ namespace JordanRift.Grassroots.Tests.Helpers
 {
     public static class EntityHelpers
     {
+        private static Random random;
+
+        static EntityHelpers()
+        {
+            random = new Random();
+        }
+
 		public static CauseTemplate GetValidCauseTemplate()
 		{
 		    return new CauseTemplate
@@ -211,6 +219,7 @@ namespace JordanRift.Grassroots.Tests.Helpers
                            ImagePath = "",
                            BeforeImagePath = "",
                            AfterImagePath = "",
+                           ReferenceNumber = random.Next().ToString(CultureInfo.InvariantCulture),
                            Campaigns = new List<Campaign>(),
                            CauseNotes = new List<CauseNote>(),
                            Recipients = new List<Recipient>()

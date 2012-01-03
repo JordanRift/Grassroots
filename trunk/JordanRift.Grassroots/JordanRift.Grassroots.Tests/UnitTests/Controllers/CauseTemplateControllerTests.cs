@@ -14,10 +14,7 @@
 //
 
 using System.Collections.Generic;
-using System.Security.Principal;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using AutoMapper;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
@@ -38,13 +35,11 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         private IOrganizationRepository organizationRepository;
         private ICauseRepository causeRepository;
         private Organization organization;
-        private MockRepository mocks;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
-            controller = GetController();
+            SetUpController();
             Mapper.CreateMap<CauseTemplate, CauseTemplateDetailsModel>();
         }
 
@@ -52,8 +47,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void TearDown()
         {
             FakeCauseTemplateRepository.Reset();
+            FakeCauseRepository.Reset();
+            FakeOrganizationRepository.Reset();
             controller = null;
-            mocks = null;
         }
 
         [Test]
@@ -122,8 +118,13 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void CauseDetails_Should_Return_View_If_Cause_Found()
         {
-            var result = controller.CauseDetails(1, "abc");
-            Assert.IsInstanceOf(typeof(ViewResult), result);
+            var causeTemplate = EntityHelpers.GetValidCauseTemplate();
+            causeTemplateRepository.Add(causeTemplate);
+            var cause = EntityHelpers.GetValidCause();
+            cause.CauseTemplateID = causeTemplate.CauseTemplateID;
+            causeRepository.Add(cause);
+            var result = controller.CauseDetails(causeTemplate.CauseTemplateID, cause.ReferenceNumber);
+            Assert.IsInstanceOf<ViewResult>( result);
         }
 
         [Test]
@@ -195,6 +196,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Update_Should_Return_Redirect_If_Successful()
         {
+            TestHelpers.MockFilePost(controller);
             var causeTemplate = EntityHelpers.GetValidCauseTemplate();
             causeTemplateRepository.Add(causeTemplate);
             var model = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
@@ -207,7 +209,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Destory_Should_return_Json_If_Ajax_Delete_Successful()
         {
-            controller = GetController(isAjaxTest: true);
+            //controller = GetController(isAjaxTest: true);
             controller.Request.Stub(x => x["X-Requested-With"]).Return("XMLHttpRequest");
             var causeTemplate = EntityHelpers.GetValidCauseTemplate();
             causeTemplateRepository.Add(causeTemplate);
@@ -218,7 +220,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Destroy_Should_Return_Redirect_If_Delete_Successful()
         {
-            controller = GetController(isAjaxTest: true);
+            //controller = GetController(isAjaxTest: true);
             var causeTemplate = EntityHelpers.GetValidCauseTemplate();
             causeTemplateRepository.Add(causeTemplate);
             var result = controller.Destroy(causeTemplate.CauseTemplateID);
@@ -228,7 +230,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Destroy_Should_Remove_CauseTemplate_If_Found()
         {
-            controller = GetController(isAjaxTest: true);
+            //controller = GetController(isAjaxTest: true);
             var causeTemplate = EntityHelpers.GetValidCauseTemplate();
             causeTemplateRepository.Add(causeTemplate);
             var id = causeTemplate.CauseTemplateID;
@@ -250,31 +252,20 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         /// * What if 3 of 3 fails
         /// * etc...
         
-        private CauseTemplateController GetController(bool isAuthenticated = false, bool postFiles = true, bool isAjaxTest = false)
+        private void SetUpController()
         {
             organizationRepository = new FakeOrganizationRepository();
             causeTemplateRepository = new FakeCauseTemplateRepository();
-            
-            causeRepository = mocks.DynamicMock<ICauseRepository>();
-            Expect.Call(causeRepository.GetCauseByCauseTemplateIdAndReferenceNumber(-1, "")).IgnoreArguments()
-                .Return(EntityHelpers.GetValidCause());
+            causeRepository = new FakeCauseRepository();
+            controller = new CauseTemplateController(causeTemplateRepository, causeRepository)
+                             {
+                                 OrganizationRepository = organizationRepository
+                             };
 
-            var causeTemplateController = new CauseTemplateController(causeTemplateRepository, causeRepository);
+            TestHelpers.MockBasicRequest(controller);
+
             organization = organizationRepository.GetDefaultOrganization();
-            organization.CauseTemplates = new List<CauseTemplate> { EntityHelpers.GetValidCauseTemplate() };
-
-            if (isAjaxTest)
-            {
-                var context = MockRepository.GenerateStub<HttpContextBase>();
-                var request = MockRepository.GenerateStub<HttpRequestBase>();
-                context.Stub(x => x.Request).Return(request);
-                context.User = new GenericPrincipal(new GenericIdentity("goodEmail"), null);
-                causeTemplateController.ControllerContext = new ControllerContext(context, new RouteData(), causeTemplateController);
-                return causeTemplateController;
-            }
-
-            TestHelpers.MockHttpContext(causeTemplateController, mocks, isAuthenticated, postFiles);
-            return causeTemplateController;
+            organization.CauseTemplates.Add(EntityHelpers.GetValidCauseTemplate());
         }
     }
 }

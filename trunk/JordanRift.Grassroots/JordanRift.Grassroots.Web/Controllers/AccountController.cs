@@ -441,6 +441,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         private AuthorizeModel MapAuthorizeModel(UserProfile userProfile, Organization organization, string returnUrl = "")
         {
+            var url = Url.ToPublicUrl(Url.Action("Activate", "Account", new { hash = userProfile.ActivationHash, redirect = returnUrl }));
             return new AuthorizeModel
                        {
                            Email = userProfile.Email,
@@ -448,7 +449,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                            LastName = userProfile.LastName,
                            SenderEmail = organization.ContactEmail,
                            SenderName = organization.Name,
-                           Url = Url.ToPublicUrl(Url.Action("Activate", "Account", new { hash = userProfile.ActivationHash, redirect = returnUrl }))
+                           Url = url
                        };
         }
     }

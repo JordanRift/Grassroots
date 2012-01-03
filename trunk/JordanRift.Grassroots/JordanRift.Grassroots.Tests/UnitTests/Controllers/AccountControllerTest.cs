@@ -42,13 +42,18 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void SetUp()
         {
             userProfile = null;
-            controller = GetAccountController();
+            mocks = new MockRepository();
+            SetUpController();
         }
 
         [TearDown]
         public void TearDown()
         {
             FakeUserProfileRepository.Reset();
+            FakeOrganizationRepository.Reset();
+            FakeUserRepository.Reset();
+            controller = null;
+            mocks = null;
         }
 
         [Test]
@@ -217,6 +222,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void RegisterUser_Returns_Redirect_On_Success()
         {
+            TestHelpers.MockBasicRequest(controller, mocks, false, true);
+            mocks.ReplayAll();
             RegisterModel model = new RegisterModel
                                       {
                                           Email = "goodEmail",
@@ -372,7 +379,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void AwaitingActivation_Returns_Redirect_When_User_Is_Logged_In()
         {
-            TestHelpers.MockHttpContext(controller, mocks, isAuthenticated: true);
+            //TestHelpers.MockHttpContext(controller, mocks, isAuthenticated: true);
             userProfile = EntityHelpers.GetValidUserProfile();
             userProfile.Email = "goodEmail";
             userProfileRepository.Add(userProfile);
@@ -443,16 +450,16 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.AreEqual("Looks like your activation request may have expired. Complete the form below to try again.", message);
         }
         
-        private AccountController GetAccountController()
+        private void SetUpController()
         {
             var fakeOrganizationRepository = new FakeOrganizationRepository();
             userProfileRepository = new FakeUserProfileRepository();
             campaignDonorRepository = new FakeCampaignDonorRepository();
 
-            mocks = new MockRepository();
+            //var mocks = new MockRepository();
             var fakeEmailService = mocks.DynamicMock<IAccountMailer>();
             MailerBase.IsTestModeEnabled = true;
-            AccountController c = new AccountController(userProfileRepository, fakeEmailService, campaignDonorRepository)
+            controller = new AccountController(userProfileRepository, fakeEmailService, campaignDonorRepository)
                                                {
                                                    FormsService = new MockFormsAuthenticationService(),
                                                    MembershipService = new MockMembershipService(),
@@ -460,8 +467,10 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                                                };
 
             
-            TestHelpers.MockHttpContext(c, mocks, postFiles: false);
-            return c;
+            TestHelpers.MockBasicRequest(controller, mocks);
+
+            //TestHelpers.MockHttpContext(c, mocks, postFiles: false);
+            //return c;
         }
     }
 }
