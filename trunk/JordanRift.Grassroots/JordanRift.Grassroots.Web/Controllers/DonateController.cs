@@ -319,7 +319,8 @@ namespace JordanRift.Grassroots.Web.Controllers
                                         Email = model.Email,
                                         PrimaryPhone = model.PrimaryPhone,
                                         Approved = model.Approved,
-                                        IsAnonymous = model.IsAnonymous
+                                        IsAnonymous = model.IsAnonymous,
+                                        DisplayName = model.DisplayName
                                     };
 
                 var campaign = campaignRepository.GetCampaignByID(model.CampaignID);

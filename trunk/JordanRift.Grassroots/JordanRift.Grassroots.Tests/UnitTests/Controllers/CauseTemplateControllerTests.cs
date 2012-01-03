@@ -52,6 +52,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void TearDown()
         {
             FakeCauseTemplateRepository.Reset();
+            controller = null;
+            mocks = null;
         }
 
         [Test]
