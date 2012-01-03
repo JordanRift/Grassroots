@@ -14,14 +14,34 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
+using JordanRift.Grassroots.Framework.Entities.Validation;
 
 namespace JordanRift.Grassroots.Web.Models
 {
-    public class UserProfileAdminModel
+    public class UserProfileAdminModel : IUserProfileValidation
     {
         public int UserProfileID { get; set; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string AddressLine1 { get; set; }
+        public string AddressLine2 { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string ZipCode { get; set; }
+        public string PrimaryPhone { get; set; }
+        public DateTime Birthdate { get; set; }
+        public string Gender { get; set; }
+        
+        [Display(Name = "User has given consent to our terms?")]
+        public bool Consent { get; set; }
+
+        [Display(Name = "Account is active?")]
+        public bool Active { get; set; }
+
+        [Display(Name = "User has activated their account?")]
+        public bool IsActivated { get; set; }
     }
 }

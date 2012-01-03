@@ -38,7 +38,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
     public class UserProfileControllerTests
     {
         private UserProfileController controller;
-        private IUserProfileRepository repository;
+        private IUserProfileRepository userProfileRepository;
+        private ICampaignDonorRepository campaignDonorRepository;
         private MockRepository mocks;
         private UserProfile userProfile;
 
@@ -46,10 +47,10 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void SetUp()
         {
             userProfile = EntityHelpers.GetValidUserProfile();
-            repository = new FakeUserProfileRepository();
-            repository.Add(userProfile);
+            userProfileRepository = new FakeUserProfileRepository();
+            userProfileRepository.Add(userProfile);
             mocks = new MockRepository();
-            controller = GetUserProfileController(userProfile.UserProfileID);
+            controller = GetUserProfileController();
             Mapper.CreateMap<UserProfile, UserProfileDetailsModel>();
             Mapper.CreateMap<UserProfile, UserProfileAdminModel>();
         }
@@ -59,6 +60,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             FakeUserProfileRepository.Reset();
             FakeCauseRepository.Reset();
+            FakeCampaignDonorRepository.Reset();
+            controller = null;
+            mocks = null;
         }
 
         [Test]
@@ -80,7 +84,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void Edit_Should_Return_View_When_UserProfile_Found()
         {
-            repository.Add(new UserProfile { Email = "goodEmail" });
+            userProfileRepository.Add(new UserProfile { Email = "goodEmail" });
             var result = controller.Edit();
             Assert.IsInstanceOf(typeof(ViewResult), result);
         }
@@ -205,7 +209,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void Map_Should_Update_State()
         {
             userProfile.Email = "goodEmail";
-            repository.Add(userProfile);
+            userProfileRepository.Add(userProfile);
             var viewModel = Mapper.Map<UserProfile, UserProfileDetailsModel>(userProfile);
             viewModel.State = "Alabama";
             controller.Update(viewModel);
@@ -327,7 +331,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void Admin_Should_Return_View_If_UserProfile_Found()
         {
             userProfile = EntityHelpers.GetValidUserProfile();
-            repository.Add(userProfile);
+            userProfileRepository.Add(userProfile);
             var result = controller.Admin(userProfile.UserProfileID);
             Assert.IsInstanceOf<ViewResult>(result);
         }
@@ -344,7 +348,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             controller.Request.Stub(x => x["X-Requested-With"]).Return("XMLHttpRequest");
             userProfile = EntityHelpers.GetValidUserProfile();
-            repository.Add(userProfile);
+            userProfileRepository.Add(userProfile);
             var result = controller.Destroy(userProfile.UserProfileID);
             Assert.IsInstanceOf<JsonResult>(result);
         }
@@ -353,7 +357,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void Destroy_Should_Return_Redirect_If_Delete_Successful()
         {
             userProfile = EntityHelpers.GetValidUserProfile();
-            repository.Add(userProfile);
+            userProfileRepository.Add(userProfile);
             var result = controller.Destroy(userProfile.UserProfileID);
             Assert.IsInstanceOf<RedirectToRouteResult>(result);
         }
@@ -362,10 +366,10 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void Destroy_Should_Remove_UserProfile_If_Found()
         {
             userProfile = EntityHelpers.GetValidUserProfile();
-            repository.Add(userProfile);
+            userProfileRepository.Add(userProfile);
             var id = userProfile.UserProfileID;
             controller.Destroy(id);
-            userProfile = repository.GetUserProfileByID(id);
+            userProfile = userProfileRepository.GetUserProfileByID(id);
             Assert.IsNull(userProfile);
         }
 
@@ -380,7 +384,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void AdminUpdate_Should_Redirect_To_List_If_Successful()
         {
             userProfile = EntityHelpers.GetValidUserProfile();
-            repository.Add(userProfile);
+            userProfileRepository.Add(userProfile);
             var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
             var result = controller.AdminUpdate(model);
             Assert.IsInstanceOf<RedirectToRouteResult>(result);
@@ -401,7 +405,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void AdminUpdate_Should_Redirect_To_Admin_If_ModelState_Not_Valid()
         {
             userProfile = EntityHelpers.GetValidUserProfile();
-            repository.Add(userProfile);
+            userProfileRepository.Add(userProfile);
             controller.ModelState.AddModelError("", "Oops");
             var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
             var result = controller.AdminUpdate(model);
@@ -409,18 +413,127 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var redirect = result as RedirectToRouteResult;
             Assert.AreEqual("Admin", redirect.RouteValues["Action"]);
         }
+        
+        [Test]
+        public void AdminUpdate_Should_Update_UserProfile_Properties_When_Successfuil()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfileRepository.Add(userProfile);
+            var id = userProfile.UserProfileID;
+            var model = new UserProfileAdminModel
+                            {
+                                UserProfileID = id,
+                                FirstName = "some",
+                                LastName = "guy",
+                                Email = "some-email@gmail.com",
+                                AddressLine1 = "asdf",
+                                AddressLine2 = "asdf",
+                                City = "asdf",
+                                State = "az",
+                                ZipCode = "85310",
+                                PrimaryPhone = "(602) 555-8593",
+                                Birthdate = DateTime.Now,
+                                Gender = "male",
+                                Consent = false,
+                                IsActivated = false,
+                                Active = false
+                            };
 
-        private UserProfileController GetUserProfileController(int userProfileID = -1)
+            controller.AdminUpdate(model);
+            userProfile = userProfileRepository.GetUserProfileByID(id);
+            Assert.AreEqual(model.FirstName, userProfile.FirstName);
+            Assert.AreEqual(model.LastName, userProfile.LastName);
+            Assert.AreEqual(model.Email, userProfile.Email);
+            Assert.AreEqual(model.AddressLine1, userProfile.AddressLine1);
+            Assert.AreEqual(model.AddressLine2, userProfile.AddressLine2);
+            Assert.AreEqual(model.City, userProfile.City);
+            Assert.AreEqual(model.State, userProfile.State);
+            Assert.AreEqual(model.ZipCode, userProfile.ZipCode);
+            Assert.AreEqual(model.PrimaryPhone, userProfile.PrimaryPhone);
+            Assert.AreEqual(model.Birthdate, userProfile.Birthdate);
+            Assert.AreEqual(model.Gender, userProfile.Gender);
+            Assert.AreEqual(model.Consent, userProfile.Consent);
+            Assert.AreEqual(model.IsActivated, userProfile.IsActivated);
+            Assert.AreEqual(model.Active, userProfile.Active);
+        }
+
+        [Test]
+        public void New_Should_Return_View()
+        {
+            var result = controller.New();
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public void New_Should_Return_Populated_View_When_Model_In_TempData()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+            controller.TempData["UserProfileAdminModel"] = model;
+            var result = controller.New();
+            var viewModel = (result as ViewResult).Model as UserProfileAdminModel;
+            Assert.AreEqual(model.FirstName, viewModel.FirstName);
+        }
+
+        [Test]
+        public void Create_Should_Redirect_To_Admin_When_Successful()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+            var result = controller.Create(model);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var redirect = result as RedirectToRouteResult;
+            Assert.AreEqual("Admin", redirect.RouteValues["Action"]);
+        }
+
+        [Test]
+        public void Create_Should_Redirect_To_New_When_ModelState_Is_Invalid()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+            controller.ModelState.AddModelError("", "Uh oh");
+            var result = controller.Create(model);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var redirect = result as RedirectToRouteResult;
+            Assert.AreEqual("New", redirect.RouteValues["Action"]);
+        }
+
+        [Test]
+        public void Create_Should_Add_Model_To_Repository_When_Successful()
+        {
+            const string email = "some-unique-email@gmail.com";
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = email;
+            var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+            controller.Create(model);
+            userProfile = userProfileRepository.FindUserProfileByEmail(email).FirstOrDefault();
+            Assert.IsNotNull(userProfile);
+        }
+
+        [Test]
+        public void Create_Should_Associate_UserProfile_With_Existing_CampaignDonors_If_Emails_Match()
+        {
+            const string email = "some-unique-email@gmail.com";
+            var donation = EntityHelpers.GetValidCampaignDonor();
+            donation.Email = email;
+            campaignDonorRepository.Add(donation);
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = email;
+            var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+            controller.Create(model);
+            userProfile = userProfileRepository.FindUserProfileByEmail(email).FirstOrDefault();
+            donation = userProfile.CampaignDonors.FirstOrDefault();
+            Assert.IsNotNull(donation);
+        }
+
+        private UserProfileController GetUserProfileController()
         {
             var causeRepository = new FakeCauseRepository();
-            //Expect.Call(causeRepository.FindCausesByUserProfileID(userProfileID)).Return(new List<Cause>().AsQueryable());
-            
+            campaignDonorRepository = new FakeCampaignDonorRepository();
             var mailer = mocks.DynamicMock<IUserProfileMailer>();
-            //mocks.ReplayAll();
 
             MailerBase.IsTestModeEnabled = true;
-            var upc = new UserProfileController(repository, causeRepository, mailer);
-            //TestHelpers.MockHttpContext(upc, mocks);
+            var upc = new UserProfileController(userProfileRepository, causeRepository, campaignDonorRepository, mailer);
             var context = MockRepository.GenerateStub<HttpContextBase>();
             var request = MockRepository.GenerateStub<HttpRequestBase>();
             context.Stub(x => x.Request).Return(request);

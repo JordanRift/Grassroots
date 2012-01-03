@@ -33,12 +33,15 @@ namespace JordanRift.Grassroots.Web.Controllers
 	    private const string ADMIN_ROLES = "Root,Administrator";
 		private readonly IUserProfileRepository userProfileRepository;
 		private readonly ICauseRepository causeRepository;
+	    private readonly ICampaignDonorRepository campaignDonorRepository;
 		private readonly IUserProfileMailer mailer;
 
-        public UserProfileController(IUserProfileRepository userProfileRepository, ICauseRepository causeRepository, IUserProfileMailer mailer)
+        public UserProfileController(IUserProfileRepository userProfileRepository, ICauseRepository causeRepository, 
+            ICampaignDonorRepository campaignDonorRepository, IUserProfileMailer mailer)
 		{
 			this.userProfileRepository = userProfileRepository;
             this.causeRepository = causeRepository;
+            this.campaignDonorRepository = campaignDonorRepository;
 			this.mailer = mailer;
 			Mapper.CreateMap<UserProfile, UserProfileDetailsModel>();
 			Mapper.CreateMap<Campaign, CampaignDetailsModel>();
@@ -386,6 +389,73 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult New()
+        {
+            if (TempData["ModelErrors"] != null)
+            {
+                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+            }
+
+            var model = TempData["UserProfileAdminModel"] as UserProfileAdminModel ?? new UserProfileAdminModel();
+            return View(model);
+        }
+
+        [Authorize(Roles = ADMIN_ROLES)]
+        [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "AdminCreateUserProfile")]
+        public ActionResult Create(UserProfileAdminModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["ModelErrors"] = FindModelErrors();
+                TempData["UserProfileAdminModel"] = model;
+                return RedirectToAction("New");
+            }
+
+            UserProfile userProfile;
+
+            using (new UnitOfWorkScope())
+            {
+                userProfile = new UserProfile
+                                  {
+                                      FirstName = model.FirstName,
+                                      LastName = model.LastName,
+                                      AddressLine1 = model.AddressLine1,
+                                      AddressLine2 = model.AddressLine2,
+                                      City = model.City,
+                                      State = model.State,
+                                      ZipCode = model.ZipCode,
+                                      Email = model.Email,
+                                      PrimaryPhone = model.PrimaryPhone,
+                                      Birthdate = model.Birthdate,
+                                      Gender = model.Gender,
+                                      Consent = model.Consent,
+                                      Active = model.Active,
+                                      IsActivated = model.IsActivated
+                                  };
+
+                userProfile.CampaignDonors = new List<CampaignDonor>();
+                userProfileRepository.Add(userProfile);
+                var donations = campaignDonorRepository.FindDonationsByEmail(userProfile.Email);
+
+                foreach (var donation in donations)
+                {
+                    userProfile.CampaignDonors.Add(donation);
+                }
+
+                userProfileRepository.Save();
+            }
+
+            TempData["UserFeedback"] = string.Format("{0}'s profile has been created successfully.", userProfile.FullName);
+            return RedirectToAction("Admin", new { id = userProfile.UserProfileID });
+        }
+
+        [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult Admin(int id = -1)
         {
             UserProfileAdminModel model;
@@ -431,12 +501,20 @@ namespace JordanRift.Grassroots.Web.Controllers
                 return RedirectToAction("Admin");
             }
 
-            var userProfile = userProfileRepository.GetUserProfileByID(model.UserProfileID);
-
-            if (userProfile == null)
+            using (userProfileRepository)
             {
-                return HttpNotFound("The person you are looking for could not be found.");
+                var userProfile = userProfileRepository.GetUserProfileByID(model.UserProfileID);
+
+                if (userProfile == null)
+                {
+                    return HttpNotFound("The person you are looking for could not be found.");
+                }
+
+                MapUserProfileAdmin(model, userProfile);
+                userProfileRepository.Save();
+                TempData["UserFeedback"] = string.Format("{0}'s profile has been saved.", userProfile.FullName);
             }
+            
 
             return RedirectToAction("List");
         }
@@ -465,6 +543,24 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             // TODO: Consider adding message to inform user of successful delete.
             return RedirectToAction("List");
+        }
+
+        private static void MapUserProfileAdmin(UserProfileAdminModel model, UserProfile userProfile)
+        {
+            userProfile.FirstName = model.FirstName;
+            userProfile.LastName = model.LastName;
+            userProfile.AddressLine1 = model.AddressLine1;
+            userProfile.AddressLine2 = model.AddressLine2;
+            userProfile.City = model.City;
+            userProfile.State = model.State;
+            userProfile.ZipCode = model.ZipCode;
+            userProfile.Email = model.Email;
+            userProfile.PrimaryPhone = model.PrimaryPhone;
+            userProfile.Birthdate = model.Birthdate;
+            userProfile.Gender = model.Gender;
+            userProfile.Consent = model.Consent;
+            userProfile.Active = model.Active;
+            userProfile.IsActivated = model.IsActivated;
         }
 
 #endregion

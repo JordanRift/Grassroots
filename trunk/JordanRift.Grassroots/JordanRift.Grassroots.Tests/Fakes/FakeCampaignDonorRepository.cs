@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -73,6 +74,12 @@ namespace JordanRift.Grassroots.Tests.Fakes
         public IQueryable<CampaignDonor> FindApprovedDonations()
         {
             return donors.Where(d => d.Approved).AsQueryable();
+        }
+
+        public IQueryable<CampaignDonor> FindDonationsByEmail(string email)
+        {
+            return donors.Where(d => string.Equals(d.Email, email, StringComparison.InvariantCultureIgnoreCase)).
+                    AsQueryable();
         }
 
         public CampaignDonor GetDonationByID(int id)

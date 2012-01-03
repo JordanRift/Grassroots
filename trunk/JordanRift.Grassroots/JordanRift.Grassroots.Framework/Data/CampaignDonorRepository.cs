@@ -39,6 +39,13 @@ namespace JordanRift.Grassroots.Framework.Data
             return ObjectContext.CampaignDonors.Where(d => d.Approved);
         }
 
+        public IQueryable<CampaignDonor> FindDonationsByEmail(string email)
+        {
+            return
+                ObjectContext.CampaignDonors.Where(
+                    d => string.Equals(d.Email, email, StringComparison.InvariantCultureIgnoreCase));
+        }
+
         public CampaignDonor GetDonationByID(int id)
         {
             return ObjectContext.CampaignDonors.FirstOrDefault(d => d.CampaignDonorID == id);
