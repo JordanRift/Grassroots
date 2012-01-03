@@ -13,7 +13,6 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -37,9 +36,9 @@ namespace JordanRift.Grassroots.Tests.Fakes
         private static void SetUp()
         {
             roles = new List<Role>();
-            roles.Add(new Role() { RoleID = 0, Description = "Super Admin", Name = "Root" });
+            roles.Add(new Role() { RoleID = 1, Description = "Super Admin", Name = "Root" });
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 1; i < 5; i++)
             {
                 roles.Add(new Role
                 {

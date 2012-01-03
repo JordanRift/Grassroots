@@ -58,6 +58,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             FakeUserProfileRepository.Reset();
             FakeCauseRepository.Reset();
             FakeCampaignDonorRepository.Reset();
+            FakeOrganizationRepository.Reset();
             controller = null;
             mocks = null;
         }
@@ -530,7 +531,11 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var mailer = mocks.DynamicMock<IUserProfileMailer>();
 
             MailerBase.IsTestModeEnabled = true;
-            var upc = new UserProfileController(userProfileRepository, causeRepository, campaignDonorRepository, mailer);
+            var upc = new UserProfileController(userProfileRepository, causeRepository, campaignDonorRepository, mailer)
+                          {
+                              OrganizationRepository = new FakeOrganizationRepository()
+                          };
+
             TestHelpers.MockBasicRequest(upc);
             return upc;
         }

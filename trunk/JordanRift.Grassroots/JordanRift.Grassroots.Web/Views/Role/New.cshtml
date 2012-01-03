@@ -1,0 +1,12 @@
+﻿@model JordanRift.Grassroots.Web.Models.RoleAdminModel
+
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+
+@using (Html.BeginForm("Update", "Role"))
+{
+    @Html.AntiForgeryToken(salt: "AdminCreateRole")
+}

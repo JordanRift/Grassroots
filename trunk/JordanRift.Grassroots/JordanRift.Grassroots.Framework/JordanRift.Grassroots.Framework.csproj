@@ -122,6 +122,7 @@
     <Compile Include="Entities\Models\Region.cs" />
     <Compile Include="Entities\Tweet.cs" />
     <Compile Include="Entities\Validation\ICauseNoteValidation.cs" />
+    <Compile Include="Entities\Validation\IRoleValidation.cs" />
     <Compile Include="Entities\Validation\NotEqualToAttribute.cs" />
     <Compile Include="Helpers\CacheFactory.cs" />
     <Compile Include="Helpers\ElmahHandleErrorAttribute.cs" />

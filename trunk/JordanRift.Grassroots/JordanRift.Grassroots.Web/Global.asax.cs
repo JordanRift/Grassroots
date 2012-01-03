@@ -157,6 +157,24 @@ namespace JordanRift.Grassroots
                 new { controller = "Donate", action = "List", id = UrlParameter.Optional }
             );
 
+		    routes.MapRoute(
+                "AdminUpdateUserProfile", 
+                "Admin/UserProfiles/Update", 
+                new { controller = "UserProfile", action = "AdminUpdate" }
+            );
+
+		    routes.MapRoute(
+                "AdminUserProfiles", 
+                "Admin/UserProfiles/{action}/{id}", 
+                new { controller = "UserProfile", action = "List", id = UrlParameter.Optional }
+            );
+
+		    routes.MapRoute(
+                "AdminRoles", 
+                "Admin/Roles/{action}/{id}", 
+                new { controller = "Role", action = "List", id = UrlParameter.Optional }
+            );
+
             routes.MapRoute(
                 "AdminMethods",
                 "Admin/{action}/{id}",

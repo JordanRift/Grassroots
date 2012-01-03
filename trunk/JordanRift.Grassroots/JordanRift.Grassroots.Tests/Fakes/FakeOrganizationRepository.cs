@@ -42,6 +42,10 @@ namespace JordanRift.Grassroots.Tests.Fakes
             {
                 var org = EntityHelpers.GetValidOrganization();
                 org.OrganizationID = i + 1;
+                org.Roles = new List<Role>();
+                org.UserProfiles = new List<UserProfile>();
+                org.OrganizationSettings = new List<OrganizationSetting>();
+                org.Campaigns = new List<Campaign>();
                 organizations.Add(org);
                 AddSettings(org);
             }
