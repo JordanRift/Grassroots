@@ -86,7 +86,6 @@ namespace JordanRift.Grassroots.Web.Controllers
                                };
 
                 organization.Roles.Add(role);
-                roleRepository.Add(role);
                 roleRepository.Save();
                 TempData["UserFeedback"] = string.Format("'{0}' was created successfully", role.Name);
                 return RedirectToAction("Admin", new { id = role.RoleID });

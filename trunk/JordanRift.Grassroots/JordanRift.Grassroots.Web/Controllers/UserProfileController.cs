@@ -442,7 +442,6 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 userProfile.CampaignDonors = new List<CampaignDonor>();
                 organization.UserProfiles.Add(userProfile);
-                userProfileRepository.Add(userProfile);
                 var donations = campaignDonorRepository.FindDonationsByEmail(userProfile.Email);
 
                 foreach (var donation in donations)

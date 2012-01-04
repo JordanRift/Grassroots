@@ -294,13 +294,13 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
-        public void Create_Should_Add_Model_To_Repository_When_Successful()
+        public void Create_Should_Add_Model_To_Organization_When_Successful()
         {
-            FakeRoleRepository.Clear();
             var role = EntityHelpers.GetValidRole();
             var model = Mapper.Map<Role, RoleAdminModel>(role);
             controller.Create(model);
-            role = roleRepository.FindAllRoles().FirstOrDefault();
+            var organization = organizationRepository.GetDefaultOrganization();
+            role = organization.Roles.FirstOrDefault();
             Assert.IsNotNull(role);
         }
 

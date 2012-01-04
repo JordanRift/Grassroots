@@ -37,6 +37,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         private UserProfileController controller;
         private IUserProfileRepository userProfileRepository;
         private ICampaignDonorRepository campaignDonorRepository;
+        private IOrganizationRepository organizationRepository;
         private MockRepository mocks;
         private UserProfile userProfile;
 
@@ -45,6 +46,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             userProfile = EntityHelpers.GetValidUserProfile();
             userProfileRepository = new FakeUserProfileRepository();
+            organizationRepository = new FakeOrganizationRepository();
             userProfileRepository.Add(userProfile);
             mocks = new MockRepository();
             controller = GetUserProfileController();
@@ -504,7 +506,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             userProfile.Email = email;
             var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
             controller.Create(model);
-            userProfile = userProfileRepository.FindUserProfileByEmail(email).FirstOrDefault();
+            var organization = organizationRepository.GetDefaultOrganization();
+            userProfile = organization.UserProfiles.FirstOrDefault();
             Assert.IsNotNull(userProfile);
         }
 
@@ -519,7 +522,8 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             userProfile.Email = email;
             var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
             controller.Create(model);
-            userProfile = userProfileRepository.FindUserProfileByEmail(email).FirstOrDefault();
+            var organization = organizationRepository.GetDefaultOrganization();
+            userProfile = organization.UserProfiles.FirstOrDefault();
             donation = userProfile.CampaignDonors.FirstOrDefault();
             Assert.IsNotNull(donation);
         }
