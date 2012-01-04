@@ -106,10 +106,13 @@ namespace JordanRift.Grassroots.Web.Controllers
                 using (new UnitOfWorkScope())
                 {
                     var campaign = campaignRepository.GetCampaignByUrlSlug(slug);
+                    var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
 
                     if (campaign == null)
                     {
                         campaign = campaignRepository.GetDefaultCampaign();
+                        model.Notes = string.Format("Donation to {0} should be applied to general fund.",
+                                                    organization.Name);
                     }
                     else if (!campaign.IsActive)
                     {
@@ -119,8 +122,8 @@ namespace JordanRift.Grassroots.Web.Controllers
                     else  // We know it's OK to process campaign donation. Add campaign info to Payment to pass through to payment gateway for reconciliation.
                     {
                         var userProfile = campaign.UserProfile;
-                        model.Notes = string.Format("Apply payment to {0} Campaign owned by {1} {2}", campaign.Title,
-                                                    userProfile.FirstName, userProfile.LastName);
+                        model.Notes = string.Format("Donation to {0} should be applied to {1} campaign owned by {2}",
+                                                    organization.Name, campaign.Title, userProfile.FullName);
                     }
 
                     var provider = GetPaymentProvider();

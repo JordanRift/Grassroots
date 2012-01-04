@@ -182,6 +182,42 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
+        public void ProcessDonation_Should_Append_Organization_Name_To_Payment_Note_When_UrlSlug_Present()
+        {
+            var payment = EntityHelpers.GetValidCCPayment();
+            var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            var organization = EntityHelpers.GetValidOrganization();
+            campaign.UserProfile = userProfile;
+            campaign.UrlSlug = "goodCampaign";
+            campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = organization;
+            campaignRepository.Add(campaign);
+            SetUpPaymentResponse(payment);
+            mocks.ReplayAll();
+            controller.ProcessDonation(payment, campaign.UrlSlug);
+            Assert.IsTrue(payment.Notes.Contains(organization.Name));
+        }
+
+        [Test]
+        public void ProcessDonatoin_Should_Append_Organization_Name_To_Payment_Notee_When_UrlSlug_Not_Present()
+        {
+            var payment = EntityHelpers.GetValidCCPayment();
+            var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            var organization = EntityHelpers.GetValidOrganization();
+            campaign.UserProfile = userProfile;
+            campaign.IsGeneralFund = true;
+            campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = organization;
+            campaignRepository.Add(campaign);
+            SetUpPaymentResponse(payment);
+            mocks.ReplayAll();
+            controller.ProcessDonation(payment);
+            Assert.IsTrue(payment.Notes.Contains(organization.Name));
+        }
+
+        [Test]
         public void ProcessDonation_Should_Redirect_To_ThankYou_When_Successful_And_User_Logged_In()
         {
             var payment = EntityHelpers.GetValidCCPayment();
@@ -253,6 +289,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var campaign = EntityHelpers.GetValidCampaign();
             campaign.Title = "General";
             campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = EntityHelpers.GetValidOrganization();
             campaignRepository.Add(campaign);
             SetUpPaymentResponse(payment, false);
             mocks.ReplayAll();
