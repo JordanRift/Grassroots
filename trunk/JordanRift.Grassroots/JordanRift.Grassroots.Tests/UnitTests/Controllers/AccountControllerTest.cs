@@ -14,6 +14,7 @@
 //
 
 using System;
+using System.Linq;
 using System.Web.Mvc;
 using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
@@ -137,6 +138,16 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
+        public void LogOn_Sets_LastLoginAttempt_In_TempData_When_Found_In_Model()
+        {
+            var model = new LogOnModel { LastLoginAttempt = DateTime.Now };
+            controller.TempData["LogOnModel"] = model;
+            controller.LogOn();
+            var lastLogin = controller.TempData["LastLogOnAttempt"];
+            Assert.IsNotNull(lastLogin);
+        }
+
+        [Test]
         public void AuthenticateUser_Returns_Redirect_On_Success_Without_ReturnUrl()
         {
             userProfile = EntityHelpers.GetValidUserProfile();
@@ -209,6 +220,66 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             ActionResult result = controller.AuthenticateUser(model, null);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             Assert.IsNotNull(controller.TempData["LogOnModel"]);
+        }
+
+        [Test]
+        public void AuthenticateUser_Returns_Redirect_If_MaxPasswordAttempts_Met()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "goodEmail";
+            var user = userProfile.Users.First();
+            user.FailedLoginAttempts = 3;
+            userProfileRepository.Add(userProfile);
+            var model = new LogOnModel { Email = "goodEmail", Password = "badPassword", RememberMe = false };
+            var result = controller.AuthenticateUser(model, null);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var redirect = result as RedirectToRouteResult;
+            Assert.AreEqual("LogOn", redirect.RouteValues["Action"]);
+        }
+
+        [Test]
+        public void AuthenticateUser_Returns_Redirect_If_MaxPasswordAttempts_Exceeded()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "goodEmail";
+            var user = userProfile.Users.First();
+            user.FailedLoginAttempts = 4;
+            userProfileRepository.Add(userProfile);
+            var model = new LogOnModel { Email = "goodEmail", Password = "badPassword", RememberMe = false };
+            controller.TempData["LastLogOnAttempt"] = DateTime.Now;
+            var result = controller.AuthenticateUser(model, null);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var redirect = result as RedirectToRouteResult;
+            Assert.AreEqual("LogOn", redirect.RouteValues["Action"]);
+            Assert.AreEqual(model.RemainingSeconds, user.FailedLoginAttempts);
+        }
+
+        [Test]
+        public void AuthenticateUser_Sets_Wait_Time_In_Model_If_MaxPasswordAttempts_Met()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "goodEmail";
+            var user = userProfile.Users.First();
+            user.FailedLoginAttempts = 3;
+            userProfileRepository.Add(userProfile);
+            var model = new LogOnModel { Email = "goodEmail", Password = "badPassword", RememberMe = false };
+            controller.AuthenticateUser(model, null);
+            model = controller.TempData["LogOnModel"] as LogOnModel;
+            Assert.Greater(model.RemainingSeconds, 0);
+        }
+
+        [Test]
+        public void AuthenticateUser_Sets_Last_Attempt_Date_In_Model_If_MaxPasswordAttempts_Met()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "goodEmail";
+            var user = userProfile.Users.First();
+            user.FailedLoginAttempts = 3;
+            userProfileRepository.Add(userProfile);
+            var model = new LogOnModel { Email = "goodEmail", Password = "badPassword", RememberMe = false };
+            controller.AuthenticateUser(model, null);
+            model = controller.TempData["LogOnModel"] as LogOnModel;
+            Assert.Greater(model.LastLoginAttempt, DateTime.MinValue);
         }
 
         [Test]

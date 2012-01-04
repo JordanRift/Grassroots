@@ -17,6 +17,10 @@
   opacity: 0;
   filter: alpha(opacity=0);
 }
+.disabled {
+  opacity: .3;
+  filter: alpha(opacity=3);
+}
 body {
   font-size: 14px;
   line-height: normal;

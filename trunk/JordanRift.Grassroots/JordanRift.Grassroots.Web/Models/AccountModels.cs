@@ -63,6 +63,9 @@ namespace JordanRift.Grassroots.Web.Models
 
         [DisplayName("Remember me?")]
         public bool RememberMe { get; set; }
+
+        public int RemainingSeconds { get; set; }
+        public DateTime LastLoginAttempt { get; set; }
     }
 
     [MetadataType(typeof(IUserProfileValidation))]
@@ -142,7 +145,7 @@ namespace JordanRift.Grassroots.Web.Models
     public interface IMembershipService
     {
         int MinPasswordLength { get; }
-
+        int MaxInvalidPasswordAttempts { get; }
         bool ValidateUser(string userName, string password);
         MembershipCreateStatus CreateUser(string userName, string password, string email);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
@@ -168,6 +171,11 @@ namespace JordanRift.Grassroots.Web.Models
             {
                 return _provider.MinRequiredPasswordLength;
             }
+        }
+
+        public int MaxInvalidPasswordAttempts
+        {
+            get { return _provider.MaxInvalidPasswordAttempts; }
         }
 
         public bool ValidateUser(string userName, string password)

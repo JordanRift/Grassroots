@@ -56,7 +56,32 @@
                         @Html.CheckBoxFor(m => m.RememberMe)
                         @Html.LabelFor(m => m.RememberMe)
                     </div>
-                
+                @if (Model.RemainingSeconds > 0)
+                {
+                    <p class="meta warning-message">You may try again in <span class="seconds">@Model.RemainingSeconds</span> seconds.</p>
+                    <script type="text/javascript">
+                        $(function () {
+                            var seconds = @Model.RemainingSeconds,
+                                $submit = $('input:submit'),
+                                timer;
+
+                            $submit.attr('disabled', 'disabled').addClass('disabled');
+                            timer = setInterval(function() {
+                                seconds -= 1;
+                                $('.warning-message .seconds').text(seconds);
+                                
+                                if (seconds === 0) {
+                                    clearInterval(timer);
+                                    $('.warning-message').slideUp('fast', function() {
+                                        $(this).remove();
+                                        $submit.removeAttr('disabled').removeClass('disabled');
+                                    });
+                                }
+                            }, 1000);
+                        })
+                    </script>
+                }
+                    
                     @Html.UiSubmit("Log On")
                 </div>
                 <ul class="account-maintenance">

@@ -85,6 +85,12 @@ namespace JordanRift.Grassroots.Web.Controllers
                 }
             }
 
+            // Use TempData to store the info for 1 request so it can't be manipulated on the client.
+            if (viewModel.LastLoginAttempt > DateTime.MinValue)
+            {
+                TempData["LastLogOnAttempt"] = viewModel.LastLoginAttempt;
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             return View(viewModel);
         }
@@ -93,42 +99,48 @@ namespace JordanRift.Grassroots.Web.Controllers
         [ValidateAntiForgeryToken(Salt = "AccountLogOn")]
         public ActionResult AuthenticateUser(LogOnModel model, string returnUrl = "")
         {
-            var url = returnUrl;
+            TempData["LogOnModel"] = model;
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                using (userProfileRepository)
-                {
-                    var userProfile = userProfileRepository.FindUserProfileByEmail(model.Email).FirstOrDefault();
-
-                    if (userProfile == null)
-                    {
-                        return RedirectToAction("Register", "Account", new { returnUrl = url });
-                    }
-
-                    if (!userProfile.IsActivated)
-                    {
-                        return RedirectToAction("AwaitingActivation", "Account", new { returnUrl = url });
-                    }
-                }
-
-                if (MembershipService.ValidateUser(model.Email, model.Password))
-                {
-                    FormsService.SignIn(model.Email, model.RememberMe);
-
-                    if (!string.IsNullOrEmpty(url))
-                    {
-                        return Redirect(url);
-                    }
-
-                    return RedirectToAction("Index", "UserProfile");
-                }
-
-                TempData["ModelErrors"] = new List<string> { "The username or password you provided are incorrect." };
+                TempData["ModelErrors"] = FindModelErrors();
+                return RedirectToAction("LogOn", new { returnUrl = returnUrl });
             }
 
-            TempData["LogOnModel"] = model;
-            return RedirectToAction("LogOn", new { returnUrl = url });
+            int failedLogins = 0;
+            using (userProfileRepository)
+            {
+                var userProfile = userProfileRepository.FindUserProfileByEmail(model.Email).FirstOrDefault();
+                var validationResult = ValidateLogon(userProfile, model, returnUrl, ref failedLogins);
+
+                if (validationResult != null)
+                {
+                    return validationResult;
+                }
+            }
+
+            if (MembershipService.ValidateUser(model.Email, model.Password))
+            {
+                FormsService.SignIn(model.Email, model.RememberMe);
+
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
+                return RedirectToAction("Index", "UserProfile");
+            }
+
+            failedLogins++;
+
+            if (failedLogins > MembershipService.MaxInvalidPasswordAttempts)
+            {
+                model.RemainingSeconds = CalculateSleepSeconds(failedLogins, MembershipService.MaxInvalidPasswordAttempts);
+                model.LastLoginAttempt = DateTime.Now;
+            }
+
+            TempData["ModelErrors"] = new List<string> { "The username or password you provided are incorrect." };
+            return RedirectToAction("LogOn", new { returnUrl = returnUrl });
         }
 
         public ActionResult LogOff()
@@ -415,6 +427,62 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             TempData["UserFeedback"] = "Looks like your activation request may have expired. Complete the form below to try again.";
             return RedirectToAction("AwaitingActivation", "Account");
+        }
+
+        private ActionResult ValidateLogon(UserProfile userProfile, LogOnModel model, string url, ref int failedLogins)
+        {
+            if (userProfile == null)
+            {
+                TempData["UserFeedback"] = "We couldn't find you in our system yet. Fill out the form below to create your profile.";
+                return RedirectToAction("Register", "Account", new { returnUrl = url });
+            }
+
+            if (!userProfile.IsActivated)
+            {
+                //TempData["UserFeedback"] = "Looks like you still need to activate your account. Please follow the instructions below.";
+                return RedirectToAction("AwaitingActivation", "Account", new { returnUrl = url });
+            }
+
+            User user = userProfile.Users.FirstOrDefault();
+
+            if (user != null)
+            {
+                failedLogins = user.FailedLoginAttempts;
+            }
+
+            if (failedLogins > MembershipService.MaxInvalidPasswordAttempts 
+                && TempData["LastLogOnAttempt"] != null)
+            {
+                var now = DateTime.Now;
+                var lastAttemptedOn = (DateTime) TempData["LastLogOnAttempt"];
+                var secondsToSleep = CalculateSleepSeconds(failedLogins, MembershipService.MaxInvalidPasswordAttempts);
+                var unlockOn = lastAttemptedOn.AddSeconds(secondsToSleep);
+
+                if (unlockOn > now)
+                {
+                    var elapsed = Convert.ToInt32((now - lastAttemptedOn).TotalSeconds);
+                    var remaining = secondsToSleep > elapsed ? secondsToSleep - elapsed : 0;
+                    model.RemainingSeconds = remaining;
+                    model.LastLoginAttempt = lastAttemptedOn;
+                    TempData["UserFeedback"] = string.Format("You still have {0} seconds left before you can try logging in again.", remaining);
+                    return RedirectToAction("LogOn");
+                }
+            }
+
+            return null;
+        }
+
+        public int CalculateSleepSeconds(int failedLogins, int maxPasswordAttempts)
+        {
+            // Throttle, as suggested by http://www.codinghorror.com/blog/2009/01/dictionary-attacks-101.html
+            if (failedLogins > maxPasswordAttempts)
+            {
+                // sleep an extra second up to a max of 30 seconds
+                int sleepFor = (failedLogins < 30) ? failedLogins : 30;
+                return sleepFor;
+            }
+
+            return 0;
         }
 
         private PasswordResetModel MapPasswordReset(UserProfile userProfile)

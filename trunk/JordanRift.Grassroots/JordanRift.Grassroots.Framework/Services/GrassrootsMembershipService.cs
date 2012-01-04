@@ -208,15 +208,6 @@ namespace JordanRift.Grassroots.Framework.Services
 
 			user.FailedLoginAttempts++;
 			userRepository.Save();
-
-			// Throttle, as suggested by http://www.codinghorror.com/blog/2009/01/dictionary-attacks-101.html
-			if ( user.FailedLoginAttempts > maxInvalidPasswordAttempts )
-			{
-				// sleep an extra second up to a max of 30 seconds
-				int sleepFor = ( user.FailedLoginAttempts < 30 ) ? user.FailedLoginAttempts * 1000 : 30000;
-				System.Threading.Thread.Sleep( sleepFor );
-			}
-
 			return false;
         }
 

@@ -13,7 +13,6 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Web.Security;
 using JordanRift.Grassroots.Web.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,6 +24,11 @@ namespace JordanRift.Grassroots.Tests.Fakes
         public int MinPasswordLength
         {
             get { return 10; }
+        }
+
+        public int MaxInvalidPasswordAttempts
+        {
+            get { return 3; }
         }
 
         public bool ValidateUser(string userName, string password)
