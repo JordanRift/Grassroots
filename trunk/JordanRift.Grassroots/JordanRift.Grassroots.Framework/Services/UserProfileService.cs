@@ -59,5 +59,10 @@ namespace JordanRift.Grassroots.Framework.Services
                 return result;
             }
         }
+
+        public bool IsFacebookAccountUnique(string facebookID, int id)
+        {
+            return false;
+        }
     }
 }
