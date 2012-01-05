@@ -47,19 +47,35 @@ facebookEvents.bind 'facebookLogin', ->
 # Load up their Facebook data and fire the Logged In event
 facebookEvents.bind 'facebookLoggingIn', (response) ->
 	Grassroots.Helpers.Authentication.config.accessToken = response.authResponse.accessToken
-	FB.api '/me', (res) -> facebookEvents.trigger 'facebookLoggedIn', res
+	FB.api '/me', (res) ->
+		# Set FacebookID in config to be validated on the server
+		Grassroots.Helpers.Authentication.config.facebookID = res.id
+		facebookEvents.trigger 'facebookLoggedIn', res
 
 # Attempts to log the user out of Facebook
 facebookEvents.bind 'facebookLogOut', -> if FB then FB.logout()
 
+# TODO: Check to make sure that the Facebook user's ID is not already in the database.
 # User is currently logged into Arena and Facebook. Attempt to stitch their Facebook account to their Arena account.
 facebookEvents.bind 'connectAccounts', (onSuccess = facebookEvents.defaults.onConnectSuccess, onError = facebookEvents.defaults.onError) ->
 	accessToken = Grassroots.Helpers.Authentication.config.accessToken
 	state = Grassroots.Helpers.Authentication.config.state
 	$.ajax
 		url: '/facebook/connect'
-		type: 'POST'
+		type: 'PUT'
 		data: "{'accessToken': '#{accessToken}', 'state': '#{state}'}"
+		contentType: 'application/json'
+		dataType: 'json'
+		success: onSuccess
+		error: onError
+
+# TODO: Wire up other events to fire this validation check and pass in their own success callbacks to handle registration and account connection
+facebook.Events.bind 'checkFacebookAccount', (onSuccess = facebookEvents.defaults.onBeforeRegisterSuccess, onError = facebookEvents.defauls.onBeforeRegisterError) ->
+	facebookID = Grassroots.Helpers.Authentication.config.facebookID
+	$.ajax
+		url: '/validation/checkfacebookaccount'
+		type: 'GET'
+		data: "{'facebookID':'#{facebookID}'}"
 		contentType: 'application/json'
 		dataType: 'json'
 		success: onSuccess

@@ -170,7 +170,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                             return HttpNotFound("The user you are looking for could not be found.");
                         }
 
-                        if (service.IsFacebookAccountUnique(facebookID, userProfile.UserProfileID))
+                        if (!service.IsFacebookAccountUnique(facebookID))
                         {
                             message = "This FacebookID is already in use by another user account. Please sign in with a different Facebook account.";
                         }
@@ -342,7 +342,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                     var userProfileService = new UserProfileService(userProfileRepository);
                     var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
 
-                    if (userProfileService.IsFacebookAccountUnique(userProfile.FacebookID, userProfile.UserProfileID))
+                    if (!userProfileService.IsFacebookAccountUnique(userProfile.FacebookID))
                     {
                         TempData["ModelErrors"] = new List<string> { "This FacebookID is already in use by another user account. Please sign in with a different Facebook account." };
                         return RedirectToAction("Register", new { returnUrl = returnUrl });

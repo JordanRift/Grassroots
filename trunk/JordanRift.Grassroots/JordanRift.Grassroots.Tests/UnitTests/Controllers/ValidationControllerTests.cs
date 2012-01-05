@@ -14,6 +14,9 @@
 //
 
 using System;
+using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Tests.Fakes;
+using JordanRift.Grassroots.Tests.Helpers;
 using JordanRift.Grassroots.Web.Controllers;
 using NUnit.Framework;
 
@@ -23,11 +26,19 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
     public class ValidationControllerTests
     {
         private ValidationController controller;
+        private IUserProfileRepository userProfileRepository;
 
         [SetUp]
         public void SetUp()
         {
             controller = new ValidationController();
+            userProfileRepository = new FakeUserProfileRepository();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            FakeUserProfileRepository.Reset();
         }
 
         [Test]
@@ -58,6 +69,25 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         public void CheckUrlSlug_Should_Return_False_If_UrlSlug_Is_Not_Unique()
         {
             var result = controller.CheckUrlSlug("non-unique-slug");
+            var jsonResult = Convert.ToBoolean(result.Data);
+            Assert.IsFalse(jsonResult);
+        }
+
+        [Test]
+        public void CheckFacebookAccount_Should_Return_True_If_FacebookID_Is_Unique()
+        {
+            var result = controller.CheckFacebookAccount("1234567890");
+            var jsonResult = Convert.ToBoolean(result.Data);
+            Assert.IsTrue(jsonResult);
+        }
+
+        [Test]
+        public void CheckFacebookAccount_Should_Return_False_If_FacebookID_Is_Not_Unique()
+        {
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.FacebookID = "1234567890";
+            userProfileRepository.Add(userProfile);
+            var result = controller.CheckFacebookAccount(userProfile.FacebookID);
             var jsonResult = Convert.ToBoolean(result.Data);
             Assert.IsFalse(jsonResult);
         }

@@ -44,10 +44,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Services
         [Test]
         public void IsFacebookAccountUnique_Should_Return_True_If_FacebookID_Not_Found()
         {
-            var userProfile = EntityHelpers.GetValidUserProfile();
-            userProfile.FacebookID = FACEBOOK_ID;
-            userProfileRepository.Add(userProfile);
-            var result = service.IsFacebookAccountUnique(FACEBOOK_ID, userProfile.UserProfileID);
+            var result = service.IsFacebookAccountUnique(FACEBOOK_ID);
             Assert.IsTrue(result);
         }
 
@@ -55,9 +52,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Services
         public void IsFacebookAccountUnique_Should_Return_False_If_FacebookID_Found()
         {
             var userProfile = EntityHelpers.GetValidUserProfile();
-            userProfile.FacebookID = "uniqueFacebookID";
+            userProfile.FacebookID = FACEBOOK_ID;
             userProfileRepository.Add(userProfile);
-            var result = service.IsFacebookAccountUnique(FACEBOOK_ID, userProfile.UserProfileID);
+            var result = service.IsFacebookAccountUnique(FACEBOOK_ID);
             Assert.IsFalse(result);
         }
     }

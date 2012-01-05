@@ -15,6 +15,8 @@
 
 using System.Web.Mvc;
 using JordanRift.Grassroots.Framework.Entities.Models;
+using JordanRift.Grassroots.Framework.Helpers;
+using JordanRift.Grassroots.Framework.Services;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
@@ -43,6 +45,16 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             var result = Campaign.IsUnique(null, urlSlug, campaignID);
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckFacebookAccount(string facebookID)
+        {
+            using (new UnitOfWorkScope())
+            {
+                var service = new UserProfileService();
+                var result = service.IsFacebookAccountUnique(facebookID);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

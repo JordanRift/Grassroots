@@ -60,10 +60,10 @@ namespace JordanRift.Grassroots.Framework.Services
             }
         }
 
-        public bool IsFacebookAccountUnique(string facebookID, int id)
+        public bool IsFacebookAccountUnique(string facebookID)
         {
             var userProfile = userProfileRepository.GetUserProfileByFacebookID(facebookID);
-            return userProfile != null;
+            return userProfile == null;
         }
     }
 }
