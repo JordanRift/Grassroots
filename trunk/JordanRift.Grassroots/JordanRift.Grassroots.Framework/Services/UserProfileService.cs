@@ -62,7 +62,8 @@ namespace JordanRift.Grassroots.Framework.Services
 
         public bool IsFacebookAccountUnique(string facebookID, int id)
         {
-            return false;
+            var userProfile = userProfileRepository.GetUserProfileByFacebookID(facebookID);
+            return userProfile != null;
         }
     }
 }

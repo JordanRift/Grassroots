@@ -141,6 +141,7 @@
     <Compile Include="UnitTests\Models\UserProfileTests.cs" />
     <Compile Include="UnitTests\Providers\MembershipProviderTests.cs" />
     <Compile Include="UnitTests\Providers\RoleProviderTests.cs" />
+    <Compile Include="UnitTests\Services\UserProfileServiceTests.cs" />
     <Compile Include="UnitTests\Validation\GreaterThanDateTests.cs" />
     <Compile Include="UnitTests\Validation\NotEqualToTests.cs" />
   </ItemGroup>

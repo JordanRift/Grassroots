@@ -146,7 +146,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         public ActionResult ConnectAccount(string code, string state)
         {
             FacebookOAuthResult oAuthResult;
-            bool success = false;
+            var message = "Sorry, we were not able to connect with your Facebook account. Please try again.";
 
             if (FacebookOAuthResult.TryParse(Request.Url, out oAuthResult))
             {
@@ -162,12 +162,23 @@ namespace JordanRift.Grassroots.Web.Controllers
                     using (userProfileRepository)
                     {
                         var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+                        var service = new UserProfileService(userProfileRepository);
+                        var facebookID = me.id;
 
-                        if (userProfile != null && string.IsNullOrEmpty(userProfile.FacebookID))
+                        if (userProfile == null)
                         {
-                            userProfile.FacebookID = me.id;
+                            return HttpNotFound("The user you are looking for could not be found.");
+                        }
+
+                        if (service.IsFacebookAccountUnique(facebookID, userProfile.UserProfileID))
+                        {
+                            message = "This FacebookID is already in use by another user account. Please sign in with a different Facebook account.";
+                        }
+                        else if (string.IsNullOrEmpty(userProfile.FacebookID))
+                        {
+                            userProfile.FacebookID = facebookID;
                             userProfileRepository.Save();
-                            success = true;
+                            message = "Sweet! Your Facebook account has been connected successfully.";
 
                             if (Url.IsLocalUrl(state))
                             {
@@ -178,11 +189,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 }
             }
 
-            if (!success)
-            {
-                TempData["UserFeedback"] = "Sorry, we were not able to connect with your Facebook account. Please try again.";
-            }
-
+            TempData["UserFeedback"] = message;
             return RedirectToAction("Index", "UserProfile");
         }
 
@@ -290,6 +297,16 @@ namespace JordanRift.Grassroots.Web.Controllers
             FacebookOAuthResult oAuthResult;
             var viewModel = new FacebookRegisterModel();
 
+            if (TempData["ModelErrors"] != null)
+            {
+                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+            }
+
             if (FacebookOAuthResult.TryParse(Request.Url, out oAuthResult))
             {
                 if (oAuthResult.IsSuccess)
@@ -322,7 +339,14 @@ namespace JordanRift.Grassroots.Web.Controllers
 
                 using (new UnitOfWorkScope())
                 {
+                    var userProfileService = new UserProfileService(userProfileRepository);
                     var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+
+                    if (userProfileService.IsFacebookAccountUnique(userProfile.FacebookID, userProfile.UserProfileID))
+                    {
+                        TempData["ModelErrors"] = new List<string> { "This FacebookID is already in use by another user account. Please sign in with a different Facebook account." };
+                        return RedirectToAction("Register", new { returnUrl = returnUrl });
+                    }
 
                     if (organization.UserProfiles == null)
                     {
