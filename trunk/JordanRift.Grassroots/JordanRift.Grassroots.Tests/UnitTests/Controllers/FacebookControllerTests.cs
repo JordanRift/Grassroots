@@ -97,6 +97,32 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
+        public void Disconnect_Should_Set_HasUserRecord_True_In_Model_If_UserProfile_Has_User()
+        {
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = GOOD_EMAIL;
+            var user = EntityHelpers.GetValidUser();
+            user.Username = GOOD_EMAIL;
+            userProfile.Users = new List<User> { user };
+            userProfileRepository.Add(userProfile);
+            var result = controller.Disconnect() as ViewResult;
+            var model = result.Model as FacebookDisconnectModel;
+            Assert.IsTrue(model.HasUserRecord);
+        }
+
+        [Test]
+        public void Disconnect_Should_Set_HasUserRecord_False_In_Model_If_UserProfile_Has_No_User()
+        {
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = GOOD_EMAIL;
+            userProfile.Users = new List<User>();
+            userProfileRepository.Add(userProfile);
+            var result = controller.Disconnect() as ViewResult;
+            var model = result.Model as FacebookDisconnectModel;
+            Assert.IsFalse(model.HasUserRecord);
+        }
+
+        [Test]
         public void DisconnectAccount_Should_Redirect_To_UserProfile_When_Successful()
         {
             var userProfile = EntityHelpers.GetValidUserProfile();

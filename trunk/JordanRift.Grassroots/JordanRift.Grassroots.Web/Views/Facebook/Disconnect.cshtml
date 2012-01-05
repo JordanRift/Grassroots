@@ -14,8 +14,11 @@
     // You should have received a copy of the GNU General Public License
     // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
     //
-    
+
     ViewBag.Title = "Disconnect your Facebook account";
+    var greeting = Model.HasUserRecord ?
+        "You're good to go! Click the 'Disconnect' to unlink your Facebook account." :
+        "We need a password for you, so your account. Fill out the form below, then click 'Disconnect'.";
 }
 
 @section DocumentHead
@@ -27,25 +30,39 @@
     <h1>Disconnect your account from Facebook</h1>
 </hgroup>
 <div id="facebook-disconnect-form">
-    @using (Html.BeginForm("DisconnectAccount", "Facebook")) {
+    <div class="ui-widget ui-state-highlight ui-corner-all">
+        <p>
+            <span class="ui-icon ui-icon-info"></span>
+            <strong>Hey!</strong> @greeting
+        </p>    
+    </div>
+    @using (Html.BeginForm("DisconnectAccount", "Facebook"))
+    {
         @Html.AntiForgeryToken("FacebookDisconnect")
-        @Html.ValidationSummary(true, "Unable to disconnect your accounts. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
-        
-        <fieldset>
-            <legend>Account Information</legend>
-            <dl>
-                <dt>@Html.LabelFor(m => m.Password)</dt>
-                <dd>
-                    @Html.PasswordFor(m => m.Password)
-                    @Html.ValidationMessageFor(m => m.Password, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-                <dt>@Html.LabelFor(m => m.ConfirmPassword)</dt>
-                <dd>
-                    @Html.PasswordFor(m => m.ConfirmPassword)
-                    @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "ui-state-error ui-corner-all" })
-                </dd>
-            </dl>
-        </fieldset>
+        if (Model.HasUserRecord)
+        {
+            @Html.HiddenFor(m => m.Password)
+            @Html.HiddenFor(m => m.ConfirmPassword)
+        }
+        else
+        {
+            @Html.ValidationSummary(true, "Unable to disconnect your accounts. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
+            <fieldset>
+                <legend>Account Information</legend>
+                <dl>
+                    <dt>@Html.LabelFor(m => m.Password)</dt>
+                    <dd>
+                        @Html.PasswordFor(m => m.Password)
+                        @Html.ValidationMessageFor(m => m.Password, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.ConfirmPassword)</dt>
+                    <dd>
+                        @Html.PasswordFor(m => m.ConfirmPassword)
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                </dl>
+            </fieldset>
+        }
         <div>
             @Html.UiSubmit("Disconnect")
             @Html.ActionLink("Cancel", "Index", new { controller = "UserProfile", area = "" }, new { title = "Cancel", @class = "cancel" })

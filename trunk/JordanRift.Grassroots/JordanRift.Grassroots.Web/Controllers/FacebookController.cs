@@ -208,10 +208,15 @@ namespace JordanRift.Grassroots.Web.Controllers
                     return HttpNotFound("The user you are looking for could not be found.");
                 }
 
+                var hasUser = userProfile.Users.Any();
+                const string defaultPassword = "unnecessary";
                 return View(new FacebookDisconnectModel
                             {
                                 Email = userProfile.Email,
-                                FullName = userProfile.FullName
+                                FullName = userProfile.FullName,
+                                HasUserRecord = hasUser,
+                                Password = hasUser ? defaultPassword : string.Empty,
+                                ConfirmPassword = hasUser ? defaultPassword : string.Empty
                             });
             }
         }
@@ -348,10 +353,10 @@ namespace JordanRift.Grassroots.Web.Controllers
             return RedirectToAction("Register");
         }
 
-        private string GetLogOffUrl()
-        {
-            return Url.ToPublicUrl(Url.Action("Index", "Home"));
-        }
+        //private string GetLogOffUrl()
+        //{
+        //    return Url.ToPublicUrl(Url.Action("Index", "Home"));
+        //}
 
         private string GetOAuthRedirectUrl()
         {
