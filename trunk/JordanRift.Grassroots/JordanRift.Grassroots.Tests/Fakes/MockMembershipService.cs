@@ -13,7 +13,11 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.Linq;
 using System.Web.Security;
+using JordanRift.Grassroots.Framework.Data;
+using JordanRift.Grassroots.Framework.Services;
+using JordanRift.Grassroots.Tests.Helpers;
 using JordanRift.Grassroots.Web.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,6 +25,13 @@ namespace JordanRift.Grassroots.Tests.Fakes
 {
     public class MockMembershipService : IMembershipService
     {
+        private IUserProfileRepository userProfileRepository;
+
+        public MockMembershipService()
+        {
+            userProfileRepository = new FakeUserProfileRepository();
+        }
+
         public int MinPasswordLength
         {
             get { return 10; }
@@ -38,6 +49,16 @@ namespace JordanRift.Grassroots.Tests.Fakes
 
         public MembershipCreateStatus CreateUser(string userName, string password, string email)
         {
+            var userProfile = userProfileRepository.FindUserProfileByEmail(userName).FirstOrDefault();
+
+            if (userProfile != null)
+            {
+                var user = EntityHelpers.GetValidUser();
+                user.Username = userName;
+                user.Password = GrassrootsMembershipService.HashPassword(password, new byte[0]);
+                userProfile.Users.Add(user);
+            }
+
             if (userName == "duplicateEmail")
             {
                 return MembershipCreateStatus.DuplicateUserName;

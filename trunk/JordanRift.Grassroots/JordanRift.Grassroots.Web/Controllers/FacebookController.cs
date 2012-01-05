@@ -186,6 +186,78 @@ namespace JordanRift.Grassroots.Web.Controllers
             return RedirectToAction("Index", "UserProfile");
         }
 
+        [Authorize]
+        public ActionResult Disconnect()
+        {
+            if (TempData["ModelErrors"] != null)
+            {
+                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+            }
+
+            using (userProfileRepository)
+            {
+                var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+
+                if (userProfile == null)
+                {
+                    return HttpNotFound("The user you are looking for could not be found.");
+                }
+
+                return View(new FacebookDisconnectModel
+                            {
+                                Email = userProfile.Email,
+                                FullName = userProfile.FullName
+                            });
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken(Salt = "FacebookDisconnect")]
+        public ActionResult DisconnectAccount(FacebookDisconnectModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["ModelErrors"] = FindModelErrors();
+                return RedirectToAction("Disconnect");
+            }
+
+            using (new UnitOfWorkScope())
+            {
+                var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
+
+                if (userProfile == null)
+                {
+                    return HttpNotFound("The user you are looking for could not be found.");
+                }
+
+                // If user does not have a User record attached to their UserProfile, we need to create one for them...
+                if (userProfile.Users.Count == 0)
+                {
+                    userProfile.Users.Add(new User
+                                              {
+                                                  Username = userProfile.Email,
+                                                  Password = GrassrootsMembershipService.HashPassword(model.Password, null),
+                                                  IsActive = true,
+                                                  IsAuthorized = true,
+                                                  RegisterDate = DateTime.Now,
+                                                  LastLoggedIn = DateTime.Now
+                                              });
+                }
+
+                userProfile.FacebookID = null;
+                userProfileRepository.Save();
+            }
+            
+            TempData["UserFeedback"] = "Your account has been successfully disconnected from Facebook.";
+            return RedirectToAction("Index", "UserProfile");
+        }
+
         /// <summary>
         /// Sends request to obtain user information with extended permissions to Facebook.
         /// </summary>

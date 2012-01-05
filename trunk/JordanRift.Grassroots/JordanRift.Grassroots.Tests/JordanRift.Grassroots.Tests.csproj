@@ -128,6 +128,7 @@
     <Compile Include="UnitTests\Controllers\CauseTemplateControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\DonateControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\ErrorControllerTests.cs" />
+    <Compile Include="UnitTests\Controllers\FacebookControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\HomeControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\RoleControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\UserProfileControllerTests.cs" />

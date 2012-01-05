@@ -101,8 +101,13 @@
             <aside class="private-info">
                 <h3>Account Settings</h3>
                 <ul class="tasks">
-			        @if (!isConnectedToFacebook) {
+			        @if (!isConnectedToFacebook) 
+                    {
 			        <li>@Html.ActionLink("Connect to Facebook", "Connect", new { controller = "Facebook", area = "" }, new { title = "Connect to Facebook", @class = "fb-connect" })</li>
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink("Disconnect Facebook", "Disconnect", new { controller = "Facebook", area = "" }, new { title = "Disconnect Facebook" })</li>    
                     }
                     @if (isAdministrator) {
                     <li>@Html.ActionLink("Admin Dashboard", "Index", new { Controller = "Admin", Area = "" }, new { Title = "Admin Dashboard" })</li>

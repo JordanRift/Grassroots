@@ -1,0 +1,54 @@
+﻿@model JordanRift.Grassroots.Web.Models.FacebookDisconnectModel
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
+    ViewBag.Title = "Disconnect your Facebook account";
+}
+
+@section DocumentHead
+{
+    @Html.Partial("UIForm")
+}
+
+<hgroup>
+    <h1>Disconnect your account from Facebook</h1>
+</hgroup>
+<div id="facebook-disconnect-form">
+    @using (Html.BeginForm("DisconnectAccount", "Facebook")) {
+        @Html.AntiForgeryToken("FacebookDisconnect")
+        @Html.ValidationSummary(true, "Unable to disconnect your accounts. Please correct the errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
+        
+        <fieldset>
+            <legend>Account Information</legend>
+            <dl>
+                <dt>@Html.LabelFor(m => m.Password)</dt>
+                <dd>
+                    @Html.PasswordFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(m => m.ConfirmPassword)</dt>
+                <dd>
+                    @Html.PasswordFor(m => m.ConfirmPassword)
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+            </dl>
+        </fieldset>
+        <div>
+            @Html.UiSubmit("Disconnect")
+            @Html.ActionLink("Cancel", "Index", new { controller = "UserProfile", area = "" }, new { title = "Cancel", @class = "cancel" })
+        </div>
+    }
+</div>
