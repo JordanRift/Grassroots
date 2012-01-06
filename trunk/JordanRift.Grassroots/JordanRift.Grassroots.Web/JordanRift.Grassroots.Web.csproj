@@ -556,9 +556,6 @@
     <Content Include="Views\Campaign\UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\EditUserProfile.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\CauseTemplate\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

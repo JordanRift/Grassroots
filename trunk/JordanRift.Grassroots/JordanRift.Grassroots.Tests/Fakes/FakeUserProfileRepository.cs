@@ -43,6 +43,7 @@ namespace JordanRift.Grassroots.Tests.Fakes
                 var profile = EntityHelpers.GetValidUserProfile();
                 profile.UserProfileID = i + 1;
                 profile.Email = string.Format("email{0}@yahoo.com", i);
+                profile.CampaignDonors = new List<CampaignDonor>();
                 profiles.Add(profile);
             }
 

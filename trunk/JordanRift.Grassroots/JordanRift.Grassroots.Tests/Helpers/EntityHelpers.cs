@@ -140,10 +140,12 @@ namespace JordanRift.Grassroots.Tests.Helpers
                                       IsActivated = true,
                                       ActivationHash = string.Empty,
                                       LastActivationAttempt = DateTime.Now,
-                                      Users = new List<User>()
+                                      Users = new List<User>(),
+                                      Campaigns = new List<Campaign>()
 		                          };
 
             userProfile.Users.Add(GetValidUser());
+            userProfile.Campaigns.Add(GetValidCampaign());
 		    return userProfile;
 		}
 

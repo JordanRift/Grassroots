@@ -32,8 +32,8 @@
     </ul>
 
     <ul class="column">
-        <li>@Html.ActionLink("Manage Campaigns", "List", new { controller = "Campaign" })</li>
-        <li>Manage Users</li>
+        <li>@Html.ActionLink("Manage Campaigns", "List", new { controller = "Campaign", area = "" })</li>
+        <li>@Html.ActionLink("Manage Users", "List", new { controller = "UserProfile", area = "" })</li>
         <li>Manage Projects</li>
     </ul>
 </section>

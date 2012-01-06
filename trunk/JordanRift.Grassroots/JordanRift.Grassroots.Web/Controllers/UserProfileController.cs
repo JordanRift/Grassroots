@@ -376,16 +376,26 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult List()
         {
-            var userProfiles = userProfileRepository.FindAllUserProfiles().ToList();
-            var models = new List<UserProfileAdminModel>();
-
-            foreach (var userProfile in userProfiles)
+            // TODO: Add paging support...
+            using (userProfileRepository)
             {
-                var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
-                models.Add(model);
-            }
+                var userProfiles = userProfileRepository.FindAllUserProfiles();
+                var models = from userProfile in userProfiles
+                             let now = DateTime.Now
+                             let campaign = userProfile.Campaigns.FirstOrDefault(c => now > c.StartDate && now < c.EndDate)
+                             select new UserProfileAdminModel
+                                        {
+                                            UserProfileID = userProfile.UserProfileID,
+                                            FirstName = userProfile.FirstName,
+                                            LastName = userProfile.LastName,
+                                            Email = userProfile.Email,
+                                            Active = userProfile.Active,
+                                            ActiveCampaignID = campaign != null ? campaign.CampaignID : -1,
+                                            ActiveCampaignName = campaign != null ? campaign.Title : null
+                                        };
 
-            return View(models);
+                return View(models.ToList());
+            }
         }
 
         [Authorize(Roles = ADMIN_ROLES)]

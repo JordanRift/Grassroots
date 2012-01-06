@@ -1,7 +1,82 @@
 ﻿@model IEnumerable<JordanRift.Grassroots.Web.Models.UserProfileAdminModel>
-
 @{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+@section DocumentHead {
+    @Html.Partial("UIGrid")
+    <script type="text/javascript">
+        $(function () {
+            Grassroots.gridui([
+                { headerText: "Last, First Name", width: 300 },
+                { headerText: "Email Address", width: 200 },
+                { headerText: "Active", width: 65 },
+                { headerText: "Active Campaign", width: 200 },
+                { headerText: "", width: 35 }
+                //{ headerText: "", width: 35 }
+            ]);
+        });
+    </script>
+}
+
+<hgroup>
+    <h1>Browse Users</h1>
+</hgroup>
+<div class="users">
+    @* TODO: Add search controls for user accounts... *@
+    <table class="grid">
+        <thead>
+            <tr>
+                <th>Last, First Name</th>
+                <th>Email Address</th>
+                <th>Active</th>
+                <th>Active Campaign</th>
+                <th></th>
+                @*<th></th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var name = string.Format("{0}, {1}", item.LastName, item.FirstName);
+                var active = item.Active ? "Yes" : "No";
+                <tr>
+                    <td>@Html.ActionLink(name, "Admin", new { controller = "UserProfile", id = item.UserProfileID, area = "" }, new { title = string.Format("Edit {0} {1}'s profile", item.FirstName, item.LastName) })</td>
+                    <td>@item.Email</td>
+                    <td>@active</td>
+                    <td>
+                        @if (string.IsNullOrEmpty(item.ActiveCampaignName))
+                        {
+                            <text>No active campaigns</text>
+                        }
+                        else
+                        {
+                            @Html.ActionLink(item.ActiveCampaignName, "Admin", new { controller = "Campaign", id = item.ActiveCampaignID, area = "" }, new { title = item.ActiveCampaignName })
+                        }
+                    </td>
+                    <td>@Html.ActionLink("Edit", "Admin", new { controller = "UserProfile", id = item.UserProfileID, area = "" }, new { title = "Edit" })</td>
+                    @*<td><a href="#" class="destroy" title="Delete" data-id="@item.UserProfileID" data-type="User Profile" data-controller="UserProfile">Delete</a></td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        @*@Html.ActionLink("New User", "New", new { controller = "UserProfile", area = "" }, new { title = "New User" })*@
+        @Html.ActionLink("Back to Admin Dashboard", "Index", new { controller = "Admin", area = "" }, new { title = "Back to Admin Dashboard" })
+    </p>
+</div>

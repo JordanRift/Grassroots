@@ -43,5 +43,9 @@ namespace JordanRift.Grassroots.Web.Models
 
         [Display(Name = "User has activated their account?")]
         public bool IsActivated { get; set; }
+
+
+        public string ActiveCampaignName { get; set; }
+        public int ActiveCampaignID { get; set; }
     }
 }
