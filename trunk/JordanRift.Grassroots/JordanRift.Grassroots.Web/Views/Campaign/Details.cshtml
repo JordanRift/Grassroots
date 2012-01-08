@@ -35,7 +35,7 @@
         </a>
         @if (Model.CurrentUserIsOwner) { 
         <div class="edit">
-            @Html.ActionLink("Edit this campaign", "Edit", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Donate", @class = "ui-button ui-corner-all" })
+            @Html.ActionLink("Edit this campaign", "Edit", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = "Edit this campaign", @class = "ui-button ui-corner-all" })
         </div>
         }
 		<div class="url">
