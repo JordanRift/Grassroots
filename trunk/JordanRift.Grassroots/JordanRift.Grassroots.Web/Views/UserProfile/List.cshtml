@@ -28,7 +28,6 @@
                 { headerText: "Active", width: 65 },
                 { headerText: "Active Campaign", width: 200 },
                 { headerText: "", width: 35 }
-                //{ headerText: "", width: 35 }
             ]);
         });
     </script>
@@ -70,13 +69,11 @@
                         }
                     </td>
                     <td>@Html.ActionLink("Edit", "Admin", new { controller = "UserProfile", id = item.UserProfileID, area = "" }, new { title = "Edit" })</td>
-                    @*<td><a href="#" class="destroy" title="Delete" data-id="@item.UserProfileID" data-type="User Profile" data-controller="UserProfile">Delete</a></td>*@
                 </tr>
             }
         </tbody>
     </table>
     <p>
-        @*@Html.ActionLink("New User", "New", new { controller = "UserProfile", area = "" }, new { title = "New User" })*@
         @Html.ActionLink("Back to Admin Dashboard", "Index", new { controller = "Admin", area = "" }, new { title = "Back to Admin Dashboard" })
     </p>
 </div>

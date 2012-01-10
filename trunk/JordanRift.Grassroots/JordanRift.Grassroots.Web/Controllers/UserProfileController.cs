@@ -399,74 +399,6 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [Authorize(Roles = ADMIN_ROLES)]
-        public ActionResult New()
-        {
-            if (TempData["ModelErrors"] != null)
-            {
-                var errors = TempData["ModelErrors"] as IEnumerable<string>;
-
-                foreach (var error in errors)
-                {
-                    ModelState.AddModelError("", error);
-                }
-            }
-
-            var model = TempData["UserProfileAdminModel"] as UserProfileAdminModel ?? new UserProfileAdminModel();
-            return View(model);
-        }
-
-        [Authorize(Roles = ADMIN_ROLES)]
-        [HttpPost]
-        [ValidateAntiForgeryToken(Salt = "AdminCreateUserProfile")]
-        public ActionResult Create(UserProfileAdminModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                TempData["ModelErrors"] = FindModelErrors();
-                TempData["UserProfileAdminModel"] = model;
-                return RedirectToAction("New");
-            }
-
-            UserProfile userProfile;
-
-            using (new UnitOfWorkScope())
-            {
-                var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
-                userProfile = new UserProfile
-                                  {
-                                      FirstName = model.FirstName,
-                                      LastName = model.LastName,
-                                      AddressLine1 = model.AddressLine1,
-                                      AddressLine2 = model.AddressLine2,
-                                      City = model.City,
-                                      State = model.State,
-                                      ZipCode = model.ZipCode,
-                                      Email = model.Email,
-                                      PrimaryPhone = model.PrimaryPhone,
-                                      Birthdate = model.Birthdate,
-                                      Gender = model.Gender,
-                                      Consent = model.Consent,
-                                      Active = model.Active,
-                                      IsActivated = model.IsActivated
-                                  };
-
-                userProfile.CampaignDonors = new List<CampaignDonor>();
-                organization.UserProfiles.Add(userProfile);
-                var donations = campaignDonorRepository.FindDonationsByEmail(userProfile.Email);
-
-                foreach (var donation in donations)
-                {
-                    userProfile.CampaignDonors.Add(donation);
-                }
-
-                userProfileRepository.Save();
-            }
-
-            TempData["UserFeedback"] = string.Format("{0}'s profile has been created successfully.", userProfile.FullName);
-            return RedirectToAction("Admin", new { id = userProfile.UserProfileID });
-        }
-
-        [Authorize(Roles = ADMIN_ROLES)]
         public ActionResult Admin(int id = -1)
         {
             UserProfileAdminModel model;
@@ -527,32 +459,6 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
             
 
-            return RedirectToAction("List");
-        }
-
-        [Authorize(Roles = ADMIN_ROLES)]
-        [HttpDelete]
-        public ActionResult Destroy(int id = -1)
-        {
-            using (userProfileRepository)
-            {
-                var userProfile = userProfileRepository.GetUserProfileByID(id);
-
-                if (userProfile == null)
-                {
-                    return HttpNotFound("The person you are looking for could not be found.");
-                }
-
-                userProfileRepository.Delete(userProfile);
-                userProfileRepository.Save();
-            }
-
-            if (Request.IsAjaxRequest())
-            {
-                return Json(new { success = true });
-            }
-
-            // TODO: Consider adding message to inform user of successful delete.
             return RedirectToAction("List");
         }
 
