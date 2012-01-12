@@ -22,7 +22,8 @@ Grassroots is built upon the following technologies:
 * C# 4.0
 * Entity Framework 4.1 (Code First)
 * MS SQL Server 2008 / MySQL 5.1
-* jQuery 1.5.2
+* CoffeeScript 1.2
+* jQuery 1.7.1
 * HTML 5
 * CSS 3
 
@@ -34,6 +35,7 @@ projects. Without these guys, Grassroots would not be possible...
 
 * [Argotic](http://argotic.codeplex.com/) by Brian William Kuhn
 * [AutoMapper](http://automapper.codeplex.com/) by Headspring
+* [AWS SDK](http://nuget.org/packages/AWSSDK) by Amazon Web Services
 * [CodeContracts](http://msdn.microsoft.com/en-us/devlabs/dd491992.aspx) by Microsoft
 * [dotless](https://github.com/dotless/dotless) by Daniel Hoelbling
 * [ELMAH](http://code.google.com/p/elmah/) by Atif Aziz
