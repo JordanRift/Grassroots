@@ -280,7 +280,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                         userProfileRepository.Save();
                         accountMailer.PasswordReset(MapPasswordReset(userProfile)).SendAsync();
 
-                        return RedirectToAction("UpdatePassword");
+                        return RedirectToAction("UpdatePassword", new { hash = userProfile.ActivationHash });
                     }
                 }
 
