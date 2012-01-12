@@ -50,6 +50,29 @@ namespace JordanRift.Grassroots.Framework.Helpers
 	        }
 	    }
 
+	    public static IDictionary<string, string> RoleDictionary;
+
+	    public static SelectList RoleSelectList
+	    {
+	        get
+	        {
+                if (RoleDictionary == null)
+                {
+                    RoleDictionary = new Dictionary<string, string>();
+                    var repositoryFactory = new RepositoryFactory<IOrganizationRepository>();
+                    var repository = repositoryFactory.GetRepository();
+                    var organization = repository.GetDefaultOrganization(readOnly: true);
+
+                    foreach (var role in organization.Roles)
+                    {
+                        RoleDictionary.Add(new KeyValuePair<string, string>(role.RoleID.ToString(), role.Name));
+                    }
+                }
+
+                return new SelectList(RoleDictionary, "Key", "Value");
+	        }
+	    }
+
 		public static readonly IDictionary<string, string> ExpMonthDictionary = new Dictionary<string, string> {
 			{"Month", "-1"},
             {"01", "1"},

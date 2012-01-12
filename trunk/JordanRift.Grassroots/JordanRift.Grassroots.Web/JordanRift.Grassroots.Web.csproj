@@ -662,11 +662,11 @@
     <Content Include="Views\Shared\EditorTemplates\ActiveCampaignList.cshtml" />
     <Content Include="Views\UserProfile\List.cshtml" />
     <Content Include="Views\UserProfile\Admin.cshtml" />
-    <Content Include="Views\UserProfile\New.cshtml" />
     <Content Include="Views\Role\List.cshtml" />
     <Content Include="Views\Role\Admin.cshtml" />
     <Content Include="Views\Role\New.cshtml" />
     <Content Include="Views\Facebook\Disconnect.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Role.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
