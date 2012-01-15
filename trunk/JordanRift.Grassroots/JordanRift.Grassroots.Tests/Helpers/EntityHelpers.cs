@@ -207,7 +207,8 @@ namespace JordanRift.Grassroots.Tests.Helpers
             return new Role
                        {
                            Name = "Administrator",
-                           Description = "System Administrator"
+                           Description = "System Administrator",
+                           UserProfiles = new List<UserProfile>()
                        };
         }
 

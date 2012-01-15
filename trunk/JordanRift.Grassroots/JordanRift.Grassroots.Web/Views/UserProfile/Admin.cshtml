@@ -1,12 +1,132 @@
 ﻿@model JordanRift.Grassroots.Web.Models.UserProfileAdminModel
-
 @{
-    ViewBag.Title = "Admin";
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+
+    var title = string.Format("Editing {0} {1}'s profile", Model.FirstName, Model.LastName);
+    ViewBag.Title = title;
 }
 
-<h2>Admin</h2>
+@section DocumentHead
+{
+    @Html.Partial("UIForm")
+}
+
+<hgroup>
+    <h1>@title</h1>    
+</hgroup>
+<div id="user-profile-edit-form">
 @using (Html.BeginForm("AdminUpdate", "UserProfile"))
 {
     @Html.AntiForgeryToken(salt: "AdminUpdateUserProfile")
     @Html.HiddenFor(m => m.UserProfileID)
+    @Html.ValidationSummary(false, "Could not save your profile. Please correct the following errors and try again.", new { @class = "ui-widget ui-state-error ui-corner-all" })
+    <section class="column">
+        <fieldset>
+            <legend>Personal Info</legend>
+            <dl>
+                <dt>@Html.LabelFor(model => model.FirstName)</dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.FirstName)
+                    @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(model => model.LastName)</dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.LastName)
+                    @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(model => model.Birthdate)</dt>
+                <dd>
+                    @Html.EditorFor(model => model.Birthdate, String.Format("{0:g}", Model.Birthdate))
+                    @Html.ValidationMessageFor(model => model.Birthdate, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(model => model.Gender)</dt>
+                <dd>
+                    @Html.EditorFor(model => model.Gender)
+                    @Html.ValidationMessageFor(model => model.Gender, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+            </dl>
+        </fieldset>
+        <fieldset>
+            <legend>Security Info</legend>
+            <dl>
+                <dt>@Html.LabelFor(m => m.RoleID)</dt>
+                <dd>
+                    @Html.EditorFor(m => m.RoleID)
+                    @Html.ValidationMessageFor(m => m.RoleID)
+                </dd>
+                <dt>@Html.LabelFor(m => m.Email)</dt>
+                <dd>
+                    @Html.TextBoxFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email)
+                </dd>
+            </dl>
+            <div class="check-box">
+                @Html.CheckBoxFor(m => m.Active)
+                @Html.LabelFor(m => m.Active)
+            </div>
+            <div class="check-box">
+                @Html.CheckBoxFor(m => m.IsActivated)
+                @Html.LabelFor(m => m.IsActivated)
+            </div>
+            <div class="check-box">
+                @Html.CheckBoxFor(m => m.Consent)
+                @Html.LabelFor(m => m.Consent)
+            </div>
+        </fieldset>
+    </section>    
+    <section class="column">
+        <fieldset>
+            <legend>Contact Info</legend>
+            <dl>            
+                <dt>@Html.LabelFor(model => model.PrimaryPhone)</dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.PrimaryPhone)
+                    @Html.ValidationMessageFor(model => model.PrimaryPhone, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(model => model.AddressLine1)</dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.AddressLine1)
+                    @Html.ValidationMessageFor(model => model.AddressLine1, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(model => model.AddressLine2)</dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.AddressLine2)
+                    @Html.ValidationMessageFor(model => model.AddressLine2, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(model => model.City)</dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.City)
+                    @Html.ValidationMessageFor(model => model.City, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(model => model.State)</dt>
+                <dd>
+                    @Html.EditorFor(model => model.State)
+                    @Html.ValidationMessageFor(model => model.State, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+                <dt>@Html.LabelFor(model => model.ZipCode)</dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.ZipCode)
+                    @Html.ValidationMessageFor(model => model.ZipCode, null, new { @class = "ui-state-error ui-corner-all" })
+                </dd>
+            </dl>
+        </fieldset>
+    </section>
+    <div>
+        @Html.UiSubmit("Submit")
+        @Html.ActionLink("Back to List", "List", new { controller = "UserProfile", area = "" }, new { title = "Cancel", @class = "cancel" })
+    </div>
 }
+</div>

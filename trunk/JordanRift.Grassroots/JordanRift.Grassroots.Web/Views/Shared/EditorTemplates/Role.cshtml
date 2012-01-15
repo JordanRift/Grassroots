@@ -1,5 +1,5 @@
 ﻿@using JordanRift.Grassroots.Framework.Helpers
-@model int
+@model int?
 @{
     //
     // Grassroots is free software: you can redistribute it and/or modify
@@ -15,5 +15,7 @@
     // You should have received a copy of the GNU General Public License
     // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
     //
+
+    //var val = Model.HasValue ? Model.Value : -1;
 }
-@Html.DropDownList("", UIHelpers.RoleSelectList)
+@Html.DropDownList("", UIHelpers.GetRoleSelectList(Model), "None")

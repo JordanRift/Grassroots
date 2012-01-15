@@ -32,12 +32,15 @@ namespace JordanRift.Grassroots.Web.Controllers
 	{
 	    private const string ADMIN_ROLES = "Root,Administrator";
 		private readonly IUserProfileRepository userProfileRepository;
+	    private readonly IRoleRepository roleRepository;
 		private readonly ICauseRepository causeRepository;
 		private readonly IUserProfileMailer mailer;
 
-        public UserProfileController(IUserProfileRepository userProfileRepository, ICauseRepository causeRepository, IUserProfileMailer mailer)
+        public UserProfileController(IUserProfileRepository userProfileRepository, IRoleRepository roleRepository, 
+            ICauseRepository causeRepository, IUserProfileMailer mailer)
 		{
 			this.userProfileRepository = userProfileRepository;
+            this.roleRepository = roleRepository;
             this.causeRepository = causeRepository;
 			this.mailer = mailer;
 			Mapper.CreateMap<UserProfile, UserProfileDetailsModel>();
@@ -441,7 +444,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 return RedirectToAction("Admin");
             }
 
-            using (userProfileRepository)
+            using (new UnitOfWorkScope())
             {
                 var userProfile = userProfileRepository.GetUserProfileByID(model.UserProfileID);
 
@@ -451,6 +454,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 }
 
                 MapUserProfileAdmin(model, userProfile);
+                MapRole(model, userProfile);
                 userProfileRepository.Save();
                 TempData["UserFeedback"] = string.Format("{0}'s profile has been saved.", userProfile.FullName);
             }
@@ -468,13 +472,47 @@ namespace JordanRift.Grassroots.Web.Controllers
             userProfile.City = model.City;
             userProfile.State = model.State;
             userProfile.ZipCode = model.ZipCode;
-            userProfile.Email = model.Email;
             userProfile.PrimaryPhone = model.PrimaryPhone;
             userProfile.Birthdate = model.Birthdate;
             userProfile.Gender = model.Gender;
-            userProfile.Consent = model.Consent;
             userProfile.Active = model.Active;
             userProfile.IsActivated = model.IsActivated;
+
+            if (userProfile.Email != model.Email)
+            {
+                userProfile.Email = model.Email;
+                var user = userProfile.Users.FirstOrDefault();
+                
+                if (user != null)
+                {
+                    user.Username = model.Email;
+                }
+            }
+        }
+
+        private void MapRole(UserProfileAdminModel model, UserProfile userProfile)
+        {
+            Role role;
+
+            if (model.RoleID.HasValue)
+            {
+                role = roleRepository.GetRoleByID(model.RoleID.Value);
+
+                if (role == null)
+                {
+                    return;
+                }
+
+                role.UserProfiles.Add(userProfile);
+            }
+            else
+            {
+                if (userProfile.RoleID.HasValue)
+                {
+                    role = roleRepository.GetRoleByID(userProfile.RoleID.Value);
+                    role.UserProfiles.Remove(userProfile);
+                }
+            }
         }
 
 #endregion

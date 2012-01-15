@@ -36,6 +36,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
     {
         private UserProfileController controller;
         private IUserProfileRepository userProfileRepository;
+        private IRoleRepository roleRepository;
         private MockRepository mocks;
         private UserProfile userProfile;
 
@@ -44,6 +45,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             userProfile = EntityHelpers.GetValidUserProfile();
             userProfileRepository = new FakeUserProfileRepository();
+            roleRepository = new FakeRoleRepository();
             userProfileRepository.Add(userProfile);
             mocks = new MockRepository();
             controller = GetUserProfileController();
@@ -394,7 +396,6 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                                 PrimaryPhone = "(602) 555-8593",
                                 Birthdate = DateTime.Now,
                                 Gender = "male",
-                                Consent = false,
                                 IsActivated = false,
                                 Active = false
                             };
@@ -412,18 +413,61 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.AreEqual(model.PrimaryPhone, userProfile.PrimaryPhone);
             Assert.AreEqual(model.Birthdate, userProfile.Birthdate);
             Assert.AreEqual(model.Gender, userProfile.Gender);
-            Assert.AreEqual(model.Consent, userProfile.Consent);
             Assert.AreEqual(model.IsActivated, userProfile.IsActivated);
             Assert.AreEqual(model.Active, userProfile.Active);
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Add_User_To_Role_If_Role_Found()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfileRepository.Add(userProfile);
+            var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+            var role = EntityHelpers.GetValidRole();
+            roleRepository.Add(role);
+            model.RoleID = role.RoleID;
+            controller.AdminUpdate(model);
+            userProfile = role.UserProfiles.FirstOrDefault();
+            Assert.IsNotNull(userProfile);
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Remove_User_From_Role_If_Role_Found()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfileRepository.Add(userProfile);
+            var role = EntityHelpers.GetValidRole();
+            roleRepository.Add(role);
+            role.UserProfiles.Add(userProfile);
+            var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+            userProfile.RoleID = role.RoleID;
+            controller.AdminUpdate(model);
+            userProfile = role.UserProfiles.FirstOrDefault();
+            Assert.IsNull(userProfile);
+        }
+
+        [Test]
+        public void AdminUpdate_Should_Update_Username_When_UserProfie_Email_Changed()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfileRepository.Add(userProfile);
+            var user = EntityHelpers.GetValidUser();
+            userProfile.Users.Clear();
+            userProfile.Users.Add(user);
+            var model = Mapper.Map<UserProfile, UserProfileAdminModel>(userProfile);
+            model.Email = "some-other@email.com";
+            controller.AdminUpdate(model);
+            Assert.AreEqual(user.Username, model.Email);
         }
 
         private UserProfileController GetUserProfileController()
         {
             var causeRepository = new FakeCauseRepository();
+            roleRepository = new FakeRoleRepository();
             var mailer = mocks.DynamicMock<IUserProfileMailer>();
 
             MailerBase.IsTestModeEnabled = true;
-            var upc = new UserProfileController(userProfileRepository, causeRepository, mailer)
+            var upc = new UserProfileController(userProfileRepository, roleRepository, causeRepository, mailer)
                           {
                               OrganizationRepository = new FakeOrganizationRepository()
                           };
