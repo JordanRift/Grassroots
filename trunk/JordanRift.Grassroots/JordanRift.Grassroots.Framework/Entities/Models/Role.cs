@@ -28,6 +28,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public virtual Organization Organization { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool IsSystemRole { get; set; }
 
         public virtual ICollection<UserProfile> UserProfiles { get; set; }
     }

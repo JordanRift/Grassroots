@@ -314,6 +314,7 @@ CREATE TABLE [dbo].[gr_Role](
 	[OrganizationID] [int] NOT NULL,
 	[Name] [varchar](100) NOT NULL,
 	[Description] [varchar](500) NOT NULL,
+	[IsSystemRole] [bit] NOT NULL, 
 	[CreatedOn] [datetime] NOT NULL,
 	[LastModifiedOn] [datetime] NOT NULL,
  CONSTRAINT [PK_gr_Role] PRIMARY KEY CLUSTERED 
@@ -338,6 +339,9 @@ ALTER TABLE [dbo].[gr_Role] ADD  CONSTRAINT [DF_gr_Role_Name]  DEFAULT ('') FOR 
 GO
 
 ALTER TABLE [dbo].[gr_Role] ADD  CONSTRAINT [DF_gr_Role_Description]  DEFAULT ('') FOR [Description]
+GO
+
+ALTER TABLE [dbo].[gr_Role] ADD DEFAULT(0) FOR [IsSystemRole]
 GO
 
 ALTER TABLE [dbo].[gr_Role] ADD  DEFAULT ('1/1/1900') FOR [CreatedOn]

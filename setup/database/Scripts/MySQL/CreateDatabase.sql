@@ -156,6 +156,7 @@ CREATE TABLE `gr_role` (
   `OrganizationID` int(11) NOT NULL,
   `Name` varchar(100) NOT NULL DEFAULT '',
   `Description` varchar(500) NOT NULL DEFAULT '',
+  `IsSystemRole` bit(1) NOT NULL DEFAULT b'0',
   `CreatedOn` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
   `LastModifiedOn` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
   PRIMARY KEY (`RoleID`),

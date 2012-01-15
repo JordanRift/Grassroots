@@ -45,6 +45,9 @@ alter table gr_Region
 add LastModifiedOn datetime not null default '1/1/1900';
 
 alter table gr_Role
+add IsSystemRole bit not null default 0;
+
+alter table gr_Role
 add CreatedOn datetime not null default '1/1/1900';
 alter table gr_Role
 add LastModifiedOn datetime not null default '1/1/1900';
