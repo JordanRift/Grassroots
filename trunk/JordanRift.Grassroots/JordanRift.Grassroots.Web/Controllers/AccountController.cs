@@ -226,7 +226,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken(Salt = "AccountPasswordChange")]
-        public ActionResult UpdatePassword(ChangePasswordModel model)
+        public ActionResult SavePassword(ChangePasswordModel model)
         {
             if (ModelState.IsValid)
             {

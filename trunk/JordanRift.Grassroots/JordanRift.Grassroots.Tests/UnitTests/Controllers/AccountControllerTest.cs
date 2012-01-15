@@ -58,7 +58,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
-        public void UpdatePassword_Get_Returns_View()
+        public void ChangePassword_Returns_View()
         {
             ActionResult result = controller.ChangePassword();
             Assert.IsInstanceOf(typeof(ViewResult), result);
@@ -66,7 +66,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
-        public void UpdatePassword_Post_Returns_Redirect_On_Success()
+        public void SavePassword_Returns_Redirect_On_Success()
         {
             ChangePasswordModel model = new ChangePasswordModel
                                             {
@@ -75,14 +75,14 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                                                 ConfirmPassword = "goodNewPassword"
                                             };
 
-            ActionResult result = controller.UpdatePassword(model);
+            ActionResult result = controller.SavePassword(model);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
             Assert.AreEqual("ChangePasswordSuccess", redirectResult.RouteValues["action"]);
         }
 
         [Test]
-        public void UpdatePassword_Post_Returns_Redirect_When_Password_Fails()
+        public void SavePassword_Returns_Redirect_When_Password_Fails()
         {
             ChangePasswordModel model = new ChangePasswordModel
                                             {
@@ -91,13 +91,13 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                                                 ConfirmPassword = "badNewPassword"
                                             };
 
-            ActionResult result = controller.UpdatePassword(model);
+            ActionResult result = controller.SavePassword(model);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             Assert.IsNotNull(controller.TempData["ChangePasswordModel"]);
         }
 
         [Test]
-        public void UpdatePassword_Post_Returns_Redirect_If_ModelState_Invalid()
+        public void SavePassword_Returns_Redirect_If_ModelState_Invalid()
         {
             ChangePasswordModel model = new ChangePasswordModel
                                             {
@@ -107,7 +107,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
                                             };
 
             controller.ModelState.AddModelError("", "Dummy error message.");
-            ActionResult result = controller.UpdatePassword(model);
+            ActionResult result = controller.SavePassword(model);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             Assert.IsNotNull(controller.TempData["ChangePasswordModel"]);
         }
