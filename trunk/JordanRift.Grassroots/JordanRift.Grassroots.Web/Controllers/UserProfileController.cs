@@ -33,15 +33,12 @@ namespace JordanRift.Grassroots.Web.Controllers
 	    private const string ADMIN_ROLES = "Root,Administrator";
 		private readonly IUserProfileRepository userProfileRepository;
 		private readonly ICauseRepository causeRepository;
-	    private readonly ICampaignDonorRepository campaignDonorRepository;
 		private readonly IUserProfileMailer mailer;
 
-        public UserProfileController(IUserProfileRepository userProfileRepository, ICauseRepository causeRepository, 
-            ICampaignDonorRepository campaignDonorRepository, IUserProfileMailer mailer)
+        public UserProfileController(IUserProfileRepository userProfileRepository, ICauseRepository causeRepository, IUserProfileMailer mailer)
 		{
 			this.userProfileRepository = userProfileRepository;
             this.causeRepository = causeRepository;
-            this.campaignDonorRepository = campaignDonorRepository;
 			this.mailer = mailer;
 			Mapper.CreateMap<UserProfile, UserProfileDetailsModel>();
 			Mapper.CreateMap<Campaign, CampaignDetailsModel>();
