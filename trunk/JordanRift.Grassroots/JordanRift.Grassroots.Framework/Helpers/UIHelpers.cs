@@ -54,19 +54,15 @@ namespace JordanRift.Grassroots.Framework.Helpers
 
 	    public static SelectList GetRoleSelectList(int? id)
 	    {
-	        if (RoleDictionary == null)
+            RoleDictionary = new Dictionary<string, string>();
+            var repositoryFactory = new RepositoryFactory<IOrganizationRepository>();
+            var repository = repositoryFactory.GetRepository();
+            var organization = repository.GetDefaultOrganization(readOnly: true);
+
+            foreach (var role in organization.Roles)
             {
-                RoleDictionary = new Dictionary<string, string>();
-                var repositoryFactory = new RepositoryFactory<IOrganizationRepository>();
-                var repository = repositoryFactory.GetRepository();
-                var organization = repository.GetDefaultOrganization(readOnly: true);
-
-                foreach (var role in organization.Roles)
-                {
-                    RoleDictionary.Add(new KeyValuePair<string, string>(role.RoleID.ToString(), role.Name));
-                }
+                RoleDictionary.Add(new KeyValuePair<string, string>(role.RoleID.ToString(), role.Name));
             }
-
             return new SelectList(RoleDictionary, "Key", "Value", id);
 	    }
 
