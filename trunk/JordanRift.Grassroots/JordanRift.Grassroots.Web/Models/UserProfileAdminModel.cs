@@ -15,6 +15,7 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using JordanRift.Grassroots.Framework.Entities.Validation;
 
 namespace JordanRift.Grassroots.Web.Models
@@ -35,6 +36,7 @@ namespace JordanRift.Grassroots.Web.Models
         [Display(Name = "Email address")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
             ErrorMessage = "Please enter a valid email address.")]
+        [Remote("CheckEmail", "Validation", AdditionalFields = "UserProfileID", ErrorMessage = "That email address is already in use. Please try another one.")]
         public string Email { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }

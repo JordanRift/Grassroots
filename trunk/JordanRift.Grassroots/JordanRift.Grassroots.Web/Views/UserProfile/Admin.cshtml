@@ -65,12 +65,12 @@
                 <dt>@Html.LabelFor(m => m.RoleID)</dt>
                 <dd>
                     @Html.EditorFor(m => m.RoleID)
-                    @Html.ValidationMessageFor(m => m.RoleID)
+                    @Html.ValidationMessageFor(m => m.RoleID, null, new { @class = "ui-state-error ui-corner-all" })
                 </dd>
                 <dt>@Html.LabelFor(m => m.Email)</dt>
                 <dd>
                     @Html.TextBoxFor(m => m.Email)
-                    @Html.ValidationMessageFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email, null, new { @class = "ui-state-error ui-corner-all" })
                 </dd>
             </dl>
             <div class="check-box">
@@ -81,10 +81,7 @@
                 @Html.CheckBoxFor(m => m.IsActivated)
                 @Html.LabelFor(m => m.IsActivated)
             </div>
-            <div class="check-box">
-                @Html.CheckBoxFor(m => m.Consent)
-                @Html.LabelFor(m => m.Consent)
-            </div>
+            @Html.HiddenFor(m => m.Consent)
         </fieldset>
     </section>    
     <section class="column">
