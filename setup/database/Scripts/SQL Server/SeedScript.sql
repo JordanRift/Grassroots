@@ -55,12 +55,14 @@ INSERT INTO [dbo].[gr_Role]
            ([OrganizationID]
            ,[Name]
            ,[Description]
+           ,[IsSystemRole]
            ,[CreatedOn]
            ,[LastModifiedOn])
      VALUES
            (@OrgID
            ,'Root'
            ,'Super User'
+           ,1
            ,GETDATE()
            ,GETDATE());
 
@@ -70,12 +72,14 @@ INSERT INTO [dbo].[gr_Role]
            ([OrganizationID]
            ,[Name]
            ,[Description]
+           ,[IsSystemRole]
            ,[CreatedOn]
            ,[LastModifiedOn])
      VALUES
            (@OrgID
            ,'Administrator'
            ,'System Administrator'
+           ,1
            ,GETDATE()
            ,GETDATE());
            

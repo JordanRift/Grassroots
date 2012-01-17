@@ -60,6 +60,7 @@ INSERT INTO `gr_role`
 `OrganizationID`,
 `Name`,
 `Description`,
+`IsSystemRole`
 `CreatedOn`,
 `LastModifiedOn`)
 VALUES
@@ -67,6 +68,7 @@ VALUES
 @OrgID,
 'Root',
 'Super User',
+b'1',
 CURDATE(),
 CURDATE()
 );
@@ -78,6 +80,7 @@ INSERT INTO `gr_role`
 `OrganizationID`,
 `Name`,
 `Description`,
+`IsSystemRole`
 `CreatedOn`,
 `LastModifiedOn`)
 VALUES
@@ -85,6 +88,7 @@ VALUES
 @OrgID,
 'Administrator',
 'System Administrator',
+b'1',
 CURDATE(),
 CURDATE()
 );
