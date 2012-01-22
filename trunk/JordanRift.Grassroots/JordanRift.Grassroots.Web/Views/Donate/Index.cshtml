@@ -62,7 +62,7 @@
 			    <dl>
 				    <dt>@Html.LabelFor(model => model.Amount)</dt>
 				    <dd>
-					    @Html.TextBoxFor(model => model.Amount) 
+					    $ @Html.TextBoxFor(model => model.Amount) 
 					    @Html.ValidationMessageFor(model => model.Amount, null, new { @class = "ui-state-error ui-corner-all" }) 
 				    </dd>
 

@@ -1,5 +1,4 @@
 ﻿@model JordanRift.Grassroots.Web.Models.CampaignDetailsModel
-@using JordanRift.Grassroots.Web.Models
 @{
     //
     // Grassroots is free software: you can redistribute it and/or modify
@@ -17,10 +16,8 @@
     //
 
     ViewBag.Title = "Editing " + Model.Title;
-
     var daysRemaining = (DateTime.Now < Model.EndDate) ? (Model.EndDate - DateTime.Now).Days : 0;
     var total = Model.Donations.Sum(d => d.Amount);
-    var emailBlastModel = ViewBag.EmailBlastModel as CampaignEmailBlastModel;
 }
 
 @section DocumentHead {
@@ -63,31 +60,35 @@
             <div class="dashboard campaign-dashboard">
                 @Html.Action("ProgressBar", new { controller = "Campaign", id = Model.CampaignID })
                 <ul class="stats break">
-                    @if (Model.AmountIsConfigurable) {
+                @if (Model.AmountIsConfigurable)
+                {
                     <li class="first">
-                        @Html.TextBoxFor(m => m.GoalAmount)
+                        $ @Html.TextBoxFor(m => m.GoalAmount)
                         @Html.ValidationMessageFor(m => m.GoalAmount, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                     </li>
-                    }
-                    else { 
+                }
+                else 
+                { 
                     <li class="first"><span>@Model.GoalAmount.ToString("C0")</span> Campaign Goal</li>
-                    }
+                }
                     <li><span>@total.ToString("C0")</span> Raised</li>
                     <li><span>@Model.Donations.Count</span> Donations</li>
-                    @if (Model.TimespanIsConfigurable) { 
+                @if (Model.TimespanIsConfigurable)
+                {
                     <li class="last">
                         @Html.EditorFor(m => m.EndDate)
                         @Html.ValidationMessageFor(m => m.EndDate, null, new { @class = "ui-widget ui-state-error ui-corner-all" })
                         @Html.HiddenFor(m => m.StartDate)
                     </li>
-                    }
-                    else {
+                }
+                else
+                {
                     <li class="last">
                         <span>@daysRemaining</span> Days Left
                         @Html.HiddenFor(m => m.StartDate)
                         @Html.HiddenFor(m => m.EndDate)
                     </li>
-                    }
+                }
                 </ul>
             </div>
             <section class="summary">
@@ -113,4 +114,18 @@
 
 @section DocumentBottom {
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#GoalAmount').keypress(function (e) {
+                var keyCode = e.which || e.keyCode;
+                if (keyCode >= 48 && keyCode <= 57) {
+                    return true;
+                } else if (keyCode === 44 || keyCode === 46) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+    </script>
 }
