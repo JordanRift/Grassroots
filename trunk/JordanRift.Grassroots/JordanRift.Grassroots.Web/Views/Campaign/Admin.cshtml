@@ -32,13 +32,14 @@
     <script type="text/javascript">
         $(function () {
             Grassroots.gridui([
-                { headerText: "Name", width: 200 },
-                { headerText: "Email Address", width: 175 },
-                { headerText: "Amount", width: 100 },
-                { headerText: "Approved", width: 50 },
-                { headerText: "", width: 50 },
-                { headerText: "", width: 50 }
-            ]);
+                    { headerText: "Name", width: 200 },
+                    { headerText: "Email Address", width: 175 },
+                    { headerText: "Amount", width: 75 },
+                    { headerText: "Approved", width: 50 },
+                    { headerText: "Resend Receipt", width: 120 },
+                    { headerText: "", width: 50 },
+                    { headerText: "", width: 50 }
+                ]);
         });
     </script>
     }
@@ -92,7 +93,7 @@
                 <li>@Html.ActionLink(string.Format("{0} {1}'s Profile", Model.FirstName, Model.LastName), "Admin", new { controller = "UserProfile", id = Model.UserProfileID })</li>
                 @if (!string.IsNullOrEmpty(Model.CauseName))
                 {
-                <li>@Html.ActionLink(Model.CauseName, "Admin", new { controller = "Cause", id = Model.CauseID })</li>
+                    <li>@Html.ActionLink(Model.CauseName, "Admin", new { controller = "Cause", id = Model.CauseID })</li>
                 }
             </ul>
         </fieldset>
@@ -109,3 +110,30 @@
         </p>
     </div>
 </section>
+
+@section DocumentBottom
+{
+    <script type="text/javascript">
+        $(function () {
+            $('.resend').click(function () {
+                var id = $(this).attr('data-id');
+                if (!confirm("Woud you like to resend this donor's confirmation email?")) {
+                    return false;
+                }
+
+                $.ajax({
+                    url: '@Url.Action("ResendNotification", "Donate")' + '/' + id,
+                    data: '{}',
+                    dataType: 'json',
+                    contentType: 'applicaiton/json',
+                    type: 'GET'
+                })
+                    .success(function () {
+                        alert('Donation receipt successfully sent.');
+                    });
+
+                return false;
+            });
+        })
+    </script>
+}

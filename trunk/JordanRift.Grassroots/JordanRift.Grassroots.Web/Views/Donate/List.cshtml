@@ -26,6 +26,7 @@
                 { headerText: "Amount", width: 100 },
                 { headerText: "Campaign", width: 175 },
                 { headerText: "Approved", width: 50 },
+                { headerText: "Resend", width: 75 },
                 { headerText: "", width: 50 },
                 { headerText: "", width: 50 }
             ]);
@@ -48,6 +49,7 @@
                     <th>Approved</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -59,6 +61,7 @@
                     <td>@donation.Amount.ToString("C")</td>
                     <td>@Html.ActionLink(donation.CampaignTitle, "Admin", new { controller = "Campaign", id = donation.CampaignID }, new { title = donation.CampaignTitle })</td>
                     <td>@status</td>
+                    <td>@Html.ActionLink("Resend Email", "ResendNotification", new { id = donation.CampaignDonorID }, new { title = "Resend Email" })</td>
                     <td>@Html.ActionLink("Edit", "Admin", new { id = donation.CampaignDonorID }, new { title = "Edit" })</td>
                     <td><a href="#" class="destroy" title="Delete" data-id="@donation.CampaignDonorID" data-type="Donation" data-controller="Donate">Delete</a></td>
                 </tr>

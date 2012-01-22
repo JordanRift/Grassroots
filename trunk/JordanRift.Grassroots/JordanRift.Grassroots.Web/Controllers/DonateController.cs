@@ -434,6 +434,37 @@ namespace JordanRift.Grassroots.Web.Controllers
             return RedirectToAction("List");
         }
 
+        [Authorize(Roles = ADMIN_ROLES)]
+        public ActionResult ResendNotification(int id = -1)
+        {
+            var donation = campaignDonorRepository.GetDonationByID(id);
+
+            if (donation == null)
+            {
+                return HttpNotFound("The donation you are looking for could not be found.");
+            }
+
+            ResendNotification(donation);
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            TempData["UserFeedback"] = "Confirmation was successfully re-sent";
+            return RedirectToAction("List");
+        }
+
+        private void ResendNotification(CampaignDonor donation)
+        {
+            var mailerModel = Mapper.Map<CampaignDonor, DonationDetailsModel>(donation);
+            var campaign = donation.Campaign;
+            mailerModel.Title = campaign.Title;
+            mailerModel.UrlSlug = campaign.UrlSlug;
+            mailerModel.TransactionType = TransactionType.OneTime;
+            donateMailer.UserDonation(mailerModel).SendAsync();
+        }
+
         private DonationAdminModel MapAdminModel(CampaignDonor campaignDonor)
         {
             var model = Mapper.Map<CampaignDonor, DonationAdminModel>(campaignDonor);

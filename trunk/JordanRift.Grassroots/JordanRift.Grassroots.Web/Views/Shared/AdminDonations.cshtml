@@ -27,6 +27,7 @@
                 <th>Email Address</th>
                 <th>Amount</th>
                 <th>Approved</th>
+                <th>Resend Receipt</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -41,6 +42,7 @@
                 <td><a href="mailto:@item.Email">@item.Email</a></td>
                 <td>@item.Amount.ToString("C0")</td>
                 <td>@status</td>
+                <td><a href="#" class="resend" data-id="@item.CampaignDonorID" title="Resend">Resend</a></td>
                 <td>@Html.ActionLink("Edit", "Admin", new { controller = "Donate", id = item.CampaignDonorID }, new { title = "Edit" })</td>
                 <td><a href="#" class="destroy" title="Delete" data-id="@item.CampaignDonorID" data-type="Donation" data-controller="Donate">Delete</a></td>
             </tr>

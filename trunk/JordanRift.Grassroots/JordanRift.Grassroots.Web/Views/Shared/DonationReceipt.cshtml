@@ -40,10 +40,13 @@
                 }
             </td>
         </tr>
+        @if (!string.IsNullOrEmpty(Model.PaymentType))
+        {
         <tr>
             <td>Payment Method:</td>
             <td>@Model.PaymentType</td>
         </tr>
+        }
         <tr>
             <td>Gift Date:</td>
             <td>@Model.DonationDate.ToShortDateString()</td>
