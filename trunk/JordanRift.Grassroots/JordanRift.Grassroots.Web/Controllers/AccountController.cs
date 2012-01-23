@@ -216,38 +216,58 @@ namespace JordanRift.Grassroots.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult ChangePassword()
+        public ActionResult ChangePassword(string returnUrl = "")
         {
             var viewModel = TempData["ChangePasswordModel"] as ChangePasswordModel ?? new ChangePasswordModel();
             ViewBag.PasswordLength = MembershipService.MinPasswordLength;
+            ViewBag.ReturnUrl = returnUrl;
             return View(viewModel);
         }
         
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken(Salt = "AccountPasswordChange")]
-        public ActionResult SavePassword(ChangePasswordModel model)
+        public ActionResult SavePassword(ChangePasswordModel model, string returnUrl = "")
         {
             if (ModelState.IsValid)
             {
-                var email = User.Identity.Name;
-
-                if (MembershipService.ChangePassword(email, model.OldPassword, model.NewPassword))
+                using (new UnitOfWorkScope())
                 {
-                    using (userProfileRepository)
-                    {
-                        var userProfile = userProfileRepository.FindUserProfileByEmail(email).FirstOrDefault();
-                        var mailModel = Mapper.Map<UserProfile, RegisterModel>(userProfile);
-                        accountMailer.PasswordChange(mailModel).SendAsync();
-                        return RedirectToAction("ChangePasswordSuccess");
-                    }
-                }
+                    var email = User.Identity.Name;
+                    var userProfile = userProfileRepository.FindUserProfileByEmail(email).FirstOrDefault();
 
-                ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                    if (userProfile == null)
+                    {
+                        return HttpNotFound("The user profile you are looking for could not be found.");
+                    }
+
+                    if (!MembershipService.ChangePassword(email, model.OldPassword, model.NewPassword))
+                    {
+                        return PasswordChangeFailed(model);
+                    }
+
+                    var user = userProfile.Users.FirstOrDefault();
+
+                    if (user != null)
+                    {
+                        user.ForcePasswordChange = false;
+                        userProfileRepository.Save();
+                    }
+
+                    var mailModel = Mapper.Map<UserProfile, RegisterModel>(userProfile);
+                    accountMailer.PasswordChange(mailModel).SendAsync();
+
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        TempData["UserFeedback"] = "Thank you! Your password has been successfully updated.";
+                        return Redirect(returnUrl);
+                    }
+
+                    return RedirectToAction("ChangePasswordSuccess");
+                }
             }
 
-            TempData["ChangePasswordModel"] = model;
-            return RedirectToAction("ChangePassword");
+            return PasswordChangeFailed(model);
         }
 
         public ActionResult ChangePasswordSuccess()
@@ -439,15 +459,16 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (!userProfile.IsActivated)
             {
-                //TempData["UserFeedback"] = "Looks like you still need to activate your account. Please follow the instructions below.";
                 return RedirectToAction("AwaitingActivation", "Account", new { returnUrl = url });
             }
 
             User user = userProfile.Users.FirstOrDefault();
+            bool resetPassword = false;
 
             if (user != null)
             {
                 failedLogins = user.FailedLoginAttempts;
+                resetPassword = user.ForcePasswordChange;
             }
 
             if (failedLogins > MembershipService.MaxInvalidPasswordAttempts 
@@ -467,6 +488,12 @@ namespace JordanRift.Grassroots.Web.Controllers
                     TempData["UserFeedback"] = string.Format("You still have {0} seconds left before you can try logging in again.", remaining);
                     return RedirectToAction("LogOn");
                 }
+            }
+
+            if (resetPassword)
+            {
+                TempData["UserFeedback"] = string.Format("Welcome {0}! Please update your password using the form below.", userProfile.FullName);
+                return RedirectToAction("ChangePassword", new { returnUrl = url });
             }
 
             return null;
@@ -519,6 +546,13 @@ namespace JordanRift.Grassroots.Web.Controllers
                            SenderName = organization.Name,
                            Url = url
                        };
+        }
+
+        private ActionResult PasswordChangeFailed(ChangePasswordModel model)
+        {
+            ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+            TempData["ChangePasswordModel"] = model;
+            return RedirectToAction("ChangePassword");
         }
     }
 }

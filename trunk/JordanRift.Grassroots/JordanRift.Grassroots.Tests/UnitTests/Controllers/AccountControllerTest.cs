@@ -68,6 +68,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void SavePassword_Returns_Redirect_On_Success()
         {
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "goodEmail";
+            userProfileRepository.Add(userProfile);
             ChangePasswordModel model = new ChangePasswordModel
                                             {
                                                 OldPassword = "goodOldPassword",
@@ -84,6 +87,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         [Test]
         public void SavePassword_Returns_Redirect_When_Password_Fails()
         {
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "goodEmail";
+            userProfileRepository.Add(userProfile);
             ChangePasswordModel model = new ChangePasswordModel
                                             {
                                                 OldPassword = "goodOldPassword",
@@ -110,6 +116,22 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             ActionResult result = controller.SavePassword(model);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
             Assert.IsNotNull(controller.TempData["ChangePasswordModel"]);
+        }
+
+        [Test]
+        public void SavePassword_Redirects_To_Url_When_Present()
+        {
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "goodEmail";
+            userProfileRepository.Add(userProfile);
+            ChangePasswordModel model = new ChangePasswordModel
+                                            {
+                                                OldPassword = "goodOldPassword",
+                                                NewPassword = "goodNewPassword",
+                                                ConfirmPassword = "goodNewPassword"
+                                            };
+            ActionResult result = controller.SavePassword(model, "foo.url");
+            Assert.IsInstanceOf<RedirectResult>(result);
         }
 
         [Test]
@@ -280,6 +302,21 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             controller.AuthenticateUser(model, null);
             model = controller.TempData["LogOnModel"] as LogOnModel;
             Assert.Greater(model.LastLoginAttempt, DateTime.MinValue);
+        }
+
+        [Test]
+        public void AuthenticateUser_Redirects_To_ChangePassword_If_ForcePasswordChange_Is_True()
+        {
+            userProfile = EntityHelpers.GetValidUserProfile();
+            userProfile.Email = "goodEmail";
+            var user = userProfile.Users.First();
+            user.ForcePasswordChange = true;
+            userProfileRepository.Add(userProfile);
+            var model = new LogOnModel { Email = "goodEmail", Password = "goodPassword", RememberMe = false };
+            var result = controller.AuthenticateUser(model, null);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var redirect = result as RedirectToRouteResult;
+            Assert.AreEqual("ChangePassword", redirect.RouteValues["Action"]);
         }
 
         [Test]
