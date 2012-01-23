@@ -46,20 +46,22 @@ add LastModifiedOn datetime not null default '1/1/1900';
 
 alter table gr_Role
 add IsSystemRole bit not null default 0;
-
 alter table gr_Role
 add CreatedOn datetime not null default '1/1/1900';
 alter table gr_Role
 add LastModifiedOn datetime not null default '1/1/1900';
+go
 
 update gr_Role
 set IsSystemRole = 1
 where name in ( 'Root', 'Administrator' )
+go
 
 alter table gr_UserProfile drop constraint FK_gr_UserProfile_gr_Role
 
 alter table gr_UserProfile add constraint FK_gr_UserProfile_gr_Role
 	foreign key (RoleID) references gr_Role(RoleID) on delete set null
+go
 
 alter table gr_User
 add CreatedOn datetime not null default '1/1/1900';
