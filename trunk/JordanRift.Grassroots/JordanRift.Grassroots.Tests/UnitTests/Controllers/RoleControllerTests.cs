@@ -107,6 +107,18 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
+        public void Admin_Should_Return_Forbidden_If_IsSystemRole_Is_True()
+        {
+            var role = EntityHelpers.GetValidRole();
+            role.IsSystemRole = true;
+            roleRepository.Add(role);
+            var result = controller.Admin(role.RoleID);
+            Assert.IsInstanceOf<HttpStatusCodeResult>(result);
+            var status = result as HttpStatusCodeResult;
+            Assert.AreEqual(403, status.StatusCode);
+        }
+
+        [Test]
         public void Destroy_Should_Return_Json_If_Ajax_Delete_Successful()
         {
             controller.Request.Stub(x => x["X-Requested-With"]).Return("XMLHttpRequest");
@@ -141,6 +153,18 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             var result = controller.Destroy();
             Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
+        [Test]
+        public void Destroy_Should_Return_Forbidden_If_IsSystemRole_Is_True()
+        {
+            var role = EntityHelpers.GetValidRole();
+            role.IsSystemRole = true;
+            roleRepository.Add(role);
+            var result = controller.Destroy(role.RoleID);
+            Assert.IsInstanceOf<HttpStatusCodeResult>(result);
+            var status = result as HttpStatusCodeResult;
+            Assert.AreEqual(403, status.StatusCode);
         }
 
         [Test]
@@ -222,6 +246,19 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
+        public void Update_Should_Return_Forbidden_If_IsSystemRole_Is_True()
+        {
+            var role = EntityHelpers.GetValidRole();
+            role.IsSystemRole = true;
+            roleRepository.Add(role);
+            var model = Mapper.Map<Role, RoleAdminModel>(role);
+            var result = controller.Update(model);
+            Assert.IsInstanceOf<HttpStatusCodeResult>(result);
+            var status = result as HttpStatusCodeResult;
+            Assert.AreEqual(403, status.StatusCode);
+        }
+
+        [Test]
         public void New_Should_Return_View()
         {
             var result = controller.New();
@@ -248,14 +285,14 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
-        public void Create_Should_Redirect_To_Admin_When_Successful()
+        public void Create_Should_Redirect_To_List_When_Successful()
         {
             var role = EntityHelpers.GetValidRole();
             var model = Mapper.Map<Role, RoleAdminModel>(role);
             var result = controller.Create(model);
             Assert.IsInstanceOf<RedirectToRouteResult>(result);
             var redirect = result as RedirectToRouteResult;
-            Assert.AreEqual("Admin", redirect.RouteValues["Action"]);
+            Assert.AreEqual("List", redirect.RouteValues["Action"]);
         }
 
         [Test]
@@ -302,6 +339,17 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var organization = organizationRepository.GetDefaultOrganization();
             role = organization.Roles.FirstOrDefault();
             Assert.IsNotNull(role);
+        }
+
+        [Test]
+        public void Create_Shoud_Set_IsSystemRole_To_False()
+        {
+            var role = EntityHelpers.GetValidRole();
+            var model = Mapper.Map<Role, RoleAdminModel>(role);
+            controller.Create(model);
+            var organization = organizationRepository.GetDefaultOrganization();
+            role = organization.Roles.FirstOrDefault();
+            Assert.IsFalse(role.IsSystemRole);
         }
 
         public void SetupController()

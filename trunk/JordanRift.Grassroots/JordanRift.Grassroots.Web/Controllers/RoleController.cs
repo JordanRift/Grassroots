@@ -79,16 +79,19 @@ namespace JordanRift.Grassroots.Web.Controllers
             using (new UnitOfWorkScope())
             {
                 var organization = OrganizationRepository.GetDefaultOrganization(readOnly: false);
+
+                // All roles that are created outside of the db install script are not System Roles
                 var role = new Role
                                {
                                    Name = model.Name,
-                                   Description = model.Description
+                                   Description = model.Description,
+                                   IsSystemRole = false
                                };
 
                 organization.Roles.Add(role);
                 roleRepository.Save();
                 TempData["UserFeedback"] = string.Format("'{0}' was created successfully", role.Name);
-                return RedirectToAction("Admin", new { id = role.RoleID });
+                return RedirectToAction("List", new { id = role.RoleID });
             }
         }
 
@@ -118,6 +121,12 @@ namespace JordanRift.Grassroots.Web.Controllers
                         return HttpNotFound("The role you are looking for could not be found.");
                     }
 
+                    // If role is a "System Role" we don't want anybody editing or deleting it.
+                    if (role.IsSystemRole)
+                    {
+                        return new HttpStatusCodeResult(403, "You do not have permission to edit this security role.");
+                    }
+
                     model = Mapper.Map<Role, RoleAdminModel>(role);
                 }
             }
@@ -144,6 +153,12 @@ namespace JordanRift.Grassroots.Web.Controllers
                 {
                     return HttpNotFound("The role you are looking for could not be found.");
                 }
+                
+                // If role is a "System Role" we don't want anybody editing or deleting it.
+                if (role.IsSystemRole)
+                {
+                    return new HttpStatusCodeResult(403, "You do not have permission to edit this security role.");
+                }
 
                 MapRole(model, role);
                 roleRepository.Save();
@@ -163,6 +178,12 @@ namespace JordanRift.Grassroots.Web.Controllers
                 if (role == null)
                 {
                     return HttpNotFound("The role you are looking for could not be found.");
+                }
+
+                // If role is a "System Role" we don't want anybody editing or deleting it.
+                if (role.IsSystemRole)
+                {
+                    return new HttpStatusCodeResult(403, "You do not have permission to delete this security role.");
                 }
 
                 roleRepository.Delete(role);

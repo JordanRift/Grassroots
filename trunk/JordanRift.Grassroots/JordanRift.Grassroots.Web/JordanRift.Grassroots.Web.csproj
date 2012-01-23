@@ -666,6 +666,7 @@
     <Content Include="Views\Role\New.cshtml" />
     <Content Include="Views\Facebook\Disconnect.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Role.cshtml" />
+    <Content Include="Views\Role\RoleForm.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

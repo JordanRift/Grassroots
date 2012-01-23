@@ -1,13 +1,37 @@
 ﻿@model JordanRift.Grassroots.Web.Models.RoleAdminModel
-
 @{
-    ViewBag.Title = "Admin";
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+
+    var title = string.Format("Editing '{0}' Security Role", Model.Name);
+    ViewBag.Title = title;
 }
 
-<h2>Admin</h2>
-
-@using (Html.BeginForm("Update", "Role"))
+@section DocumentHead
 {
-    @Html.AntiForgeryToken(salt: "AdminUpdateRole")
-    @Html.HiddenFor(m => m.RoleID)
+    @Html.Partial("UIForm")
 }
+
+<hgroup>
+    <h1>@title</h1>
+</hgroup>
+<section class="security-role">
+    @using (Html.BeginForm("Update", "Role"))
+    {
+        @Html.AntiForgeryToken(salt: "AdminUpdateRole")
+        @Html.HiddenFor(m => m.RoleID)
+        @Html.Partial("RoleForm", Model)
+    }
+</section>

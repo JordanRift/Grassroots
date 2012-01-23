@@ -1,0 +1,39 @@
+﻿@model JordanRift.Grassroots.Web.Models.RoleAdminModel
+@{
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
+    Layout = null;
+}
+    @Html.ValidationSummary(false, "Please correct the following errors and try again", new { @class = "ui-widget ui-state-error ui-corner-all" })
+    <fieldset>
+        <legend>Role Details</legend>
+        <dl>
+            <dt>@Html.LabelFor(m => m.Name)</dt>
+            <dd>
+                @Html.TextBoxFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name, null, new { @class = "ui-state-error ui-corner-all" })
+            </dd>
+            <dt>@Html.LabelFor(m => m.Description)</dt>
+            <dd>
+                @Html.TextBoxFor(m => m.Description)
+                @Html.ValidationMessageFor(m => m.Description, null, new { @class = "ui-state-error ui-corner-all" })
+            </dd>
+        </dl>
+    </fieldset>
+    <div>
+        @Html.UiSubmit("Submit")
+        @Html.ActionLink("Cancel", "List", new { controller = "Role", area = "" }, new { title = "Cancel", @class = "cancel" })
+    </div>

@@ -667,6 +667,36 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             Assert.IsNotNull(campaignDonor);
         }
 
+        [Test]
+        public void ResendNotification_Should_Return_Redirect_When_Successfuil()
+        {
+            var campaignDonor = EntityHelpers.GetValidCampaignDonor();
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaignDonor.Campaign = campaign;
+            campaignDonorRepository.Add(campaignDonor);
+            var result = controller.ResendNotification(campaignDonor.CampaignDonorID);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+        }
+
+        [Test]
+        public void ResendNotification_Should_Return_Json_When_Ajax_Successful()
+        {
+            var campaignDonor = EntityHelpers.GetValidCampaignDonor();
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaignDonor.Campaign = campaign;
+            campaignDonorRepository.Add(campaignDonor);
+            controller.Request.Stub(r => r["X-Requested-With"]).Return("XMLHttpRequest");
+            var result = controller.ResendNotification(campaignDonor.CampaignDonorID);
+            Assert.IsInstanceOf<JsonResult>(result);
+        }
+
+        [Test]
+        public void ResendNotification_Should_Return_NotFound_When_Donor_Not_Found()
+        {
+            var result = controller.ResendNotification();
+            Assert.IsInstanceOf<HttpNotFoundResult>(result);
+        }
+
         private void SetUpController()
         {
             var mailer = mocks.DynamicMock<IDonateMailer>();

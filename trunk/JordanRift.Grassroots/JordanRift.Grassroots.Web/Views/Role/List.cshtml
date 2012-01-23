@@ -1,7 +1,84 @@
 ﻿@model IEnumerable<JordanRift.Grassroots.Web.Models.RoleAdminModel>
-
 @{
-    ViewBag.Title = "List";
+    //
+    // Grassroots is free software: you can redistribute it and/or modify
+    // it under the terms of the GNU General Public License as published by
+    // the Free Software Foundation, either version 3 of the License, or
+    // (at your option) any later version.
+    // 
+    // Grassroots is distributed in the hope that it will be useful,
+    // but WITHOUT ANY WARRANTY; without even the implied warranty of
+    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    // GNU General Public License for more details.
+    // 
+    // You should have received a copy of the GNU General Public License
+    // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
+    //
+    
+    ViewBag.Title = "Browse Security Roles";
 }
 
-<h2>List</h2>
+@section DocumentHead
+{
+    @Html.Partial("UIGrid")
+    <script type="text/javascript">
+        $(function () {
+            Grassroots.gridui([
+                { headerText: "Name", width: 200 },
+                { headerText: "Description", width: 300 },
+                { headerText: "System Role?", width: 100 },
+                { headerText: "", width: 50 },
+                { headerText: "", width: 50 }
+            ]);
+        });
+    </script>
+}
+
+<hgroup>
+    <h1>Browse Security Roles</h1>
+</hgroup>
+<section class="security-roles">
+    <table class="grid">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>System Role?</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var role in Model)
+            {
+                var isSystem = role.IsSystemRole ? "Yes" : "No";
+                <tr>
+                    @if (role.IsSystemRole)
+                    {
+                        <td>@role.Name</td>
+                    }
+                    else
+                    {
+                        <td>@Html.ActionLink(role.Name, "Admin", new { controller = "Role", id = role.RoleID, area = "" }, new { title = role.Name })</td>
+                    }
+                    <td>@role.Description</td>
+                    <td>@isSystem</td>
+                    @if (role.IsSystemRole)
+                    {
+                        <td></td>
+                        <td></td>
+                    }
+                    else
+                    {
+                        <td>@Html.ActionLink("Edit", "Admin", new { controller = "Role", id = role.RoleID, area = "" }, new { title = "Edit" })</td>
+                        <td><a href="#" class="destroy" title="Delete" data-id="@role.RoleID" data-type="Security Role" data-controller="Role">Delete</a></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        @Html.ActionLink("Create New", "New")
+        @Html.ActionLink("Back to Admin Dashboard", "Index", new { controller = "Admin", area = "" }, new { title = "Back to Admin Dashboard", @class = "cancel" })
+    </p>
+</section>

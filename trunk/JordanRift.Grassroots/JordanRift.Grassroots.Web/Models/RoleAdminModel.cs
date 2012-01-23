@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System.ComponentModel.DataAnnotations;
 using JordanRift.Grassroots.Framework.Entities.Validation;
 
 namespace JordanRift.Grassroots.Web.Models
@@ -20,7 +21,12 @@ namespace JordanRift.Grassroots.Web.Models
     public class RoleAdminModel : IRoleValidation
     {
         public int RoleID { get; set; }
+
+        [Required]
         public string Name { get; set; }
+        
+        [Required]
         public string Description { get; set; }
+        public bool IsSystemRole { get; set; }
     }
 }
