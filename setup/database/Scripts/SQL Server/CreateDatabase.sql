@@ -458,7 +458,9 @@ ALTER TABLE [dbo].[gr_UserProfile]  WITH CHECK ADD  CONSTRAINT [FK_gr_UserProfil
 REFERENCES [dbo].[gr_Role] ([RoleID])
 GO
 
-ALTER TABLE [dbo].[gr_UserProfile] CHECK CONSTRAINT [FK_gr_UserProfile_gr_Role]
+--ALTER TABLE [dbo].[gr_UserProfile] CHECK CONSTRAINT [FK_gr_UserProfile_gr_Role]
+alter table gr_UserProfile add constraint FK_gr_UserProfile_gr_Role
+	foreign key (RoleID) references gr_Role(RoleID) on delete set null
 GO
 
 ALTER TABLE [dbo].[gr_UserProfile] ADD  CONSTRAINT [DF_myc_UserProfile_FirstName]  DEFAULT ('') FOR [FirstName]
