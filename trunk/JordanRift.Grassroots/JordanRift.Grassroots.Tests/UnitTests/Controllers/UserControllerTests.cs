@@ -23,8 +23,11 @@ using JordanRift.Grassroots.Framework.Services;
 using JordanRift.Grassroots.Tests.Fakes;
 using JordanRift.Grassroots.Tests.Helpers;
 using JordanRift.Grassroots.Web.Controllers;
+using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
+using Mvc.Mailer;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 {
@@ -33,11 +36,13 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
     {
         private IUserProfileRepository userProfileRepository;
         private UserController controller;
+        private MockRepository mocks;
 
         [SetUp]
         public void SetUp()
         {
             userProfileRepository = new FakeUserProfileRepository();
+            mocks = new MockRepository();
             SetUpController();
         }
 
@@ -46,6 +51,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         {
             FakeUserProfileRepository.Reset();
             FakeOrganizationRepository.Reset();
+            mocks = null;
         }
 
         [Test]
@@ -156,7 +162,9 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
 
         private void SetUpController()
         {
-            controller = new UserController(userProfileRepository)
+            var mailer = mocks.DynamicMock<IUserMailer>();
+            MailerBase.IsTestModeEnabled = true;
+            controller = new UserController(userProfileRepository, mailer)
                              {
                                  OrganizationRepository = new FakeOrganizationRepository()
                              };

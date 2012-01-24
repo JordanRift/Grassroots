@@ -22,7 +22,9 @@ using JordanRift.Grassroots.Framework.Data;
 using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Helpers;
 using JordanRift.Grassroots.Framework.Services;
+using JordanRift.Grassroots.Web.Mailers;
 using JordanRift.Grassroots.Web.Models;
+using Mvc.Mailer;
 
 namespace JordanRift.Grassroots.Web.Controllers
 {
@@ -30,10 +32,12 @@ namespace JordanRift.Grassroots.Web.Controllers
     public class UserController : GrassrootsControllerBase
     {
         private readonly IUserProfileRepository userProfileRepository;
+        private readonly IUserMailer userMailer;
 
-        public UserController(IUserProfileRepository userProfileRepository)
+        public UserController(IUserProfileRepository userProfileRepository, IUserMailer userMailer)
         {
             this.userProfileRepository = userProfileRepository;
+            this.userMailer = userMailer;
             Mapper.CreateMap<UserProfile, PasswordAdminModel>();
         }
 
@@ -87,38 +91,50 @@ namespace JordanRift.Grassroots.Web.Controllers
                     return HttpNotFound("The user you are looking for could not be found.");
                 }
 
-                var user = userProfile.Users.FirstOrDefault();
-
-                if (user != null)
-                {
-                    user.Password = GrassrootsMembershipService.HashPassword(model.Password, null);
-                    user.ForcePasswordChange = model.ForcePasswordChange;
-                }
-                else
-                {
-                    userProfile.Users.Add(new User
-                                              {
-                                                  Username = userProfile.Email,
-                                                  Password =
-                                                      GrassrootsMembershipService.HashPassword(model.Password, null),
-                                                  RegisterDate = DateTime.Now,
-                                                  LastLoggedIn = DateTime.Now,
-                                                  IsActive = true,
-                                                  IsAuthorized = true,
-                                                  ForcePasswordChange = model.ForcePasswordChange
-                                              });
-                }
-
+                SaveUser(userProfile, model);
                 userProfileRepository.Save();
 
                 if (model.NotifyUser)
                 {
-                    // Send email notification to use
+                    SendNotification(userProfile);
                 }
 
                 TempData["UserFeedback"] = string.Format("{0}'s password has been reset successfully.", userProfile.FullName);
                 return RedirectToAction("Admin", "UserProfile", new { id = userProfile.UserProfileID });
             }
+        }
+
+        private void SaveUser(UserProfile userProfile, PasswordAdminModel model)
+        {
+            var user = userProfile.Users.FirstOrDefault();
+
+            if (user != null)
+            {
+                user.Password = GrassrootsMembershipService.HashPassword(model.Password, null);
+                user.ForcePasswordChange = model.ForcePasswordChange;
+            }
+            else
+            {
+                userProfile.Users.Add(new User
+                                          {
+                                              Username = userProfile.Email,
+                                              Password =
+                                                  GrassrootsMembershipService.HashPassword(model.Password, null),
+                                              RegisterDate = DateTime.Now,
+                                              LastLoggedIn = DateTime.Now,
+                                              IsActive = true,
+                                              IsAuthorized = true,
+                                              ForcePasswordChange = model.ForcePasswordChange
+                                          });
+            }
+        }
+
+        private void SendNotification(UserProfile userProfile)
+        {
+            var model = Mapper.Map<UserProfile, PasswordAdminModel>(userProfile);
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
+            model.ContactEmail = organization.ContactEmail;
+            userMailer.PasswordChanged(model).SendAsync();
         }
     }
 }

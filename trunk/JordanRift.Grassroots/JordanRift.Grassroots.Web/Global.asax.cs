@@ -119,6 +119,7 @@ namespace JordanRift.Grassroots
             kernel.Bind<ICampaignMailer>().To<CampaignMailer>();
             kernel.Bind<IDonateMailer>().To<DonateMailer>();
             kernel.Bind<IUserProfileMailer>().To<UserProfileMailer>();
+            kernel.Bind<IUserMailer>().To<UserMailer>();
             
             // Social service integration DI
             kernel.Bind<ITwitterService>().To<TwitterService>();
@@ -177,7 +178,7 @@ namespace JordanRift.Grassroots
 
             routes.MapRoute(
                 "AdminUsers", 
-                "Admin/{action}/{id}", 
+                "Admin/Users/{action}/{id}", 
                 new { controller = "User", action = "ChangePassword", id = UrlParameter.Optional }
             );
 

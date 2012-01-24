@@ -108,10 +108,12 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 
             int failedLogins = 0;
+            bool mustResetPassword = false;
+            UserProfile userProfile;
             using (userProfileRepository)
             {
-                var userProfile = userProfileRepository.FindUserProfileByEmail(model.Email).FirstOrDefault();
-                var validationResult = ValidateLogon(userProfile, model, returnUrl, ref failedLogins);
+                userProfile = userProfileRepository.FindUserProfileByEmail(model.Email).FirstOrDefault();
+                var validationResult = ValidateLogon(userProfile, model, returnUrl, ref failedLogins, ref mustResetPassword);
 
                 if (validationResult != null)
                 {
@@ -122,6 +124,12 @@ namespace JordanRift.Grassroots.Web.Controllers
             if (MembershipService.ValidateUser(model.Email, model.Password))
             {
                 FormsService.SignIn(model.Email, model.RememberMe);
+
+                if (mustResetPassword)
+                {
+                    TempData["UserFeedback"] = string.Format("Welcome {0}! Please update your password using the form below.", userProfile.FullName);
+                    return RedirectToAction("ChangePassword", new { returnUrl = returnUrl });
+                }
 
                 if (!string.IsNullOrEmpty(returnUrl))
                 {
@@ -449,7 +457,7 @@ namespace JordanRift.Grassroots.Web.Controllers
             return RedirectToAction("AwaitingActivation", "Account");
         }
 
-        private ActionResult ValidateLogon(UserProfile userProfile, LogOnModel model, string url, ref int failedLogins)
+        private ActionResult ValidateLogon(UserProfile userProfile, LogOnModel model, string url, ref int failedLogins, ref bool mustResetPassword)
         {
             if (userProfile == null)
             {
@@ -463,12 +471,11 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
 
             User user = userProfile.Users.FirstOrDefault();
-            bool resetPassword = false;
 
             if (user != null)
             {
                 failedLogins = user.FailedLoginAttempts;
-                resetPassword = user.ForcePasswordChange;
+                mustResetPassword = user.ForcePasswordChange;
             }
 
             if (failedLogins > MembershipService.MaxInvalidPasswordAttempts 
@@ -488,12 +495,6 @@ namespace JordanRift.Grassroots.Web.Controllers
                     TempData["UserFeedback"] = string.Format("You still have {0} seconds left before you can try logging in again.", remaining);
                     return RedirectToAction("LogOn");
                 }
-            }
-
-            if (resetPassword)
-            {
-                TempData["UserFeedback"] = string.Format("Welcome {0}! Please update your password using the form below.", userProfile.FullName);
-                return RedirectToAction("ChangePassword", new { returnUrl = url });
             }
 
             return null;
