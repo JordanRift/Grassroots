@@ -110,6 +110,12 @@ namespace JordanRift.Grassroots.Web.Controllers
                 }
 
                 userProfileRepository.Save();
+
+                if (model.NotifyUser)
+                {
+                    // Send email notification to use
+                }
+
                 TempData["UserFeedback"] = string.Format("{0}'s password has been reset successfully.", userProfile.FullName);
                 return RedirectToAction("Admin", "UserProfile", new { id = userProfile.UserProfileID });
             }

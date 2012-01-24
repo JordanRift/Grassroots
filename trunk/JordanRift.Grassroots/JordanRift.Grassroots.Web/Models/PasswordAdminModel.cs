@@ -36,5 +36,8 @@ namespace JordanRift.Grassroots.Web.Models
         
         [Display(Name = "Force password change on next log in?")]
         public bool ForcePasswordChange { get; set; }
+
+        [Display(Name = "Notify user of password change?")]
+        public bool NotifyUser { get; set; }
     }
 }
