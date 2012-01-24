@@ -131,6 +131,7 @@
     <Compile Include="UnitTests\Controllers\FacebookControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\HomeControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\RoleControllerTests.cs" />
+    <Compile Include="UnitTests\Controllers\UserControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\UserProfileControllerTests.cs" />
     <Compile Include="UnitTests\Controllers\ValidationControllerTests.cs" />
     <Compile Include="UnitTests\Helpers\ModelHelpersTests.cs" />

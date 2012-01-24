@@ -133,6 +133,7 @@
     <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Controllers\GrassrootsControllerBase.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -193,6 +194,7 @@
     </Compile>
     <Compile Include="Models\OrganizationSettingModel.cs" />
     <Compile Include="Models\OrganizationStatsModel.cs" />
+    <Compile Include="Models\PasswordAdminModel.cs" />
     <Compile Include="Models\PasswordResetModel.cs" />
     <Compile Include="Models\ProgressBarModel.cs">
       <SubType>Code</SubType>
@@ -667,6 +669,7 @@
     <Content Include="Views\Facebook\Disconnect.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Role.cshtml" />
     <Content Include="Views\Role\RoleForm.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

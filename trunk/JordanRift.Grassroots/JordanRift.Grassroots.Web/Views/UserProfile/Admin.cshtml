@@ -81,6 +81,9 @@
                 @Html.CheckBoxFor(m => m.IsActivated)
                 @Html.LabelFor(m => m.IsActivated)
             </div>
+            <p>
+                @Html.ActionLink("Change Password", "ChangePassword", new { controller = "User", id = Model.UserProfileID, area = "" }, new { title = "Change Password" })
+            </p>
             @Html.HiddenFor(m => m.Consent)
         </fieldset>
     </section>    

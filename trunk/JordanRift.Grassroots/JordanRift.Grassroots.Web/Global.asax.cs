@@ -176,6 +176,12 @@ namespace JordanRift.Grassroots
             );
 
             routes.MapRoute(
+                "AdminUsers", 
+                "Admin/{action}/{id}", 
+                new { controller = "User", action = "ChangePassword", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 "AdminMethods",
                 "Admin/{action}/{id}",
                 new { controller = "Admin", action = "Index", id = UrlParameter.Optional}
