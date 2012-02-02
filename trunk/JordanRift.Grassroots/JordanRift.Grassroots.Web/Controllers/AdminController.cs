@@ -161,7 +161,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                                    {
                                        GoalAmount = causeTemplate.DefaultAmount,
                                        Title = string.Format("General Fund {0}/{1}", today.Month, today.Year),
-                                       UrlSlug = string.Format("{0}{1}{2}", organization.Name, today.Month, today.Year),
+                                       UrlSlug = string.Format("GeneralFund{0}{1}", today.Month, today.Year),
                                        StartDate = new DateTime(today.Year, today.Month, 1),
                                        // Get the first day of the current month
                                        EndDate = today.AddMonths(1).AddDays(-1),
