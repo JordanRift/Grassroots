@@ -309,6 +309,9 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             using (new UnitOfWorkScope())
             {
+                var displayName = model.IsAnonymous && string.IsNullOrEmpty(model.DisplayName)
+                                      ? "Anonymous"
+                                      : model.DisplayName;
                 campaignDonor = new CampaignDonor
                                     {
                                         Amount = model.Amount,
@@ -323,7 +326,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                                         PrimaryPhone = model.PrimaryPhone,
                                         Approved = model.Approved,
                                         IsAnonymous = model.IsAnonymous,
-                                        DisplayName = model.DisplayName
+                                        DisplayName = displayName
                                     };
 
                 var campaign = campaignRepository.GetCampaignByID(model.CampaignID);
@@ -489,7 +492,10 @@ namespace JordanRift.Grassroots.Web.Controllers
             campaignDonor.State = model.State;
             campaignDonor.ZipCode = model.ZipCode;
             campaignDonor.IsAnonymous = model.IsAnonymous;
-            campaignDonor.DisplayName = model.DisplayName;
+            var displayName = model.IsAnonymous && string.IsNullOrEmpty(model.DisplayName)
+                                  ? "Anonymous"
+                                  : model.DisplayName;
+            campaignDonor.DisplayName = displayName;
             campaignDonor.Approved = model.Approved;
 
             if (campaignDonor.CampaignID != model.CampaignID)

@@ -591,6 +591,18 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
+        public void AdminUpdate_Should_Populate_DisplayName_When_Anonymous_Selected_And_DisplayName_Left_Blank()
+        {
+            var donation = EntityHelpers.GetValidCampaignDonor();
+            campaignDonorRepository.Add(donation);
+            var model = Mapper.Map<CampaignDonor, DonationAdminModel>(donation);
+            model.IsAnonymous = true;
+            model.DisplayName = string.Empty;
+            controller.AdminUpdate(model);
+            Assert.AreEqual("Anonymous", donation.DisplayName);
+        }
+
+        [Test]
         public void New_Should_Return_View()
         {
             var result = controller.New();
@@ -665,6 +677,22 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             controller.Create(model);
             campaignDonor = userProfile.CampaignDonors.FirstOrDefault();
             Assert.IsNotNull(campaignDonor);
+        }
+
+        [Test]
+        public void Create_Should_Populate_DisplayName_When_Anonymous_Selected_And_DisplayName_Left_Blank()
+        {
+            var campaignDonor = EntityHelpers.GetValidCampaignDonor();
+            var campaign = EntityHelpers.GetValidCampaign();
+            campaign.CampaignDonors = new List<CampaignDonor>();
+            campaignRepository.Add(campaign);
+            var model = Mapper.Map<CampaignDonor, DonationAdminModel>(campaignDonor);
+            model.IsAnonymous = true;
+            model.DisplayName = string.Empty;
+            model.CampaignID = campaign.CampaignID;
+            controller.Create(model);
+            campaignDonor = campaign.CampaignDonors.FirstOrDefault();
+            Assert.AreEqual("Anonymous", campaignDonor.DisplayName);
         }
 
         [Test]
