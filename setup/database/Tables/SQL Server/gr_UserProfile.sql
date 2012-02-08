@@ -20,7 +20,7 @@ CREATE TABLE [dbo].[gr_UserProfile](
 	[LastName] [varchar](30) NOT NULL,
 	[Birthdate] [datetime] NOT NULL,
 	[Gender] [varchar](20) NOT NULL,
-	[Email] [varchar](50) NOT NULL,
+	[Email] [varchar](100) NOT NULL,
 	[PrimaryPhone] [varchar](30) NULL,
 	[AddressLine1] [varchar](200) NULL,
 	[AddressLine2] [varchar](200) NULL,

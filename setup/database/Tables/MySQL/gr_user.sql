@@ -2,7 +2,7 @@
 
 CREATE TABLE `gr_user` (
   `UserID` int(11) NOT NULL AUTO_INCREMENT,
-  `Username` varchar(50) NOT NULL DEFAULT '',
+  `Username` varchar(100) NOT NULL DEFAULT '',
   `Password` varchar(2000) NOT NULL DEFAULT '',
   `UserProfileID` int(11) NOT NULL,
   `IsActive` bit(1) DEFAULT b'0',

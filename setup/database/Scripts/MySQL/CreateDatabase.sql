@@ -188,7 +188,7 @@ CREATE TABLE `gr_userprofile` (
   `LastName` varchar(30) NOT NULL DEFAULT '',
   `Birthdate` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
   `Gender` varchar(20) NOT NULL DEFAULT '',
-  `Email` varchar(50) NOT NULL DEFAULT '',
+  `Email` varchar(100) NOT NULL DEFAULT '',
   `PrimaryPhone` varchar(30) DEFAULT '',
   `AddressLine1` varchar(200) DEFAULT '',
   `AddressLine2` varchar(200) DEFAULT NULL,
@@ -217,7 +217,7 @@ CREATE TABLE `gr_userprofile` (
 
 CREATE TABLE `gr_user` (
   `UserID` int(11) NOT NULL AUTO_INCREMENT,
-  `Username` varchar(50) NOT NULL DEFAULT '',
+  `Username` varchar(100) NOT NULL DEFAULT '',
   `Password` varchar(2000) NOT NULL DEFAULT '',
   `UserProfileID` int(11) NOT NULL,
   `IsActive` bit(1) DEFAULT b'0',
@@ -368,7 +368,7 @@ CREATE TABLE `gr_campaigndonor` (
   `LastName` varchar(50) NOT NULL DEFAULT '',
   `Comments` varchar(500) NOT NULL DEFAULT '',
   `Amount` decimal(11,2) NOT NULL DEFAULT '0.00',
-  `Email` varchar(30) NOT NULL DEFAULT '',
+  `Email` varchar(100) NOT NULL DEFAULT '',
   `PrimaryPhone` varchar(30) NOT NULL DEFAULT '',
   `AddressLine1` varchar(200) NOT NULL DEFAULT '',
   `AddressLine2` varchar(200) DEFAULT NULL,

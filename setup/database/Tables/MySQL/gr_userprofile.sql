@@ -7,7 +7,7 @@ CREATE TABLE `gr_userprofile` (
   `LastName` varchar(30) NOT NULL DEFAULT '',
   `Birthdate` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
   `Gender` varchar(20) NOT NULL DEFAULT '',
-  `Email` varchar(50) NOT NULL DEFAULT '',
+  `Email` varchar(100) NOT NULL DEFAULT '',
   `PrimaryPhone` varchar(30) DEFAULT '',
   `AddressLine1` varchar(200) DEFAULT '',
   `AddressLine2` varchar(200) DEFAULT NULL,

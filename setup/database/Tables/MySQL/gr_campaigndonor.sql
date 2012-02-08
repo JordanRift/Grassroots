@@ -8,7 +8,7 @@ CREATE TABLE `gr_campaigndonor` (
   `LastName` varchar(50) NOT NULL DEFAULT '',
   `Comments` varchar(500) NOT NULL DEFAULT '',
   `Amount` decimal(11,2) NOT NULL DEFAULT '0.00',
-  `Email` varchar(30) NOT NULL DEFAULT '',
+  `Email` varchar(100) NOT NULL DEFAULT '',
   `PrimaryPhone` varchar(30) NOT NULL DEFAULT '',
   `AddressLine1` varchar(200) NOT NULL DEFAULT '',
   `AddressLine2` varchar(200) DEFAULT NULL,

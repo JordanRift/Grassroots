@@ -13,7 +13,7 @@ GO
 
 CREATE TABLE [dbo].[gr_User](
 	[UserID] [int] IDENTITY(1,1) NOT NULL,
-	[Username] [varchar](50) NOT NULL,
+	[Username] [varchar](100) NOT NULL,
 	[Password] [varchar](2000) NOT NULL,
 	[UserProfileID] [int] NOT NULL,
 	[IsActive] [bit] NOT NULL,

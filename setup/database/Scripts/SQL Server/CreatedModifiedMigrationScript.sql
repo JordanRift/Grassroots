@@ -72,3 +72,8 @@ alter table gr_UserProfile
 add CreatedOn datetime not null default '1/1/1900';
 alter table gr_UserProfile
 add LastModifiedOn datetime not null default '1/1/1900';
+
+alter table gr_CampaignDonor alter column Email varchar(100) not null
+alter table gr_User alter column Username varchar(100) not null
+alter table gr_UserProfile alter column Email varchar(100) not null
+go

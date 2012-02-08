@@ -420,7 +420,7 @@ CREATE TABLE [dbo].[gr_UserProfile](
 	[LastName] [varchar](30) NOT NULL,
 	[Birthdate] [datetime] NOT NULL,
 	[Gender] [varchar](20) NOT NULL,
-	[Email] [varchar](50) NOT NULL,
+	[Email] [varchar](100) NOT NULL,
 	[PrimaryPhone] [varchar](30) NULL,
 	[AddressLine1] [varchar](200) NULL,
 	[AddressLine2] [varchar](200) NULL,
@@ -529,7 +529,7 @@ GO
 
 CREATE TABLE [dbo].[gr_User](
 	[UserID] [int] IDENTITY(1,1) NOT NULL,
-	[Username] [varchar](50) NOT NULL,
+	[Username] [varchar](100) NOT NULL,
 	[Password] [varchar](2000) NOT NULL,
 	[UserProfileID] [int] NOT NULL,
 	[IsActive] [bit] NOT NULL,
@@ -1030,7 +1030,7 @@ CREATE TABLE [dbo].[gr_CampaignDonor](
 	[LastName] [varchar](50) NOT NULL,
 	[Comments] [varchar](500) NULL,
 	[Amount] [decimal](11, 2) NOT NULL,
-	[Email] [varchar](30) NOT NULL,
+	[Email] [varchar](100) NOT NULL,
 	[PrimaryPhone] [varchar](30) NOT NULL,
 	[AddressLine1] [varchar](200) NOT NULL,
 	[AddressLine2] [varchar](200) NULL,

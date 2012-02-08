@@ -19,7 +19,7 @@ CREATE TABLE [dbo].[gr_CampaignDonor](
 	[LastName] [varchar](50) NOT NULL,
 	[Comments] [varchar](500) NULL,
 	[Amount] [decimal](11, 2) NOT NULL,
-	[Email] [varchar](30) NOT NULL,
+	[Email] [varchar](100) NOT NULL,
 	[PrimaryPhone] [varchar](30) NOT NULL,
 	[AddressLine1] [varchar](200) NOT NULL,
 	[AddressLine2] [varchar](200) NULL,
