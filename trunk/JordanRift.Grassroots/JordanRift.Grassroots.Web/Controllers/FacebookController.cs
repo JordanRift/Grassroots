@@ -198,7 +198,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             if (TempData["ModelErrors"] != null)
             {
-                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+                var errors = TempData["ModelErrors"] as IEnumerable<string> ?? new List<string>();
 
                 foreach (var error in errors)
                 {
@@ -299,7 +299,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (TempData["ModelErrors"] != null)
             {
-                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+                var errors = TempData["ModelErrors"] as IEnumerable<string> ?? new List<string>();
 
                 foreach (var error in errors)
                 {
@@ -414,7 +414,11 @@ namespace JordanRift.Grassroots.Web.Controllers
 			{
 				string location = me.location.name;
 				var locArray = location.Split( new[] { ',' } );
-				viewModel.City = locArray[0].Trim();
+
+                if (locArray.Any())
+                {
+                    viewModel.City = locArray[0].Trim();
+                }
 
 				var pair = UIHelpers.StateDictionary.FirstOrDefault( s => s.Key.ToLower() == locArray[1].Trim().ToLower() );
 				viewModel.State = pair.Value;

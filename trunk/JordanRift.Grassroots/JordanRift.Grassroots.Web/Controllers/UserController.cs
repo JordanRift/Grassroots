@@ -50,7 +50,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             if (TempData["ModelErrors"] != null)
             {
-                var errors = TempData["ModelErrors"] as List<string>;
+                var errors = TempData["ModelErrors"] as List<string> ?? new List<string>();
 
                 foreach (var error in errors)
                 {

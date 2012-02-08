@@ -77,7 +77,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (TempData["ModelErrors"] != null)
             {
-                var modelErrors = TempData["ModelErrors"] as List<string>;
+                var modelErrors = TempData["ModelErrors"] as List<string> ?? new List<string>();
 
                 foreach (var error in modelErrors)
                 {
@@ -161,7 +161,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             if (TempData["ModelErrors"] != null)
             {
-                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+                var errors = TempData["ModelErrors"] as IEnumerable<string> ?? new List<string>();
 
                 foreach (var error in errors)
                 {

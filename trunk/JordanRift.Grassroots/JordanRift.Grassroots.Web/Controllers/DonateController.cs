@@ -174,18 +174,13 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         private CampaignDonor GetDonation(Payment payment)
         {
-            UserProfile userProfile = null;
+            UserProfile userProfile;
             var donation = Mapper.Map<Payment, CampaignDonor>(payment);
             PopulateDisplayName(donation);
             
-            if (User.Identity.IsAuthenticated)
-            {
-                userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
-            }
-            else
-            {
-                userProfile = userProfileRepository.FindUserProfileByEmail(payment.Email).FirstOrDefault();
-            }
+            userProfile = User.Identity.IsAuthenticated 
+                ? userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault() 
+                : userProfileRepository.FindUserProfileByEmail(payment.Email).FirstOrDefault();
 
             if (userProfile != null)
             {
@@ -280,7 +275,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         {
             if (TempData["ModelErrors"] != null)
             {
-                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+                var errors = TempData["ModelErrors"] as IEnumerable<string> ?? new List<string>();
 
                 foreach (var error in errors)
                 {
@@ -353,7 +348,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (TempData["ModelErrors"] != null)
             {
-                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+                var errors = TempData["ModelErrors"] as IEnumerable<string> ?? new List<string>();
 
                 foreach (var error in errors)
                 {

@@ -405,7 +405,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (TempData["ModelErrors"] != null)
             {
-                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+                var errors = TempData["ModelErrors"] as IEnumerable<string> ?? new List<string>();
 
                 foreach (var error in errors)
                 {

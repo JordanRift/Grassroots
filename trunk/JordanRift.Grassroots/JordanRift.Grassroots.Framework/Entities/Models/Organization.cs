@@ -146,7 +146,10 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
                                                        select c.Amount).Sum());
                 }
             }
-            catch (ObjectDisposedException ex) { Logger.LogError(ex); }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex);
+            }
 
             return total;
         }

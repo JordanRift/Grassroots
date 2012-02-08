@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -431,7 +432,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
             if (TempData["ModelErrors"] != null)
             {
-                var errors = TempData["ModelErrors"] as IEnumerable<string>;
+                var errors = TempData["ModelErrors"] as IEnumerable<string> ?? new List<string>();
 
                 foreach (var error in errors)
                 {
@@ -525,7 +526,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         private CampaignAdminModel MapAdminModel(Campaign campaign)
         {
             var model = Mapper.Map<Campaign, CampaignAdminModel>(campaign);
-            model.AmountString = campaign.GoalAmount.ToString();
+            model.AmountString = campaign.GoalAmount.ToString(CultureInfo.InvariantCulture);
             var userProfile = campaign.UserProfile;
             model.UserProfileID = userProfile.UserProfileID;
             model.FirstName = userProfile.FirstName;

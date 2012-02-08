@@ -75,7 +75,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 if (organization.YtdGoal.HasValue && organization.YtdGoal > 0)
                 {
                     total = organization.CalculateTotalDonationsYTD();
-                    totalGoal = organization.YtdGoal.Value;
+                    totalGoal = organization.YtdGoal.HasValue ? organization.YtdGoal.Value : 0m;
                     goalName = "Total YTD";
                 }
                 else
@@ -107,10 +107,10 @@ namespace JordanRift.Grassroots.Web.Controllers
         [OutputCache(Duration = 120, VaryByParam = "none")]
         public ActionResult Stats()
         {
-            var causes = organization.GetCompletedCauses();
-            var model = new OrganizationStatsModel()
+            var causes = organization.GetCompletedCauses().ToList();
+            var model = new OrganizationStatsModel
                             {
-                                ProjectsCompleted = causes != null ? causes.Count() : 0,
+                                ProjectsCompleted = causes.Count,
                                 ProjectsCompletedLabel = ModelHelpers.GetCausesLabelText(causes),
                                 DollarsRaised = organization.CalculateTotalDonations(includeInactiveCampaigns: true),
                                 Donations = organization.GetDonationCount(),
