@@ -26,6 +26,7 @@ namespace JordanRift.Grassroots.Web.Models
 
         public string Title { get; set; }
         public string UrlSlug { get; set; }
+        public bool IsGeneralFund { get; set; }
         
         //
         // User Profile fields

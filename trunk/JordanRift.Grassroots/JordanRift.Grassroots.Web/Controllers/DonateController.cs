@@ -142,6 +142,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                         campaign.CampaignDonors.Add(donation);
                         campaignRepository.Save();
                         var viewModel = SendNotifications(campaign, donation, model);
+                        viewModel.IsGeneralFund = campaign.IsGeneralFund;
                         TempData["Donation"] = viewModel;
                         return RedirectToAction("ThankYou");
                     }

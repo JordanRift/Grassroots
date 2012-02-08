@@ -28,7 +28,7 @@
     <p>You'll be receiving an email receipt shortly. You can either print this page or keep a copy of the email for your recepit.</p>
     @Html.Partial("DonationReceipt", Model)
     
-    @if (!string.IsNullOrEmpty(Model.UrlSlug) || Model.UrlSlug.Equals("general", StringComparison.CurrentCultureIgnoreCase)) {
+    @if (!string.IsNullOrEmpty(Model.UrlSlug) && !Model.IsGeneralFund) {
     <p>@Html.ActionLink(linkText, "Index", new { controller = "Campaign", slug = Model.UrlSlug }, new { title = linkText, @class = "ui-button ui-corner-all" })</p>
     <div class="share">
         <h3>Share this with your friends!</h3>
