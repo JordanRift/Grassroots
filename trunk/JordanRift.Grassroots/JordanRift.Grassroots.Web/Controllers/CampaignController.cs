@@ -69,7 +69,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         public ActionResult Index(string slug = "")
         {
-            using (campaignRepository)
+            using (new UnitOfWorkScope())
             {
                 var campaign = campaignRepository.GetCampaignByUrlSlug(slug);
 
@@ -353,13 +353,15 @@ namespace JordanRift.Grassroots.Web.Controllers
             }
         }
 
-        private static CampaignEmailBlastModel MapEmailBlast(Campaign campaign)
+        private CampaignEmailBlastModel MapEmailBlast(Campaign campaign)
         {
+            var organization = OrganizationRepository.GetDefaultOrganization(readOnly: true);
             var model = Mapper.Map<Campaign, CampaignEmailBlastModel>(campaign);
             var userProfile = campaign.UserProfile;
             model.FirstName = userProfile.FirstName;
             model.LastName = userProfile.LastName;
-            model.Email = userProfile.Email;
+            //model.Email = userProfile.Email;
+            model.Email = organization.ContactEmail;
             return model;
         }
 

@@ -147,7 +147,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             controller.ModelState.AddModelError("", "Uh oh");
             var result = controller.New(new CauseTemplateDetailsModel());
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
-            var model = controller.TempData["CauseTemplateCreateModel"];
+            var model = controller.TempData["CauseTemplateDetailsModel"];
             Assert.IsNotNull(model);
         }
 
@@ -158,7 +158,7 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
             var model = Mapper.Map<CauseTemplate, CauseTemplateDetailsModel>(causeTemplate);
             var result = controller.New(model);
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), result);
-            var responseModel = controller.TempData["CauseTemplateCreateModel"];
+            var responseModel = controller.TempData["CauseTemplateDetailsModel"];
             Assert.IsNull(responseModel);
         }
 
