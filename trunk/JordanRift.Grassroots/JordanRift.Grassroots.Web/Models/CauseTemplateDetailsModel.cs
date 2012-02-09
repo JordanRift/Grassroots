@@ -13,6 +13,7 @@
 // along with Grassroots.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
@@ -61,6 +62,10 @@ namespace JordanRift.Grassroots.Web.Models
 		[DisplayName( "Default Timespan (in days)" )]
 		[Range(1, 999, ErrorMessage = "Please enter a number more than 0 but less than 999 days." )]
 		public int DefaultTimespanInDays { get; set; }
+
+        [Display(Name = "Cut Off Date (optional)")]
+        [UIHint("DateTime")]
+        public DateTime? CutOffDate { get; set; }
 
 		[Required]
 		[DataType( DataType.MultilineText )]

@@ -61,10 +61,15 @@
 					    @Html.ValidationMessageFor(m => m.TimespanIsConfigurable, null, new { @class = "ui-state-error ui-corner-all" })
 				    </dd>
 				    <dt>@Html.LabelFor(m => m.DefaultTimespanInDays)</dt>
-				    <dd>
+                    <dd>
                         @Html.EditorFor(m => m.DefaultTimespanInDays)
-					    @Html.ValidationMessageFor(m => m.DefaultTimespanInDays, null, new { @class = "ui-state-error ui-corner-all" })
-				    </dd>
+                        @Html.ValidationMessageFor(m => m.DefaultTimespanInDays, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.CutOffDate)</dt>
+                    <dd>
+                        @Html.EditorFor(m => m.CutOffDate)
+                        @Html.ValidationMessageFor(m => m.CutOffDate)
+                    </dd>
                     <dt>@Html.LabelFor(m => m.Summary)</dt>
 				    <dd class="textarea">
                         @Html.ValidationMessageFor(m => m.Summary, null, new { @class = "ui-state-error ui-corner-all" })

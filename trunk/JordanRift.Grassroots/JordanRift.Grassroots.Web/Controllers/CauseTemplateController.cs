@@ -144,7 +144,19 @@ namespace JordanRift.Grassroots.Web.Controllers
 		[Authorize( Roles = ADMIN_ROLES )]
 		public ActionResult Create()
 		{
-			return View();
+            if (TempData["ModelErrors"] != null)
+            {
+                var errors = TempData["ModelErrors"] as List<string> ?? new List<string>();
+
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+            }
+
+		    var viewModel = TempData["CauseTemplateDetailsModel"] as CauseTemplateDetailsModel 
+                ?? new CauseTemplateDetailsModel();
+			return View(viewModel);
 		}
 
 		[Authorize( Roles = ADMIN_ROLES )] 
@@ -154,7 +166,8 @@ namespace JordanRift.Grassroots.Web.Controllers
 		{
 			if ( !ModelState.IsValid )
 			{
-				TempData["CauseTemplateCreateModel"] = model;
+                TempData["CauseTemplateDetailsModel"] = model;
+			    TempData["ModelErrors"] = FindModelErrors();
 				return RedirectToAction( "Create" );
 			}
 
@@ -357,6 +370,7 @@ namespace JordanRift.Grassroots.Web.Controllers
 			causeTemplate.AmountIsConfigurable = model.AmountIsConfigurable;
 			causeTemplate.DefaultAmount = model.DefaultAmount;
 			causeTemplate.DefaultTimespanInDays = model.DefaultTimespanInDays;
+		    causeTemplate.CutOffDate = model.CutOffDate;
 			causeTemplate.DescriptionHtml = model.DescriptionHtml;
 			causeTemplate.GoalName = model.GoalName;
 			causeTemplate.ImagePath = model.ImagePath;
