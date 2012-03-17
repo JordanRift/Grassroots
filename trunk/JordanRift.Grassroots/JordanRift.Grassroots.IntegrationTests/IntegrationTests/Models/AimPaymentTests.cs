@@ -70,6 +70,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
                                       Amount = TestHelpers.GetAmount()
                                   };
 
+            EntityHelpers.AddCampaignInfo(payment);
             var result = provider.Process(payment);
             Assert.AreEqual(PaymentResponseCode.Approved, result.ResponseCode);
         }
@@ -84,6 +85,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
                                       Amount = TestHelpers.GetAmount()
                                   };
 
+            EntityHelpers.AddCampaignInfo(payment);
             var result = provider.Process(payment);
             Assert.AreNotEqual(PaymentResponseCode.Approved, result.ResponseCode);
         }
@@ -106,6 +108,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
                                       Amount = TestHelpers.GetAmount()
                                   };
 
+            EntityHelpers.AddCampaignInfo(payment);
             var result = provider.Process(payment);
             Assert.AreEqual(PaymentResponseCode.Approved, result.ResponseCode);
         }
@@ -128,6 +131,7 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
                                       Amount = TestHelpers.GetAmount()
                                   };
 
+            EntityHelpers.AddCampaignInfo(payment);
             var result = provider.Process(payment);
             Assert.AreNotEqual(PaymentResponseCode.Approved, result.ResponseCode);
         }

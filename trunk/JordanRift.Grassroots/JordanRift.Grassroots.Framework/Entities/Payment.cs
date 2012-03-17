@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
+using JordanRift.Grassroots.Framework.Entities.Models;
 using JordanRift.Grassroots.Framework.Entities.Validation;
 
 namespace JordanRift.Grassroots.Framework.Entities
@@ -60,6 +61,10 @@ namespace JordanRift.Grassroots.Framework.Entities
         public IList<string> Errors { get { return errors; } }
         public DateTime SubscriptionStart { get; set; }
         public string Notes { get; set; }
+
+        public Campaign Campaign { get; set; }
+        public UserProfile Owner { get; set; }
+        public Organization Organization { get; set; }
 
         public string GetFormattedDate()
         {

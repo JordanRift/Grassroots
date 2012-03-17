@@ -228,5 +228,12 @@ namespace JordanRift.Grassroots.Tests.Helpers
                            Recipients = new List<Recipient>()
                        };
         }
+
+        public static void AddCampaignInfo(Payment payment)
+        {
+            payment.Campaign = EntityHelpers.GetValidCampaign();
+            payment.Owner = EntityHelpers.GetValidUserProfile();
+            payment.Organization = EntityHelpers.GetValidOrganization();
+        }
     }
 }

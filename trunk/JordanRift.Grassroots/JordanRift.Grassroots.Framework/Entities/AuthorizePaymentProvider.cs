@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -138,7 +139,7 @@ namespace JordanRift.Grassroots.Framework.Entities
                                      { "x_relay_response", "FALSE" },
                                      { "x_type", "AUTH_CAPTURE" },
                                      { "x_method", payment.PaymentType.ToString() },
-                                     { "x_amount", payment.Amount.ToString() },
+                                     { "x_amount", payment.Amount.ToString(CultureInfo.InvariantCulture) },
                                      { "x_description", payment.ToString() },
                                      { "x_first_name", payment.FirstName },
                                      { "x_last_name", payment.LastName },
@@ -168,8 +169,31 @@ namespace JordanRift.Grassroots.Framework.Entities
             // NOTE: From the Authorize.net API documentation: 
             // Additional fields can be added here as outlined in the AIM integration
             // guide at: http://developer.authorize.net
-
+            AppendCustomFields(postValues, payment);
             return postValues;
+        }
+
+        private void AppendCustomFields(IDictionary<string, string> postValues, Payment payment)
+        {
+            if (payment.Campaign != null)
+            {
+                var campaign = payment.Campaign;
+                postValues.Add("x-campaign-id", campaign.CampaignID.ToString(CultureInfo.InvariantCulture));
+                postValues.Add("x-campaign-title", campaign.Title);
+            }
+
+            if (payment.Owner != null)
+            {
+                var userProfile = payment.Owner;
+                postValues.Add("x-campaign-owner-name", userProfile.FullName);
+                postValues.Add("x-campaign-owner-id", userProfile.UserProfileID.ToString(CultureInfo.InvariantCulture));
+                postValues.Add("x-campaign-owner-email", userProfile.Email);
+            }
+
+            if (payment.Organization != null)
+            {
+                postValues.Add("x-organization-name", payment.Organization.Name);
+            }
         }
 
 #endregion
