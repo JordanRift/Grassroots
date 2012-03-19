@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using JordanRift.Grassroots.Framework.Data;
@@ -41,7 +42,7 @@ namespace JordanRift.Grassroots.Framework.Helpers
                         if (ct.Active)
                         {
                             CauseTemplateDictionary.Add(
-                                new KeyValuePair<string, string>(ct.CauseTemplateID.ToString(), ct.Name));
+                                new KeyValuePair<string, string>(ct.CauseTemplateID.ToString(CultureInfo.InvariantCulture), ct.Name));
                         }
                     }
                 }
@@ -61,7 +62,7 @@ namespace JordanRift.Grassroots.Framework.Helpers
 
             foreach (var role in organization.Roles)
             {
-                RoleDictionary.Add(new KeyValuePair<string, string>(role.RoleID.ToString(), role.Name));
+                RoleDictionary.Add(new KeyValuePair<string, string>(role.RoleID.ToString(CultureInfo.InvariantCulture), role.Name));
             }
             return new SelectList(RoleDictionary, "Key", "Value", id);
 	    }
@@ -99,7 +100,7 @@ namespace JordanRift.Grassroots.Framework.Helpers
 
 					for (int i = 0; i < 5; i++)
 					{
-						string year = (DateTime.Now.Year + i).ToString();
+						string year = (DateTime.Now.Year + i).ToString(CultureInfo.InvariantCulture);
 						ExpYearDictionary.Add(year, year);
 					}
 				}

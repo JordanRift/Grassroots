@@ -36,7 +36,9 @@ namespace JordanRift.Grassroots.Web.Models.ModelBinders
                             controllerContext.HttpContext.Request["Expiration.Month"] : "1";
                         var year = !string.IsNullOrEmpty(controllerContext.HttpContext.Request["Expiration.Year"]) ? 
                             controllerContext.HttpContext.Request["Expiration.Year"] : "1900";
-                        payment.Expiration = new DateTime(int.Parse(year), int.Parse(month), 1);
+                        var dateString = string.Format("{0}/{1}/1", year, month);
+                        DateTime result;
+                        payment.Expiration = DateTime.TryParse(dateString, out result) ? result : new DateTime(1900, 1, 1);
                         return;
                     case "PaymentType":
                         var paymentType = controllerContext.HttpContext.Request["PaymentType"].ToEnum<PaymentType>();

@@ -137,6 +137,29 @@ namespace JordanRift.Grassroots.Tests.UnitTests.Controllers
         }
 
         [Test]
+        public void ProcessDonation_Should_Redirect_To_ThankYou_When_Echeck_Successful()
+        {
+            var payment = EntityHelpers.GetValidCheckPayment();
+            var campaign = EntityHelpers.GetValidCampaign();
+            var userProfile = EntityHelpers.GetValidUserProfile();
+            var organization = EntityHelpers.GetValidOrganization();
+            campaign.UserProfile = userProfile;
+            campaign.Title = "General";
+            campaign.IsGeneralFund = true;
+            campaign.CampaignDonors = new List<CampaignDonor>();
+            campaign.Organization = organization;
+            campaignRepository.Add(campaign);
+            SetUpPaymentResponse(payment);
+            mocks.ReplayAll();
+
+            var result = controller.ProcessDonation(payment);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
+            var actionName = ((RedirectToRouteResult) result).RouteValues["Action"];
+            Assert.AreEqual("ThankYou", actionName);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
         public void ProcessDonation_Should_Redirect_To_ThankYou_When_Successful_And_Campaign_Present()
         {
             var payment = EntityHelpers.GetValidCCPayment();
