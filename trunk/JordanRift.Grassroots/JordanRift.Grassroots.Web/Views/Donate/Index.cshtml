@@ -73,10 +73,15 @@
 				    </dd>
 			
 				    <dt>@Html.LabelFor(model => model.AccountNumber)</dt>
-				    <dd>
-					    @Html.TextBoxFor(model => model.AccountNumber) 
-					    @Html.ValidationMessageFor(model => model.AccountNumber, null, new { @class = "ui-state-error ui-corner-all" }) 
-				    </dd>
+                    <dd>
+                        @Html.TextBoxFor(model => model.AccountNumber) 
+                        @Html.ValidationMessageFor(model => model.AccountNumber, null, new { @class = "ui-state-error ui-corner-all" }) 
+                    </dd>
+                    <dt>@Html.LabelFor(m => m.NameOnAccount)</dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.NameOnAccount)
+                        @Html.ValidationMessageFor(m => m.NameOnAccount, null, new { @class = "ui-state-error ui-corner-all" })
+                    </dd>
                 </dl>
                 <dl class="cc-info">
 				    <dt>@Html.LabelFor(model => model.Expiration)</dt>

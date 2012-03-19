@@ -230,12 +230,26 @@ namespace JordanRift.Grassroots.Framework.Entities
         {
             ARBSubscriptionType sub = new ARBSubscriptionType();
             creditCardType creditCard = new creditCardType();
+            bankAccountType bankAccount = new bankAccountType();
 
             sub.name = string.Format("{0} {1} Subscription", payment.FirstName, payment.LastName);
 
-            creditCard.cardNumber = payment.AccountNumber;
-            creditCard.expirationDate = payment.GetFormattedDate();  // required format for API is YYYY-MM
-            sub.payment = new paymentType { Item = creditCard };
+            if (payment.PaymentType == PaymentType.CC)
+            {
+                creditCard.cardNumber = payment.AccountNumber;
+                creditCard.expirationDate = payment.GetFormattedDate();  // required format for API is YYYY-MM
+                sub.payment = new paymentType { Item = creditCard };
+            }
+            else
+            {
+                bankAccount.accountNumber = payment.AccountNumber;
+                bankAccount.accountTypeSpecified = true;
+                bankAccount.bankName = payment.BankName;
+                bankAccount.routingNumber = payment.RoutingNumber;
+                bankAccount.accountType = GetAccountType(payment);
+                bankAccount.nameOnAccount = payment.NameOnAccount;
+                sub.payment = new paymentType { Item = bankAccount };
+            }
 
             sub.billTo = new nameAndAddressType
             {
@@ -266,6 +280,19 @@ namespace JordanRift.Grassroots.Framework.Entities
             request.subscription = sub;
         }
 
+        private bankAccountTypeEnum GetAccountType(Payment payment)
+        {
+            switch (payment.CheckType)
+            {
+                case CheckType.Savings: 
+                    return bankAccountTypeEnum.savings;
+                case CheckType.BusinessChecking: 
+                    return bankAccountTypeEnum.businessChecking;
+                case CheckType.Checking:
+                default:
+                    return bankAccountTypeEnum.checking;
+            }
+        }
 
         private void PopulateMerchantAuthentication(ANetApiRequest request)
         {

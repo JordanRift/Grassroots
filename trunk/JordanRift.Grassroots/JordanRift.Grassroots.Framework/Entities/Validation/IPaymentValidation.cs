@@ -37,6 +37,10 @@ namespace JordanRift.Grassroots.Framework.Entities.Validation
         [UIHint("PaymentType")]
         PaymentType PaymentType { get; set; }
 
+        [DisplayName("Name On Account")]
+        [Required]
+        string NameOnAccount { get; set; }
+
         [DisplayName("Account Number")]
         [Required(ErrorMessage = "Please enter your account number.")]
         string AccountNumber { get; set; }

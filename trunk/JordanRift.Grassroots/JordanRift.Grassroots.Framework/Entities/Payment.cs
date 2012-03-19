@@ -30,6 +30,7 @@ namespace JordanRift.Grassroots.Framework.Entities
         public TransactionType TransactionType { get; set; }
         public int PaymentInterval { get; set; }
 
+        public string NameOnAccount { get; set; }
         public string AccountNumber { get; set; }
         public DateTime Expiration { get; set; }
         public string Cid { get; set; }

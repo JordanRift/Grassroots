@@ -77,6 +77,32 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
         }
 
         [Test]
+        public void Process_Valid_Echeck_Should_Return_Success()
+        {
+            Payment payment = new Payment
+                                  {
+                                      FirstName = "Johnny",
+                                      LastName = "Appleseed",
+                                      AddressLine1 = "123 My St",
+                                      City = "New York",
+                                      State = "NY",
+                                      ZipCode = "12345",
+                                      PaymentType = PaymentType.ECheck,
+                                      NameOnAccount = "Johnny Appleseed",
+                                      AccountNumber = "1234567890",
+                                      BankName = "Some Bank",
+                                      RoutingNumber = "122105278",
+                                      CheckType = CheckType.Checking,
+                                      Amount = TestHelpers.GetAmount(),
+                                      TransactionType = TransactionType.Recurring,
+                                      SubscriptionStart = DateTime.Now.AddDays(1)
+                                  };
+
+            var result = provider.Process(payment);
+            Assert.AreEqual(PaymentResponseCode.Approved, result.ResponseCode);
+        }
+
+        [Test]
         public void Process_Invalid_Should_Return_Error()
         {
             Payment payment = new Payment
@@ -94,6 +120,32 @@ namespace JordanRift.Grassroots.IntegrationTests.IntegrationTests.Models
                                       Amount = TestHelpers.GetAmount(),
                                       TransactionType = TransactionType.Recurring,
                                       SubscriptionStart = DateTime.Now
+                                  };
+
+            var result = provider.Process(payment);
+            Assert.AreEqual(PaymentResponseCode.Error, result.ResponseCode);
+        }
+
+        [Test]
+        public void Process_Invalid_Echeck_Should_Return_Error()
+        {
+            Payment payment = new Payment
+                                  {
+                                      FirstName = "Johnny",
+                                      LastName = "Appleseed",
+                                      AddressLine1 = "123 My St",
+                                      City = "New York",
+                                      State = "NY",
+                                      ZipCode = "12345",
+                                      PaymentType = PaymentType.ECheck,
+                                      NameOnAccount = "Johnny Appleseed",
+                                      AccountNumber = "42",
+                                      BankName = "Some Bank",
+                                      RoutingNumber = "123456789",
+                                      CheckType = CheckType.Checking,
+                                      Amount = TestHelpers.GetAmount(),
+                                      TransactionType = TransactionType.Recurring,
+                                      SubscriptionStart = DateTime.Now.AddDays(1)
                                   };
 
             var result = provider.Process(payment);

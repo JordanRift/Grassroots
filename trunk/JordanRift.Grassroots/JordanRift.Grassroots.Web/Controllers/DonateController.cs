@@ -174,7 +174,19 @@ namespace JordanRift.Grassroots.Web.Controllers
 
         private static Payment GetPayment(UserProfile userProfile)
         {
-            return userProfile != null ? Mapper.Map<UserProfile, Payment>(userProfile) : new Payment();
+            Payment payment;
+            
+            if (userProfile != null)
+            {
+                payment = Mapper.Map<UserProfile, Payment>(userProfile);
+                payment.NameOnAccount = userProfile.FullName;
+            }
+            else
+            {
+                payment = new Payment();
+            }
+
+            return payment;
         }
 
         private CampaignDonor GetDonation(Payment payment)
