@@ -46,6 +46,8 @@
 				    <li>@Html.Partial("TweetButton")</li>
                     <li>@Html.Partial("FacebookLikeButton")</li>
                     <li>@Html.Partial("PlusOneButton")</li>
+                    <li>@Html.Partial("PinButton")</li>
+                    <li>@Html.Partial("StumbleButton")</li>
 			    @if (Model.CurrentUserIsOwner) {
 				    <li class="email-button"><a href="#" id="email-blast" title="Email your friends"><img src="@Url.Content("~/Content/images/email.png")" alt="Email your friends" /></a></li>
 			    }
@@ -78,10 +80,11 @@
 
 @section DocumentBottom {
     @if ( Model.CurrentUserIsOwner ) { 
-    @Html.Partial( "EmailForm", emailBlastModel )
+        @Html.Partial( "EmailForm", emailBlastModel )
     }
         
     @if (Model.IsActive) {
-    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+        <script type="text/javascript" src="//apis.google.com/js/plusone.js"></script>
+        <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
     }
 }

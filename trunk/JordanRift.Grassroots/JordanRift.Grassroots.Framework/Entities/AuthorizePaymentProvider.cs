@@ -175,7 +175,7 @@ namespace JordanRift.Grassroots.Framework.Entities
 
         private void AppendCustomFields(IDictionary<string, string> postValues, Payment payment)
         {
-            postValues.Add("x-donor-comments", payment.Comments.Substring(0, 255));
+            postValues.Add("x-donor-comments", payment.Comments != null ? payment.Comments.Substring(0, 255) : string.Empty);
 
             if (payment.Campaign != null)
             {

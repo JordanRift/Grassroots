@@ -15,14 +15,15 @@
     //
 
     Layout = null;
-    var urlToLike = ViewBag.UrlToLike ?? "";
 }
 
 <div class="stumble-vertical">
-@if (!string.IsNullOrEmpty(urlToLike)) {
-    <script src="https://www.stumbleupon.com/hostedbadge.php?s=5&r=@urlToLike"></script>
-}
-else {
-    <script src="https://www.stumbleupon.com/hostedbadge.php?s=5"></script>
-}
+    <su:badge layout="5"></su:badge>
+    <script type="text/javascript">
+        (function () {
+            var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true;
+            li.src = window.location.protocol + '//platform.stumbleupon.com/1/widgets.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s);
+        })(); 
+     </script>
 </div>

@@ -28,26 +28,26 @@ var Grassroots = (function () {
 
     function _initPlaceholders() {
         $("input[type='text'], input[type='email']").each(function () {
-            if ($(this).attr("placeholder") != "") {
+            if ($(this).attr("placeholder") !== "") {
                 $(this).val($(this).attr("placeholder"));
             }
         });
 
         $("input[type='text'], input[type='email']").blur(function () {
-            if ($(this).attr("placeholder") != "" && ($(this).val() == $(this).attr("placeholder") || $(this).val() == "")) {
+            if ($(this).attr("placeholder") !== "" && ($(this).val() === $(this).attr("placeholder") || $(this).val() === "")) {
                 $(this).val($(this).attr("placeholder"));
             }
         });
 
         $("input[type='text'], input[type='email']").focus(function () {
-            if ($(this).val() == $(this).attr("placeholder")) {
+            if ($(this).val() === $(this).attr("placeholder")) {
                 $(this).val("");
             }
         });
 
         $("form").submit(function () {
             $("input").each(function () {
-                if ($(this).val() == $(this).attr("placeholder")) {
+                if ($(this).val() === $(this).attr("placeholder")) {
                     $(this).val("");
                 }
             });
@@ -145,7 +145,7 @@ var Grassroots = (function () {
         initPayment: function () {
             $(".bank-info").hide();
 
-            if ($("#Amount").val() == "0") {
+            if ($("#Amount").val() === "0") {
                 $("#Amount").val('');
             }
 
@@ -240,7 +240,7 @@ var Grassroots = (function () {
             mywindow.focus();
         },
         getTweetCount: function (url) {
-            var request = "http://urls.api.twitter.com/1/urls/count.json?url=" + escape(url) + "&callback=?";
+            var request = "https://urls.api.twitter.com/1/urls/count.json?url=" + escape(url) + "&callback=?";
 
             $.getJSON(request, function (data) {
                 $(".count > a").text(data.count);
@@ -270,7 +270,7 @@ var Grassroots = (function () {
             });
 
             $(".reference-number").keypress(function (event) {
-                if (event.keyCode == 13) {
+                if (event.keyCode === 13) {
                     _causeSearch($(this));
                 }
 

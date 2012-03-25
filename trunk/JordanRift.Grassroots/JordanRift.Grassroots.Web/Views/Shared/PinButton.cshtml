@@ -1,0 +1,11 @@
+﻿@{
+    var url = Server.UrlEncode(Request.Url.AbsoluteUri);
+    var imgUrl = Server.UrlEncode(Request.Url.AbsoluteUri);
+    var description = Server.UrlEncode(string.Format("{0} - {1}", OrganizationName, OrganizationTagline));
+}
+
+<div class="pin-vertical">
+    <a href="http://pinterest.com/pin/create/button/?url=@url&media=@imgUrl&description=@description" class="pin-it-button" count-layout="vertical">
+        <img src="//assets.pinterest.com/images/PinExt.png" title="Pin It" alt="Pin It" />
+    </a>
+</div>
