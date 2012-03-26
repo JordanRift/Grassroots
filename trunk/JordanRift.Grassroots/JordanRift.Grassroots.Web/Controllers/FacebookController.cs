@@ -56,8 +56,9 @@ namespace JordanRift.Grassroots.Web.Controllers
         /// <returns>Redirect to Facebook</returns>
         public ActionResult LogOn(string returnUrl)
         {
-            var oAuthClient = new FacebookOAuthClient(FacebookApplication.Current) { RedirectUri = new Uri(GetOAuthRedirectUrl()) };
-            var loginUri = oAuthClient.GetLoginUrl(new Dictionary<string, object> { { "state", returnUrl } });
+            // TODO: Rebuild functionality using CoffeeScript implementation and new C# API
+            var fb = new FacebookClient();
+            var loginUri = fb.GetLoginUrl(new { state = returnUrl });
             return Redirect(loginUri.AbsoluteUri);
         }
 
@@ -69,59 +70,9 @@ namespace JordanRift.Grassroots.Web.Controllers
         /// <returns>Redirect based on outcome of login request</returns>
         public ActionResult OAuth(string code, string state)
         {
-            FacebookOAuthResult oAuthResult;
-
-            if (FacebookOAuthResult.TryParse(Request.Url, out oAuthResult))
-            {
-                if (oAuthResult.IsSuccess)
-                {
-                    var oAuthClient = new FacebookOAuthClient(FacebookApplication.Current) { RedirectUri = new Uri(GetOAuthRedirectUrl()) };
-                    dynamic tokenResult = oAuthClient.ExchangeCodeForAccessToken(code);
-                    string accessToken = tokenResult.access_token;
-
-                    FacebookClient fbClient = new FacebookClient(accessToken);
-                    dynamic me = fbClient.Get("me");
-
-                    using (userProfileRepository)
-                    {
-                        var userProfile = userProfileRepository.GetUserProfileByFacebookID(me.id);
-
-                        if (userProfile == null)
-                        {
-                            TempData["UserFeedback"] = "We can't find you in our system. Please sign in or register to create your account.";
-                            return RedirectToAction("Register", "Account");
-                        }
-
-                        if (!userProfile.IsActivated)
-                        {
-                            return RedirectToAction("AwaitingActivation", "Account");
-                        }
-
-                        FormsAuthentication.SetAuthCookie(userProfile.Email, false);
-                    }
-
-                    if (Url.IsLocalUrl(state))
-                    {
-                        return Redirect(state);
-                    }
-                }
-            }
-
-            return RedirectToAction("Index", "UserProfile");
+            // TODO: Rebuild functionality using CoffeeScript implementation and new C# API
+            return null;
         }
-
-        /// <summary>
-        /// Log user out of Grassroots and notifies Facebook. 
-        /// NOTE: oAuthClient.GetLogoutUrl() is deprecated. The official practice is to use the JS SDK to logout from FB.
-        /// </summary>
-        /// <returns>Redirect to home page</returns>
-        //public ActionResult LogOff()
-        //{
-        //    FormsAuthentication.SignOut();
-        //    var oAuthClient = new FacebookOAuthClient { RedirectUri = new Uri(GetLogOffUrl()) };
-        //    var logoutUrl = oAuthClient.GetLogoutUrl();
-        //    return Redirect(logoutUrl.AbsoluteUri);
-        //}
 
         /// <summary>
         /// Connect existing user account with Facebook account. Sends required permissions to Facebook and requests authorization.
@@ -131,8 +82,9 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize]
         public ActionResult Connect(string returnUrl)
         {
-            var oAuthClient = new FacebookOAuthClient(FacebookApplication.Current) { RedirectUri = new Uri(GetAccountConnectUrl()) };
-            var loginUri = oAuthClient.GetLoginUrl(new Dictionary<string, object> { { "state", returnUrl } });
+            // TODO: Rebuild functionality using CoffeeScript implementation and new C# API
+            var fb = new FacebookClient();
+            var loginUri = fb.GetLoginUrl(new { state = returnUrl });
             return Redirect(loginUri.AbsoluteUri);
         }
 
@@ -145,52 +97,8 @@ namespace JordanRift.Grassroots.Web.Controllers
         [Authorize]
         public ActionResult ConnectAccount(string code, string state)
         {
-            FacebookOAuthResult oAuthResult;
-            var message = "Sorry, we were not able to connect with your Facebook account. Please try again.";
-
-            if (FacebookOAuthResult.TryParse(Request.Url, out oAuthResult))
-            {
-                if (oAuthResult.IsSuccess)
-                {
-                    var oAuthClient = new FacebookOAuthClient(FacebookApplication.Current) { RedirectUri = new Uri(GetAccountConnectUrl()) };
-                    dynamic tokenResult = oAuthClient.ExchangeCodeForAccessToken(code);
-                    string accessToken = tokenResult.access_token;
-
-                    FacebookClient fbClient = new FacebookClient(accessToken);
-                    dynamic me = fbClient.Get("me");
-
-                    using (userProfileRepository)
-                    {
-                        var userProfile = userProfileRepository.FindUserProfileByEmail(User.Identity.Name).FirstOrDefault();
-                        var service = new UserProfileService(userProfileRepository);
-                        var facebookID = me.id;
-
-                        if (userProfile == null)
-                        {
-                            return HttpNotFound("The user you are looking for could not be found.");
-                        }
-
-                        if (!service.IsFacebookAccountUnique(facebookID))
-                        {
-                            message = "This FacebookID is already in use by another user account. Please sign in with a different Facebook account.";
-                        }
-                        else if (string.IsNullOrEmpty(userProfile.FacebookID))
-                        {
-                            userProfile.FacebookID = facebookID;
-                            userProfileRepository.Save();
-                            message = "Sweet! Your Facebook account has been connected successfully.";
-
-                            if (Url.IsLocalUrl(state))
-                            {
-                                return Redirect(state);
-                            }
-                        }
-                    }
-                }
-            }
-
-            TempData["UserFeedback"] = message;
-            return RedirectToAction("Index", "UserProfile");
+            // TODO: Rebuild functionality using CoffeeScript implementation and new C# API
+            return null;
         }
 
         [Authorize]
@@ -277,12 +185,9 @@ namespace JordanRift.Grassroots.Web.Controllers
         /// <returns>Redirect to Facebook</returns>
         public ActionResult Register(string returnUrl)
         {
-            var oAuthClient = new FacebookOAuthClient(FacebookApplication.Current) { RedirectUri = new Uri(GetNewAccountUrl()) };
-            var loginUri = oAuthClient.GetLoginUrl(new Dictionary<string, object>
-                                                       {
-                                                           { "state", returnUrl },
-                                                           { "scope", "email,user_location,user_birthday" } // FB extended permissions
-                                                       });
+            // TODO: Rebuild functionality using CoffeeScript implementation and new C# API
+            var fb = new FacebookClient();
+            var loginUri = fb.GetLoginUrl(new { state = returnUrl, scope = "email,user_location,user_birthday" });
             return Redirect(loginUri.AbsoluteUri);
         }
 
@@ -294,34 +199,8 @@ namespace JordanRift.Grassroots.Web.Controllers
         /// <returns>Registration view pre-populated w/ data from Facebook</returns>
         public ActionResult NewAccount(string code, string state)
         {
-            FacebookOAuthResult oAuthResult;
-            var viewModel = new FacebookRegisterModel();
-
-            if (TempData["ModelErrors"] != null)
-            {
-                var errors = TempData["ModelErrors"] as IEnumerable<string> ?? new List<string>();
-
-                foreach (var error in errors)
-                {
-                    ModelState.AddModelError("", error);
-                }
-            }
-
-            if (FacebookOAuthResult.TryParse(Request.Url, out oAuthResult))
-            {
-                if (oAuthResult.IsSuccess)
-                {
-                    var oAuthClient = new FacebookOAuthClient(FacebookApplication.Current) { RedirectUri = new Uri(GetNewAccountUrl()) };
-                    dynamic tokenResult = oAuthClient.ExchangeCodeForAccessToken(code);
-                    string accessToken = tokenResult.access_token;
-
-                    FacebookClient fbClient = new FacebookClient(accessToken);
-                    dynamic me = fbClient.Get("me");
-                    viewModel = MapFacebookUser(me);
-                }
-            }
-
-            return View("FacebookRegister", viewModel);
+            // TODO: Rebuild functionality using CoffeeScript implementation and new C# API
+            return null;
         }
 
         /// <summary>
@@ -333,6 +212,7 @@ namespace JordanRift.Grassroots.Web.Controllers
         [HttpPost]
         public ActionResult RegisterUser(FacebookRegisterModel model, string returnUrl)
         {
+            // TODO: Rebuild functionality using CoffeeScript implementation and new C# API
             if (ModelState.IsValid)
             {
                 var userProfile = Mapper.Map<FacebookRegisterModel, UserProfile>(model);
@@ -382,48 +262,48 @@ namespace JordanRift.Grassroots.Web.Controllers
         //    return Url.ToPublicUrl(Url.Action("Index", "Home"));
         //}
 
-        private string GetOAuthRedirectUrl()
-        {
-            return Url.ToPublicUrl(Url.Action("OAuth", "Facebook"));
-        }
+        //private string GetOAuthRedirectUrl()
+        //{
+        //    return Url.ToPublicUrl(Url.Action("OAuth", "Facebook"));
+        //}
 
-        private string GetAccountConnectUrl()
-        {
-            return Url.ToPublicUrl(Url.Action("ConnectAccount", "Facebook"));
-        }
+        //private string GetAccountConnectUrl()
+        //{
+        //    return Url.ToPublicUrl(Url.Action("ConnectAccount", "Facebook"));
+        //}
 
-        private string GetNewAccountUrl()
-        {
-            return Url.ToPublicUrl(Url.Action("NewAccount", "Facebook"));
-        }
+        //private string GetNewAccountUrl()
+        //{
+        //    return Url.ToPublicUrl(Url.Action("NewAccount", "Facebook"));
+        //}
 
-        private static FacebookRegisterModel MapFacebookUser(dynamic me)
-        {
-            var viewModel = new FacebookRegisterModel
-                                {
-                                    FirstName = me.first_name,
-                                    LastName = me.last_name,
-                                    FacebookID = me.id,
-                                    Gender = me.gender,
-                                    Email = me.email,
-                                    Birthdate = DateTime.Parse(me.birthday)
-                                };
+        //private static FacebookRegisterModel MapFacebookUser(dynamic me)
+        //{
+        //    var viewModel = new FacebookRegisterModel
+        //                        {
+        //                            FirstName = me.first_name,
+        //                            LastName = me.last_name,
+        //                            FacebookID = me.id,
+        //                            Gender = me.gender,
+        //                            Email = me.email,
+        //                            Birthdate = DateTime.Parse(me.birthday)
+        //                        };
 
-			// If the user's FB location is not set, we can't do anything.
-			if ( me.location != null )
-			{
-				string location = me.location.name;
-				var locArray = location.Split( new[] { ',' } );
+        //    // If the user's FB location is not set, we can't do anything.
+        //    if ( me.location != null )
+        //    {
+        //        string location = me.location.name;
+        //        var locArray = location.Split( new[] { ',' } );
 
-                if (locArray.Any())
-                {
-                    viewModel.City = locArray[0].Trim();
-                }
+        //        if (locArray.Any())
+        //        {
+        //            viewModel.City = locArray[0].Trim();
+        //        }
 
-				var pair = UIHelpers.StateDictionary.FirstOrDefault( s => s.Key.ToLower() == locArray[1].Trim().ToLower() );
-				viewModel.State = pair.Value;
-			}
-            return viewModel;
-        }
+        //        var pair = UIHelpers.StateDictionary.FirstOrDefault( s => s.Key.ToLower() == locArray[1].Trim().ToLower() );
+        //        viewModel.State = pair.Value;
+        //    }
+        //    return viewModel;
+        //}
     }
 }

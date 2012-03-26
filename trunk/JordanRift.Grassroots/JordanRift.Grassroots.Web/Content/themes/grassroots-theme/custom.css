@@ -28,7 +28,7 @@
   padding: 0.4em 1em !important;
   color: #354242 !important;
   background: url("images/ui-bg_highlight-hard_75_cbe86b_1x100.png") repeat-x scroll 50% 50% #cbe86b;
-  border: 1px solid #B6D060;
+  border: 1px solid #b6d060;
 }
 .button-active {
   background: url("images/ui-bg_inset-soft_75_ffff9d_1x100.png") repeat-x scroll 50% 50% #ffff9d;
@@ -111,7 +111,8 @@ header section.user-info {
 #main h1 {
   color: #495a5a;
 }
-#main > hgroup, #main form hgroup {
+#main > hgroup,
+#main form hgroup {
   margin-top: 20px;
   height: 130px;
   background: url("images/heading-corner.png") no-repeat left top;
@@ -124,7 +125,8 @@ header section.user-info {
   float: none;
   clear: both;
 }
-#main > hgroup > h1, #main form hgroup > h1 {
+#main > hgroup > h1,
+#main form hgroup > h1 {
   background: url("images/heading-bg.png") no-repeat right top;
   height: 72px;
   display: inline-block;
@@ -142,7 +144,8 @@ header section.user-info {
 #main h2 {
   color: #8ccc8e;
 }
-#main h2 a:hover, #main h3 a:hover {
+#main h2 a:hover,
+#main h3 a:hover {
   text-decoration: none;
 }
 #main h3 {
@@ -158,10 +161,12 @@ header section.user-info {
 #main h3 .label {
   color: #495a5a;
 }
-.goal-start, .goal-complete {
+.goal-start,
+.goal-complete {
   color: #999999;
 }
-.stats > li, #main .get-started .projects li {
+.stats > li,
+#main .get-started .projects li {
   background: #e5e5e5;
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -204,7 +209,8 @@ header section.user-info {
 #main table tbody tr:first-child {
   border-top: none;
 }
-#main .campaign-list .closed a, #main .campaign-list .closed a:hover {
+#main .campaign-list .closed a,
+#main .campaign-list .closed a:hover {
   color: #999999;
 }
 #main .summary,
@@ -247,7 +253,7 @@ header section.user-info {
   padding: 0.4em 1em !important;
   color: #354242 !important;
   background: url("images/ui-bg_highlight-hard_75_cbe86b_1x100.png") repeat-x scroll 50% 50% #cbe86b;
-  border: 1px solid #B6D060;
+  border: 1px solid #b6d060;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -269,11 +275,13 @@ header section.user-info {
 #main .user-info aside > ul > li > span {
   color: #495a5a;
 }
-#main .get-started .projects > p, #main .get-started .campaign-types > p {
+#main .get-started .projects > p,
+#main .get-started .campaign-types > p {
   font-weight: bold;
   color: #999999;
 }
-#main .get-started .projects .selected, #main .get-started .campaign-types .selected {
+#main .get-started .projects .selected,
+#main .get-started .campaign-types .selected {
   background: url("images/ui-bg_inset-soft_75_ffff9d_1x100.png") repeat-x scroll 50% 50% #ffff9d;
   border: 1px solid #e8e888;
   background-position: left bottom;
@@ -281,7 +289,8 @@ header section.user-info {
 #main .get-started .projects a {
   color: #495a5a;
 }
-#main .get-started .projects a:hover, #main .get-started .campaign-types a:hover {
+#main .get-started .projects a:hover,
+#main .get-started .campaign-types a:hover {
   text-decoration: none;
 }
 .get-started .campaign-types li {
@@ -332,19 +341,22 @@ header section.user-info {
   padding: 0.4em 1em !important;
   color: #354242 !important;
   background: url("images/ui-bg_highlight-hard_75_cbe86b_1x100.png") repeat-x scroll 50% 50% #cbe86b;
-  border: 1px solid #B6D060;
+  border: 1px solid #b6d060;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   -khtml-border-radius: 5px;
 }
-.project-details > .before-after label, .details > .before-after label, .media > .map li {
+.project-details > .before-after label,
+.details > .before-after label,
+.media > .map li {
   color: #999999;
 }
 .cause-details > .reference-number {
   color: #999999;
 }
-.cause-details li > span, .before-after > .deets .serving {
+.cause-details li > span,
+.before-after > .deets .serving {
   color: #8ccc8e;
 }
 footer {
@@ -376,21 +388,21 @@ a.ui-button {
   padding: 0.4em 1em !important;
   color: #354242 !important;
   background: url("images/ui-bg_highlight-hard_75_cbe86b_1x100.png") repeat-x scroll 50% 50% #cbe86b;
-  border: 1px solid #B6D060;
+  border: 1px solid #b6d060;
 }
 a.ui-button:hover {
   background: url("images/ui-bg_inset-soft_75_ffff9d_1x100.png") repeat-x scroll 50% 50% #ffff9d;
   border: 1px solid #e8e888;
 }
 .ui-state-focus {
-  -moz-box-shadow: 0px 0px 5px 1px #999;
-  -webkit-box-shadow: 0px 0px 5px 1px #999;
-  box-shadow: 0px 0px 5px 1px #999;
+  -moz-box-shadow: 0px 0px 5px 1px #999999;
+  -webkit-box-shadow: 0px 0px 5px 1px #999999;
+  box-shadow: 0px 0px 5px 1px #999999;
 }
 body > .ui-dialog {
-  -moz-box-shadow: 0px 0px 10px 1px #333;
-  -webkit-box-shadow: 0px 0px 10px 1px #333;
-  box-shadow: 0px 0px 10px 1px #333;
+  -moz-box-shadow: 0px 0px 10px 1px #333333;
+  -webkit-box-shadow: 0px 0px 10px 1px #333333;
+  box-shadow: 0px 0px 10px 1px #333333;
 }
 .wijmo-dropdown-label {
   color: #495a5a;
@@ -411,7 +423,8 @@ body > .ui-dialog {
   -webkit-border-radius: 5px;
   -khtml-border-radius: 5px;
 }
-#main .wijmo-wijgrid .wijmo-wijgrid-header, #main .wijmo-wijgrid .wijmo-wijgrid-footer {
+#main .wijmo-wijgrid .wijmo-wijgrid-header,
+#main .wijmo-wijgrid .wijmo-wijgrid-footer {
   border: none !important;
 }
 .notification {

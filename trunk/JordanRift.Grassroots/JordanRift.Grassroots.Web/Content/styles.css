@@ -44,7 +44,7 @@ footer {
 fieldset {
   margin: 1em 0;
   padding: 1em;
-  border: 1px solid #CCC;
+  border: 1px solid #cccccc;
 }
 header {
   width: 980px;
@@ -93,7 +93,8 @@ p {
   margin: 0px 20px;
   padding: 20px 28px;
 }
-#main > div, #main > section {
+#main > div,
+#main > section {
   float: none;
   clear: both;
 }
@@ -106,7 +107,7 @@ p {
 }
 #main h3 {
   font-size: 20px;
-  color: #555;
+  color: #555555;
 }
 #main form fieldset h3 {
   font-size: 18px;
@@ -152,7 +153,8 @@ p {
   opacity: 0;
   filter: alpha(opacity=0);
 }
-.goal-start, .goal-complete {
+.goal-start,
+.goal-complete {
   float: left;
   font-size: 12px;
 }
@@ -172,7 +174,8 @@ p {
   width: 167px;
   margin-right: 0px;
 }
-.stats > li, #main .get-started .projects li {
+.stats > li,
+#main .get-started .projects li {
   width: 196px;
   position: relative;
 }
@@ -235,7 +238,9 @@ header h1 a {
 .thanks .share {
   padding-top: 20px;
 }
-.org-summary > .social, .url .share, .thanks .share ul {
+.org-summary > .social,
+.url .share,
+.thanks .share ul {
   display: block;
   position: relative;
   text-align: center;
@@ -251,7 +256,9 @@ header h1 a {
 .thanks .share ul {
   margin: 20px 0px;
 }
-.org-summary > .social > li, .url .share li, .thanks .share li {
+.org-summary > .social > li,
+.url .share li,
+.thanks .share li {
   display: block;
   float: left;
   text-align: left;
@@ -266,11 +273,13 @@ header h1 a {
   height: 1px;
   clear: both;
 }
-#main .dashboard .stats, #main .get-started .projects {
+#main .dashboard .stats,
+#main .get-started .projects {
   display: block;
   height: 100px;
 }
-#main .stats > li.first, .get-started .projects li:first-child {
+#main .stats > li.first,
+.get-started .projects li:first-child {
   margin-left: 0px !important;
 }
 #main .stats > li.last {
@@ -279,7 +288,8 @@ header h1 a {
 .get-started .projects li:last-child {
   margin-right: 0px !important;
 }
-.stats > li, .get-started .projects li {
+.stats > li,
+.get-started .projects li {
   display: block;
   float: left;
   width: 196px;
@@ -468,13 +478,15 @@ header h1 a {
 #main .summary {
   min-height: 323px;
 }
-#main > .summary > div, #campaign-edit-form .summary > div {
+#main > .summary > div,
+#campaign-edit-form .summary > div {
   float: left;
 }
 .summary > .video {
   width: 450px;
 }
-.summary > .body, .summary > .share {
+.summary > .body,
+.summary > .share {
   padding-left: 30px;
   width: 350px;
 }
@@ -482,7 +494,8 @@ header h1 a {
   width: 330px !important;
   height: 125px;
 }
-#main .summary, #main .donations {
+#main .summary,
+#main .donations {
   margin: 30px 0px 30px !important;
 }
 #main table {
@@ -495,7 +508,8 @@ header h1 a {
 #main table th {
   text-align: left;
 }
-#main table td, #main table th {
+#main table td,
+#main table th {
   width: 150px;
   padding: 5px 10px;
 }
@@ -510,7 +524,8 @@ header h1 a {
   top: 0px;
   left: 0px;
 }
-.cause-template-info > .overview, .cause-template-info > .infographics {
+.cause-template-info > .overview,
+.cause-template-info > .infographics {
   float: left;
   text-align: center;
 }
@@ -546,7 +561,8 @@ header h1 a {
 #main .user-info aside > ul > li > span {
   font-size: 18px;
 }
-#main .get-started .projects > p, #main .get-started .campaign-types > p {
+#main .get-started .projects > p,
+#main .get-started .campaign-types > p {
   font-size: 18px;
 }
 .get-started .campaign-types li {
@@ -641,7 +657,8 @@ header h1 a {
   display: block;
   float: left;
 }
-.project-summary > aside, .project-details > aside {
+.project-summary > aside,
+.project-details > aside {
   width: 160px;
   margin-right: 15px;
 }
@@ -653,7 +670,8 @@ header h1 a {
   padding: 5px 0px;
   text-align: center;
 }
-.project-summary > div, .project-details > .search {
+.project-summary > div,
+.project-details > .search {
   width: 725px;
 }
 .project-details > .search {
@@ -668,12 +686,14 @@ header h1 a {
   padding: 0.4em 1em;
   height: 18px;
 }
-.project-summary > div > p, .project-details > .before-after {
+.project-summary > div > p,
+.project-details > .before-after {
   display: block;
   width: 235px;
   margin: 0px 30px 0px 10px;
 }
-.project-summary > div > .video, .project-details > .infographics {
+.project-summary > div > .video,
+.project-details > .infographics {
   width: 450px;
 }
 .project-summary > div > p,
@@ -696,10 +716,12 @@ header h1 a {
 .search-instructions > li > p {
   display: inline;
 }
-#main .project-details, #main .project-description {
+#main .project-details,
+#main .project-description {
   padding-top: 30px;
 }
-#main .project-details > aside li, .project-details > .before-after li {
+#main .project-details > aside li,
+.project-details > .before-after li {
   text-align: center;
   padding: 5px 0px;
 }
@@ -791,7 +813,9 @@ header h1 a {
   font-size: 18px;
   padding-left: 100px;
 }
-#main .cause-details > .media, #main .cause-details > .details, #main .cause-details > .description {
+#main .cause-details > .media,
+#main .cause-details > .details,
+#main .cause-details > .description {
   padding-top: 30px;
 }
 .media > .video {
@@ -853,7 +877,9 @@ form > div {
   float: none;
   padding: 20px 0px;
 }
-form > div > input, form > div > button, form > div > a {
+form > div > input,
+form > div > button,
+form > div > a {
   margin: 10px 20px 10px 0px;
 }
 form > div > a {
@@ -868,7 +894,8 @@ form .right {
 form fieldset dl {
   margin-bottom: 20px;
 }
-form dt, form dd {
+form dt,
+form dd {
   display: block;
   position: relative;
 }
@@ -934,7 +961,7 @@ form fieldset > p.tip {
   display: none;
 }
 .input-validation-error {
-  border: 1px solid #ff0000;
+  border: 1px solid red;
   background-color: #ffeeee;
 }
 .validation-summary-errors {
@@ -961,7 +988,8 @@ form fieldset > p.tip {
 .wijmo-wijtextbox {
   width: 190px !important;
 }
-textarea.wijmo-wijtextbox, textarea.ui-state-active {
+textarea.wijmo-wijtextbox,
+textarea.ui-state-active {
   width: 300px !important;
   background-position: left bottom !important;
 }
@@ -1001,7 +1029,8 @@ div.check-box {
   -moz-border-radius: 0px 0px 7px 7px !important;
   -webkit-border-radius: 0px 0px 7px 7px !important;
 }
-.wijmo-wijgrid td, .wijmo-wijgrid th {
+.wijmo-wijgrid td,
+.wijmo-wijgrid th {
   font-size: 12px !important;
 }
 .wijmo-wijgrid th {
@@ -1020,7 +1049,7 @@ div.check-box {
   text-decoration: none;
 }
 #main .wijmo-wijgrid .wijmo-wijpager {
-  border-top: 1px solid #999 !important;
+  border-top: 1px solid #999999 !important;
 }
 #main .wijmo-wijpager .ui-list {
   padding: 5px 0px;
@@ -1093,11 +1122,15 @@ div.check-box {
   overflow: hidden;
   margin-right: 5px;
 }
-#main .plus-one-vertical, #main .fb-like-vertical, #main .twitter-vertical {
+#main .plus-one-vertical,
+#main .fb-like-vertical,
+#main .twitter-vertical {
   margin: 0px auto;
   padding: 0px 5px;
 }
-#main .delicious-vertical, #main .stumble-vertical, #main .pin-vertical {
+#main .delicious-vertical,
+#main .stumble-vertical,
+#main .pin-vertical {
   width: 50px;
   margin: 0px auto;
 }
@@ -1122,7 +1155,7 @@ div.check-box {
   -webkit-border-radius: 2px;
   -khtml-border-radius: 2px;
   background: #f1f1f1;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
 }
 #main .plus-one-vertical {
   width: 50px;
@@ -1139,12 +1172,12 @@ div.check-box {
   display: block;
   width: 55px;
   height: 40px;
-  color: #2A7090 !important;
+  color: #2a7090 !important;
   text-align: center;
   font: bold 16px/34px Arial, Helvetica, sans-serif;
 }
 #main .count > a {
-  color: #2A7090 !important;
+  color: #2a7090 !important;
   text-align: center;
   font: bold 16px/34px Arial, Helvetica, sans-serif;
   height: 34px;
