@@ -195,7 +195,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public UserProfileConfiguration()
         {
             this.HasRequired(u => u.Organization).WithMany(o => o.UserProfiles).HasForeignKey(u => u.OrganizationID);
-            this.HasOptional(u => u.Role).WithMany(r => r.UserProfiles).HasForeignKey(u => u.RoleID);
+            this.HasOptional(u => u.Role).WithMany(r => r.UserProfiles).HasForeignKey(u => u.RoleID).WillCascadeOnDelete(false);
         }
     }
 }

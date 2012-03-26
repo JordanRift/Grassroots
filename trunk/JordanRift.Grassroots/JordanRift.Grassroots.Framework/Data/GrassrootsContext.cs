@@ -15,6 +15,7 @@
 
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using JordanRift.Grassroots.Framework.Entities;
 using JordanRift.Grassroots.Framework.Entities.Models;
 
@@ -37,6 +38,8 @@ namespace JordanRift.Grassroots.Framework.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new UserProfileConfiguration());
             modelBuilder.Configurations.Add(new CampaignConfiguration());

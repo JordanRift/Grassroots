@@ -140,8 +140,8 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
         public CampaignConfiguration()
         {
             this.HasRequired(c => c.UserProfile).WithMany(u => u.Campaigns).HasForeignKey(c => c.UserProfileID);
-            this.HasRequired(c => c.CauseTemplate).WithMany(t => t.Campaigns).HasForeignKey(c => c.CauseTemplateID);
-            this.HasOptional(c => c.Cause).WithMany(c => c.Campaigns).HasForeignKey(c => c.CauseID);
+            this.HasRequired(c => c.CauseTemplate).WithMany(t => t.Campaigns).HasForeignKey(c => c.CauseTemplateID).WillCascadeOnDelete(false);
+            this.HasOptional(c => c.Cause).WithMany(c => c.Campaigns).HasForeignKey(c => c.CauseID).WillCascadeOnDelete(false);
             this.HasRequired(c => c.Organization).WithMany(o => o.Campaigns).HasForeignKey(c => c.OrganizationID);
         }
     }

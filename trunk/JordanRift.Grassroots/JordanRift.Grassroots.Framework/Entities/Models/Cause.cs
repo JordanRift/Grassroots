@@ -72,7 +72,7 @@ namespace JordanRift.Grassroots.Framework.Entities.Models
 		{
 			this.HasRequired(c => c.Organization).WithMany(o => o.Causes).HasForeignKey(c => c.OrganizationID);
 			this.HasRequired(c => c.CauseTemplate).WithMany(t => t.Causes).HasForeignKey(c => c.CauseTemplateID);
-		    this.HasOptional(c => c.Region).WithMany(r => r.Causes).HasForeignKey(c => c.RegionID);
+		    this.HasOptional(c => c.Region).WithMany(r => r.Causes).HasForeignKey(c => c.RegionID).WillCascadeOnDelete(false);
 		}
 	}
 }
