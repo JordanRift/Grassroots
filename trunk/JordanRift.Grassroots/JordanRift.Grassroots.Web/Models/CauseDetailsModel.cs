@@ -29,7 +29,7 @@ namespace JordanRift.Grassroots.Web.Models
         public string ImagePath { get; set; }
 		public string Region { get; set; }
         public string HoursVolunteered { get; set; }
-		public DateTime DateCompleted { get; set; }
+		public DateTime? DateCompleted { get; set; }
         public string BeforeImagePath { get; set; }
         public string AfterImagePath { get; set; }
         public string VideoEmbedHtml { get; set; }

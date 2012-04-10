@@ -244,12 +244,7 @@ namespace JordanRift.Grassroots.Web.Controllers
                 if (userProfile != null)
                 {
                     var causes = causeRepository.FindCausesByUserProfileID(userProfile.UserProfileID);
-                    var model = new UserProfileProjectsModel
-                                    {
-                                        UserProfileID = userProfile.UserProfileID,
-                                        FirstName = userProfile.FirstName,
-                                        Causes = causes.Select(Mapper.Map<Cause, CauseDetailsModel>)
-                                    };
+                    var model = MapProjects(userProfile, causes);
 
                     return View("Projects", model);
                 }
@@ -369,7 +364,27 @@ namespace JordanRift.Grassroots.Web.Controllers
             return models;
         }
 
-		#endregion
+        private UserProfileProjectsModel MapProjects(UserProfile userProfile, IEnumerable<Cause> causes)
+        {
+            var model = new UserProfileProjectsModel
+                            {
+                                UserProfileID = userProfile.UserProfileID,
+                                FirstName = userProfile.FirstName,
+                                Causes = causes.Select(cause => new CauseDetailsModel
+                                                                    {
+                                                                        Name = cause.Name,
+                                                                        ReferenceNumber = cause.ReferenceNumber,
+                                                                        CauseTemplateID = cause.CauseTemplateID,
+                                                                        CauseID = cause.CauseID,
+                                                                        Region = cause.Region.Name,
+                                                                        DateCompleted = cause.DateCompleted
+                                                                    }) 
+                            };
+
+            return model;
+        }
+
+            #endregion
 
 #region Admin
 

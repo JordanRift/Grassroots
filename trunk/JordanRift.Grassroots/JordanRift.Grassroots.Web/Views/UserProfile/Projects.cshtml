@@ -45,7 +45,7 @@
 	    @foreach ( var item in Model.Causes ) { 
 		    <tr>
 			    <td>
-				    @Html.ActionLink( item.Name, "Index", new { controller = "Cause" }, new { title = item.Name } )
+				    @Html.ActionLink( item.Name, "CauseDetails", new { controller = "CauseTemplate" }, new { title = item.ReferenceNumber, id = item.CauseTemplateID } )
 			    </td>
 			    <td>
 				    @String.Format( "{0:MM/dd/yy}", item.DateCompleted ) 
