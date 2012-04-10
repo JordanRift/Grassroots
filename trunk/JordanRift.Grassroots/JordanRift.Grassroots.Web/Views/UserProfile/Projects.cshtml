@@ -26,7 +26,7 @@
     @{ var linkText = "Back to " + Model.FirstName + "'s Profile"; }
     @Html.ActionLink(linkText, "Index", new { controller = "UserProfile", area = "", id = Model.UserProfileID })
 <section class="donations">
-@if ( Model.Causes.Count() > 0 ) {
+@if ( Model.Causes.Any() ) {
     <table class="grid">
         <thead>
             <tr>
